@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpActionMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpAction" >
+    <id column="action_code" property="actionCode" jdbcType="VARCHAR" />
+    <result column="action_type_code" property="actionTypeCode" jdbcType="VARCHAR" />
+    <result column="action_type_name" property="actionTypeName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="param1" property="param1" jdbcType="VARCHAR" />
+    <result column="param2" property="param2" jdbcType="VARCHAR" />
+    <result column="param3" property="param3" jdbcType="VARCHAR" />
+    <result column="param4" property="param4" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    action_code, action_type_code, action_type_name, content, param1, param2, param3, 
+    param4, comment, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_action
+    where action_code = #{actionCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_action
+    where action_code = #{actionCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpAction" >
+    insert into public.erp_action (action_code, action_type_code, action_type_name, 
+      content, param1, param2, 
+      param3, param4, comment, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{actionCode,jdbcType=VARCHAR}, #{actionTypeCode,jdbcType=VARCHAR}, #{actionTypeName,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR}, 
+      #{param3,jdbcType=VARCHAR}, #{param4,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpAction" >
+    insert into public.erp_action
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actionCode != null" >
+        action_code,
+      </if>
+      <if test="actionTypeCode != null" >
+        action_type_code,
+      </if>
+      <if test="actionTypeName != null" >
+        action_type_name,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="param1 != null" >
+        param1,
+      </if>
+      <if test="param2 != null" >
+        param2,
+      </if>
+      <if test="param3 != null" >
+        param3,
+      </if>
+      <if test="param4 != null" >
+        param4,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actionCode != null" >
+        #{actionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionTypeCode != null" >
+        #{actionTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionTypeName != null" >
+        #{actionTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        #{param2,jdbcType=VARCHAR},
+      </if>
+      <if test="param3 != null" >
+        #{param3,jdbcType=VARCHAR},
+      </if>
+      <if test="param4 != null" >
+        #{param4,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpAction" >
+    update public.erp_action
+    <set >
+      <if test="actionTypeCode != null" >
+        action_type_code = #{actionTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionTypeName != null" >
+        action_type_name = #{actionTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="param1 != null" >
+        param1 = #{param1,jdbcType=VARCHAR},
+      </if>
+      <if test="param2 != null" >
+        param2 = #{param2,jdbcType=VARCHAR},
+      </if>
+      <if test="param3 != null" >
+        param3 = #{param3,jdbcType=VARCHAR},
+      </if>
+      <if test="param4 != null" >
+        param4 = #{param4,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where action_code = #{actionCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpAction" >
+    update public.erp_action
+    set action_type_code = #{actionTypeCode,jdbcType=VARCHAR},
+      action_type_name = #{actionTypeName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      param1 = #{param1,jdbcType=VARCHAR},
+      param2 = #{param2,jdbcType=VARCHAR},
+      param3 = #{param3,jdbcType=VARCHAR},
+      param4 = #{param4,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where action_code = #{actionCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

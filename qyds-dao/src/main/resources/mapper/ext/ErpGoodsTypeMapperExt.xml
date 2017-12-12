@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpGoodsTypeMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpGoodsType" >
+    <id column="type_code" property="typeCode" jdbcType="VARCHAR" />
+    <result column="top_type_code" property="topTypeCode" jdbcType="VARCHAR" />
+    <result column="top_type_name_en" property="topTypeNameEn" jdbcType="VARCHAR" />
+    <result column="top_type_name_cn" property="topTypeNameCn" jdbcType="VARCHAR" />
+    <result column="type_name_en" property="typeNameEn" jdbcType="VARCHAR" />
+    <result column="type_name_cn" property="typeNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    type_code, top_type_code, top_type_name_en, top_type_name_cn, type_name_en, type_name_cn, 
+    comment, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_goods_type
+    ORDER BY top_type_code,type_code
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_goods_type
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpGoodsType" >
+    update public.erp_goods_type
+    set top_type_code = #{topTypeCode,jdbcType=VARCHAR},
+      top_type_name_en = #{topTypeNameEn,jdbcType=VARCHAR},
+      top_type_name_cn = #{topTypeNameCn,jdbcType=VARCHAR},
+      type_name_en = #{typeNameEn,jdbcType=VARCHAR},
+      type_name_cn = #{typeNameCn,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = now()
+    where type_code = #{typeCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

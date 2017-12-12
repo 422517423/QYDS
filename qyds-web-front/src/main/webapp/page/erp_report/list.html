@@ -1,0 +1,148 @@
+<!-- 对账单导出画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 -->
+        <h3 class="page-title">
+            对账单导出
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">ERP管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">对账单</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 码表 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-check"></i>码表对账单</div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-horizontal"action="/qyds-web-front/erp_report/code.json">
+                    <div class="form-group">
+                        <label class="col-sm-12">ERP各码表的EXCEL导出:门店、品牌、产品线、颜色、尺码、商品、店员</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-8 col-sm-4">
+                            <button type="submit" class="btn btn-success" style="width: 100px">EXCEL导出</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 会员 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-check"></i>会员对账单</div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-horizontal"action="/qyds-web-front/erp_report/member.json">
+                    <div class="form-group">
+                        <label class="col-sm-12">会员及积分的EXCEL导出:会员编号,会员姓名,会员汇总积分</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-8 col-sm-4">
+                            <button type="submit" class="btn btn-success" style="width: 100px">EXCEL导出</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 订单 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-check"></i>订单对账单</div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-horizontal"action="/qyds-web-front/erp_report/order.json">
+                    <div class="form-group">
+                        <label class="col-sm-12">电商订单的EXCEL导出:销售订单,退货订单</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="start_date" class="col-sm-2 control-label">开始日期</label>
+                        <div class="col-sm-4">
+                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <input type="text" class="form-control" id="start_date" name="start_date">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <label for="end_date" class="col-sm-2 control-label">结束日期</label>
+                        <div class="col-sm-4">
+                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <input type="text" class="form-control" id="end_date" name="end_date">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-8 col-sm-4">
+                            <button type="submit" class="btn btn-success" style="width: 100px">EXCEL导出</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 库存 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-check"></i>库存对账单</div>
+            </div>
+            <div class="portlet-body">
+                <form class="form-horizontal"action="/qyds-web-front/erp_report/bank.json">
+                    <div class="form-group">
+                        <label class="col-sm-12">库存的EXCEL导出:款号,门店编码,库存汇总数量</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-8 col-sm-4">
+                            <button type="submit" class="btn btn-success" style="width: 100px">EXCEL导出</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 短信测试 -->
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="portlet box grey">-->
+            <!--<div class="portlet-title">-->
+                <!--<div class="caption"><i class="icon-check"></i>短信测试</div>-->
+            <!--</div>-->
+            <!--<div class="portlet-body">-->
+                <!--<form class="form-horizontal"action="/qyds-web-front/erp_report/sendSms.json" target="test">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-sm-12">短信测试</label>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<div class="col-sm-offset-8 col-sm-4">-->
+                            <!--<button type="submit" class="btn btn-success" style="width: 100px">发送</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<script src="../page/erp_report/list.js"></script>

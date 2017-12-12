@@ -1,0 +1,106 @@
+<!-- BEGIN PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    商品尺码码表
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">ERP管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">商品尺码码表</a></li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-hover table-bordered" id="size_table">
+                            <thead>
+                            <tr>
+                                <th>尺码分类编码</th>
+                                <th>尺码分类名称</th>
+                                <th>尺码序号</th>
+                                <th>尺码编码</th>
+                                <th>尺码名称</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                                <th>无货库存限制</th>
+                                <th>货少库存限制</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+<!-- END CONTAINER -->
+
+<!-- /.modal -->
+
+<!-- ERP商品SKUmodal start-->
+<div class="modal fade" style="height: 400px;" id="storeEdit" tabindex="-1" role="basic" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">安全库存编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="storeForm" class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">无货库存限制</label>
+                                <div class="col-md-8">
+                                    <input type="number" id="bnk_no_limit" name="bnk_no_limit" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">货少库存限制</label>
+                                <div class="col-md-8">
+                                    <input type="number" id="bnk_less_limit" name="bnk_less_limit" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- ERP商品SKUmodal end -->
+
+
+<script src="../page/erp_goods_size/list.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        TableEditable.init();
+
+    });
+</script>

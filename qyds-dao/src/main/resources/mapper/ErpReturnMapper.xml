@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpReturnMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpReturn" >
+    <id column="form_no" property="formNo" jdbcType="VARCHAR" />
+    <id column="ticket_no" property="ticketNo" jdbcType="VARCHAR" />
+    <result column="bank_code" property="bankCode" jdbcType="VARCHAR" />
+    <result column="amount_sum" property="amountSum" jdbcType="NUMERIC" />
+    <result column="sell_date" property="sellDate" jdbcType="TIMESTAMP" />
+    <result column="store_code" property="storeCode" jdbcType="VARCHAR" />
+    <result column="seller_name" property="sellerName" jdbcType="VARCHAR" />
+    <result column="vip_no" property="vipNo" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="sell_type" property="sellType" jdbcType="VARCHAR" />
+    <result column="return_time" property="returnTime" jdbcType="TIMESTAMP" />
+    <result column="amount_cash" property="amountCash" jdbcType="NUMERIC" />
+    <result column="amount_card" property="amountCard" jdbcType="NUMERIC" />
+    <result column="voucher_no" property="voucherNo" jdbcType="VARCHAR" />
+    <result column="return_date" property="returnDate" jdbcType="TIMESTAMP" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    form_no, ticket_no, bank_code, amount_sum, sell_date, store_code, seller_name, vip_no, 
+    pay_type, comment, sell_type, return_time, amount_cash, amount_card, voucher_no, 
+    return_date, quantity, member_name, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ErpReturnKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_return
+    where form_no = #{formNo,jdbcType=VARCHAR}
+      and ticket_no = #{ticketNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpReturnKey" >
+    delete from public.erp_return
+    where form_no = #{formNo,jdbcType=VARCHAR}
+      and ticket_no = #{ticketNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpReturn" >
+    insert into public.erp_return (form_no, ticket_no, bank_code, 
+      amount_sum, sell_date, store_code, 
+      seller_name, vip_no, pay_type, 
+      comment, sell_type, return_time, 
+      amount_cash, amount_card, voucher_no, 
+      return_date, quantity, member_name, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{formNo,jdbcType=VARCHAR}, #{ticketNo,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, 
+      #{amountSum,jdbcType=NUMERIC}, #{sellDate,jdbcType=TIMESTAMP}, #{storeCode,jdbcType=VARCHAR}, 
+      #{sellerName,jdbcType=VARCHAR}, #{vipNo,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{sellType,jdbcType=VARCHAR}, #{returnTime,jdbcType=TIMESTAMP}, 
+      #{amountCash,jdbcType=NUMERIC}, #{amountCard,jdbcType=NUMERIC}, #{voucherNo,jdbcType=VARCHAR}, 
+      #{returnDate,jdbcType=TIMESTAMP}, #{quantity,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpReturn" >
+    insert into public.erp_return
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="formNo != null" >
+        form_no,
+      </if>
+      <if test="ticketNo != null" >
+        ticket_no,
+      </if>
+      <if test="bankCode != null" >
+        bank_code,
+      </if>
+      <if test="amountSum != null" >
+        amount_sum,
+      </if>
+      <if test="sellDate != null" >
+        sell_date,
+      </if>
+      <if test="storeCode != null" >
+        store_code,
+      </if>
+      <if test="sellerName != null" >
+        seller_name,
+      </if>
+      <if test="vipNo != null" >
+        vip_no,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="sellType != null" >
+        sell_type,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+      <if test="amountCash != null" >
+        amount_cash,
+      </if>
+      <if test="amountCard != null" >
+        amount_card,
+      </if>
+      <if test="voucherNo != null" >
+        voucher_no,
+      </if>
+      <if test="returnDate != null" >
+        return_date,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="formNo != null" >
+        #{formNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNo != null" >
+        #{ticketNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="amountSum != null" >
+        #{amountSum,jdbcType=NUMERIC},
+      </if>
+      <if test="sellDate != null" >
+        #{sellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeCode != null" >
+        #{storeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="vipNo != null" >
+        #{vipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="sellType != null" >
+        #{sellType,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amountCash != null" >
+        #{amountCash,jdbcType=NUMERIC},
+      </if>
+      <if test="amountCard != null" >
+        #{amountCard,jdbcType=NUMERIC},
+      </if>
+      <if test="voucherNo != null" >
+        #{voucherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpReturn" >
+    update public.erp_return
+    <set >
+      <if test="bankCode != null" >
+        bank_code = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="amountSum != null" >
+        amount_sum = #{amountSum,jdbcType=NUMERIC},
+      </if>
+      <if test="sellDate != null" >
+        sell_date = #{sellDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeCode != null" >
+        store_code = #{storeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        seller_name = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="vipNo != null" >
+        vip_no = #{vipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="sellType != null" >
+        sell_type = #{sellType,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amountCash != null" >
+        amount_cash = #{amountCash,jdbcType=NUMERIC},
+      </if>
+      <if test="amountCard != null" >
+        amount_card = #{amountCard,jdbcType=NUMERIC},
+      </if>
+      <if test="voucherNo != null" >
+        voucher_no = #{voucherNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDate != null" >
+        return_date = #{returnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where form_no = #{formNo,jdbcType=VARCHAR}
+      and ticket_no = #{ticketNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpReturn" >
+    update public.erp_return
+    set bank_code = #{bankCode,jdbcType=VARCHAR},
+      amount_sum = #{amountSum,jdbcType=NUMERIC},
+      sell_date = #{sellDate,jdbcType=TIMESTAMP},
+      store_code = #{storeCode,jdbcType=VARCHAR},
+      seller_name = #{sellerName,jdbcType=VARCHAR},
+      vip_no = #{vipNo,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      sell_type = #{sellType,jdbcType=VARCHAR},
+      return_time = #{returnTime,jdbcType=TIMESTAMP},
+      amount_cash = #{amountCash,jdbcType=NUMERIC},
+      amount_card = #{amountCard,jdbcType=NUMERIC},
+      voucher_no = #{voucherNo,jdbcType=VARCHAR},
+      return_date = #{returnDate,jdbcType=TIMESTAMP},
+      quantity = #{quantity,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where form_no = #{formNo,jdbcType=VARCHAR}
+      and ticket_no = #{ticketNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

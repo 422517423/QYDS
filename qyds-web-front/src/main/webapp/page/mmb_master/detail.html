@@ -1,0 +1,168 @@
+<!-- /.modal -->
+<div id="mmbMasterDetailArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">用户详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px;overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <div class="row">
+                        <form id="userForm" class="form-horizontal validator">
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">真实姓名</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="member_name" name="member_name" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">性别</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="sex" name="sex" data-required="1" class="form-control"
+                                               readonly
+                                        >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">微信ID</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="open_id" name="open_id" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">手机号</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="telephone" name="telephone" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">会员类型</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="type_name" name="type_name" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">会员级别</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="member_level_id" name="member_level_id" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">可用积分</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="point" name="point" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">累计积分</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="all_point" name="all_point" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">生日</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="birthdate" name="birthdate" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">邮箱</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="email" name="email" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">职业</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="profession" name="profession" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">收入</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="income" name="income" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">邮编</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="postCode" name="postCode" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">省</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="provinceName" name="provinceName" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">市</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="cityName" name="cityName" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">区/县</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="districtName" name="districtName" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">联系地址</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="address" name="address" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">注册时间</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="insert_time" name="insert_time" data-required="1"
+                                               class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="mmb_master_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/mmb_master/detail.js"></script>

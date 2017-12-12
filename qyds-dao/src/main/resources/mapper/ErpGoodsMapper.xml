@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpGoodsMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpGoods" >
+    <id column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="style_name" property="styleName" jdbcType="VARCHAR" />
+    <result column="goods_name_en" property="goodsNameEn" jdbcType="VARCHAR" />
+    <result column="goods_name_cn" property="goodsNameCn" jdbcType="VARCHAR" />
+    <result column="brand_code" property="brandCode" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="top_type_code" property="topTypeCode" jdbcType="VARCHAR" />
+    <result column="top_type_name" property="topTypeName" jdbcType="VARCHAR" />
+    <result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="line_code" property="lineCode" jdbcType="VARCHAR" />
+    <result column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="color_name" property="colorName" jdbcType="VARCHAR" />
+    <result column="size_type_code" property="sizeTypeCode" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="sell_year" property="sellYear" jdbcType="VARCHAR" />
+    <result column="season_code" property="seasonCode" jdbcType="VARCHAR" />
+    <result column="season_name" property="seasonName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="face" property="face" jdbcType="VARCHAR" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="filler" property="filler" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sku, goods_code, style_name, goods_name_en, goods_name_cn, brand_code, brand_name, 
+    top_type_code, top_type_name, type_code, type_name, line_code, color_code, color_name, 
+    size_type_code, size_code, size_name, sell_year, season_code, season_name, price, 
+    face, material, filler, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_goods
+    where sku = #{sku,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_goods
+    where sku = #{sku,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpGoods" >
+    insert into public.erp_goods (sku, goods_code, style_name, 
+      goods_name_en, goods_name_cn, brand_code, 
+      brand_name, top_type_code, top_type_name, 
+      type_code, type_name, line_code, 
+      color_code, color_name, size_type_code, 
+      size_code, size_name, sell_year, 
+      season_code, season_name, price, 
+      face, material, filler, 
+      comment, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{sku,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, #{styleName,jdbcType=VARCHAR}, 
+      #{goodsNameEn,jdbcType=VARCHAR}, #{goodsNameCn,jdbcType=VARCHAR}, #{brandCode,jdbcType=VARCHAR}, 
+      #{brandName,jdbcType=VARCHAR}, #{topTypeCode,jdbcType=VARCHAR}, #{topTypeName,jdbcType=VARCHAR}, 
+      #{typeCode,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{lineCode,jdbcType=VARCHAR}, 
+      #{colorCode,jdbcType=VARCHAR}, #{colorName,jdbcType=VARCHAR}, #{sizeTypeCode,jdbcType=VARCHAR}, 
+      #{sizeCode,jdbcType=VARCHAR}, #{sizeName,jdbcType=VARCHAR}, #{sellYear,jdbcType=VARCHAR}, 
+      #{seasonCode,jdbcType=VARCHAR}, #{seasonName,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, 
+      #{face,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR}, #{filler,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpGoods" >
+    insert into public.erp_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="styleName != null" >
+        style_name,
+      </if>
+      <if test="goodsNameEn != null" >
+        goods_name_en,
+      </if>
+      <if test="goodsNameCn != null" >
+        goods_name_cn,
+      </if>
+      <if test="brandCode != null" >
+        brand_code,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="topTypeCode != null" >
+        top_type_code,
+      </if>
+      <if test="topTypeName != null" >
+        top_type_name,
+      </if>
+      <if test="typeCode != null" >
+        type_code,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="lineCode != null" >
+        line_code,
+      </if>
+      <if test="colorCode != null" >
+        color_code,
+      </if>
+      <if test="colorName != null" >
+        color_name,
+      </if>
+      <if test="sizeTypeCode != null" >
+        size_type_code,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="sellYear != null" >
+        sell_year,
+      </if>
+      <if test="seasonCode != null" >
+        season_code,
+      </if>
+      <if test="seasonName != null" >
+        season_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="face != null" >
+        face,
+      </if>
+      <if test="material != null" >
+        material,
+      </if>
+      <if test="filler != null" >
+        filler,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="styleName != null" >
+        #{styleName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNameEn != null" >
+        #{goodsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNameCn != null" >
+        #{goodsNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandCode != null" >
+        #{brandCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="topTypeCode != null" >
+        #{topTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="topTypeName != null" >
+        #{topTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lineCode != null" >
+        #{lineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorCode != null" >
+        #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorName != null" >
+        #{colorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeTypeCode != null" >
+        #{sizeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellYear != null" >
+        #{sellYear,jdbcType=VARCHAR},
+      </if>
+      <if test="seasonCode != null" >
+        #{seasonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seasonName != null" >
+        #{seasonName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="face != null" >
+        #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="filler != null" >
+        #{filler,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpGoods" >
+    update public.erp_goods
+    <set >
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="styleName != null" >
+        style_name = #{styleName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNameEn != null" >
+        goods_name_en = #{goodsNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNameCn != null" >
+        goods_name_cn = #{goodsNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandCode != null" >
+        brand_code = #{brandCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="topTypeCode != null" >
+        top_type_code = #{topTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="topTypeName != null" >
+        top_type_name = #{topTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null" >
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="lineCode != null" >
+        line_code = #{lineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorCode != null" >
+        color_code = #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorName != null" >
+        color_name = #{colorName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeTypeCode != null" >
+        size_type_code = #{sizeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        size_name = #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellYear != null" >
+        sell_year = #{sellYear,jdbcType=VARCHAR},
+      </if>
+      <if test="seasonCode != null" >
+        season_code = #{seasonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seasonName != null" >
+        season_name = #{seasonName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="face != null" >
+        face = #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null" >
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="filler != null" >
+        filler = #{filler,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sku = #{sku,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpGoods" >
+    update public.erp_goods
+    set goods_code = #{goodsCode,jdbcType=VARCHAR},
+      style_name = #{styleName,jdbcType=VARCHAR},
+      goods_name_en = #{goodsNameEn,jdbcType=VARCHAR},
+      goods_name_cn = #{goodsNameCn,jdbcType=VARCHAR},
+      brand_code = #{brandCode,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      top_type_code = #{topTypeCode,jdbcType=VARCHAR},
+      top_type_name = #{topTypeName,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      line_code = #{lineCode,jdbcType=VARCHAR},
+      color_code = #{colorCode,jdbcType=VARCHAR},
+      color_name = #{colorName,jdbcType=VARCHAR},
+      size_type_code = #{sizeTypeCode,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      sell_year = #{sellYear,jdbcType=VARCHAR},
+      season_code = #{seasonCode,jdbcType=VARCHAR},
+      season_name = #{seasonName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      face = #{face,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      filler = #{filler,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where sku = #{sku,jdbcType=VARCHAR}
+  </update>
+</mapper>

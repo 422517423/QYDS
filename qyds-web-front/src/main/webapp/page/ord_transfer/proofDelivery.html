@@ -1,0 +1,49 @@
+<!-- /.modal -->
+<div id="proofDeliveryArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <!--<h4 class="modal-title">到店取货发货凭证</h4>-->
+            </div>
+            <div class="modal-body">
+                <div class="scroller" id="proofContent" style="height:300px;overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <h4>千业电商</h4>
+                    <h5>调货发货凭证</h5>
+                    <hr><h5>
+                    商品:<label id="label_goods_name"></label><BR>
+                    SKU:<label id="label_sku"></label><BR>
+                    颜色:<label id="label_colore_name"></label><BR>
+                    尺码:<label id="label_size_name"></label><BR>
+                    件数:<label id="label_quantity"></label><BR>
+                    <hr>
+                    发货人:<label id="label_delivery_user"></label><BR>
+                    发货时间:<label id="label_delivery_time"></label><BR>
+                    收货人:<label id="label_delivery_contactor"></label><BR>
+                    收货电话:<label id="label_delivery_phone"></label><BR>
+                    收货地址:<label id="label_delivery_address"></label><BR>
+                    快递公司:<label id="label_express_name"></label><BR>
+                    快递单号:<label id="label_express_no"></label><BR>
+                    <hr>
+                    <h6>以上调货商品本店已发货,特此证明!<BR><BR>
+                    门店名称: <label id="label_dispatch_store"></label><BR>
+                    打印时间: <label id="label_print_time"></label><BR>
+                    <hr>
+                    备注:<BR>
+                    此凭证仅可作为千业电商的调货发货凭证使用.<BR>
+                    最终解释权归千业电商所有.</h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="proof_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn_print" class="btn blue">打印</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/ord_transfer/proofDelivery.js"></script>

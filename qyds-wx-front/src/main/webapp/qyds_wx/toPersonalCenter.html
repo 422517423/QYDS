@@ -1,0 +1,9 @@
+<script>
+    var getParamFromUrl = function (param) {
+        var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)return decodeURI(r[2]);
+        return null;
+    };
+    window.location.href ="index.html?code="+getParamFromUrl("code")+"&state=#/homePageTab/personalCenter"
+</script>

@@ -1,0 +1,76 @@
+<!-- product-nav -->
+<div class="row">
+    <div class="custom-full-width" style="padding: 0px;margin: 0px auto 30px auto;">
+        <div class="hidden-xs" style="width: 844px;margin: auto">
+            <!--模板一-->
+            <div class="row" style="margin-top:20px;">
+                <!--<div class="col-xs-6 col-xs-offset-3" id="title_image_area">-->
+                <!--<img ng-if="magazineStoryData && !magazineStoryData.video" style="cursor:pointer;"-->
+                <!--ng-src="{{magazineStoryData.imageUrl | imgPath:'800'}}" class="img-responsive" alt="" width="100%"/>-->
+                <!--</div>-->
+                <img style="cursor:pointer;margin: auto" ng-src="{{magazineStoryData.imageUrl | imgPath:'1200'}}"
+                     ng-click="goToTheStory(magazine.cmsId)"
+                     class="img-responsive"
+                     alt="" width="100%"/>
+            </div>
+            <div class="row" style="margin:0px">
+                <div class="col-xs-12" style="text-align: center;font-size: 22px;margin-top: 15px">
+                    {{magazineStoryData.title}}
+                </div>
+                <div class="col-xs-12" style="margin-top: 10px;font-size: 16px">
+                    {{magazineStoryData.textComment}}
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div>
+                    <div style="position: relative">
+                        <span style="background-color: #ffffff;position: absolute;top: -10px;left: 50%;width: 100px;margin-left: -50px;text-align: center">&nbsp;&nbsp;{{magazineStoryData.insertTime | date:'yyyy-MM-dd'}}&nbsp;&nbsp;</span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin:20px auto 0px auto;padding:0px;width:514px;">
+                <div class="col-xs-12" style="padding: 0px">
+                    <div class="name html_area" ng-bind-html="contentHtml">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="visible-xs">
+            <!--模板一-->
+            <div class="row" style="margin-top:20px;">
+                <!--<div class="col-xs-6 col-xs-offset-3" id="title_image_area">-->
+                <!--<img ng-if="magazineStoryData && !magazineStoryData.video" style="cursor:pointer;"-->
+                <!--ng-src="{{magazineStoryData.imageUrl | imgPath:'800'}}" class="img-responsive" alt="" width="100%"/>-->
+                <!--</div>-->
+                <img style="cursor:pointer;margin: auto" ng-src="{{magazineStoryData.imageUrl | imgPath:'1200'}}"
+                     ng-click="goToTheStory(magazine.cmsId)"
+                     class="img-responsive"
+                     alt="" width="100%"/>
+            </div>
+            <div class="row" style="margin:0px">
+                <div class="col-xs-12" style="text-align: center;font-size: 22px;margin-top: 15px">
+                    {{magazineStoryData.title}}
+                </div>
+                <div class="col-xs-12" style="margin-top: 10px;font-size: 16px">
+                    {{magazineStoryData.textComment}}
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div>
+                    <div style="position: relative">
+                        <span style="background-color: #ffffff;position: absolute;top: -10px;left: 50%;width: 100px;margin-left: -50px;text-align: center">&nbsp;&nbsp;{{magazineStoryData.insertTime | date:'yyyy-MM-dd'}}&nbsp;&nbsp;</span>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;margin-left: 0px;margin-right: 0px">
+                <div class="col-xs-12">
+                    <div class="name html_area" ng-bind-html="contentHtml">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

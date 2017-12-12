@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ActTempParamMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ActTempParam">
+        <id column="param_id" property="paramId" jdbcType="VARCHAR"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="temp_id" property="tempId" jdbcType="VARCHAR"/>
+        <result column="param_condition" property="paramCondition" jdbcType="VARCHAR"/>
+        <result column="param_value" property="paramValue" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        param_id, shop_id, temp_id, param_condition, param_value, update_user_id, update_time,
+        insert_user_id, insert_time
+    </sql>
+    <select id="selectByTempId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ActTempParam">
+        select
+        <include refid="Base_Column_List"/>
+        from public.act_temp_param WHERE temp_id = #{tempId,jdbcType=VARCHAR}
+        order by param_condition
+    </select>
+
+    <update id="deleteByTempId" parameterType="net.dlyt.qyds.common.dto.ActTempParam">
+        DELETE FROM public.act_temp_param WHERE temp_id = #{tempId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

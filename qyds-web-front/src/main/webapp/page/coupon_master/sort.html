@@ -1,0 +1,40 @@
+<!-- /.modal -->
+<div id="changeSort" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">变更优惠券顺序</h4>
+            </div>
+            <div class="modal-body">
+                <div style="height:50px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <form id="sortForm" >
+                            <div class="form-body">
+                                <div class="form-group">
+                                <label for="sortOld" class="col-md-2 control-label">原序号</label>
+                                <div class="col-md-2">
+                                    <input id="sortOld" data-rel="chosen" class="form-control" readonly/>
+                                </div>
+                                <label for="sort" class="col-md-2 control-label">新序号</label>
+                                <div class="col-md-2">
+                                    <input id="sort" data-rel="chosen" class="form-control" type="number"/>
+                                </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="change_sort_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn_sort" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/coupon_master/sort.js"></script>

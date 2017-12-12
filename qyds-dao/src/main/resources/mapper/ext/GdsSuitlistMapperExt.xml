@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.GdsSuitlistMapperExt" >
+
+  <resultMap id="BaseResultMapForSuitlist" type="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="suit_id" property="suitId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="type_display_cn" property="typeName" jdbcType="VARCHAR" />
+    <result column="user_name" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeName" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_name" property="erpGoodsName" jdbcType="VARCHAR" />
+    <result column="maintain_status" property="maintainStatus" jdbcType="VARCHAR" />
+    <result column="status_display_cn" property="maintainStatusName" jdbcType="VARCHAR" />
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR" />
+    <result column="is_waste" property="isWaste" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <resultMap id="BaseResultMapDetailForSuitlist" type="net.dlyt.qyds.common.dto.GdsSuitlist" >
+    <id column="suit_id" property="suitId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_id_suit" property="goodsIdSuit" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapCountForSuitlist" type="java.lang.Integer" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_ListForSuitlist" >
+    suitlist.suit_id, gds.goods_id, gds.shop_id, gds.type,code.display_cn as type_display_cn, gds.brand_id, gds.goods_type_id, gds.erp_style_no,
+    gds.goods_code, gds.goods_name,gds.erp_goods_code, gds.erp_goods_name, gds.maintain_status,codeStatus.display_cn as status_display_cn,
+    gds.is_onsell,gds.is_waste,gds.deleted,gds.update_user_id,gds.update_time, gds.insert_user_id,sys.user_name, gds.insert_time,
+    gdsBrand.brand_name,gdsType.goods_type_name_cn
+  </sql>
+
+  <sql id="Base_Column_List_DetailForSuitlist" >
+    suitlist.suit_id,suitlist.goods_id,suitlist.goods_id_suit
+  </sql>
+
+  <select id="selectAllForSuitlist" resultMap="BaseResultMapForSuitlist" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select
+    <include refid="Base_Column_ListForSuitlist" />
+    from public.gds_master gds
+    LEFT join gds_suitlist suitlist
+    ON suitlist.goods_id = gds.goods_id
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    and gdsType.deleted= '0'
+    and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and gds.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type == null or type.isEmpty()" >
+      and (gds.type = '10' OR gds.type = '20')
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+
+      and gds.maintain_status = '30'
+
+    <if test="isOnsell != null and !isOnsell.isEmpty()" >
+      and gds.is_onsell = #{isOnsell,jdbcType=VARCHAR}
+    </if>
+
+    <if test="goodsCode != null and !goodsCode.isEmpty()" >
+      and gds.goods_code LIKE '%' || #{goodsCode,jdbcType=VARCHAR} || '%'
+    </if>
+    order by gds.update_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCountForSuitlist" resultMap="BaseResultMapCountForSuitlist" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    count(*) as count
+    from public.gds_master gds
+    LEFT join gds_suitlist suitlist
+    ON suitlist.goods_id = gds.goods_id
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    and gdsType.deleted= '0'
+    and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and gds.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type == null or type.isEmpty()" >
+      and (gds.type = '10' OR gds.type = '20')
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+      and gds.maintain_status = '30'
+    <if test="isOnsell != null and !isOnsell.isEmpty()" >
+      and gds.is_onsell = #{isOnsell,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <select id="selectAllByGoodsId" resultMap="BaseResultMapForSuitlist" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select
+    <include refid="Base_Column_ListForSuitlist" />
+    from public.gds_suitlist suitlist
+    LEFT JOIN public.gds_master gds
+    on gds.goods_id = suitlist.goods_id_suit
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    and gdsType.deleted= '0'
+    and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    and suitlist.deleted = '0'
+    and suitlist.goods_id = #{goodsId,jdbcType=VARCHAR}
+    order by suitlist.update_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCountByGoodsId" resultMap="BaseResultMapCountForSuitlist" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    count(*) as count
+    from public.gds_suitlist suitlist
+    LEFT JOIN public.gds_master gds
+    on gds.goods_id = suitlist.goods_id_suit
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    and gdsType.deleted= '0'
+    and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    and suitlist.goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectByGoodsIdAndSuitId" resultMap="BaseResultMapDetailForSuitlist" parameterType="net.dlyt.qyds.common.dto.GdsSuitlist" >
+    select
+    <include refid="Base_Column_List_DetailForSuitlist" />
+    from public.gds_suitlist suitlist
+    where suitlist.deleted = '0'
+    and suitlist.goods_id = #{goodsId,jdbcType=VARCHAR}
+    and suitlist.goods_id_suit = #{goodsIdSuit,jdbcType=VARCHAR}
+
+  </select>
+
+  <select id="selectByGoodsId" resultMap="BaseResultMapDetailForSuitlist" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List_DetailForSuitlist" />
+    from public.gds_suitlist suitlist
+    where suitlist.deleted = '0'
+    and suitlist.goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByGoodsIdSuit" resultMap="BaseResultMapDetailForSuitlist" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List_DetailForSuitlist" />
+    from public.gds_suitlist suitlist
+    where suitlist.deleted = '0'
+    and suitlist.goods_id_suit = #{goodsIdSuit,jdbcType=VARCHAR}
+  </select>
+
+
+  <update id="updateByGoodsId" parameterType="net.dlyt.qyds.common.dto.GdsSuitlist" >
+    update public.gds_suitlist
+    <set >
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from public.gds_suitlist
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>

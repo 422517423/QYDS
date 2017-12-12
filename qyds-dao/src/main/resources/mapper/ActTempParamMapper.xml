@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ActTempParamMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ActTempParam" >
+    <id column="param_id" property="paramId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="temp_id" property="tempId" jdbcType="VARCHAR" />
+    <result column="param_condition" property="paramCondition" jdbcType="VARCHAR" />
+    <result column="param_value" property="paramValue" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    param_id, shop_id, temp_id, param_condition, param_value, update_user_id, update_time, 
+    insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.act_temp_param
+    where param_id = #{paramId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.act_temp_param
+    where param_id = #{paramId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ActTempParam" >
+    insert into public.act_temp_param (param_id, shop_id, temp_id, 
+      param_condition, param_value, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{paramId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{tempId,jdbcType=VARCHAR}, 
+      #{paramCondition,jdbcType=VARCHAR}, #{paramValue,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ActTempParam" >
+    insert into public.act_temp_param
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paramId != null" >
+        param_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="tempId != null" >
+        temp_id,
+      </if>
+      <if test="paramCondition != null" >
+        param_condition,
+      </if>
+      <if test="paramValue != null" >
+        param_value,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paramId != null" >
+        #{paramId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tempId != null" >
+        #{tempId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramCondition != null" >
+        #{paramCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null" >
+        #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ActTempParam" >
+    update public.act_temp_param
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tempId != null" >
+        temp_id = #{tempId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramCondition != null" >
+        param_condition = #{paramCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null" >
+        param_value = #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where param_id = #{paramId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ActTempParam" >
+    update public.act_temp_param
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      temp_id = #{tempId,jdbcType=VARCHAR},
+      param_condition = #{paramCondition,jdbcType=VARCHAR},
+      param_value = #{paramValue,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where param_id = #{paramId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="qyds-config" />
+        <module name="qyds-dao" />
+        <module name="qyds-interface" />
+        <module name="qyds-service" />
+        <module name="qyds-service-api" />
+        <module name="qyds-tool-area" />
+        <module name="qyds-utils" />
+        <module name="qyds-web-erp" />
+        <module name="qyds-web-file" />
+        <module name="qyds-web-front" />
+        <module name="qyds-web-pc" />
+        <module name="qyds-web-root" />
+        <module name="qyds-wx-front" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="net.dlyt.qyds" target="1.7" />
+      <module name="qyds-config" target="1.7" />
+      <module name="qyds-dao" target="1.7" />
+      <module name="qyds-interface" target="1.7" />
+      <module name="qyds-service" target="1.7" />
+      <module name="qyds-service-api" target="1.7" />
+      <module name="qyds-tool-area" target="1.7" />
+      <module name="qyds-utils" target="1.7" />
+      <module name="qyds-web-erp" target="1.7" />
+      <module name="qyds-web-file" target="1.7" />
+      <module name="qyds-web-front" target="1.7" />
+      <module name="qyds-web-pc" target="1.7" />
+      <module name="qyds-web-root" target="1.7" />
+      <module name="qyds-wx-front" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

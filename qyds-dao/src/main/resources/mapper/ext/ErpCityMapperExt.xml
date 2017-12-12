@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpCityMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpCity">
+        <result column="ccode" property="ccode" jdbcType="VARCHAR"/>
+        <result column="cname" property="cname" jdbcType="VARCHAR"/>
+        <result column="pname" property="pname" jdbcType="VARCHAR"/>
+        <result column="pcode" property="pcode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="queryCityOfProvince" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select ccode, cname, pname, pcode
+    FROM public.erp_city
+    where pcode = #{pcode, jdbcType=VARCHAR}
+    ORDER BY ccode
+  </select>
+</mapper>

@@ -1,0 +1,82 @@
+<!-- 订单列表画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 -->
+        <h3 class="page-title">
+            退货审批
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">订单管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">退货审批</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 检索条件 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-search"></i>查询条件</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="x_content">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="orderCode" class="col-sm-2 control-label">订单编码</label>
+                            <div class="col-sm-3">
+                                <input id="orderCode" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-8 col-sm-4">
+                                <button type="button" class="btn btn-success"
+                                        style="width: 100px" id="btn_search">查询</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 列表-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="ord_master_table">
+                    <thead>
+                    <tr>
+                        <th>订单编码</th>
+                        <th>订单状态</th>
+                        <th>订单类型</th>
+                        <th>总价金额</th>
+                        <th>下单时间</th>
+                        <th>说明</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 订单列表画面 结束-->
+<script src="../page/ord_return_goods/approve_list.js"></script>

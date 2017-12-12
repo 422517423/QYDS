@@ -1,0 +1,166 @@
+<ion-view cache-view="false">
+    <ion-content class='bg-gray' style="font-size: 14px">
+
+        <div ng-if="goodsList.length==0" class="text-center">
+            <div ng-if="!isLoading&&goodsList.length==0" class="text-center" style="color: #999999;margin-top: 200px">
+                您的购物袋是空的
+            </div>
+            <button style="margin-top: 20px;padding: 4px 15px" class="button button-light button-small" ng-click="goShopping()">
+                去逛逛
+            </button>
+        </div>
+        <div ng-if="goodsList.length!=0">
+            <div ng-repeat="goodItem in goodsList" class="bg-light border-bottom" style="margin-top: 10px">
+                <div>
+                    <!--单品情况-->
+                    <div style="overflow: hidden;" ng-if="goodItem.type!='30'">
+                        <!--<ion-checkbox ng-model="goodItem.isChecked" class="checkbox-square checkbox-dark"-->
+                                      <!--style="float: left;width:40px;height: 100px;padding-left:38px;border:0;"-->
+                                      <!--ng-change="setTotalPrice()">-->
+                        <!--</ion-checkbox>-->
+                        <label style="float: left;width:40px;height: 100px;text-align: center">
+                            <input type="checkbox" ng-model="goodItem.isChecked" style="vertical-align: middle;margin:60px auto;" ng-change="onCheckChange()">
+                        </label>
+
+                        <div style="padding: 10px 10px 10px 0px;overflow: hidden">
+                            <img ng-if="goodItem.type=='10'" ng-src="{{goodItem.skuList[0].imageUrlJson | imgPathJson:'480'}}"
+                                 style="float:left;width:80px;margin-right: 10px;" class="bordered" ng-click="goProdocutDetail(goodItem.goodsId);">
+                            <img ng-if="goodItem.type=='20'"
+                                 ng-src="{{goodItem.skuList[0].skucontent | ecSkuFilter:'image'| imgPath:'480'}}"
+                                 style="float:left;width:80px;margin-right: 10px" class="bordered" ng-click="goProdocutDetail(goodItem.goodsId);">
+                            <div>
+                                <div style="font-size: 15px;line-height: 1.2" class="max-line-1">{{goodItem.goodsName}}</div>
+                                <div style="font-size: 12px;color: #666666;padding: 10px 0px">
+                                    <span>颜色:</span>
+                                    <span ng-if="goodItem.type=='10'">{{goodItem.skuList[0].colorName}}</span>
+                                    <span ng-if="goodItem.type=='20'">{{goodItem.skuList[0].skucontent | ecSkuFilter:"color"}}</span>
+
+                                    <span style="margin-left: 10px">尺码:</span>
+                                    <span ng-if="goodItem.type=='10'">{{goodItem.skuList[0].sizeName | sizeFilter}}</span>
+                                    <span ng-if="goodItem.type=='20'">{{goodItem.skuList[0].skucontent | ecSkuFilter:"size" | sizeFilter}}</span>
+
+                                </div>
+                                <div ng-if="goodItem.activityList&&goodItem.activityList.length>0">
+                                    <span ng-if="goodsList[$index].activity==null" class="assertive bold"
+                                          style="font-size: 14px;">¥{{goodItem.skuList[0].price}}</span>
+                                    <span ng-if="goodsList[$index].activity!=null" class="assertive bold"
+                                          style="font-size: 14px;">¥{{goodItem.activity.newPrice}}</span>
+                                    <span ng-if="goodsList[$index].activity!=null"
+                                          style="font-size: 10px;text-decoration: line-through">¥{{goodItem.skuList[0].price}}</span>
+                                </div>
+                                <div ng-if="!goodItem.activityList||goodItem.activityList.length==0">
+                                    <span class="assertive bold"
+                                          style="font-size: 14px;">¥{{goodItem.skuList[0].price}}</span>
+                                </div>
+                                <div style="margin-top: 10px">
+                                    <div style="float:left;">
+                                        <input type="text" ng-Update-Input ng-model="goodItem.quantity"
+                                               class="bagNumSpinner noCheck" id="{{'quantity_'+$index}}"
+                                               style="float: left" disabled/>
+                                    </div>
+                                    <i class="icon ion-ios-trash placeholder-icon" style="font-size:28px;float: right"
+                                       ng-click="removeFromBag($index)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--套装情况-->
+                    <div style="overflow: hidden;" ng-if="goodItem.type=='30'">
+                        <div style="overflow: hidden;padding: 4px 0px">
+                            <ion-checkbox ng-model="goodItem.isChecked" class="checkbox-square checkbox-dark"
+                                          style="float: left;width:40px;height: 100px;padding-left:38px;border:0;"
+                                          ng-change="setTotalPrice()">
+                            </ion-checkbox>
+                            <div style="padding: 10px 10px 10px 0px;overflow: hidden">
+                                <img
+                                     ng-src="{{goodItem.imageUrlJson | imgPathJson:'480'}}"
+                                     style="float:left;width:80px;margin-right: 10px" class="bordered">
+                                <div>
+                                    <div style="font-size: 15px" class="max-line-1">{{goodItem.goodsName}}</div>
+                                    <div ng-if="goodItem.activityList&&goodItem.activityList.length>0" style="margin-top: 10px">
+                                        <span ng-if="goodsList[$index].activity==null" class="assertive bold"
+                                              style="font-size: 14px;">¥{{goodItem.price}}</span>
+                                        <span ng-if="goodsList[$index].activity!=null" class="assertive bold"
+                                              style="font-size: 14px;">¥{{goodItem.activity.newPrice}}</span>
+                                        <span ng-if="goodsList[$index].activity!=null"
+                                              style="font-size: 10px;text-decoration: line-through">¥{{goodItem.price}}</span>
+                                    </div>
+                                    <div ng-if="!goodItem.activityList||goodItem.activityList.length==0" style="margin-top: 10px">
+                                        <span class="assertive bold"
+                                              style="font-size: 14px;">¥{{goodItem.price}}</span>
+                                    </div>
+                                    <div style="margin-top: 10px">
+                                        <div style="float:left;">
+                                            <input type="text" ng-Update-Input ng-model="goodItem.quantity"
+                                                   class="bagNumSpinner noCheck" id="{{'quantity_'+$index+'_suit'}}"
+                                                   style="float: left" disabled/>
+                                        </div>
+                                        <i class="icon ion-ios-trash placeholder-icon"
+                                           style="font-size:28px;float: right"
+                                           ng-click="removeFromBag($index)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 0px 10px">
+                        <div ng-repeat="skuInfo in goodItem.skuList" style="overflow: hidden;" class="border-top">
+                            <div style="padding: 10px 10px 10px 0px;overflow: hidden">
+                                <img ng-if="skuInfo.imageUrlJson" ng-src="{{skuInfo.imageUrlJson | imgPathJson}}"
+                                     style="float:left;width:40px;height:40px;margin-right: 10px;" class="bordered">
+                                <div>
+                                    <div style="font-size: 12px;color: #666666;">
+                                        <span>颜色:</span>
+                                        <span ng-if="skuInfo.colorName">{{skuInfo.colorName}}</span>
+                                        <span ng-if="!skuInfo.colorName">{{skuInfo.skucontent | ecSkuFilter:"color"}}</span>
+
+                                        <span style="margin-left: 10px">尺码:</span>
+                                        <span ng-if="skuInfo.sizeName">{{skuInfo.sizeName | sizeFilter}}</span>
+                                        <span ng-if="!skuInfo.sizeName">{{skuInfo.skucontent | ecSkuFilter:"size" | sizeFilter}}</span>
+
+                                    </div>
+                                    <div class="assertive bold" style="font-size: 14px;margin-top: 10px">
+                                        ¥{{skuInfo.price}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="goodItem.activityList&&goodItem.activityList.length>0" data-tap-disabled="true" class="item item-select"
+                         style="font-size: 12px;padding: 5px 10px">
+                        <div class="input-label" style="font-size: 12px">
+                            可选活动:
+                        </div>
+                        <select class="item-select" style="font-size:12px;" ng-model="goodItem.actGoodsId"
+                                ng-change="setSelectedActivity($index)">
+                            <option value="">不使用活动</option>
+                            <option ng-repeat="activity in goodItem.activityList" value="{{activity.activityId}}">
+                                {{activity.activityName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height: 40px;"></div>
+    </ion-content>
+    <ion-footer-bar class="bar-light" ng-if="goodsList.length!=0">
+        <div style="width:100%;">
+            <label style="height: 40px;margin-left: 10px">
+                <input type="checkbox" ng-model="allCheck.checked" style="vertical-align: middle;margin: 10px auto;" ng-change="onAllCheckChange()">
+                <span style="font-size: 14px;padding-left: 10px">合计：</span>
+                <span class="assertive" style="font-size: 14px">¥{{totalPriceStr}}</span>
+            </label>
+            <div style="float:right;">
+                <button class="button button-block button-dark" style="font-size:14px;margin: 0"
+                        ng-click="confirmOrder()">
+                    结算
+                </button>
+            </div>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

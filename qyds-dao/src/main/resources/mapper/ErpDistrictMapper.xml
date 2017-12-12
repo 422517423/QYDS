@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpDistrictMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpDistrict" >
+    <id column="dcode" property="dcode" jdbcType="VARCHAR" />
+    <result column="ccode" property="ccode" jdbcType="VARCHAR" />
+    <result column="dname" property="dname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dcode, ccode, dname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_district
+    where dcode = #{dcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_district
+    where dcode = #{dcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpDistrict" >
+    insert into public.erp_district (dcode, ccode, dname
+      )
+    values (#{dcode,jdbcType=VARCHAR}, #{ccode,jdbcType=VARCHAR}, #{dname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpDistrict" >
+    insert into public.erp_district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dcode != null" >
+        dcode,
+      </if>
+      <if test="ccode != null" >
+        ccode,
+      </if>
+      <if test="dname != null" >
+        dname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dcode != null" >
+        #{dcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ccode != null" >
+        #{ccode,jdbcType=VARCHAR},
+      </if>
+      <if test="dname != null" >
+        #{dname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpDistrict" >
+    update public.erp_district
+    <set >
+      <if test="ccode != null" >
+        ccode = #{ccode,jdbcType=VARCHAR},
+      </if>
+      <if test="dname != null" >
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dcode = #{dcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpDistrict" >
+    update public.erp_district
+    set ccode = #{ccode,jdbcType=VARCHAR},
+      dname = #{dname,jdbcType=VARCHAR}
+    where dcode = #{dcode,jdbcType=VARCHAR}
+  </update>
+</mapper>

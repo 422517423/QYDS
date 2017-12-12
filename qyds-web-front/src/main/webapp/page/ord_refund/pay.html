@@ -1,0 +1,137 @@
+<!-- 退货审批页面开始 -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 -->
+        <h3 class="page-title">
+            退款付款
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">订单管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#" onclick="gotoListPage();">退款付款</a><i class="icon-angle-right"></i></li>
+            <li><a href="#">退款付款详细</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">退款审批</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form id="ord_master_form" class="form-horizontal validator">
+                    <input type="hidden" value="" name="order_id" id="order_id" />
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">原价金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amountTotle" name="amountTotle" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">折扣金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amountDiscount" name="amountDiscount" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">积分抵扣金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amountPoint" name="amountPoint" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">代金券抵扣金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amountCoupon" name="amountCoupon" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">实付金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="payInfact" name="payInfact" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">下单时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="orderTime" name="orderTime" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">订单状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="orderStatus" name="orderStatus" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">付款状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="payStatus" name="payStatus" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">发货状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="deliverStatus" name="deliverStatus" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">退款状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="rexStatus" name="rexStatus" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">申请时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="applyTime" name="applyTime" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">退款原因</label>
+                                <div class="col-md-4">
+                                    <textarea id="applyComment" name="applyComment" readonly="readonly" class="form-control" style="resize: none;"/>
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+                                <label  class="col-md-2 control-label">审批时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="applyAnswerTime" name="applyAnswerTime" readonly="readonly" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">回复内容</label>
+                                <div class="col-md-4">
+                                    <textarea id="applyAnswerComment" name="applyAnswerComment" readonly="readonly" class="form-control" style="resize: none;"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">退款金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="refundInfact" name="refundInfact" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" id="return_btn" class="btn default" >返回</button>
+    <button type="button" id="pay_btn" class="btn blue">已付款</button>
+</div>
+<!-- 订单详情页面结束 -->
+
+<script src="../page/ord_refund/pay.js"></script>

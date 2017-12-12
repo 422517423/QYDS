@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.MmbAddressMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.MmbAddress" >
+    <id column="address_id" property="addressId" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="is_default" property="isDefault" jdbcType="VARCHAR" />
+    <result column="districtid_province" property="districtidProvince" jdbcType="VARCHAR" />
+    <result column="districtid_city" property="districtidCity" jdbcType="VARCHAR" />
+    <result column="districtid_district" property="districtidDistrict" jdbcType="VARCHAR" />
+    <result column="districtid_street" property="districtidStreet" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="contactor" property="contactor" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    address_id, member_id, sort, is_default, districtid_province, districtid_city, districtid_district, 
+    districtid_street, address, postcode, contactor, phone, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.mmb_address
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.mmb_address
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.MmbAddress" >
+    insert into public.mmb_address (address_id, member_id, sort, 
+      is_default, districtid_province, districtid_city, 
+      districtid_district, districtid_street, address, 
+      postcode, contactor, phone, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{addressId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{sort,jdbcType=SMALLINT}, 
+      #{isDefault,jdbcType=VARCHAR}, #{districtidProvince,jdbcType=VARCHAR}, #{districtidCity,jdbcType=VARCHAR}, 
+      #{districtidDistrict,jdbcType=VARCHAR}, #{districtidStreet,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{contactor,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.MmbAddress" >
+    insert into public.mmb_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="districtidProvince != null" >
+        districtid_province,
+      </if>
+      <if test="districtidCity != null" >
+        districtid_city,
+      </if>
+      <if test="districtidDistrict != null" >
+        districtid_district,
+      </if>
+      <if test="districtidStreet != null" >
+        districtid_street,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="contactor != null" >
+        contactor,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidProvince != null" >
+        #{districtidProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidCity != null" >
+        #{districtidCity,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidDistrict != null" >
+        #{districtidDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidStreet != null" >
+        #{districtidStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactor != null" >
+        #{contactor,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.MmbAddress" >
+    update public.mmb_address
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidProvince != null" >
+        districtid_province = #{districtidProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidCity != null" >
+        districtid_city = #{districtidCity,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidDistrict != null" >
+        districtid_district = #{districtidDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidStreet != null" >
+        districtid_street = #{districtidStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="contactor != null" >
+        contactor = #{contactor,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.MmbAddress" >
+    update public.mmb_address
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=SMALLINT},
+      is_default = #{isDefault,jdbcType=VARCHAR},
+      districtid_province = #{districtidProvince,jdbcType=VARCHAR},
+      districtid_city = #{districtidCity,jdbcType=VARCHAR},
+      districtid_district = #{districtidDistrict,jdbcType=VARCHAR},
+      districtid_street = #{districtidStreet,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      contactor = #{contactor,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </update>
+</mapper>

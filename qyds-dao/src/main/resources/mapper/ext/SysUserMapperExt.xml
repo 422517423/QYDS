@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysUserMapperExt" >
+  <resultMap id="SysUserResultMapExt" type="net.dlyt.qyds.common.dto.SysUserExt" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="shp_id" property="shpId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+      <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+    <result column="mac_address" property="macAddress" jdbcType="VARCHAR" />
+    <result column="remote_ip" property="remoteIp" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="SysUserResultMap" type="net.dlyt.qyds.common.dto.SysUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="shp_id" property="shpId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+    <result column="mac_address" property="macAddress" jdbcType="VARCHAR" />
+    <result column="remote_ip" property="remoteIp" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    su.shp_id,su.user_id, su.org_id, su.user_name, su.create_user, su.create_time, su.update_user, su.update_time, su.password,
+    su.is_valid, su.login_id, su.mac_address, su.remote_ip, su.email, su.mobile
+  </sql>
+
+  <select id="selectAll" resultMap="SysUserResultMapExt" parameterType="net.dlyt.qyds.common.dto.SysUserExt" >
+    select
+    <include refid="Base_Column_List" />, shp.org_id,sur.role_id as role_id, sr.role_name as role_name,shp.org_name as org_name
+    from public.sys_user su
+    left join public.sys_user_role sur
+    on sur.user_id = su.user_id
+      left join public.shp_org shp
+      on su.org_id=shp.org_id
+    left join public.sys_role sr
+    on sr.role_id = sur.role_id
+    where su.shp_id = #{shpId,jdbcType=VARCHAR}
+    and su.is_valid = '0'
+    <if test="mobile!= null and !mobile.isEmpty() ">
+      AND su.mobile LIKE CONCAT(CONCAT('%', #{mobile}),'%')
+    </if>
+    <if test="userName!= null and !userName.isEmpty() ">
+      AND su.user_name LIKE CONCAT(CONCAT('%', #{userName}),'%')
+    </if>
+    <if test="orgName!= null and !orgName.isEmpty() ">
+      AND shp.org_name LIKE CONCAT(CONCAT('%', #{orgName}),'%')
+    </if>
+    group by <include refid="Base_Column_List" />,su.user_id, su.org_id, sur.role_id, sr.role_name, shp.org_name,shp.org_id
+    order by su.update_time desc
+    limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectCountAll" resultType="java.lang.Integer"
+          parameterType="net.dlyt.qyds.common.dto.SysUserExt">
+    select count(*) from (
+    select
+    <include refid="Base_Column_List" />, shp.org_id,sur.role_id as role_id, sr.role_name as role_name,shp.org_name as org_name
+    from public.sys_user su
+    left join public.sys_user_role sur
+    on sur.user_id = su.user_id
+    left join public.shp_org shp
+    on su.org_id=shp.org_id
+    left join public.sys_role sr
+    on sr.role_id = sur.role_id
+    where su.shp_id = #{shpId,jdbcType=VARCHAR}
+    and su.is_valid = '0'
+    <if test="mobile!= null and !mobile.isEmpty() ">
+      AND su.mobile LIKE CONCAT(CONCAT('%', #{mobile}),'%')
+    </if>
+    <if test="userName!= null and !userName.isEmpty() ">
+      AND su.user_name LIKE CONCAT(CONCAT('%', #{userName}),'%')
+    </if>
+    <if test="orgName!= null and !orgName.isEmpty() ">
+      AND shp.org_name LIKE CONCAT(CONCAT('%', #{orgName}),'%')
+    </if>
+    group by <include refid="Base_Column_List" />,su.user_id, su.org_id, sur.role_id, sr.role_name, shp.org_name,shp.org_id
+    order by su.update_time desc ) as foo
+  </select>
+
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.SysUser" useGeneratedKeys="true" keyProperty="userId">
+    insert into public.sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shpId != null" >
+        shp_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="macAddress != null" >
+        mac_address,
+      </if>
+      <if test="remoteIp != null" >
+        remote_ip,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+        user_id,
+        create_time,
+        update_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shpId != null" >
+        #{shpId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null" >
+        #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteIp != null" >
+        #{remoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      nextval('sys_user_user_id_seq'),
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <select id="selectByPrimaryKey" resultMap="SysUserResultMapExt" parameterType="java.lang.Integer" >
+    select
+      su.shp_id,su.user_id, su.org_id, su.user_name, su.create_user, su.create_time, su.update_user, su.update_time, su.password,
+    su.is_valid, su.login_id, su.mac_address, su.remote_ip, su.email, su.mobile, shp.org_id,sur.role_id as role_id, sr.role_name as role_name,
+    shp.org_name as org_name
+    from public.sys_user su
+    left join public.sys_user_role sur
+    on sur.user_id = su.user_id
+        left join public.shp_org shp
+        on su.org_id=shp.org_id
+    left join public.sys_role sr
+    on sr.role_id = sur.role_id
+    where su.user_id = #{userId,jdbcType=INTEGER}
+    --group by su.user_id, su.org_id, sur.role_id, sr.role_name,shp.org_name, shp.org_id
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.SysUser" >
+    update public.sys_user
+    <set >
+      <if test="shpId != null" >
+        shp_id = #{shpId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="loginId != null" >
+        login_id = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null" >
+        mac_address = #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remoteIp != null" >
+        remote_ip = #{remoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      update_time = now()
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updatePassword" parameterType="net.dlyt.qyds.common.dto.SysUser" >
+    update public.sys_user
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where login_id = #{loginId,jdbcType=INTEGER}
+  </update>
+
+  <update id="deleteByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.SysUser" >
+    update public.sys_user
+    <set >
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      is_valid = '1',
+      update_time = now()
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByLoginIdAndPassword" resultMap="SysUserResultMap" parameterType="net.dlyt.qyds.common.dto.SysUser" >
+    select
+    <include refid="Base_Column_List" />
+    from public.sys_user su
+    where su.login_id = #{loginId,jdbcType=VARCHAR}
+    and su.password = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByLoginId" resultMap="SysUserResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.sys_user su
+    where su.is_valid = '0'
+    and su.login_id = #{loginId,jdbcType=VARCHAR}
+  </select>
+
+  <update id="deleteErpStorer">
+    update sys_user
+    set
+      is_valid = '1',
+      update_user = 'ERP',
+      update_time = now()
+    where is_valid = '0'
+    and create_user='ERP'
+  </update>
+
+  <update id="deleteByLoginId" parameterType="java.lang.String">
+    update sys_user
+    set
+    is_valid = '1',
+    update_user = 'ERP',
+    update_time = now()
+    where is_valid = '0'
+    and login_id = #{loginId,jdbcType=VARCHAR}
+  </update>
+</mapper>

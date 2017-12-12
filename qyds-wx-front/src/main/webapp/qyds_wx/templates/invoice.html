@@ -1,0 +1,62 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--</button>-->
+        <!--<div class="h1 title" style="font-size:24px;">发票信息</div>-->
+        <!--</button>-->
+    <!--</ion-header-bar>-->
+    <ion-content on-swipe-left="onSwipeLeft()">
+        <div class="row light-bg" style="padding: 0;text-align: center;">
+            <div class="col col-50 col-center" style="padding: 0px 20px" ng-click="selectTab('10')">
+                <div class="padding">个人</div>
+                <div class="dark-bg" style="height: 2px;width: 100%" ng-if="invoice.type == '10'"></div>
+            </div>
+            <div class="col col-50 col-center" style="padding: 0px 20px" ng-click="selectTab('20')">
+                <div class="padding">公司</div>
+                <div class="dark-bg" style="height: 2px;width: 100%" ng-if="invoice.type == '20'"></div>
+            </div>
+        </div>
+        <div class="divider_gray_bold"></div>
+        <div class="row row-wrap" ng-if="invoice.type == '20'">
+            <div class="item-input" style="width:100%;padding:8px;text-align:center;color:#CCCCCC;">
+                 <label style="margin-right: 8px">单位名称</label><input type="text" placeholder="必填" style="color:#C0C0C0;font-size:16px;" ng-model="invoice.companyName">
+            </div>
+            <div class="divider_gray"></div>
+
+            <div class="item-input" style="width:100%;padding:8px;text-align:center;color:#CCCCCC;">
+                <label style="margin-right: 8px">纳税人识别码</label><input type="text" placeholder="必填" style="color:#C0C0C0;font-size:16px;" ng-model="invoice.taxpayerCode">
+            </div>
+            <div class="divider_gray"></div>
+
+            <div class="item-input" style="width:100%;padding:8px;text-align:center;color:#CCCCCC;">
+                <label style="margin-right: 8px">注册地址</label><input type="text" placeholder="必填" style="color:#C0C0C0;font-size:16px;" ng-model="invoice.companyAddress">
+            </div>
+            <div class="divider_gray"></div>
+            <div class="item-input" style="width:100%;padding:8px;text-align:center;color:#CCCCCC;">
+                <label style="margin-right: 8px">注册电话</label><input type="text" placeholder="必填" style="color:#C0C0C0;font-size:16px;" ng-model="invoice.companyTel">
+            </div>
+            <div class="divider_gray"></div>
+
+            <div class="item-input" style="width:100%;padding:8px;text-align:center;color:#CCCCCC;">
+                <label style="margin-right: 8px">开户银行</label><input type="text" placeholder="必填" style="color:#C0C0C0;font-size:16px;" ng-model="invoice.bankName">
+            </div>
+            <div class="divider_gray"></div>
+
+            <div class="item-input" style="width:100%;padding:8px;text-align:center;color:#CCCCCC;">
+                <label style="margin-right: 8px">银行账户</label><input type="text" placeholder="必填" style="color:#C0C0C0;font-size:16px;" ng-model="invoice.bankAccount">
+            </div>
+        </div>
+        <div class="row row-wrap" ng-if="invoice.type == '10'">
+            <div class="col" style="margin-top:5px;">
+                <label class="item item-input">
+                    <textarea placeholder="请在此填写发票内容" rows="3" cols="20" ng-model="invoice.invoiceTitle"></textarea>
+                </label>
+            </div>
+        </div>
+        <div class="divider_gray"></div>
+        <div class="row">
+            <button class="button button-dark button-block" style="margin-top:20px" ng-click="submitInvoice()">
+                确认
+            </button>
+        </div>
+</ion-view>

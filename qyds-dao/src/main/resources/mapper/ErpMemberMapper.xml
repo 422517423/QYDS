@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpMemberMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpMember" >
+    <id column="member_code" property="memberCode" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="sex_code" property="sexCode" jdbcType="VARCHAR" />
+    <result column="sex_name" property="sexName" jdbcType="VARCHAR" />
+    <result column="mobil" property="mobil" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="store_code" property="storeCode" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="seller_name" property="sellerName" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="checked" property="checked" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="VARCHAR" />
+    <result column="regist_time" property="registTime" jdbcType="TIMESTAMP" />
+    <result column="member_grade" property="memberGrade" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="ticket" property="ticket" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    member_code, member_name, sex_code, sex_name, mobil, birthday, province_code, province_name, 
+    city_code, city_name, district_code, district_name, email, store_code, store_name, 
+    seller_name, profession, address, post_code, checked, income, regist_time, member_grade, 
+    amount, point, ticket, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_member
+    where member_code = #{memberCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_member
+    where member_code = #{memberCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpMember" >
+    insert into public.erp_member (member_code, member_name, sex_code, 
+      sex_name, mobil, birthday, 
+      province_code, province_name, city_code, 
+      city_name, district_code, district_name, 
+      email, store_code, store_name, 
+      seller_name, profession, address, 
+      post_code, checked, income, 
+      regist_time, member_grade, amount, 
+      point, ticket, comment, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{memberCode,jdbcType=VARCHAR}, #{memberName,jdbcType=VARCHAR}, #{sexCode,jdbcType=VARCHAR}, 
+      #{sexName,jdbcType=VARCHAR}, #{mobil,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{provinceCode,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, #{districtName,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{storeCode,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{sellerName,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{checked,jdbcType=VARCHAR}, #{income,jdbcType=VARCHAR}, 
+      #{registTime,jdbcType=TIMESTAMP}, #{memberGrade,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, 
+      #{point,jdbcType=INTEGER}, #{ticket,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpMember" >
+    insert into public.erp_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberCode != null" >
+        member_code,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="sexCode != null" >
+        sex_code,
+      </if>
+      <if test="sexName != null" >
+        sex_name,
+      </if>
+      <if test="mobil != null" >
+        mobil,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="provinceCode != null" >
+        province_code,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="districtName != null" >
+        district_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="storeCode != null" >
+        store_code,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="sellerName != null" >
+        seller_name,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="checked != null" >
+        checked,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="registTime != null" >
+        regist_time,
+      </if>
+      <if test="memberGrade != null" >
+        member_grade,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="ticket != null" >
+        ticket,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberCode != null" >
+        #{memberCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="sexCode != null" >
+        #{sexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sexName != null" >
+        #{sexName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobil != null" >
+        #{mobil,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtName != null" >
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCode != null" >
+        #{storeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checked != null" >
+        #{checked,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberGrade != null" >
+        #{memberGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpMember" >
+    update public.erp_member
+    <set >
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="sexCode != null" >
+        sex_code = #{sexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sexName != null" >
+        sex_name = #{sexName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobil != null" >
+        mobil = #{mobil,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="provinceCode != null" >
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtName != null" >
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="storeCode != null" >
+        store_code = #{storeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerName != null" >
+        seller_name = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checked != null" >
+        checked = #{checked,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberGrade != null" >
+        member_grade = #{memberGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="ticket != null" >
+        ticket = #{ticket,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where member_code = #{memberCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpMember" >
+    update public.erp_member
+    set member_name = #{memberName,jdbcType=VARCHAR},
+      sex_code = #{sexCode,jdbcType=VARCHAR},
+      sex_name = #{sexName,jdbcType=VARCHAR},
+      mobil = #{mobil,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=VARCHAR},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      store_code = #{storeCode,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      seller_name = #{sellerName,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      checked = #{checked,jdbcType=VARCHAR},
+      income = #{income,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=TIMESTAMP},
+      member_grade = #{memberGrade,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      ticket = #{ticket,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where member_code = #{memberCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

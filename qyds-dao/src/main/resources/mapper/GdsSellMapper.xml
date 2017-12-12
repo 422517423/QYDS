@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.GdsSellMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsSell" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="property_sell_json" property="propertySellJson" jdbcType="VARCHAR" />
+    <result column="limit_count" property="limitCount" jdbcType="INTEGER" />
+    <result column="recommend_json" property="recommendJson" jdbcType="VARCHAR" />
+    <result column="mating_json" property="matingJson" jdbcType="VARCHAR" />
+    <result column="safe_bank" property="safeBank" jdbcType="INTEGER" />
+    <result column="onsell_plan_date" property="onsellPlanDate" jdbcType="VARCHAR" />
+    <result column="offsell_plan_date" property="offsellPlanDate" jdbcType="VARCHAR" />
+    <result column="onsell_infact_time" property="onsellInfactTime" jdbcType="VARCHAR" />
+    <result column="offsell_infact_time" property="offsellInfactTime" jdbcType="VARCHAR" />
+    <result column="offsell_reason" property="offsellReason" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, erp_goods_code, property_sell_json, limit_count, recommend_json, mating_json, 
+    safe_bank, onsell_plan_date, offsell_plan_date, onsell_infact_time, offsell_infact_time, 
+    offsell_reason, comment, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.gds_sell
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.gds_sell
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.GdsSell" >
+    insert into public.gds_sell (goods_id, erp_goods_code, property_sell_json, 
+      limit_count, recommend_json, mating_json, 
+      safe_bank, onsell_plan_date, offsell_plan_date, 
+      onsell_infact_time, offsell_infact_time, offsell_reason, 
+      comment, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{goodsId,jdbcType=VARCHAR}, #{erpGoodsCode,jdbcType=VARCHAR}, #{propertySellJson,jdbcType=VARCHAR}, 
+      #{limitCount,jdbcType=INTEGER}, #{recommendJson,jdbcType=VARCHAR}, #{matingJson,jdbcType=VARCHAR}, 
+      #{safeBank,jdbcType=INTEGER}, #{onsellPlanDate,jdbcType=VARCHAR}, #{offsellPlanDate,jdbcType=VARCHAR}, 
+      #{onsellInfactTime,jdbcType=VARCHAR}, #{offsellInfactTime,jdbcType=VARCHAR}, #{offsellReason,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.GdsSell" >
+    insert into public.gds_sell
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code,
+      </if>
+      <if test="propertySellJson != null" >
+        property_sell_json,
+      </if>
+      <if test="limitCount != null" >
+        limit_count,
+      </if>
+      <if test="recommendJson != null" >
+        recommend_json,
+      </if>
+      <if test="matingJson != null" >
+        mating_json,
+      </if>
+      <if test="safeBank != null" >
+        safe_bank,
+      </if>
+      <if test="onsellPlanDate != null" >
+        onsell_plan_date,
+      </if>
+      <if test="offsellPlanDate != null" >
+        offsell_plan_date,
+      </if>
+      <if test="onsellInfactTime != null" >
+        onsell_infact_time,
+      </if>
+      <if test="offsellInfactTime != null" >
+        offsell_infact_time,
+      </if>
+      <if test="offsellReason != null" >
+        offsell_reason,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="propertySellJson != null" >
+        #{propertySellJson,jdbcType=VARCHAR},
+      </if>
+      <if test="limitCount != null" >
+        #{limitCount,jdbcType=INTEGER},
+      </if>
+      <if test="recommendJson != null" >
+        #{recommendJson,jdbcType=VARCHAR},
+      </if>
+      <if test="matingJson != null" >
+        #{matingJson,jdbcType=VARCHAR},
+      </if>
+      <if test="safeBank != null" >
+        #{safeBank,jdbcType=INTEGER},
+      </if>
+      <if test="onsellPlanDate != null" >
+        #{onsellPlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="offsellPlanDate != null" >
+        #{offsellPlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="onsellInfactTime != null" >
+        #{onsellInfactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="offsellInfactTime != null" >
+        #{offsellInfactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="offsellReason != null" >
+        #{offsellReason,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.GdsSell" >
+    update public.gds_sell
+    <set >
+      <if test="erpGoodsCode != null" >
+        erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="propertySellJson != null" >
+        property_sell_json = #{propertySellJson,jdbcType=VARCHAR},
+      </if>
+      <if test="limitCount != null" >
+        limit_count = #{limitCount,jdbcType=INTEGER},
+      </if>
+      <if test="recommendJson != null" >
+        recommend_json = #{recommendJson,jdbcType=VARCHAR},
+      </if>
+      <if test="matingJson != null" >
+        mating_json = #{matingJson,jdbcType=VARCHAR},
+      </if>
+      <if test="safeBank != null" >
+        safe_bank = #{safeBank,jdbcType=INTEGER},
+      </if>
+      <if test="onsellPlanDate != null" >
+        onsell_plan_date = #{onsellPlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="offsellPlanDate != null" >
+        offsell_plan_date = #{offsellPlanDate,jdbcType=VARCHAR},
+      </if>
+      <if test="onsellInfactTime != null" >
+        onsell_infact_time = #{onsellInfactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="offsellInfactTime != null" >
+        offsell_infact_time = #{offsellInfactTime,jdbcType=VARCHAR},
+      </if>
+      <if test="offsellReason != null" >
+        offsell_reason = #{offsellReason,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.GdsSell" >
+    update public.gds_sell
+    set erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      property_sell_json = #{propertySellJson,jdbcType=VARCHAR},
+      limit_count = #{limitCount,jdbcType=INTEGER},
+      recommend_json = #{recommendJson,jdbcType=VARCHAR},
+      mating_json = #{matingJson,jdbcType=VARCHAR},
+      safe_bank = #{safeBank,jdbcType=INTEGER},
+      onsell_plan_date = #{onsellPlanDate,jdbcType=VARCHAR},
+      offsell_plan_date = #{offsellPlanDate,jdbcType=VARCHAR},
+      onsell_infact_time = #{onsellInfactTime,jdbcType=VARCHAR},
+      offsell_infact_time = #{offsellInfactTime,jdbcType=VARCHAR},
+      offsell_reason = #{offsellReason,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

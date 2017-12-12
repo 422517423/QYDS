@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.CmsMasterGoodsMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.CmsMasterGoods" >
+    <id column="cms_gds_id" property="cmsGdsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="cms_id" property="cmsId" jdbcType="VARCHAR" />
+    <result column="act_id" property="actId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cms_gds_id, shop_id, cms_id, act_id, goods_id, sort, deleted, update_user_id, update_time, 
+    insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.cms_master_goods
+    where cms_gds_id = #{cmsGdsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.cms_master_goods
+    where cms_gds_id = #{cmsGdsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.CmsMasterGoods" >
+    insert into public.cms_master_goods (cms_gds_id, shop_id, cms_id, 
+      act_id, goods_id, sort, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{cmsGdsId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{cmsId,jdbcType=VARCHAR}, 
+      #{actId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{sort,jdbcType=SMALLINT}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.CmsMasterGoods" >
+    insert into public.cms_master_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmsGdsId != null" >
+        cms_gds_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="cmsId != null" >
+        cms_id,
+      </if>
+      <if test="actId != null" >
+        act_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmsGdsId != null" >
+        #{cmsGdsId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsId != null" >
+        #{cmsId,jdbcType=VARCHAR},
+      </if>
+      <if test="actId != null" >
+        #{actId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.CmsMasterGoods" >
+    update public.cms_master_goods
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmsId != null" >
+        cms_id = #{cmsId,jdbcType=VARCHAR},
+      </if>
+      <if test="actId != null" >
+        act_id = #{actId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cms_gds_id = #{cmsGdsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.CmsMasterGoods" >
+    update public.cms_master_goods
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      cms_id = #{cmsId,jdbcType=VARCHAR},
+      act_id = #{actId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=SMALLINT},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where cms_gds_id = #{cmsGdsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

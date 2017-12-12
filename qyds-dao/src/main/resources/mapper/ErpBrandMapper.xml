@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpBrandMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpBrand" >
+    <id column="brand_code" property="brandCode" jdbcType="VARCHAR" />
+    <result column="brand_name_en" property="brandNameEn" jdbcType="VARCHAR" />
+    <result column="brand_name_cn" property="brandNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    brand_code, brand_name_en, brand_name_cn, comment, deleted, update_user_id, update_time, 
+    insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_brand
+    where brand_code = #{brandCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_brand
+    where brand_code = #{brandCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpBrand" >
+    insert into public.erp_brand (brand_code, brand_name_en, brand_name_cn, 
+      comment, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{brandCode,jdbcType=VARCHAR}, #{brandNameEn,jdbcType=VARCHAR}, #{brandNameCn,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpBrand" >
+    insert into public.erp_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="brandCode != null" >
+        brand_code,
+      </if>
+      <if test="brandNameEn != null" >
+        brand_name_en,
+      </if>
+      <if test="brandNameCn != null" >
+        brand_name_cn,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="brandCode != null" >
+        #{brandCode,jdbcType=VARCHAR},
+      </if>
+      <if test="brandNameEn != null" >
+        #{brandNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandNameCn != null" >
+        #{brandNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpBrand" >
+    update public.erp_brand
+    <set >
+      <if test="brandNameEn != null" >
+        brand_name_en = #{brandNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="brandNameCn != null" >
+        brand_name_cn = #{brandNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where brand_code = #{brandCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpBrand" >
+    update public.erp_brand
+    set brand_name_en = #{brandNameEn,jdbcType=VARCHAR},
+      brand_name_cn = #{brandNameCn,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where brand_code = #{brandCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

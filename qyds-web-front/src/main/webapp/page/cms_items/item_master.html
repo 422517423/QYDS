@@ -1,0 +1,159 @@
+<!-- 商品分类编辑画面 start-->
+            <div class="form-group">
+                <div class="col-md-12">
+                    <!-- 标题 & 面包屑-->
+                    <h3 class="page-title">
+                        商品分类详细画面
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.html">系统</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#" onclick="gotoListPage();">商品分类</a><i class="icon-angle-right"></i></li>
+                        <li><a href="#">分类详细</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption">分类详细</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                        <div class="form-group">
+                            <form id="gds_type_form" class="form-horizontal validator">
+                                <input type="hidden" value="" name="cms_id" id="cms_id" />
+                                <div class="col-md-12">
+                                    <div class="form-body">
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">标题<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="title" name="title" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">栏目形式<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <select id="item_type" name="item_type" class="form-control">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group change_class" itemType="10">
+                                            <label  class="col-md-2 control-label">文字<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="text" name="text" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group change_class" itemType="20">
+                                            <label  class="col-md-2 control-label">图片<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <img id="img" style="width:80px;height:80px;border: 1px solid #d4d4d4" src=""/>
+                                                <input type="file" id="image_img_file" style="display: none">
+                                                <input type="text" id="image_url" hidden>
+                                            </div>
+                                            <label  class="col-md-2 control-label">连接地址</label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="img_link_1" data-required="1" class="form-control specification">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group change_class" itemType="40">
+                                            <label  class="col-md-2 control-label">链接编辑<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="link" name="link" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group change_class" itemType="41">
+                                            <label  class="col-md-2 control-label">商品<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <select class="select2_category form-control" id="gds" name="gds" data-placeholder="请选择..." tabindex="1">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group change_class" itemType="42">
+                                                <label  class="col-md-2 control-label">商品分类选择<span class="required">*</span></label>
+                                                <div class="col-md-4 input-icon right">
+                                                    <i class="icon-search" style="margin-right:10px"></i>
+                                                    <input type="text" class="form-control" id="goods_type_name_path" name="goods_type_name_path" placeholder="商品分类...">
+                                                    <input type="hidden" class="form-control" id="goods_type_id_path" name="goods_type_id_path">
+                                                    <input type="hidden" class="form-control" id="goods_type_id" name="goods_type_id">
+                                                    <input type="hidden" class="form-control" id="goods_type_code_path" name="goods_type_code_path">
+                                                    <input type="hidden" class="form-control" id="goods_type_code" name="goods_type_code">
+                                                </div>
+
+                                                <div class="col-md-6" id="selectGoodsType">
+                                                    <div class="portlet grey box">
+                                                        <div class="portlet-title">
+                                                            <div class="caption"><i class="icon-cogs"></i>商品分类选择</div>
+                                                            <div class="tools" style="margin-top: auto;">
+                                                                <div id="button-groups">
+                                                                    <a id="confirm" href="javascript:;" class="btn btn-xs green">确定</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body">
+                                                            <div id="gdsTypeTree" class="ztree">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group change_class" itemType="43">
+                                            <label  class="col-md-2 control-label">活动<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <select class="select2_category form-control" id="act" name="act" data-placeholder="请选择..." tabindex="1">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2 control-label">
+                                                <label  class="ontrol-label">图文编辑</label>
+                                                <input type="checkbox" id="ueditor_check_box" cxb_type="ueditor"/>
+                                            </div>
+                                            <div class="col-md-8" id="ueditor_show_area">
+                                                <script id="content_html" type="text/plain"></script>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">说明</label>
+                                            <div class="col-md-4">
+                                                <textarea id="comment" name="comment" data-required="1" class="form-control" rows="5" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancel_btn" class="btn default" >取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+<!-- 商品分类编辑画面 end -->
+<script src="../page/cms_items/item_master.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        zTree.init();
+    });
+</script>

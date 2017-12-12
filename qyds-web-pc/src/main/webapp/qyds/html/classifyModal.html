@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h5 class="modal-title" style="text-align: center">分类</h5>
+</div>
+<div class="modal-body classifyModal" style="margin-top:-10px;">
+    <div class="classify row">
+        <div class="level col-xs-12">
+            <span ng-repeat="root in levelRootList" ng-class="{active: currentRootCode == root.goodsTypeId}" class="item" style="" ng-click="selectClassify('1',root.goodsTypeId)"><a href="javascript:void(0);">{{root.goodsTypeNameCn}}</a></span>
+        </div>
+        <div class="level col-xs-12" ng-if="levelSecondList.length > 0">
+            <span ng-repeat="root in levelSecondList" ng-class="{active: currentSecondCode == root.goodsTypeId}" class="item" style="" ng-click="selectClassify('2',root.goodsTypeId)"><a href="javascript:void(0);">{{root.goodsTypeNameCn}}</a></span>
+        </div>
+
+        <div class="level col-xs-12" ng-if="levelThirdList.length > 0">
+            <span ng-repeat="root in levelThirdList" ng-class="{active: currentThirdCode == root.goodsTypeId}" class="item" style="" ng-click="selectClassify('3',root.goodsTypeId)"><a href="javascript:void(0);">{{root.goodsTypeNameCn}}</a></span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-sm-12" style="padding: 0px 0px 0px 0px;">
+        <button ng-click="confirm();" type="button" class="btn btn-default btn-block hvr-outline-out-dark">确定
+        </button>
+    </div>
+</div>

@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.OrdMasterMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="amount_totle" property="amountTotle" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <result column="amount_coupon" property="amountCoupon" jdbcType="NUMERIC" />
+    <result column="point_count" property="pointCount" jdbcType="NUMERIC" />
+    <result column="amount_point" property="amountPoint" jdbcType="NUMERIC" />
+    <result column="delivery_free" property="deliveryFree" jdbcType="VARCHAR" />
+    <result column="delivery_fee" property="deliveryFee" jdbcType="NUMERIC" />
+    <result column="pay_delivery_type" property="payDeliveryType" jdbcType="VARCHAR" />
+    <result column="pay_infact" property="payInfact" jdbcType="NUMERIC" />
+    <result column="service_fee" property="serviceFee" jdbcType="NUMERIC" />
+    <result column="amount_shop" property="amountShop" jdbcType="NUMERIC" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_account" property="payAccount" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="receipt_account" property="receiptAccount" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="deliver_status" property="deliverStatus" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliverTime" jdbcType="TIMESTAMP" />
+    <result column="receipt_time" property="receiptTime" jdbcType="TIMESTAMP" />
+    <result column="evaluate_status" property="evaluateStatus" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="TIMESTAMP" />
+    <result column="want_invoice" property="wantInvoice" jdbcType="VARCHAR" />
+    <result column="invoice_type" property="invoiceType" jdbcType="VARCHAR" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="invoice_address" property="invoiceAddress" jdbcType="VARCHAR" />
+    <result column="invoice_tel" property="invoiceTel" jdbcType="VARCHAR" />
+    <result column="invoice_taxno" property="invoiceTaxno" jdbcType="VARCHAR" />
+    <result column="invoice_bank" property="invoiceBank" jdbcType="VARCHAR" />
+    <result column="invoice_account" property="invoiceAccount" jdbcType="VARCHAR" />
+    <result column="invoice_no" property="invoiceNo" jdbcType="VARCHAR" />
+    <result column="districtid_province" property="districtidProvince" jdbcType="VARCHAR" />
+    <result column="districtid_city" property="districtidCity" jdbcType="VARCHAR" />
+    <result column="districtid_district" property="districtidDistrict" jdbcType="VARCHAR" />
+    <result column="delivery_address" property="deliveryAddress" jdbcType="VARCHAR" />
+    <result column="delivery_contactor" property="deliveryContactor" jdbcType="VARCHAR" />
+    <result column="delivery_phone" property="deliveryPhone" jdbcType="VARCHAR" />
+    <result column="delivery_postcode" property="deliveryPostcode" jdbcType="VARCHAR" />
+    <result column="express_id" property="expressId" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="deliver_type" property="deliverType" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_delivery_id" property="storeDeliveryId" jdbcType="VARCHAR" />
+    <result column="store_delivery_name" property="storeDeliveryName" jdbcType="VARCHAR" />
+    <result column="can_return" property="canReturn" jdbcType="VARCHAR" />
+    <result column="can_exchange" property="canExchange" jdbcType="VARCHAR" />
+    <result column="can_divide" property="canDivide" jdbcType="VARCHAR" />
+    <result column="cancel_type" property="cancelType" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+    <result column="exchange_point_count" property="exchangePointCount" jdbcType="INTEGER" />
+    <result column="rex_mode" property="rexMode" jdbcType="TIMESTAMP" />
+    <result column="rex_status" property="rexStatus" jdbcType="TIMESTAMP" />
+    <result column="telephone" property="telephone" jdbcType="TIMESTAMP" />
+    <result column="order_type_cn" property="orderTypeCn" jdbcType="VARCHAR" />
+    <result column="order_status_cn" property="orderStatusCn" jdbcType="VARCHAR" />
+    <result column="pay_type_cn" property="payTypeCn" jdbcType="VARCHAR" />
+    <result column="deliver_status_cn" property="deliverStatusCn" jdbcType="VARCHAR" />
+    <result column="evaluate_status_cn" property="evaluateStatusCn" jdbcType="VARCHAR" />
+    <result column="deliver_type_cn" property="deliverTypeCn" jdbcType="VARCHAR" />
+    <result column="cancel_type_cn" property="cancelTypeCn" jdbcType="VARCHAR" />
+    <result column="dispatch_status" jdbcType="VARCHAR" property="dispatchStatus" />
+    <result column="trade_status" property="tradeStatus" jdbcType="CHAR" />
+    <result column="deliver_count" property="deliverCount" jdbcType="NUMERIC" />
+    <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+    <result column="insert_time1" property="insertTimeString" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    order_id, order_code, order_type, member_id, shop_id, amount_totle, action_id, action_name,
+    amount_discount, coupon_id, amount_coupon, point_count, amount_point, delivery_free,
+    delivery_fee, pay_delivery_type, pay_infact, service_fee, amount_shop, pay_type,
+    pay_account, amount, receipt_account, message, order_status, order_time, pay_status,
+    pay_time, deliver_status, deliver_time, receipt_time, evaluate_status, evaluate_time,
+    want_invoice, invoice_type, invoice_title, invoice_address, invoice_tel, invoice_taxno,
+    invoice_bank, invoice_account, invoice_no, districtid_province, districtid_city,
+    districtid_district, delivery_address, delivery_contactor, delivery_phone, delivery_postcode,
+    express_id, express_name, express_no, deliver_type, erp_store_id, store_name, store_phone,
+    store_delivery_id, store_delivery_name, can_return, can_exchange, can_divide, cancel_type,
+    comment, deleted, update_user_id, update_time, insert_user_id, insert_time,erp_send_status,
+    exchange_point_count,trade_status
+  </sql>
+
+  <select id="selectByOrderCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_master
+    where order_code = #{orderCode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getAllDatas" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select
+    om.order_id, om.order_code,
+    om.member_id, om.shop_id,sm.shop_name, om.amount_totle,
+    om.action_id, om.action_name,om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count,
+    om.amount_point,om.delivery_free,om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee,
+    om.amount_shop,
+    om.order_type,
+    om.order_status,
+    om.pay_type,
+    om.deliver_status,
+    om.evaluate_status,
+    om.deliver_type,
+    om.cancel_type,
+    cc.display_cn as order_type_cn,
+    cc1.display_cn as order_status_cn,
+    cc2.display_cn as pay_type_cn,
+    cc3.display_cn as deliver_status_cn,
+    cc4.display_cn as evaluate_status_cn,
+    cc5.display_cn as deliver_type_cn,
+    cc6.display_cn as cancel_type_cn,
+    om.pay_account, om.amount, om.receipt_account, om.message,
+    om.order_time, pay_status, om.pay_time,
+    om.deliver_time, om.receipt_time,
+    om.evaluate_time, om.want_invoice, om.invoice_type, om.invoice_title,
+    om.invoice_address, om.invoice_tel, om.invoice_taxno, om.invoice_bank, om.invoice_account, om.invoice_no,
+    om.districtid_province, om.districtid_city, om.districtid_district, om.delivery_address,
+    om.delivery_contactor, om.delivery_phone, om.delivery_postcode, om.express_id, om.express_name,
+    om.express_no, deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide,
+    om.comment, om.deleted, om.update_user_id, om.update_time, om.insert_user_id, om.insert_time,
+    mm.telephone,mm.member_name,
+    (select ore.rex_mode from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_mode,ore.rex_status limit 1) as rex_mode,
+    (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status
+    from public.ord_master om
+    left join coupon_member coumem on om.coupon_id = coumem.coupon_member_id
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    left join mmb_master mm on mm.member_id = om.member_id and mm.deleted = '0'
+    <if test="telephone != null and !telephone.isEmpty()" >
+      inner join mmb_master mm1 on mm1.member_id = om.member_id and mm1.deleted = '0'
+      and mm1.telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+    where om.deleted = '0'
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderStatus != null and !orderStatus.isEmpty()" >
+      and om.order_status = #{orderStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="payStatus != null and !payStatus.isEmpty()" >
+      and om.pay_status = #{payStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverStatus != null and !deliverStatus.isEmpty()" >
+      and om.deliver_status = #{deliverStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverType != null and !deliverType.isEmpty()" >
+      and om.deliver_type = #{deliverType,jdbcType=VARCHAR}
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="actionId != null and !actionId.isEmpty()">
+      and om.action_id = #{actionId,jdbcType=VARCHAR}
+    </if>
+    <if test="couponId != null and !couponId.isEmpty()">
+      and coumem.coupon_id = #{couponId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and om.member_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and mm.member_name LIKE CONCAT('%', #{memberName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="erpStoreId != null and !erpStoreId.isEmpty()" >
+      and om.erp_store_id = #{erpStoreId,jdbcType=VARCHAR}
+    </if>
+    <if test="insertUserId != null and !insertUserId.isEmpty()" >
+      and om.insert_user_id = #{insertUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeStart != null and !orderTimeStart.isEmpty()" >
+      AND to_char(om.order_time,'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeEnd != null and !orderTimeEnd.isEmpty()" >
+      AND to_char(om.order_time,'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId == null or orderId.isEmpty()" >
+      order by om.update_time DESC
+      limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="getAllDatasCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select
+    count(*) as count
+    from public.ord_master om
+    left join coupon_member coumem on om.coupon_id = coumem.coupon_member_id
+    <if test="telephone != null and !telephone.isEmpty()" >
+      inner join mmb_master mm1 on mm1.member_id = om.member_id and mm1.deleted = '0'
+      and mm1.telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      inner join mmb_master mm on mm.member_id = om.member_id and mm.deleted = '0'
+    </if>
+    where om.deleted = '0'
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderStatus != null and !orderStatus.isEmpty()" >
+      and om.order_status = #{orderStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="actionId != null and !actionId.isEmpty()">
+      and om.action_id = #{actionId,jdbcType=VARCHAR}
+    </if>
+    <if test="couponId != null and !couponId.isEmpty()">
+      and coumem.coupon_id = #{couponId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and om.member_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and mm.member_name LIKE CONCAT('%', #{memberName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id = #{orderId,jdbcType=VARCHAR}
+    </if>
+    <if test="payStatus != null and !payStatus.isEmpty()" >
+      and om.pay_status = #{payStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverStatus != null and !deliverStatus.isEmpty()" >
+      and om.deliver_status = #{deliverStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverType != null and !deliverType.isEmpty()" >
+      and om.deliver_type = #{deliverType,jdbcType=VARCHAR}
+    </if>
+    <if test="canReturn != null and !canReturn.isEmpty()" >
+      and om.can_return = #{canReturn,jdbcType=VARCHAR}
+    </if>
+    <if test="erpStoreId != null and !erpStoreId.isEmpty()" >
+      and om.erp_store_id = #{erpStoreId,jdbcType=VARCHAR}
+    </if>
+    <if test="insertUserId != null and !insertUserId.isEmpty()" >
+      and om.insert_user_id = #{insertUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeStart != null and !orderTimeStart.isEmpty()" >
+      AND to_char(om.order_time,'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeEnd != null and !orderTimeEnd.isEmpty()" >
+      AND to_char(om.order_time,'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="getOrderInfoByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from public.ord_master
+    where order_code = #{orderCode,jdbcType=VARCHAR}
+  </select>
+
+  <update id="confirmReceiptInMaster" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    update public.ord_master
+    set
+    deliver_status = '21',
+    receipt_time = now(),
+    update_user_id = #{memberId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteOrder" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    update public.ord_master
+    set
+    order_status = '12',
+    deleted = '1',
+    update_user_id = #{memberId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and member_id = #{memberId,jdbcType=VARCHAR}
+    and (order_status = '90' or order_status = '11')
+  </update>
+  <update id="cancelOrder" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    update public.ord_master
+    set
+    order_status = '11',
+    update_user_id = #{memberId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and member_id = #{memberId,jdbcType=VARCHAR}
+    and order_status = '10'
+    and pay_status = '10'
+    and deliver_status = '10'
+  </update>
+  <update id="applyReturnGoods" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    update public.ord_master
+    set
+    order_status = '30',
+    update_user_id = #{memberId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    and member_id = #{memberId,jdbcType=VARCHAR}
+    and pay_status = '20'
+    and deliver_status = '21'
+    and can_return = '1'
+  </update>
+
+  <update id="changeReturnGoods" parameterType="net.dlyt.qyds.common.dto.OrdMaster" >
+    update public.ord_master
+    set
+    order_status = #{orderStatus,jdbcType=VARCHAR},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="acceptReturnGoods" parameterType="net.dlyt.qyds.common.dto.OrdMaster" >
+    update public.ord_master
+    set
+    deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+    pay_status = '30',
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="submitReturnMoney" parameterType="net.dlyt.qyds.common.dto.OrdMaster" >
+    update public.ord_master
+    set
+    pay_status = '31',
+    order_status = '31',
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="cancancelOrderQuartz" parameterType="java.lang.String">
+    update public.ord_master
+    set order_status = '11',
+    update_time = now()
+    where order_status = '10'
+    and pay_status = '10'
+    and deliver_status = '10'
+    and order_code = #{orderCode,jdbcType=VARCHAR}
+  </update>
+
+  <update id="paySuccess" parameterType="net.dlyt.qyds.common.dto.OrdMaster">
+    update public.ord_master
+    set pay_status = '20',
+    pay_type = #{payType,jdbcType=VARCHAR},
+    pay_time = now(),
+    update_time = now()
+    where order_status = '10'
+    and pay_status = '10'
+    and deliver_status = '10'
+    and order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectOrdInfo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select om.*,mm.member_name,mm.telephone
+    from public.ord_master om
+    left join mmb_master mm on mm.member_id = om.member_id
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSendFail" resultMap="BaseResultMap">
+    select om.order_id, om.order_code, om.order_type, om.member_id, om.shop_id, om.amount_totle, om.action_id, om.action_name,
+    om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count, om.amount_point, om.delivery_free,
+    om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee, om.amount_shop, om.pay_type,
+    om.pay_account, om.amount, om.receipt_account, om.message, om.order_status, om.order_time, om.pay_status,
+    om.pay_time, om.deliver_status, om.deliver_time, om.receipt_time, om.evaluate_status, om.evaluate_time,
+    om.want_invoice, om.invoice_type, om.invoice_title, om.invoice_address, om.invoice_tel, om.invoice_taxno,
+    om.invoice_bank, om.invoice_account, om.invoice_no, om.districtid_province, om.districtid_city,
+    om.districtid_district, om.delivery_address, om.delivery_contactor, om.delivery_phone, om.delivery_postcode,
+    om.express_id, om.express_name, om.express_no, om.deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide, om.cancel_type,
+    mm.member_name,mm.telephone,mm1.telephone insert_user_id
+    from ord_master om
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    and mm.deleted = '0'
+    left join mmb_saler mm1
+    on mm1.member_id = om.insert_user_id
+    and mm1.type = '30'
+    and mm1.deleted = '0'
+    where om.deleted = '0'
+    and om.erp_send_status = '20'
+  </select>
+
+  <select id="selectSendFailById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select om.order_id, om.order_code, om.order_type, om.member_id, om.shop_id, om.amount_totle, om.action_id, om.action_name,
+    om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count, om.amount_point, om.delivery_free,
+    om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee, om.amount_shop, om.pay_type,
+    om.pay_account, om.amount, om.receipt_account, om.message, om.order_status, om.order_time, om.pay_status,
+    om.pay_time, om.deliver_status, om.deliver_time, om.receipt_time, om.evaluate_status, om.evaluate_time,
+    om.want_invoice, om.invoice_type, om.invoice_title, om.invoice_address, om.invoice_tel, om.invoice_taxno,
+    om.invoice_bank, om.invoice_account, om.invoice_no, om.districtid_province, om.districtid_city,
+    om.districtid_district, om.delivery_address, om.delivery_contactor, om.delivery_phone, om.delivery_postcode,
+    om.express_id, om.express_name, om.express_no, om.deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide, om.cancel_type,
+    mm.member_name,mm.telephone,mm1.telephone insert_user_id
+    from ord_master om
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    and mm.deleted = '0'
+    left join mmb_saler mm1
+    on mm1.member_id = om.insert_user_id
+    and mm1.type = '30'
+    and mm1.deleted = '0'
+    where om.deleted = '0'
+    and om.erp_send_status = '20'
+    and om.order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSendFailReturn" resultMap="BaseResultMap">
+    select om.order_id, om.order_code, om.order_type, om.member_id, om.shop_id, om.amount_totle, om.action_id, om.action_name,
+    om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count, om.amount_point, om.delivery_free,
+    om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee, om.amount_shop, om.pay_type,
+    om.pay_account, om.amount, om.receipt_account, om.message, om.order_status, om.order_time, om.pay_status,
+    om.pay_time, om.deliver_status, om.deliver_time, om.receipt_time, om.evaluate_status, om.evaluate_time,
+    om.want_invoice, om.invoice_type, om.invoice_title, om.invoice_address, om.invoice_tel, om.invoice_taxno,
+    om.invoice_bank, om.invoice_account, om.invoice_no, om.districtid_province, om.districtid_city,
+    om.districtid_district, om.delivery_address, om.delivery_contactor, om.delivery_phone, om.delivery_postcode,
+    om.express_id, om.express_name, om.express_no, om.deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide, om.cancel_type,
+    mm.member_name,mm.telephone,mm1.telephone insert_user_id
+    from ord_master om
+    inner join (select order_id from ord_return_exchange
+    where erp_send_status = '20'
+    group by order_id) r
+    on r.order_id = om.order_id
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    and mm.deleted = '0'
+    left join mmb_saler mm1
+    on mm1.member_id = om.insert_user_id
+    and mm1.type = '30'
+    and mm1.deleted = '0'
+    where om.deleted = '0'
+  </select>
+
+  <select id="selectSendFailReturnById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select om.order_id, om.order_code, om.order_type, om.member_id, om.shop_id, om.amount_totle, om.action_id, om.action_name,
+    om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count, om.amount_point, om.delivery_free,
+    om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee, om.amount_shop, om.pay_type,
+    om.pay_account, om.amount, om.receipt_account, om.message, om.order_status, om.order_time, om.pay_status,
+    om.pay_time, om.deliver_status, om.deliver_time, om.receipt_time, om.evaluate_status, om.evaluate_time,
+    om.want_invoice, om.invoice_type, om.invoice_title, om.invoice_address, om.invoice_tel, om.invoice_taxno,
+    om.invoice_bank, om.invoice_account, om.invoice_no, om.districtid_province, om.districtid_city,
+    om.districtid_district, om.delivery_address, om.delivery_contactor, om.delivery_phone, om.delivery_postcode,
+    om.express_id, om.express_name, om.express_no, om.deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide, om.cancel_type,
+    mm.member_name,mm.telephone,mm1.telephone insert_user_id
+    from ord_master om
+    inner join (select order_id from ord_return_exchange
+    where erp_send_status = '20'
+    and order_id = #{orderId,jdbcType=VARCHAR}
+    group by order_id) r
+    on r.order_id = om.order_id
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    and mm.deleted = '0'
+    left join mmb_saler mm1
+    on mm1.member_id = om.insert_user_id
+    and mm1.type = '30'
+    and mm1.deleted = '0'
+    where om.deleted = '0'
+    and om.order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSendReturnById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select om.order_id, om.order_code, om.order_type, om.member_id, om.shop_id, om.amount_totle, om.action_id, om.action_name,
+    om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count, om.amount_point, om.delivery_free,
+    om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee, om.amount_shop, om.pay_type,
+    om.pay_account, om.amount, om.receipt_account, om.message, om.order_status, om.order_time, om.pay_status,
+    om.pay_time, om.deliver_status, om.deliver_time, om.receipt_time, om.evaluate_status, om.evaluate_time,
+    om.want_invoice, om.invoice_type, om.invoice_title, om.invoice_address, om.invoice_tel, om.invoice_taxno,
+    om.invoice_bank, om.invoice_account, om.invoice_no, om.districtid_province, om.districtid_city,
+    om.districtid_district, om.delivery_address, om.delivery_contactor, om.delivery_phone, om.delivery_postcode,
+    om.express_id, om.express_name, om.express_no, om.deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide, om.cancel_type,
+    mm.member_name,mm.telephone,mm1.telephone insert_user_id
+    from ord_master om
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    and mm.deleted = '0'
+    left join mmb_saler mm1
+    on mm1.member_id = om.insert_user_id
+    and mm1.type = '30'
+    and mm1.deleted = '0'
+    where om.deleted = '0'
+    and om.order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSendById" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select om.order_id, om.order_code, om.order_type, om.member_id, om.shop_id, om.amount_totle, om.action_id, om.action_name,
+    om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count, om.amount_point, om.delivery_free,
+    om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee, om.amount_shop, om.pay_type,
+    om.pay_account, om.amount, om.receipt_account, om.message, om.order_status, om.order_time, om.pay_status,
+    om.pay_time, om.deliver_status, om.deliver_time, om.receipt_time, om.evaluate_status, om.evaluate_time,
+    om.want_invoice, om.invoice_type, om.invoice_title, om.invoice_address, om.invoice_tel, om.invoice_taxno,
+    om.invoice_bank, om.invoice_account, om.invoice_no, om.districtid_province, om.districtid_city,
+    om.districtid_district, om.delivery_address, om.delivery_contactor, om.delivery_phone, om.delivery_postcode,
+    om.express_id, om.express_name, om.express_no, om.deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide, om.cancel_type,
+    mm.member_name,mm.telephone,mm1.telephone insert_user_id,om.erp_send_status
+    from ord_master om
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    and mm.deleted = '0'
+    left join mmb_saler mm1
+    on mm1.member_id = om.insert_user_id
+    and mm1.type = '30'
+    and mm1.deleted = '0'
+    where om.deleted = '0'
+    and om.order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <update id="cancelReturnOrderQuartz" parameterType="java.lang.String">
+    update public.ord_master
+    set trade_status = '20',
+    update_time = now()
+    where
+    (order_status = '90' or order_status = '33')
+    and pay_status = '20'
+    and deliver_status = '21'
+    and order_code = #{orderCode,jdbcType=VARCHAR}
+  </update>
+
+  <update id="ThirtyUnReturnOrderQuartz" parameterType="java.lang.String">
+    update public.ord_master
+    set order_status = '92',
+    update_time = now()
+    where order_status = '10'
+    and pay_status = '20'
+    and deliver_status = '20'
+    and order_code = #{orderCode,jdbcType=VARCHAR}
+  </update>
+
+  <update id="applyRefund" parameterType="java.lang.String">
+    update ord_master
+    set order_status = '20',
+    update_user_id = member_id,
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectDispatchOrdMasterList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select
+    om.*,mm.member_name,mm.telephone
+    from public.ord_master om
+    left join mmb_master mm
+    on mm.member_id = om.member_id
+    where om.deleted = '0'
+    and om.deliver_type = '10'
+    and (om.deliver_status = '10' or om.deliver_status = '19')
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    --     and om.dispatch_status != '2'
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and om.member_id in (select member_id from mmb_master where member_name LIKE CONCAT('%', #{memberName,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and om.member_id in (select member_id from mmb_master where telephone LIKE CONCAT('%', #{telephone,jdbcType=VARCHAR},'%'))
+    </if>
+    order by om.dispatch_status ASC, om.order_time DESC
+    limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="countDispatchOrdMaster" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select count(*)
+    from public.ord_master om
+    where om.deleted = '0'
+    and om.deliver_type = '10'
+    and (om.deliver_status = '10' or om.deliver_status = '19')
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    --     and om.dispatch_status != '2'
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <select id="countPendingDispatchOrder" resultType="java.lang.Integer">
+    select count(*)
+    from public.ord_master om
+    where om.deleted = '0'
+    and om.deliver_type = '10'
+    and (om.deliver_status = '10' or om.deliver_status = '19')
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and om.dispatch_status != '2'
+  </select>
+
+
+  <select id="selectProcessedOrdMasterList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.OrdDispatchForm" >
+    select
+    om.*,osl.deliver_count,cc.display_cn as deliver_status_cn
+    from public.ord_master om
+    inner join (select order_id,sum(case when deliver_status >= '20' then 1 else 0 end) deliver_count from ord_sub_list
+    where deleted = '0'
+    and dispatch_status in ('1','3')
+    and dispatch_store = #{dispatchStore,jdbcType=VARCHAR}
+    group by order_id) osl
+    on osl.order_id = om.order_id
+    left join com_code cc on cc.code = 'DELIVER_STATUS' and cc.value = om.deliver_status
+    where om.deleted = '0'
+    and (om.deliver_type = '10' or om.deliver_type = '20')
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and (om.dispatch_status = '1' or om.dispatch_status = '2')
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+
+    order by om.order_time desc
+    limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+  </select>
+
+  <select id="countProcessedOrdMaster" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.OrdDispatchForm">
+    select count(1) FROM
+    ( select DISTINCT om.*
+    from public.ord_master om,
+    ord_sub_list osl
+    where om.deleted = '0'
+    and (om.deliver_type = '10' or om.deliver_type = '20')
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and (om.dispatch_status = '1' or om.dispatch_status = '2')
+    and osl.order_id = om.order_id
+    and osl.deleted = '0'
+    and osl.dispatch_status  in ('1','3')
+    and osl.dispatch_store = #{dispatchStore,jdbcType=VARCHAR}
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    ) as foo
+  </select>
+
+  <select id="getAllCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1)
+    from public.ord_master om
+    where om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+
+
+  <sql id="getOrderByMemberIdList" >
+    om.order_id, om.order_code,
+    om.member_id, om.shop_id,sm.shop_name, om.amount_totle,
+    om.action_id, om.action_name,om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count,
+    om.amount_point,om.delivery_free,om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee,
+    om.amount_shop,
+    om.order_type,
+    om.order_status,
+    om.pay_type,
+    om.deliver_status,
+    om.evaluate_status,
+    om.deliver_type,
+    om.cancel_type,
+    cc.display_cn as order_type_cn,
+    cc1.display_cn as order_status_cn,
+    cc2.display_cn as pay_type_cn,
+    cc3.display_cn as deliver_status_cn,
+    cc4.display_cn as evaluate_status_cn,
+    cc5.display_cn as deliver_type_cn,
+    cc6.display_cn as cancel_type_cn,
+    om.pay_account, om.amount, om.receipt_account, om.message,
+    om.order_time, pay_status, om.pay_time,
+    om.deliver_time, om.receipt_time,
+    om.evaluate_time, om.want_invoice, om.invoice_type, om.invoice_title,
+    om.invoice_address, om.invoice_tel, om.invoice_taxno, om.invoice_bank, om.invoice_account, om.invoice_no,
+    om.districtid_province, om.districtid_city, om.districtid_district, om.delivery_address,
+    om.delivery_contactor, om.delivery_phone, om.delivery_postcode, om.express_id, om.express_name,
+    om.express_no, deliver_type, om.erp_store_id, om.store_name, om.store_phone,
+    om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide,
+    om.comment, om.deleted, om.update_user_id, om.update_time, om.insert_user_id, om.insert_time,
+    (select ore.rex_mode from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_mode,ore.rex_status limit 1) as rex_mode,
+    (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status
+  </sql>
+
+  <select id="getAllOrderByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select
+    <include refid="getOrderByMemberIdList" />
+    from public.ord_master om
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    order by om.insert_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getWaitPayCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1)
+    from public.ord_master om
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and om.order_status = '10'
+    and (om.pay_status = '10' or om.pay_status = '21')
+  </select>
+
+  <select id="getWaitPayOrderByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select
+    <include refid="getOrderByMemberIdList" />
+    from public.ord_master om
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and om.order_status = '10'
+    and (om.pay_status = '10' or om.pay_status = '21')
+    order by om.insert_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getWaitDeliveryCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1)
+    from public.ord_master om
+    where om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and om.deliver_status = '10'
+  </select>
+
+  <select id="getWaitDeliveryOrderByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select
+    <include refid="getOrderByMemberIdList" />
+    from public.ord_master om
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and om.deliver_status = '10'
+    order by om.insert_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getWaitReceiveCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1)
+    from public.ord_master om
+    where om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and (om.deliver_status = '20' or om.deliver_status = '19')
+  </select>
+
+  <select id="getWaitReceiveOrderByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select
+    <include refid="getOrderByMemberIdList" />
+    from public.ord_master om
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.pay_status = '20'
+    and (om.deliver_status = '20' or om.deliver_status = '19')
+    order by om.insert_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getCompletedCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1)
+    from public.ord_master om
+    where om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and
+    ( om.order_status = '90' -- 订单完成
+    or om.order_status = '33' -- 退货驳回
+    or om.order_status = '32' -- 退货完成
+    or om.order_status = '22' -- 订单退单完成
+    or om.order_status = '11' -- 取消订单
+    or ((om.order_status = '10' or om.order_status = '23') and om.deliver_status = '21' and om.pay_status = '20') -- 已收货
+    )
+  </select>
+
+  <select id="getCompletedOrderByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select
+    <include refid="getOrderByMemberIdList" />
+    from public.ord_master om
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+    and
+    ( om.order_status = '90' -- 订单完成
+    or om.order_status = '33' -- 退货驳回
+    or om.order_status = '32' -- 退货完成
+    or om.order_status = '22' -- 订单退单完成
+    or om.order_status = '11' -- 取消订单
+    or ((om.order_status = '10' or om.order_status = '23') and om.deliver_status = '21' and om.pay_status = '20') -- 已收货
+    )
+    order by om.insert_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getUnreceivedOrder15DaysAgo" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMaster">
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_master om
+    where om.deliver_status = '20'
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.deliver_time + interval '15 day' &lt;= now()
+  </select>
+
+  <select id="getUnfinishedOrder7DaysAgo" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMaster">
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_master om
+    where om.deliver_status = '21'
+    and (om.order_status = '10' or om.order_status = '23')
+    and om.receipt_time + interval '7 day' &lt;= now()
+  </select>
+
+  <select id="getUnclosedOrder30DaysAgo" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMaster">
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_master om
+    where (om.trade_status is null or om.trade_status ='10')
+    and (om.order_status = '90'
+    or om.order_status = '33'
+    or om.order_status = '32'
+    or om.order_status = '22'
+    or om.order_status = '11')
+    and om.order_time + interval '30 day' &lt;= now()
+  </select>
+
+  <select id="getOrderCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.OrdMaster">
+    select count(1)
+    from public.ord_master om
+    where om.deleted = '0'
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and om.member_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+    <if test="payStatus != null and !payStatus.isEmpty()" >
+      and om.pay_status = #{payStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="orderStatus != null and !orderStatus.isEmpty()" >
+      and om.order_status = #{orderStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverStatus != null and !deliverStatus.isEmpty()" >
+      and om.deliver_status = #{deliverStatus,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="excelExport" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select
+    om.order_id, om.order_code,om.deliver_type,
+    om.member_id, om.shop_id,om.amount_totle,
+    om.action_id, om.action_name,om.amount_discount, om.coupon_id, om.amount_coupon, om.point_count,
+    om.amount_point,om.delivery_free,om.delivery_fee, om.pay_delivery_type, om.pay_infact, om.service_fee,
+    om.amount_shop,
+    om.order_type,
+    om.order_status,
+    om.pay_account, om.amount, om.receipt_account, om.message,
+    om.order_time, om.pay_time,
+    om.deliver_time, om.receipt_time,
+    om.evaluate_time, om.want_invoice, om.invoice_type, om.invoice_title,
+    to_char(om.insert_time,'yyyy-MM-dd hh24:MI:ss') as insert_time1,
+    mm.telephone,mm.member_name,cm.coupon_name
+    ,om.districtid_province,om.districtid_city,om.districtid_district,om.delivery_address
+    from public.ord_master om
+    left join coupon_member coumem on om.coupon_id = coumem.coupon_member_id
+    --left join coupon_order co on om.order_id = co.order_id and co.deleted = '0'
+    left join coupon_master cm on cm.coupon_id = coumem.coupon_id and cm.deleted = '0'
+    left join mmb_master mm on mm.member_id = om.member_id and mm.deleted = '0'
+    <if test="telephone != null and !telephone.isEmpty()" >
+      inner join mmb_master mm1 on mm1.member_id = om.member_id and mm1.deleted = '0'
+      and mm1.telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+    where om.deleted = '0'
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and om.order_id LIKE CONCAT('%', #{orderId,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="orderStatus != null and !orderStatus.isEmpty()" >
+      and om.order_status = #{orderStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="payStatus != null and !payStatus.isEmpty()" >
+      and om.pay_status = #{payStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverStatus != null and !deliverStatus.isEmpty()" >
+      and om.deliver_status = #{deliverStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deliverType != null and !deliverType.isEmpty()" >
+      and om.deliver_type = #{deliverType,jdbcType=VARCHAR}
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()">
+      and om.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and om.member_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and mm.member_name LIKE CONCAT('%', #{memberName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="erpStoreId != null and !erpStoreId.isEmpty()" >
+      and om.erp_store_id = #{erpStoreId,jdbcType=VARCHAR}
+    </if>
+    <if test="insertUserId != null and !insertUserId.isEmpty()" >
+      and om.insert_user_id = #{insertUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeStart != null and !orderTimeStart.isEmpty()" >
+      AND to_char(om.order_time,'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeEnd != null and !orderTimeEnd.isEmpty()" >
+      AND to_char(om.order_time,'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </if>
+    <if test="actionId != null and !actionId.isEmpty()">
+      and om.action_id = #{actionId,jdbcType=VARCHAR}
+    </if>
+    <if test="couponId != null and !couponId.isEmpty()">
+      and coumem.coupon_id = #{couponId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId == null or orderId.isEmpty()" >
+      order by om.update_time DESC
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,37 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">我的优惠券</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-gray' style="padding:10px;">
+
+        <div ng-if="!isLoading&&couponList.length==0" class="text-center" style="color: #999999;margin-top: 100px">
+            您还没有领取优惠劵
+        </div>
+
+        <div class="row coupon_bg row-no-padding" ng-repeat="coupon in couponList" style="padding:15px;margin-top:15px;position:relative">
+            <div class="col col-70" style="text-align:left;color:#CCCCCC;">
+                <div style="font-weight:bold;font-size:23px;color:#333333;margin-top: 5px">
+                    优惠券
+                    <span style="display:inline-block;margin-left:10px;font-size:14px;background:#999999;color:#FFFFFF;padding: 2px;font-weight: normal;border-radius: 2px" ng-if="coupon.status=='20'">已使用</span>
+                    <span style="display:inline-block;margin-left:10px;font-size:14px;background:#999999;color:#FFFFFF;padding: 2px;font-weight: normal;border-radius: 2px" ng-if="coupon.status=='10'&&coupon.isOverdue=='1'">已过期</span>
+                </div>
+                <div ng-if="coupon.couponName!=''"
+                     style="font-weight:normal;font-size:14px;color:#666666;line-height: 1.2;margin-top: 10px">
+                    {{coupon.couponName}}
+                </div>
+                <div style="color: #666666;font-size:14px;margin-top: 8px" ng-if="coupon.minOrderPrice&&coupon.minOrderPrice.length>0">购物满{{coupon.minOrderPrice}}可用</div>
+                <div style="margin-top:10px;font-weight:normal;font-size:12px;color:#999999">
+                    有效期至: {{coupon.endTime|date:"yyyy-MM-dd"}}
+                </div>
+
+            </div>
+            <div class="col col-30 col-center" style="text-align:right">
+                <div style="fonts-size:43px;font-weight:bold;font-size:22px;color:#000000">
+                    <span ng-if="coupon.couponStyle == 0">{{coupon.worth}}元</span>
+                    <span ng-if="coupon.couponStyle == 1">{{coupon.discount}}折</span>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,26 @@
+.pager{float:right;height:32px;margin:0 0 25px;position:relative;}
+.pager a,.pager span,.pager label,.pager button{float:left}
+.pager a,.pager span.cur{position:relative;min-width:4px;height:30px;margin:0 0 0 -1px;padding:0 13px;background:#FFF;border:1px solid #ddd;z-index:0;font:normal 14px/30px Arial;color:#5e5e5e}
+.pager span.cur{background:#f8f8f8;border:1px solid #e6e6e6;color:#888;font-weight:500;text-decoration:none;z-index:10;color:#a5a5a5}
+.pager a:hover{color:#51be75;text-decoration:none}
+.pager a.prev:hover,.pager a.next:hover{font-weight:normal;color:#51be75;background:#fff}
+.pager s{position:absolute}
+.pager .prev{padding:0 8px 0 21px;font-size:12px;width:80px;}
+.pager .prev s{overflow:hidden;top:10px;left:10px;width:6px;height:10px;background:url(../css/images/gome_zx_icon.png) no-repeat -170px -20px;/*background:url(http://css.gomein.net.cn/search/images/list_bg.png) no-repeat -107px -89px*/}
+.pager .disable .icon-prev{background-position:-60px -25px}
+.pager .disable .icon-next{background-position:-67px -25px}
+.pager .next{padding:0 21px 0 8px;font-size:12px;width:80px;}
+.pager .next s{overflow:hidden;top:10px;right:10px;width:6px;height:10px;background:url(../css/images/gome_zx_icon.png) no-repeat -179px -20px;/*background:url(http://css.gomein.net.cn/search/images/list_bg.png) no-repeat -114px -89px;_background:url(http://css.gomein.net.cn/search/images/list_bg_ie6.png) no-repeat -114px -89px*/}
+.pager .placeholder{overflow:hidden;width:16px;height:22px;margin:0 8px;background:url(http://css.gomein.net.cn/search/images/list_bg.png) no-repeat -55px 0}
+.pager .show-more{margin:0 10px;padding:0 14px 0 0;border:0 none;font-weight:500}
+.pager .show-more:hover{background:0;border:0 none;color:#ea5504;text-decoration:underline}
+.pager .show-more s{overflow:hidden;top:9px;right:0;width:9px;height:5px;background:url(http://css.gomein.net.cn/search/images/coo8/search/search_bg.png) no-repeat -20px -34px}
+.icon-coo8{background:url("http://css.gomein.net.cn/search/images/list-ui.gif") no-repeat scroll -71px -141px transparent;height:12px;width:42px}
+.pager .show-more:hover s{background-position:-30px -34px}
+.pager .txt-wrap{margin:0 5px 0 10px;color:#959595;line-height:30px}
+.pager .txt{width:32px;height:18px;line-height:18px;margin:0 5px 0;padding:4px 0;border:1px solid #ccc;text-align:center;vertical-align:middle;color:#5e5e5e;font-family:Arial}
+.pager .btn{width:42px;height:26px;padding:0;background:#FFF;border:1px solid #ddd;color:#5e5e5e;text-align:center;cursor:pointer;margin-top:2px;background:#f8f8f8;font:normal 12px/26px "Simsun"}
+.pager .btn:hover{border:1px solid #ccc;color:#333}
+.pager .btn:active{background:#f3f3f3}
+.pager .disable{cursor:default;background:#f8f8f8;color:#ccc}
+.pager a.disable:hover{color:#ccc;background:#f8f8f8}

@@ -1,0 +1,161 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<div class="h1 title" style="font-size:24px;">注册</div>-->
+    <!--<button class="button no-animation button-icon icon ion-close-round" ng-click="goBack()"></button>-->
+    <!--</ion-header-bar>-->
+    <ion-content>
+        <div style="padding:20px 20px;color:#C0C0C0;">
+            <form role="form" name="registerForm" class="form-horizontal" novalidate>
+                <div ng-class="{'has-error':registerForm.tel.$invalid && submitted_verifyCode,'no-error':registerForm.tel.$valid && submitted_verifyCode}"
+                     style="border-bottom:1px solid #C0C0C0;">
+                    <label class="item-input" style="height: 45px">
+                        <i class="icon ion-android-phone-portrait placeholder-icon" style="font-size:24px;"></i>
+                        <input class="form-control" maxlength="11" id="tel" name="tel" type="tel"
+                               ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                               ng-model='registerInfo.tel' placeholder="请输入您的手机号" required
+                               style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                    <div class="item-input error_msg"
+                         ng-show="registerForm.tel.$error.required && submitted_verifyCode">手机号不能为空
+                    </div>
+                    <div class="item-input error_msg"
+                         ng-show="registerForm.tel.$error.pattern && submitted_verifyCode">手机号格式不正确
+                    </div>
+                </div>
+                <!--<div style="padding:0;border-bottom:1px solid #C0C0C0;">-->
+                    <!--<div class="row" style="padding:0;">-->
+                        <!--<div class="col col-center form-group" style="padding: 0px;"-->
+                             <!--ng-class="{'has-error':registerForm.captcha.$invalid && submitted_register,'no-error':registerForm.captcha.$valid && submitted_register}">-->
+                            <!--<label class="item-input">-->
+                                <!--<i class="icon ion-checkmark placeholder-icon" style="font-size:24px;"></i>-->
+                                <!--<input class="form-control" id="captcha" name="captcha"-->
+                                       <!--ng-model='registerInfo.captcha' maxlength="6" type="text" required-->
+                                       <!--ng-pattern="/^\d{6}$/" placeholder="输入短信验证码"-->
+                                       <!--style="color:#C0C0C0;font-size:16px;margin-left:12px;">-->
+                            <!--</label>-->
+                            <!--<div class="item-input error_msg"-->
+                                 <!--ng-show="registerForm.captcha.$error.required && submitted_register">验证码不能为空-->
+                            <!--</div>-->
+                            <!--<div class="item-input error_msg"-->
+                                 <!--ng-show="registerForm.captcha.$error.pattern && submitted_register">验证码格式不正确-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col col-35 col-center" style="padding: 0px;">-->
+                            <!--<timerbutton style="float:right" cb="getVerifyCode(registerForm.tel.$valid)"-->
+                                         <!--is-valid="{{registerForm.tel.$valid}}" show-timer="false" timeout="time">-->
+                                <!--获取验证码-->
+                            <!--</timerbutton>-->
+
+                            <!--&lt;!&ndash;<button style="font-size:15px;" class="button button-dark button-small" ng-click="getVerifyCode(registerForm.tel.$valid)"> 获取验证码&ndash;&gt;-->
+                            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div style="border-bottom:1px solid #C0C0C0;"
+                     ng-class="{'has-error':registerForm.password.$invalid && submitted_register,'no-error':registerForm.password.$valid && submitted_register}">
+                    <label class="item-input" style="height: 45px">
+                        <i class="icon ion-ios-unlocked-outline placeholder-icon" style="font-size:24px;"></i>
+                        <input class="form-control" id="password" name="password" type="password" required
+                               maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                               ng-model='registerInfo.password' placeholder="设置密码(6-20位字母数字混合)"
+                               style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                    <div class="item-input error_msg"
+                         ng-show="registerForm.password.$error.required && submitted_register">密码不能为空
+                    </div>
+                    <div class="item-input error_msg"
+                         ng-show="registerForm.password.$error.pattern && submitted_register">
+                        密码格式不正确(密码为6-20位字母数字混合)
+                    </div>
+                </div>
+
+                <div style="border-bottom:1px solid #C0C0C0;"
+                     ng-class="{'has-error':registerForm.rePassword.$invalid && submitted_register,'no-error':registerForm.rePassword.$valid && submitted_register}">
+                    <label class="item-input" style="height: 45px">
+                        <i class="icon ion-ios-unlocked-outline placeholder-icon" style="font-size:24px;"></i>
+                        <input class="form-control" id="rePassword" name="rePassword" pw-check="password"
+                               type="password" required maxlength="20"
+                               ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                               ng-model='registerInfo.rePassword' placeholder="确认密码(6-20位字母数字混合)"
+                               style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                    <div class="item-input error_msg"
+                         ng-show="registerForm.rePassword.$error.required && submitted_register">确认密码不能为空
+                    </div>
+                    <div class="item-input error_msg"
+                         ng-show="registerForm.rePassword.$error.repeat && submitted_register">两次输入的密码不一致
+                    </div>
+                </div>
+                <div style="margin-top:30px;border-bottom:1px solid #C0C0C0;"
+                     ng-class="{'has-error':(registerForm.name.$invalid || registerInfo.name == '') && submitted_register,'no-error':(registerForm.name.$valid && registerInfo.name != '') && submitted_register}">
+                    <label class="item-input" style="height: 45px">
+                        <i class="icon ion-ios-person-outline placeholder-icon" style="font-size:24px;"></i>
+                        <input class="form-control" id="name" name="name" type="text" required
+                               maxlength="20"
+                               ng-model='registerInfo.name' placeholder="请输入您的姓名"
+                               style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                    <div class="item-input error_msg"
+                         ng-show="(registerForm.name.$error.required || registerInfo.name == '0')&& submitted_register">
+                        请输入您的姓名
+                    </div>
+                </div>
+                <div style="border-bottom:1px solid #C0C0C0;"
+                     ng-class="{'has-error':(registerForm.companyNm.$invalid || registerInfo.companyNm == '') && submitted_register,'no-error':(registerForm.companyNm.$valid && registerInfo.companyNm != '') && submitted_register}">
+                    <label class="item-input" style="height: 45px">
+                        <i class="icon ion-ios-person-outline placeholder-icon" style="font-size:24px;"></i>
+                        <input class="form-control" id="companyNm" name="companyNm" type="text" required
+                               maxlength="20"
+                               ng-model='registerInfo.companyNm' placeholder="请输入所属公司"
+                               style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                    <div class="item-input error_msg"
+                         ng-show="(registerForm.companyNm.$error.required || registerInfo.companyNm == '0')&& submitted_register">
+                        请输入所属公司
+                    </div>
+                </div>
+                <!--<div style="border-bottom:1px solid #C0C0C0;"-->
+                     <!--ng-class="{'has-error':(registerForm.sex.$invalid || registerInfo.sex == '0') && submitted_register,'no-error':(registerForm.sex.$valid && registerInfo.sex != '0') && submitted_register}">-->
+                    <!--<label class="item-input" style="height: 45px">-->
+                        <!--<i class="icon ion-ios-person-outline placeholder-icon" style="font-size:24px;"></i>-->
+                        <!--<select style="color:#C0C0C0;font-size:16px;margin-left:10px;-webkit-appearance: none;border:none;background: #ffffff"-->
+                                <!--id="sex" name="sex"-->
+                                <!--ng-model="registerInfo.sex" ng-options="x for (x, y) in genderList"></select>-->
+                    <!--</label>-->
+                    <!--<div class="item-input error_msg"-->
+                         <!--ng-show="(registerForm.sex.$error.required || registerInfo.sex == '0')&& submitted_register">-->
+                        <!--请选择性别-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div style="border-bottom:1px solid #C0C0C0;"-->
+                     <!--ng-class="{'has-error':registerForm.password.$invalid && submitted_register,'no-error':registerForm.password.$valid && submitted_register}">-->
+                    <!--<label class="item-input item-select" style="height: 45px">-->
+                        <!--<i class="icon ion-ios-calendar-outline placeholder-icon" style="font-size:24px;"></i>-->
+                        <!--<input type="text" style="background-color:#fff!important;text-align:left;font-size:16px"-->
+                               <!--readonly-->
+                               <!--id="birthdate" name="birthdate" required-->
+                               <!--placeholder="请选择生日"-->
+                               <!--ng-click="openDatePicker()"-->
+                               <!--ng-model="registerInfo.birthdate">-->
+                    <!--</label>-->
+                    <!--<div class="item-input error_msg"-->
+                         <!--ng-show="registerForm.birthdate.$error.required && submitted_register">请输入生日-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div style="margin-top:15px;">
+                    <label style="color: #333333;margin-left: 15px">
+                    <input type="checkbox" ng-model="registerInfo.agree" style="vertical-align: middle;margin: 10px auto;" ng-change="onAllCheckChange()">
+                        我已阅读并同意
+                    </label>
+                    <a ng-click="goPrivacy()" style="color: #2d31ca">《xxxxxxx网络协议》</a>
+                </div>
+            </form>
+
+            <button class="button button-block button-dark" style="font-size:17px;margin-top:20px;color:#ffffff;background-color:#066BA2;"
+                    ng-click="register(registerForm.$valid)">
+                立即注册
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

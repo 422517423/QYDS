@@ -1,0 +1,45 @@
+<!-- /.modal -->
+<div id="mmbLevelRuleRatioEditArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">会员保级系数</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="scroller" style="max-height:300px; overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <div class="row">
+                        <form id="mmb_level_rule_ratio_edit_form" class="form-horizontal validator">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-8">
+                                        <label>同等级会员年度消费累计积分的比例设置</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">保级系数<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="number" id="ratio_edit" name="ratio_edit" data-required="1"
+                                               class="form-control" max="1.00" min="0.01">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div id="mmb_level_rule_ratio_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="../page/mmb_level_rule/edit_ratio_config.js"></script>

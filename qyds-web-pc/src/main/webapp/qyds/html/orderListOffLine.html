@@ -1,0 +1,156 @@
+<div class="container-fluid" style="background: white">
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px">
+            <h4>线下订单</h4>
+        </div>
+    </div>
+    <div class="col-xs-12" style="font-size:13px;background:#fff;padding: 0px;">
+
+            <div class="hidden-xs orderList" style="padding:0 10px;">
+                <table class="table table-condensed inner-table">
+
+                    <tbody>
+                    <tr ng-repeat="order in orderList" style="font-size:12px;">
+                        <td colspan="4" style="text-align: left;">
+                            <div class="panel panel-default" style="font-size: 12px;border-radius: 0px;">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <span style="height: 30px;line-height: 30px">订单编号：{{order.orderCode}}</span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <span style="height: 30px;line-height: 30px;float: right;">消费门店：{{order.storeName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table class="table table-condensed ">
+                                    <tr ng-repeat="sku in order.subList">
+                                        <td style="text-align: left;width: 50%;border-bottom: 1px lightgray solid !important;">
+                                            <div class="row">
+                                                <div style="color:#333;" class="col-xs-9">{{sku.goodsName}}</div>
+                                                <div style="color:#333;" class="col-xs-9"></div>
+                                                <div style="color:#333;" class="col-xs-9">颜色:{{sku.color}} &nbsp;&nbsp; 尺码:{{sku.size}}</div>
+                                            </div>
+
+                                        </td>
+                                        <td style="text-align: center;width: 8%;border-bottom: 1px lightgray solid !important;">
+                                            ×{{sku.count}}
+                                        </td>
+                                        <td style="border-bottom: 1px lightgray solid !important;">
+                                            <div>
+                                                <div ng-if="sku.price != null" style="font-weight:bold;">
+                                                    单价:{{sku.price |
+                                                    currency : '￥'}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="border-bottom: 1px lightgray solid !important;">
+                                            <div>
+                                                <div ng-if="sku.amount != null" style="font-weight:bold;">
+                                                    合计金额:{{sku.amount |
+                                                    currency : '￥'}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div style="float: left;color: #999999">下单时间：{{order.orderTime |
+                                                date:'yyyy-MM-dd HH:mm:ss'}}
+                                            </div>
+                                            <div style="float: right">总计：¥{{order.amount}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="pager" id="pic_page"></div>
+            </div>
+            <div class="visible-xs orderList-xs">
+                <table class="table table-condensed inner-table" style="font-size:13px"
+                       ng-repeat="order in orderPhoneList">
+                    <tr>
+                        <td>
+                            <div class="panel panel-default" style="font-size: 12px;">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">
+                                    <div class="row" style="text-align: left;">
+                                        <span style="margin-left: 5px;">单号:{{order.orderCode}}</span>
+                                        <span style="color: red;float: right;margin-right: 10px">{{order.storeName}}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Table -->
+                                <table class="table">
+                                    <tbody>
+                                    <tr style="border-bottom: 1px lightgray solid !important;"
+                                        ng-repeat="sku in order.subList">
+                                        <td>
+                                            <div class="row">
+                                                <!--<div class="col-xs-4">-->
+                                                    <!--<img class="img-responsive center-left"-->
+                                                         <!--src="{{sku.imageUrlJson | imgPath:'120'}}">-->
+                                                <!--</div>-->
+                                                <div class="col-xs-12">
+                                                    <div style="text-align: left;"><span
+                                                            style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;">{{sku.goodsName}}</span>
+                                                    </div>
+                                                    <div style="text-align: left;">
+                                                        <span style="color:gray;">颜色:{{sku.color}} &nbsp;&nbsp; 尺码:{{sku.size}}</span>
+                                                    </div>
+                                                    <div style="text-align: left;">
+                                                        <span style="color:gray;">数量:x{{sku.count}}</span>
+                                                    </div>
+                                                    <div style="text-align: left;">
+                                                        <div ng-if="sku.price != null"
+                                                             style="font-weight:bold;">单价:{{sku.price |
+                                                            currency : '￥'}}
+                                                        </div>
+                                                    </div>
+                                                    <div style="text-align: left;">
+                                                        <div ng-if="sku.amount != null"
+                                                             style="font-weight:bold;">合计金额:{{sku.amount |
+                                                            currency : '￥'}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="border-bottom: 1px lightgray solid !important;">
+                                        <td>
+                                            <div style="float: left;color: #999999">{{order.orderTime |
+                                                date:'yyyy-MM-dd HH:mm:ss'}}
+                                            </div>
+                                            <div style="float: right">总计：¥{{order.amount}}</div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </table>
+
+                <div>
+                    <div ng-if="isPhoneLoading" style="text-align: center;margin: 10px 0px">
+                        <img src="css/images/loading.gif" style="width: 30px;height: 30px">
+                    </div>
+                    <div ng-if="!isPhoneLoading&&orderPhoneList.length==0" style="text-align: center;margin: 10px 0px">
+                        没有相关数据
+                    </div>
+                    <button ng-if="!isPhoneLoading&&hasMore" class="btn btn-default btn-block hvr-outline-out-dark" ng-click="doGetMore()">加载更多</button>
+                </div>
+            </div>
+    </div>
+</div>
+<!--<script src="./javascript/logic/orderlist.js"></script>-->

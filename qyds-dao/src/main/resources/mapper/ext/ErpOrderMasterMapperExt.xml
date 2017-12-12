@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpOrderMasterMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpOrderMaster" >
+    <id column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="member_code" property="memberCode" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="store_code" property="storeCode" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_code, member_code, member_name, store_code, store_name, order_time, amount,
+    comment, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+ <sql id="Base_Where_Byselect" >
+    WHERE 1=1
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      AND order_code = #{orderCode,jdbcType=VARCHAR}
+    </if>
+    <if test="memberCode != null and !memberCode.isEmpty()" >
+      AND member_code = #{memberCode,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      AND member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="storeCode != null and !storeCode.isEmpty()" >
+      AND store_code = #{storeCode,jdbcType=VARCHAR}
+    </if>
+    <if test="storeName != null and !storeName.isEmpty()" >
+      AND store_name LIKE '%' || #{storeName,jdbcType=VARCHAR} || '%'
+    </if>
+  </sql>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpOrderMasterForm" >
+    select
+    <include refid="Base_Column_List" />
+    from erp_order_master
+    <include refid="Base_Where_Byselect" />
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpOrderMasterForm" >
+    select count(*)
+    from erp_order_master
+    <include refid="Base_Where_Byselect" />
+  </select>
+</mapper>

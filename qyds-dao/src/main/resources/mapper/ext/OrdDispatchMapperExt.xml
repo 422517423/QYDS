@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.OrdDispatchMapperExt" >
+
+    <select id="selectDispatchHistory" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.OrdDispatch">
+
+        select od.dispatch_id, od.order_id, od.sub_order_id, od.shop_id, od.type, od.deleted, od.update_user_id,
+        od.update_time,od.insert_user_id, od.insert_time, od.dispatch_store, od.content content_store, es.store_name_cn
+        from ord_dispatch od
+        left join erp_store es on es.store_code = od.dispatch_store and es.deleted = '0'
+        where od.deleted = '0'
+        <if test="orderId!=null and !orderId.isEmpty() ">
+            AND od.order_id = #{orderId, jdbcType=VARCHAR}
+        </if>
+        <if test="subOrderId!=null and !subOrderId.isEmpty() ">
+            AND od.sub_order_id = #{subOrderId, jdbcType=VARCHAR}
+        </if>
+
+        order by od.update_time
+
+    </select>
+
+</mapper>

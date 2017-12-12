@@ -1,0 +1,307 @@
+<div class="row goodList" style="margin:20px 0px;padding: 0px">
+    <div class="custom-full-width" style="margin: auto">
+        <div class="hidden-xs product-list" style="font-size: 10px;">
+            <div ng-if="!goodsList || goodsList.length==0" class="row vertical-align" style="margin-top: 20px;">
+                <div ng-if="!isLoading && goodsList.length==0"
+                     style="text-align: center;color: #666666;margin: 100px 0px">
+                    查找的商品不存在
+                </div>
+            </div>
+
+            <!--<div ng-if="goodsList.length>0" class="col-xs-12" style="margin-top:5px;">-->
+
+            <!--<table class="table table-condensed" style="margin-top:20px;">-->
+            <!--<thead>-->
+            <!--<tr>-->
+            <!--<th style="border: 0;width: 25%"></th>-->
+            <!--<th style="border: 0;width: 25%"></th>-->
+            <!--<th style="border: 0;width: 25%"></th>-->
+            <!--<th style="border: 0;width: 25%"></th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr style="font-size:13px;" ng-repeat="goods in goodsList" ng-if="$index%4==0">-->
+            <!--<td style="border-top:0;cursor: pointer;padding:5px 0;" ng-click="goProdocutDetail(goods.goodsId);">-->
+            <!--<div class="good">-->
+            <!--<div style="position:relative">-->
+            <!--<img ng-src="{{goods.imageUrlJson | imgPath:'0'}}" class="" alt="" width="100%" style="margin:0 auto;"/>-->
+            <!--<div class="tag">-->
+            <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">-->
+            <!--<a href="javascript:void(0);" class="img_blink">-->
+            <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+            <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+            <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+            <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="price">-->
+            <!--{{goods.minAndMaxPrice}}-->
+            <!--</div>-->
+            <!--<div class="name">-->
+            <!--{{goods.goodsName}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--<td ng-if="$index<=goodsList.length-2" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsList[$index+1].goodsId);">-->
+            <!--<div class="good">-->
+            <!--<div style="position:relative">-->
+            <!--<img ng-src="{{goodsList[$index+1].imageUrlJson | imgPath:'0'}}" class="" alt="" width="100%" style="margin:0 auto;"/>-->
+            <!--<div class="tag">-->
+            <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsList[$index+1].activityTags">-->
+            <!--<a href="javascript:void(0);" class="img_blink">-->
+            <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+            <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+            <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+            <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="price">-->
+            <!--{{goodsList[$index+1].minAndMaxPrice}}-->
+            <!--</div>-->
+            <!--<div class="name">-->
+            <!--{{goodsList[$index+1].goodsName}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--<td ng-if="$index<=goodsList.length-3" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsList[$index+2].goodsId);">-->
+            <!--<div class="good">-->
+            <!--<div style="position:relative">-->
+            <!--<img ng-src="{{goodsList[$index+2].imageUrlJson | imgPath:'0'}}" class="" alt="" width="100%" style="margin:0 auto;"/>-->
+            <!--<div class="tag">-->
+            <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsList[$index+2].activityTags">-->
+            <!--<a href="javascript:void(0);" class="img_blink">-->
+            <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+            <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+            <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+            <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="price">-->
+            <!--{{goodsList[$index+2].minAndMaxPrice}}-->
+            <!--</div>-->
+            <!--<div class="name">-->
+            <!--{{goodsList[$index+2].goodsName}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--<td ng-if="$index<=goodsList.length-4" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsList[$index+3].goodsId);">-->
+            <!--<div class="good">-->
+            <!--<div style="position:relative">-->
+            <!--<img ng-src="{{goodsList[$index+3].imageUrlJson | imgPath:'0'}}" class="" alt="" width="100%" style="margin:0 auto;"/>-->
+            <!--<div class="tag">-->
+            <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsList[$index+3].activityTags">-->
+            <!--<a href="javascript:void(0);" class="img_blink">-->
+            <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+            <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+            <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+            <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="price">-->
+            <!--{{goodsList[$index+3].minAndMaxPrice}}-->
+            <!--</div>-->
+            <!--<div class="name">-->
+            <!--{{goodsList[$index+3].goodsName}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
+            <div ng-if="goodsList.length > 0" class="row" style="margin:0px;padding-top:0px;">
+                <div class="col-sm-3" data-ng-repeat="goods in goodsList"
+                     style="border-top:0;margin-top:10px;cursor: pointer;padding:5px 0;"
+                     ng-click="goProdocutDetail(goods.goodsId);">
+                    <div class="good">
+                        <div style="position:relative">
+                            <a href="javascript:void(0);" class="img_blink">
+                                <img ng-src="{{goods.imageUrlJson | imgPath:''}}" class="" alt=""
+                                     width="100%" style="margin:0 auto;"/>
+                            </a>
+                            <!--<div class="tag">-->
+                            <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">-->
+                            <!--<a href="javascript:void(0);" class="img_blink">-->
+                            <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                            <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                            <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                            <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                            <!--</a>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="card-goods-price">
+                            <!--<span ng-if="activityPrice != null && activityPrice != '¥null' ">{{activityPrice}}</span>-->
+                            <!--<span ng-if="activityPrice == null || activityPrice == '¥null'" style="font-size: 13px;">{{skuPrice}}</span>-->
+                            <!--<span class="font_del" ng-if="activityPrice != null && activityPrice != '¥null'" style="font-size: 13px;margin-left:4px;text-decoration: line-through">{{skuPrice}}</span>-->
+                            <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                            <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice | priceFilter2}}</span>
+                            <span class="font_del"
+                                  ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
+                                  style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice | priceFilter2}}</span>
+
+                        </div>
+                        <div class="card-goods-name" style="font-size: 12px;color: #333;">
+                            {{goods.goodsName}}
+                        </div>
+
+                        <div class="card-goods-activityName">
+                            <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{goods.activityName}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="isLoading" style="text-align: center;margin: 20px 0px;">
+                <img src="css/images/loading.gif" style="width: 30px;height: 30px">
+            </div>
+            <div class="pager" id="pic_page" style="margin-top: 20px"></div>
+        </div>
+
+        <div class="col-xs-12 visible-xs" id="phone" style="font-size:16px;background:#fff;">
+
+            <div ng-if="!goodsListPhone || goodsListPhone.length==0" class="row vertical-align"
+                 style="margin-top: 20px;">
+                <div ng-if="!isPhoneLoading && goodsListPhone.length==0" class="col-xs-10 col-xs-offset-1"
+                     style="text-align: center;margin-top: 16px;margin-bottom: 16px;">
+                    查找的商品不存在
+                </div>
+            </div>
+
+            <div ng-if="goodsListPhone.length>0" class="product-list-xs" style="padding:0 10px;">
+                <!--<table class="table table-condensed" style="margin-top: 20px;">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                <!--<th style="border: 0;width: 50%"></th>-->
+                <!--<th style="border: 0;width: 50%"></th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr style="font-size:13px;" ng-repeat="goods in goodsListPhone"  ng-if="$index%2==0">-->
+                <!--&lt;!&ndash;<td style="border-top:0;" ng-click="goProdocutDetail(goods.goodsId);">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div style="position:relative;width: 85%;margin:0 auto;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img ng-src="{{goods.imageUrlJson | imgPath:'480'}}" class="" alt="" width="100%" style="margin:0 auto;"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div style="position:absolute;bottom:0;padding:0">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="text-left" style="margin: 8px">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span>{{goods.goodsName}}</span><br/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span>{{goods.minAndMaxPrice}}</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</td>&ndash;&gt;-->
+
+                <!--<td style="border-top:0;cursor: pointer;padding:5px 0;" ng-click="goProdocutDetail(goods.goodsId);">-->
+                <!--<div class="good">-->
+                <!--<div style="position:relative">-->
+                <!--<img ng-src="{{goods.imageUrlJson | imgPath:'0'}}" class="" alt="" width="100%" style="margin:0 auto;"/>-->
+                <!--<div class="tag">-->
+                <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">-->
+                <!--<a href="javascript:void(0);" class="img_blink">-->
+                <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                <!--</a>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="price">-->
+                <!--{{goods.minAndMaxPrice}}-->
+                <!--</div>-->
+                <!--<div class="name">-->
+                <!--{{goods.goodsName}}-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</td>-->
+                <!--<td ng-if="$index<=goodsListPhone.length-2" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsListPhone[$index+1].goodsId);">-->
+                <!--<div class="good">-->
+                <!--<div style="position:relative">-->
+                <!--<img ng-src="{{goodsListPhone[$index+1].imageUrlJson | imgPath:'0'}}" class="" alt="" width="100%" style="margin:0 auto;"/>-->
+                <!--<div class="tag">-->
+                <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsListPhone[$index+1].activityTags">-->
+                <!--<a href="javascript:void(0);" class="img_blink">-->
+                <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                <!--</a>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="price">-->
+                <!--{{goodsListPhone[$index+1].minAndMaxPrice}}-->
+                <!--</div>-->
+                <!--<div class="name">-->
+                <!--{{goodsListPhone[$index+1].goodsName}}-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+                <!--</table>-->
+                <div class="row" style="">
+                    <div class="col-xs-6" data-ng-repeat="goods in goodsListPhone"
+                         style="border-top:0;margin-top:10px;cursor: pointer;padding:5px 0;"
+                         ng-click="goProdocutDetail(goods.goodsId);">
+                        <div class="good">
+                            <div style="position:relative">
+                                <a href="javascript:void(0);" class="img_blink">
+                                    <img ng-src="{{goods.imageUrlJson | imgPath:''}}" class="" alt=""
+                                         width="100%" style="margin:0 auto;"/>
+                                </a>
+                                <!--<div class="tag">-->
+                                <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">-->
+                                <!--<a href="javascript:void(0);" class="img_blink">-->
+                                <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                                <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                                <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                                <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                                <!--</a>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="card-goods-price">
+                                <!--<span ng-if="activityPrice != null && activityPrice != '¥null' ">{{activityPrice}}</span>-->
+                                <!--<span ng-if="activityPrice == null || activityPrice == '¥null'" style="font-size: 13px;">{{skuPrice}}</span>-->
+                                <!--<span class="font_del" ng-if="activityPrice != null && activityPrice != '¥null'" style="font-size: 13px;margin-left:4px;text-decoration: line-through">{{skuPrice}}</span>-->
+                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' "  style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice | priceFilter2}}</span>
+                                <span class="font_del"
+                                      ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
+                                      style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice | priceFilter2}}</span>
+
+                            </div>
+                            <div class="card-goods-name" style="font-size: 12px;color: #333;">
+                                {{goods.goodsName}}
+                            </div>
+
+                            <div class="card-goods-activityName">
+                                <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{goods.activityName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button ng-if="!isPhoneLoading&&hasMore" class="btn btn-default btn-block hvr-outline-out-dark" ng-click="doGetMore()" style="margin-top: 10px">加载更多</button>
+                </div>
+            </div>
+            <div ng-if="isPhoneLoading" style="text-align: center;margin: 20px 0px">
+                <img src="css/images/loading.gif" style="width: 30px;height: 30px">
+            </div>
+        </div>
+    </div>
+</div>

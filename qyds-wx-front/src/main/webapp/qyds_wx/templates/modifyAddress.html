@@ -1,0 +1,112 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+    <!--<div class="h1 title" style="font-size:24px;">{{title}}</div>-->
+    <!--</ion-header-bar>-->
+    <form role="form" name="addressForm" class="form-horizontal" novalidate>
+        <ion-content class='bg-light'>
+            <div style="padding:0 15px;"
+                 ng-class="{'has-error':(addressForm.$invalid || info.provinceCd == '0' || info.cityCd == '0' || info.areaCd == '0') && submitted,
+                 'no-error':addressForm.$valid && info.provinceCd != '0' && info.cityCd != '0' && info.areaCd != '0' && submitted}">
+                <div class="item-input" style="padding:8px;text-align:center;color:#CCCCCC;">
+                    <input type="text" placeholder="收货人" style="width:90%;color:#C0C0C0;font-size:15px;"
+                           id="name" name="name"
+                           maxlength="20" required
+                           ng-model="addressInfo.name">
+                </div>
+                <div class="col item-input error_msg"
+                     ng-show="addressForm.name.$error.required && submitted">收货人不能为空
+                </div>
+                <div class="divider_gray"></div>
+                <div class="item-input" style="padding:8px;text-align:center;color:#CCCCCC;">
+                    <input type="text"
+                           id="tel" name="tel"
+                           maxlength="11" required
+                           ng-pattern="/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/"
+                           placeholder="手机号码" style="width:90%;color:#C0C0C0;font-size:15px;"
+                           ng-model="addressInfo.tel">
+                </div>
+                <div class="col item-input error_msg" ng-show="addressForm.tel.$error.required && submitted">手机号不能为空
+                </div>
+                <div class="col item-input error_msg" ng-show="addressForm.tel.$error.pattern && submitted">手机号格式不正确
+                </div>
+                <div class="divider_gray"></div>
+                <div ng-class="{'have-error':info.provinceCd == '0' && submitted}">
+                    <div class="item-input item-select"  data-tap-disabled="true" style="padding:16px 8px;text-align:center;color:#CCCCCC;">
+                        <span style="font-size:15px;">省</span>
+                        <select style="font-size:15px;" ng-model="info.provinceCd" ng-init="info.provinceCd='0'"
+                                ng-change="changeArea('0',info.provinceCd)">
+                            <option value="0">--请选择--</option>
+                            <option ng-repeat="province in provincesList" value="{{province.districtId}}">
+                                {{province.districtName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col item-input error_msg" ng-show="info.provinceCd == '0' && submitted">
+                        请选择省
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div ng-class="{'have-error':info.cityCd == '0' && submitted}">
+                    <div class="item-input item-select"  data-tap-disabled="true" style="padding:16px 8px;text-align:center;color:#CCCCCC;">
+                        <span style="font-size:15px;">市</span>
+                        <select style="font-size:15px;" ng-model="info.cityCd" ng-init="info.cityCd='0'"
+                                ng-change="changeArea('1',info.cityCd)">
+                            <option value="0">--请选择--</option>
+                            <option ng-repeat="city in citiesList" value="{{city.districtId}}">{{city.districtName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col item-input error_msg" ng-show="info.cityCd == '0' && submitted">
+                        请选择市
+                    </div>
+                </div>
+
+                <div class="divider_gray"></div>
+                <div ng-class="{'have-error':info.areaCd == '0' && submitted}">
+                    <div class="item-input item-select"  data-tap-disabled="true" style="padding:16px 8px;text-align:center;color:#CCCCCC;">
+                        <span style="font-size:15px;">区/县</span>
+                        <select style="font-size:15px;" ng-model="info.areaCd" ng-init="info.areaCd='0'"
+                                ng-change="changeArea('2',info.areaCd)">
+                            <option value="0">--请选择--</option>
+                            <option ng-repeat="area in areasList" value="{{area.districtId}}">{{area.districtName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col item-input error_msg" ng-show="info.areaCd == '0' && submitted">
+                        请选择区/县
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <!-- 街道不显示 -->
+                <!--<div class="item-input item-select" style="padding:16px 8px;text-align:center;color:#CCCCCC;">-->
+                    <!--<span style="font-size:15px;">街道</span>-->
+                    <!--<select style="font-size:15px;" ng-model="info.streetCd" ng-init="info.streetCd='0'">-->
+                        <!--<option value="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                        <!--<option ng-repeat="street in streetsList" value="{{street.districtId}}">-->
+                            <!--{{street.districtName}}-->
+                        <!--</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+                <!--<div class="divider_gray"></div>-->
+                <!-- 街道不显示 -->
+                <div class="item-input" style="padding:8px;text-align:center;color:#CCCCCC;">
+                    <input ng-model="addressInfo.address" type="text" placeholder="详细地址"
+                           id="address" name="address"
+                           maxlength="45" required
+                           style="width:90%;color:#C0C0C0;font-size:15px;">
+                </div>
+                <div class="col item-input error_msg"
+                     ng-show="addressForm.address.$error.required && submitted">详细地址不能为空
+                </div>
+                <div class="divider_gray"></div>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="bar-light" style="margin:0;padding:0 10px;">
+            <button style="font-size:17px;margin: 5px 0px" class="button button-block button-dark" type="submit"
+                    ng-click="confirmAddress(addressForm.$valid)">
+                确定
+            </button>
+        </ion-footer-bar>
+    </form>
+</ion-view>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.GdsTypeMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsType" >
+    <id column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="goods_type_id_parent" property="goodsTypeIdParent" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="goods_type_code" property="goodsTypeCode" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_type_name_en" property="goodsTypeNameEn" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeNameCn" jdbcType="VARCHAR" />
+    <result column="goods_type_full_name_en" property="goodsTypeFullNameEn" jdbcType="VARCHAR" />
+    <result column="goods_type_full_name_cn" property="goodsTypeFullNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="sort" property="sort" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_type_id, shop_id, goods_type_id_parent, type, goods_type_code, erp_style_no,
+    goods_type_name_en, goods_type_name_cn, goods_type_full_name_en, goods_type_full_name_cn,
+    comment, deleted, update_user_id, update_time, insert_user_id, insert_time, sort
+  </sql>
+
+
+  <resultMap id="BaseResultMapAPI" type="net.dlyt.qyds.common.dto.GdsTypeExt" >
+    <id column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeNameCn" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List_API" >
+    gdstype.goods_type_id,
+    gdstype.goods_type_name_cn,
+    detail.image_url
+  </sql>
+
+  <select id="getTreeList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsType">
+    select
+    <include refid="Base_Column_List" />
+    from public.gds_type
+    where deleted = '0'
+    <if test="type != null and !type.isEmpty()" >
+      and type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by sort
+  </select>
+
+  <select id="getGdsTypeFirstFloor" resultMap="BaseResultMapAPI" parameterType="net.dlyt.qyds.common.dto.GdsType">
+    select
+    <include refid="Base_Column_List_API" />
+    from gds_type gdstype
+    left join gds_type_detail detail
+    on gdstype.goods_type_id = detail.goods_type_id
+    where gdstype.deleted = '0'
+    and detail.deleted = '0'
+    and gdstype.goods_type_id_parent = '0'
+    <if test="shopId != null and !shopId.isEmpty()" >
+      and gdstype.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gdstype.type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by gdstype.update_time DESC
+
+  </select>
+
+  <select id="getSubLevelFloorList" resultMap="BaseResultMapAPI" parameterType="net.dlyt.qyds.common.dto.GdsType">
+    select
+    <include refid="Base_Column_List_API" />
+    from gds_type gdstype
+    left join gds_type_detail detail
+    on gdstype.goods_type_id = detail.goods_type_id
+    where gdstype.deleted = '0'
+    and detail.deleted = '0'
+    <if test="goodsTypeId != null and !goodsTypeId.isEmpty()" >
+      and gdstype.goods_type_id_parent = #{goodsTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="shopId != null and !shopId.isEmpty()" >
+      and gdstype.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gdstype.type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by gdstype.sort
+
+  </select>
+
+  <select id="getGdsTypeById" resultMap="BaseResultMapAPI" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List_API" />
+    from gds_type gdstype
+    left join gds_type_detail detail
+    on gdstype.goods_type_id = detail.goods_type_id
+    where gdstype.goods_type_id = #{goodsTypeId}
+
+  </select>
+
+  <update id="updateSort" parameterType="net.dlyt.qyds.common.dto.GdsType">
+    UPDATE gds_type set sort = #{sort,jdbcType=NUMERIC},update_time = now() where goods_type_id = #{goodsTypeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectErpByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from gds_type
+    where deleted = '0'
+    and type = '10'
+    and goods_type_name_cn = #{typeName}
+  </select>
+
+</mapper>

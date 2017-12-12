@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ActMasterMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.form.ActMasterForm">
+        <id column="activity_id" property="activityId" jdbcType="VARCHAR" />
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="temp_id" property="tempId" jdbcType="VARCHAR" />
+        <result column="temp_name" property="tempName" jdbcType="VARCHAR" />
+        <result column="activity_code" property="activityCode" jdbcType="VARCHAR" />
+        <result column="comment" property="comment" jdbcType="VARCHAR" />
+        <result column="level" property="level" jdbcType="VARCHAR" />
+        <result column="additional_discount" property="additionalDiscount" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="unit" property="unit" jdbcType="VARCHAR" />
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+        <result column="member_type" property="memberType" jdbcType="VARCHAR" />
+        <result column="is_origin_price" property="isOriginPrice" jdbcType="VARCHAR" />
+        <result column="has_sub_activity" property="hasSubActivity" jdbcType="VARCHAR" />
+        <result column="can_return" property="canReturn" jdbcType="VARCHAR" />
+        <result column="can_exchange" property="canExchange" jdbcType="VARCHAR" />
+        <result column="limit_count" property="limitCount" jdbcType="VARCHAR" />
+        <result column="apply_user_id" property="applyUserId" jdbcType="VARCHAR" />
+        <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+        <result column="apply_content" property="applyContent" jdbcType="VARCHAR" />
+        <result column="approve_user_id" property="approveUserId" jdbcType="VARCHAR" />
+        <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+        <result column="approve_content" property="approveContent" jdbcType="VARCHAR" />
+        <result column="approve_status" property="approveStatus" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+        <result column="is_member_activity" property="isMemberActivity" jdbcType="VARCHAR" />
+        <result column="need_fee" property="needFee" jdbcType="NUMERIC" />
+        <result column="need_point" property="needPoint" jdbcType="INTEGER" />
+        <result column="apply_user_name" property="applyUserName" jdbcType="VARCHAR"/>
+        <result column="approve_user_name" property="approveUserName" jdbcType="VARCHAR"/>
+        <result column="actition_type" property="actitionType" jdbcType="VARCHAR"/>
+        <result column="actition_type_cn" property="actitionTypeCn" jdbcType="VARCHAR"/>
+        <result column="actition_type_en" property="actitionTypeEn" jdbcType="VARCHAR"/>
+        <result column="approve_status_cn" property="approveStatusCn" jdbcType="VARCHAR"/>
+        <result column="approve_status_en" property="approveStatusEn" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="goods_type_value" property="goodsTypeValue" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getAllList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select
+          *
+        from act_master am
+        where am.deleted = '0'
+        <if test="shopId != null and !shopId.isEmpty()" >
+            and am.shop_id = #{shopId,jdbcType=VARCHAR}
+        </if>
+        order by am.update_time desc
+    </select>
+
+    <select id="selectAllActList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+
+        select master.* from act_master master
+        left join act_template templ
+        on master.temp_id = templ.temp_id
+        where master.deleted = '0'
+        <if test="shopId != null and !shopId.isEmpty()" >
+            and master.shop_id = #{shopId,jdbcType=VARCHAR}
+        </if>
+        and master.approve_status = '20'
+        and (templ.actition_type='10' or templ.actition_type = '20')
+        and  master.start_time &lt;= now() and master.end_time >= now()
+        ORDER  by master.sort,master.update_time desc
+
+    </select>
+
+    <select id="selectAllActListByMember" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+
+        select master.* from act_master master
+        left join act_template templ
+        on master.temp_id = templ.temp_id
+        where master.deleted = '0'
+        <if test="shopId != null and !shopId.isEmpty()" >
+            and master.shop_id = #{shopId,jdbcType=VARCHAR}
+        </if>
+        and master.approve_status = '20'
+        and  master.start_time &lt;= now() and master.end_time >= now()
+        ORDER  by master.sort,master.update_time desc
+
+    </select>
+
+    <select id="selectSecKillActivityList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select master.*
+        from act_master master
+        inner join act_template templ on master.temp_id = templ.temp_id and templ.actition_type='11'
+        where master.deleted = '0'
+        <if test="shopId != null and !shopId.isEmpty()" >
+            and master.shop_id = #{shopId,jdbcType=VARCHAR}
+        </if>
+        and master.approve_status = '20'
+        and master.start_time &lt;= #{startTime,jdbcType=TIMESTAMP}
+        and master.end_time >= #{endTime,jdbcType=TIMESTAMP}
+        order by to_char(master.start_time, 'HH24:MI')
+
+    </select>
+
+    <select id="selectSecKillActivityByTime" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select master.*
+        from act_master master
+        inner join act_template templ on master.temp_id = templ.temp_id and templ.actition_type='11'
+        where master.deleted = '0'
+        <if test="shopId != null and !shopId.isEmpty()" >
+            and master.shop_id = #{shopId,jdbcType=VARCHAR}
+        </if>
+        and master.approve_status = '20'
+        and master.start_time &lt;= #{startTime,jdbcType=TIMESTAMP}
+        and master.end_time >= #{startTime,jdbcType=TIMESTAMP}
+        and EXTRACT(HOUR from master.start_time) = #{hour}
+        and EXTRACT(MINUTE from master.start_time) = #{minute}
+        order by to_char(master.start_time, 'HH24:MI')
+
+    </select>
+
+
+    <select id="selectPointsActList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+
+        select master.* from act_master master
+        left join act_template templ
+        on master.temp_id = templ.temp_id
+        where master.deleted = '0'
+        <if test="shopId != null and !shopId.isEmpty()" >
+            and master.shop_id = #{shopId,jdbcType=VARCHAR}
+        </if>
+        and master.approve_status = '20'
+        and templ.actition_type='30'
+        and  master.start_time &lt;= now() and master.end_time >= now()
+        ORDER  by master.sort,master.update_time desc
+
+    </select>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select am.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.value as actition_type,
+        code1.display_cn as actition_type_cn,
+        code1.display_en as actition_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from act_master am
+        LEFT JOIN act_template at ON am.temp_id = at.temp_id
+        LEFT JOIN sys_user user1 ON am.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON am.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'ACTITION_TYPE' and at.actition_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and am.approve_status = code2.value
+        <if test="_parameter != null">
+            <where>
+                <if test="tempName!=null and tempName!='' ">
+                    am.temp_name LIKE CONCAT('%', #{tempName},'%')
+                </if>
+                <if test="activityName!=null and activityName!='' ">
+                    AND am.activity_name LIKE CONCAT('%', #{activityName},'%')
+                </if>
+                <if test="unit!=null and unit!='' ">
+                    AND am.unit LIKE CONCAT('%', #{unit},'%')
+                </if>
+                <if test="actitionType!= null and actitionType!= '' ">
+                    AND at.actition_type = #{actitionType}
+                </if>
+                <if test="approveStatus!= null and approveStatus!= '' ">
+                    AND am.approve_status = #{approveStatus}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND am.deleted = #{deleted}
+                </if>
+            </where>
+        </if>
+        order by sort,insert_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ActTemplate">
+        select count(1)
+        from act_master am
+        <if test="_parameter != null">
+            <where>
+                <if test="tempName!=null and tempName!='' ">
+                    am.temp_name LIKE CONCAT('%', #{tempName},'%')
+                </if>
+                <if test="activityName!=null and activityName!='' ">
+                    AND am.activity_name LIKE CONCAT('%', #{activityName},'%')
+                </if>
+                <if test="unit!=null and unit!='' ">
+                    AND am.unit LIKE CONCAT('%', #{unit},'%')
+                </if>
+                <if test="actitionType!= null and actitionType!= '' ">
+                    AND am.actition_type = #{actitionType}
+                </if>
+                <if test="approveStatus!= null and approveStatus!= '' ">
+                    AND am.approve_status = #{approveStatus}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND am.deleted = #{deleted}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select am.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.value as actition_type,
+        code1.display_cn as actition_type_cn,
+        code1.display_en as actition_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from act_master am
+        LEFT JOIN act_template at ON am.temp_id = at.temp_id
+        LEFT JOIN sys_user user1 ON am.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON am.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'ACTITION_TYPE' and at.actition_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and am.approve_status = code2.value
+        WHERE am.activity_id = #{activityId}
+    </select>
+
+    <select id="selectApproveList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select am.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.value as actition_type,
+        code1.display_cn as actition_type_cn,
+        code1.display_en as actition_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from act_master am
+        LEFT JOIN act_template at ON am.temp_id = at.temp_id
+        LEFT JOIN sys_user user1 ON am.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON am.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'ACTITION_TYPE' and at.actition_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and am.approve_status = code2.value
+        where am.approve_status != '40'
+        <if test="tempName!=null and tempName!='' ">
+            AND am.temp_name LIKE CONCAT('%', #{tempName},'%')
+        </if>
+        <if test="activityName!=null and activityName!='' ">
+            AND am.activity_name LIKE CONCAT('%', #{activityName},'%')
+        </if>
+        <if test="actitionType!= null and actitionType!= '' ">
+            AND at.actition_type = #{actitionType}
+        </if>
+        <if test="approveStatus!= null and approveStatus!= '' ">
+            AND am.approve_status = #{approveStatus}
+        </if>
+        <if test="deleted!= null and deleted!= '' ">
+            AND am.deleted = #{deleted}
+        </if>
+        order by am.approve_status,apply_time desc,approve_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectApproveCount" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select count(1)
+        from act_master am
+        LEFT JOIN act_template at ON am.temp_id = at.temp_id
+        where am.approve_status != '40'
+        <if test="tempName!=null and tempName!='' ">
+            AND am.temp_name LIKE CONCAT('%', #{tempName},'%')
+        </if>
+        <if test="activityName!=null and activityName!='' ">
+            AND am.activity_name LIKE CONCAT('%', #{activityName},'%')
+        </if>
+        <if test="actitionType!= null and actitionType!= '' ">
+            AND at.actition_type = #{actitionType}
+        </if>
+        <if test="approveStatus!= null and approveStatus!= '' ">
+            AND am.approve_status = #{approveStatus}
+        </if>
+        <if test="deleted!= null and deleted!= '' ">
+            AND am.deleted = #{deleted}
+        </if>
+    </select>
+
+    <select id="checkExistByActivityName" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.ActTemplate">
+        SELECT count(*)
+        FROM act_master am
+        WHERE am.activity_name = #{activityName} AND am.deleted = '0'
+    </select>
+
+
+    <resultMap id="BaseResultMap2" type="net.dlyt.qyds.common.form.ActMasterForm">
+        <id column="activity_id" property="activityId" jdbcType="VARCHAR"/>
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR"/>
+        <result column="temp_id" property="tempId" jdbcType="VARCHAR"/>
+        <result column="temp_name" property="tempName" jdbcType="VARCHAR"/>
+        <result column="activity_type" property="activityType" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="member_type" property="memberType" jdbcType="VARCHAR"/>
+        <result column="is_member_activity" property="isMemberActivity" jdbcType="VARCHAR"/>
+        <result column="is_origin_price" property="isOriginPrice" jdbcType="VARCHAR"/>
+        <result column="has_sub_activity" property="hasSubActivity" jdbcType="VARCHAR"/>
+        <result column="need_fee" property="needFee" jdbcType="NUMERIC" />
+        <result column="need_point" property="needPoint" jdbcType="INTEGER" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="selectActivitiesBySkuInfo" resultMap="BaseResultMap2" parameterType="net.dlyt.qyds.common.form.SkuForm">
+        select DISTINCT
+        amu.*
+        from (
+        -- "10";"全部"
+        select am.activity_id,am.temp_id,at.actition_type as activity_type, am.activity_name, am.goods_type, am.member_type, am.start_time, am.end_time
+        from act_master am
+        left join act_template at on am.temp_id = at.temp_id
+        where 	am.goods_type='10'
+        and am.unit='10'
+        and am.approve_status = '20'
+        and am.start_time &lt;= now()
+        and am.end_time &gt;= now()
+        and am.deleted = '0'
+        UNION
+
+        -- "20";"按分类"
+        select am.activity_id,am.temp_id,at.actition_type as activity_type, am.activity_name, am.goods_type, am.member_type, am.start_time, am.end_time
+        from act_master am
+        left join act_goods ag on am.activity_id = ag.activity_id
+        left join act_template at on am.temp_id = at.temp_id
+        where ag.goods_type='20'
+        and am.unit='10'
+        and am.approve_status = '20'
+        and am.start_time &lt;= now()
+        and am.end_time &gt;= now()
+        and am.deleted = '0'
+        and ag.goods_id = #{goodsTypeId}
+
+        UNION
+
+        -- "30";"按品牌"
+        select am.activity_id, am.temp_id,at.actition_type as activity_type,am.activity_name, am.goods_type, am.member_type, am.start_time, am.end_time
+        from act_master am
+        left join act_goods ag on am.activity_id = ag.activity_id
+        left join act_template at on am.temp_id = at.temp_id
+        where ag.goods_type='30'
+        and am.unit='10'
+        and am.approve_status = '20'
+        and am.start_time &lt;= now()
+        and am.end_time &gt;= now()
+        and am.deleted = '0'
+        and ag.goods_id = #{brandId}
+
+        UNION
+
+        -- "40";"按商品"
+        select am.activity_id, am.temp_id,at.actition_type as activity_type,am.activity_name, am.goods_type, am.member_type, am.start_time, am.end_time
+        from act_master am
+        left join act_goods ag on am.activity_id = ag.activity_id
+        left join act_template at on am.temp_id = at.temp_id
+        where ag.goods_type='40'
+        and am.unit='10'
+        and am.approve_status = '20'
+        and am.start_time &lt;= now()
+        and am.end_time &gt;= now()
+        and am.deleted = '0'
+        and ag.goods_id = #{goodsId}
+
+        UNION
+
+        -- "50";"按SKU"
+        select am.activity_id, am.temp_id,at.actition_type as activity_type,am.activity_name, am.goods_type, am.member_type, am.start_time, am.end_time
+        from act_master am
+        left join act_goods ag on am.activity_id = ag.activity_id
+        left join act_template at on am.temp_id = at.temp_id
+        where ag.goods_type='50'
+        and am.unit='10'
+        and am.approve_status = '20'
+        and am.start_time &lt;= now()
+        and am.end_time &gt;= now()
+        and am.deleted = '0'
+        and ag.goods_id = #{goodsId}
+        and ag.sku_id = #{skuid}
+        ) amu
+    </select>
+
+    <select id="selectOrderActivity" resultMap="BaseResultMap2" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+        select
+        am.activity_id,
+        am.temp_id,
+        at.actition_type as activity_type,
+        am.activity_name,
+        am.goods_type,
+        am.is_origin_price,
+        am.has_sub_activity,
+        am.member_type,
+        am.need_point,
+        am.need_fee
+        from act_master am left join act_template at on am.temp_id = at.temp_id
+        where am.unit='20'
+        and am.approve_status = '20'
+        and am.start_time &lt;= now()
+        and am.end_time &gt;= now()
+        and am.deleted = '0'
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap2" parameterType="java.lang.String">
+        select
+        am.activity_id,
+        am.temp_id,
+        at.actition_type as activity_type,
+        at.temp_name,
+        am.activity_name,
+        am.goods_type,
+        am.need_fee,
+        am.is_member_activity,
+        am.member_type,
+        am.start_time,
+        am.end_time
+        from act_master am left join act_template at on am.temp_id = at.temp_id
+        where am.activity_id = #{activityId}
+    </select>
+
+
+    <select id="getSellerYears" resultType="java.util.HashMap">
+        select distinct sell_year from view_erp_goods order by sell_year DESC
+    </select>
+
+    <select id="getSellerSeasons" resultType="java.util.HashMap" parameterType="java.lang.String">
+        select distinct season_code,season_name from view_erp_goods where sell_year = #{year} order by season_code ASC
+    </select>
+
+    <select id="getErpBrands" resultType="java.util.HashMap">
+        select distinct brand_code, brand_name from view_erp_goods order by brand_code DESC
+    </select>
+
+    <select id="getErpLineCode" resultType="java.util.HashMap">
+        select distinct line_code,line_name from view_erp_goods order by line_code DESC
+    </select>
+
+    <select id="getActiveIdAndList" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+        select activity_id,activity_name from act_master
+        where to_char(end_time, 'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+        and to_char(end_time, 'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getCoupponIdAndList" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+        select coupon_id,coupon_name from coupon_master
+        where to_char(end_time, 'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+        and to_char(end_time, 'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </select>
+
+
+
+</mapper>

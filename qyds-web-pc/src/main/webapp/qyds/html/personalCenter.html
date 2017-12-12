@@ -1,0 +1,77 @@
+<div class="container-fluid personalCenter" style="margin-top: 20px">
+    <div class="custom-full-width" style="margin: 0 auto">
+        <div class="row">
+            <div class="col hidden-xs hidden-sm  col-xs-2 clearfix">
+                <div class="col-xs-12" style="padding:0;margin-bottom:15px;">
+                    <img ng-if="userInfo.memberPic" class="headImg" ng-src="{{userInfo.memberPic | imgPath}}"
+                         style="width:80px;height:80px;">
+                    <img ng-if="!userInfo.memberPic" class="headImg" src="./images/dress.png"
+                         style="width:80px;height:80px;">
+                </div>
+                <ul class="leftMenu">
+                    <li class="firstLevel">交易管理</li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goBag();">我的购物袋</a></li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goOrderList();">我的订单</a></li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goOrderListOffLine();">线下订单</a></li>
+                    <li class="firstLevel">个人管理</li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goPersonalInfo();">我的信息</a></li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goFavorite();">我的心愿单</a></li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goAddressList();">我的收货地址</a></li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goCouponList();">我的优惠券</a></li>
+                    <li class="secondLevel"><a href="javascript:void(0);" ng-click="goPointExchange();">我的积分</a></li>
+                </ul>
+            </div>
+            <div class="visible-sm col-xs-12 clearfix"
+                 style="padding:0 15px;margin-bottom:15px; border-bottom: 2px solid #f2f2f2">
+                <div class="leftMenu_sm col-xs-12">
+                    <div class="col-xs-12">
+                        <div class="col-xs-3 firstLevel">交易管理:</div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);" ng-click="goBag();">我的购物袋</a>
+                        </div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);"
+                                                             ng-click="goOrderList();">我的订单</a></div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);"
+                                                             ng-click="goOrderListOffLine();">线下订单</a></div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="col-xs-3 firstLevel">个人管理:</div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);" ng-click="goPersonalInfo();">我的信息</a>
+                        </div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);"
+                                                             ng-click="goFavorite();">我的心愿单</a></div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);" ng-click="goAddressList();">我的收货地址</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-xs-3 firstLevel"></div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);"
+                                                             ng-click="goCouponList();">我的优惠券</a></div>
+                        <div class="col-xs-3 secondLevel"><a href="javascript:void(0);" ng-click="goPointExchange();">我的积分</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="visible-xs col-xs-12 leftMenu_xs clearfix" style="border-bottom: 2px solid #f2f2f2">
+                <div class="col-xs-4 col-xs-offset-2">
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goBag();">我的购物袋</a></div>
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goOrderList();">我的订单</a></div>
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goOrderListOffLine();">线下订单</a>
+                    </div>
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goFavorite();">我的心愿单</a></div>
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goPointExchange();">我的积分</a></div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goPersonalInfo();">我的信息</a></div>
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goAddressList();">我的收货地址</a></div>
+                    <div class="secondLevel"><a href="javascript:void(0);" ng-click="goCouponList();">我的优惠券</a></div>
+                </div>
+            </div>
+
+            <div ui-view class="col-xs-12 col-sm-12 col-md-10" style="padding:0;margin:0;">
+            </div>
+
+        </div>
+    </div>
+
+</div>

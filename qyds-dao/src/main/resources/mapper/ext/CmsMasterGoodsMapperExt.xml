@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.CmsMasterGoodsMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.CmsMasterGoods" >
+    <id column="cms_gds_id" property="cmsGdsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="cms_id" property="cmsId" jdbcType="VARCHAR" />
+    <result column="act_id" property="actId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapSort" type="java.lang.Short" >
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    cmg.cms_gds_id, cmg.shop_id, cmg.cms_id, cmg.act_id, cmg.goods_id, cmg.sort, cmg.deleted, cmg.update_user_id, cmg.update_time,
+    cmg.insert_user_id, cmg.insert_time
+  </sql>
+
+  <select id="selectMaxSrot" resultMap="BaseResultMapSort" parameterType="net.dlyt.qyds.common.dto.CmsMasterGoods">
+    select
+    max(cmg.sort) as sort
+    from public.cms_master_goods cmg
+    where cmg.deleted = '0'
+    and cmg.act_id = #{actId}
+  </select>
+
+  <select id="selectGoodsByCmsId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from public.cms_master_goods cmg
+    inner join gds_master gds on gds.goods_id = cmg.goods_id and gds.deleted = '0'
+    where cmg.deleted = '0'
+    and cmg.cms_id = #{cmsId}
+    order by cmg.sort
+  </select>
+
+</mapper>

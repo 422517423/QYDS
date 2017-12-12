@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpProvinceMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpProvince" >
+    <id column="pcode" property="pcode" jdbcType="VARCHAR" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pcode, pname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_province
+    where pcode = #{pcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_province
+    where pcode = #{pcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpProvince" >
+    insert into public.erp_province (pcode, pname)
+    values (#{pcode,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpProvince" >
+    insert into public.erp_province
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pcode != null" >
+        pcode,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pcode != null" >
+        #{pcode,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpProvince" >
+    update public.erp_province
+    <set >
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pcode = #{pcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpProvince" >
+    update public.erp_province
+    set pname = #{pname,jdbcType=VARCHAR}
+    where pcode = #{pcode,jdbcType=VARCHAR}
+  </update>
+</mapper>

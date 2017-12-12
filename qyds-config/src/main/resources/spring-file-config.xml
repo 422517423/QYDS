@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fileServerConfig" class="net.dlyt.qyds.config.FileServerConfig">
+         <property name="uploadHostPrefix" value="https://www.dealuna.com"/>
+         <property name="uploadContextPath" value="/qyds-web-file"/>
+         <property name="storagePath" value="/mnt/tomcat/qyds/qyds_file"/> 
+        <property name="urlHostPrefix" value="https://www.dealuna.com"/>
+         <property name="urlContextPath" value="/qyds_file"/> 
+    </bean>
+</beans>

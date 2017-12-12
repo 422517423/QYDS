@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ActGoodsMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ActGoods">
+        <id column="act_goods_id" property="actGoodsId" jdbcType="VARCHAR"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="activity_id" property="activityId" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER" />
+        <result column="buy_max" property="buyMax" jdbcType="INTEGER" />
+        <result column="surplus" property="surplus" jdbcType="INTEGER" />
+        <result column="act_price" property="actPrice" jdbcType="NUMERIC" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        act_goods_id, shop_id, activity_id, goods_type, goods_id, sku_id, deleted, update_user_id,
+        update_time, insert_user_id, insert_time, quantity, buy_max, surplus, act_price
+    </sql>
+    <select id="selectByActivityId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        select
+        <include refid="Base_Column_List"/>
+        from public.act_goods WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectActGoodsInfo" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        select
+        <include refid="Base_Column_List"/>
+        from public.act_goods
+        WHERE deleted = '0'
+        <if test="activityId!=null and activityId!='' ">
+            AND activity_id = #{activityId,jdbcType=VARCHAR}
+        </if>
+
+        <if test="goodsId!=null and goodsId!='' ">
+            AND goods_id = #{goodsId,jdbcType=VARCHAR}
+        </if>
+
+        <if test="skuId!=null and skuId!='' ">
+            AND sku_id = #{skuId,jdbcType=VARCHAR}
+        </if>
+        order by act_price
+
+    </select>
+
+    <update id="deleteByActivityId" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        DELETE FROM public.act_goods WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="deleteByActGoodsId" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        DELETE FROM public.act_goods WHERE act_goods_id = #{actGoodsId,jdbcType=VARCHAR}
+    </update>
+
+    <resultMap id="SelectGoodsTypeResultMap" type="net.dlyt.qyds.common.form.ActGoodsForm">
+        <result column="act_goods_id" property="actGoodsId" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectGoodsTypeByActivityId" resultMap="SelectGoodsTypeResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        SELECT
+        ag.act_goods_id AS act_goods_id,ag.goods_id AS goods_id,gt.goods_type_name_cn AS goods_name
+        FROM act_goods ag
+        LEFT JOIN gds_type gt ON ag.goods_id = gt.goods_type_id
+        WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+        AND ag.goods_type = '20'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+    <select id="selectGoodsBrandByActivityId" resultMap="SelectGoodsTypeResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        SELECT
+        ag.act_goods_id AS act_goods_id,ag.goods_id AS goods_id,gb.brand_name AS goods_name
+        FROM act_goods ag
+        LEFT JOIN gds_brand gb ON ag.goods_id = gb.brand_id
+        WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+        AND ag.goods_type = '30'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+    <select id="selectGoodsByActivityId" resultMap="SelectGoodsTypeResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        SELECT
+        ag.act_goods_id AS act_goods_id,ag.goods_id AS goods_id,gm.goods_code AS goods_code, gm.goods_name AS goods_name
+        FROM act_goods ag
+        LEFT JOIN gds_master gm ON ag.goods_id = gm.goods_id
+        WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+        AND ag.goods_type = '40'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+
+    <resultMap id="SelectGoodsSkuResultMap" type="net.dlyt.qyds.common.form.ActGoodsForm">
+        <result column="act_goods_id" property="actGoodsId" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="color_name" property="colorName" jdbcType="VARCHAR"/>
+        <result column="size_name" property="sizeName" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="skucontent" property="skucontent" jdbcType="VARCHAR"/>
+        <result column="new_count" property="newCount" jdbcType="INTEGER" />
+        <result column="quantity" property="quantity" jdbcType="INTEGER" />
+        <result column="buy_max" property="buyMax" jdbcType="INTEGER" />
+        <result column="act_price" property="actPrice" jdbcType="NUMERIC" />
+    </resultMap>
+    <select id="selectSkuByActivityId" resultMap="SelectGoodsSkuResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        SELECT
+        ag.act_goods_id AS act_goods_id,
+        ag.goods_id AS goods_id,
+        vos.goods_name AS goods_name,
+        ag.sku_id AS sku_id,
+        vos.color_name AS color_name,
+        vos.size_name AS size_name,
+        vos.goods_code AS goods_code,
+        vos.type AS type,
+        vos.skucontent AS skucontent,
+        ag.quantity AS quantity,
+        ag.buy_max AS buy_max,
+        ag.act_price AS act_price,
+        voss.new_count AS new_count
+        FROM act_goods ag
+        LEFT JOIN view_onsell_sku_new vos ON ag.goods_id = vos.goods_id AND ag.sku_id = vos.skuid
+        LEFT JOIN view_onsell_sku_select voss ON ag.goods_id = voss.goods_id AND ag.sku_id = voss.skuid
+        WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+        AND ag.goods_type = '50'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+
+    <select id="selectSkuByActivityIdUp" resultMap="SelectGoodsSkuResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
+        SELECT
+        ag.goods_id AS goods_id,
+        vos.goods_name AS goods_name
+        FROM act_goods ag
+        LEFT JOIN view_onsell_sku_new vos ON ag.goods_id = vos.goods_id AND ag.sku_id = vos.skuid
+        WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+        AND ag.goods_type = '50'
+        AND ag.goods_type_value is NULL
+    </select>
+
+    <select id="selectAllGoodsMap" resultType="java.util.HashMap">
+        select DISTINCT skuid, goods_id
+        from view_onsell_sku_new
+        where is_onsell = '0'
+    </select>
+
+    <select id="selectSecKillGoodsByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select ag.act_goods_id, sum(osl.quantity) as quantity
+         from act_goods ag
+          inner join act_master acm on ag.activity_id = acm.activity_id
+          inner join act_template act on act.temp_id = acm.temp_id
+          inner join ord_sub_list osl on  ag.sku_id = osl.sku_id and osl.goods_id = ag.goods_id and osl.action_id = acm.activity_id
+          where act.actition_type = '11' and osl.order_id = #{orderId,jdbcType=VARCHAR}
+          group by ag.act_goods_id
+    </select>
+
+    <select id="selectSecGoodsByActivity" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm" >
+        select distinct goods_id
+        from act_goods
+        where activity_id in (#{searchIds})
+        order by goods_id
+        limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="countSecGoodsByActivity" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ActMasterForm" >
+        select count(distinct goods_id)
+        from act_goods
+        where activity_id in (#{searchIds})
+    </select>
+
+    <select id="selectSecGoodsInfo" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods" >
+        select goods_id, min(act_price) as act_price, sum(quantity) as quantity, sum(surplus) as surplus
+        from act_goods
+        where goods_id = #{goodsId,jdbcType=VARCHAR}
+        AND activity_id in (#{activityId})
+        group by goods_id
+    </select>
+
+    <select id="selectSKUByYearAndSeason" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm" >
+        select master.goods_id,erp.sku from view_erp_goods erp
+        left join gds_master master
+        on erp.goods_code = master.goods_code
+        where erp.sell_year = #{activityGoodsSellYear}
+        <if test="activityGoodsSeasonCode!=null and activityGoodsSeasonCode!='' ">
+            AND season_code = #{activityGoodsSeasonCode,jdbcType=VARCHAR}
+        </if>
+        and master.is_onsell = '0'
+        and master.deleted = '0'
+    </select>
+
+    <select id="selectSKUByErpBrand" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm" >
+        select master.goods_id,erp.sku from view_erp_goods erp
+        left join gds_master master
+        on erp.goods_code = master.goods_code
+        where erp.brand_code = #{activityGoodsErpBrand}
+        and master.is_onsell = '0'
+        and master.deleted = '0'
+    </select>
+
+    <select id="selectSKUByLineCode" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm" >
+        select master.goods_id,erp.sku from view_erp_goods erp
+        left join gds_master master
+        on erp.goods_code = master.goods_code
+        where erp.line_code = #{activityGoodsLineCode}
+        and master.is_onsell = '0'
+        and master.deleted = '0'
+    </select>
+
+</mapper>

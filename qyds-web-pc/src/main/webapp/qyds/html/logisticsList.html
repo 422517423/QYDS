@@ -1,0 +1,83 @@
+<div class="container-fluid" style="background-color: white">
+    <h4>物流详情</h4>
+    <div ng-repeat="logistic in logistics" class="well col-xs-12 track-rcol" style="background-color: white">
+
+        <div ng-repeat="ordSub in logistic.ordSubList" class="col item-text-wrap visible-xs" style="color:#B7B7B7;">
+            {{ordSub.goodsName}}&nbsp;&nbsp;{{ordSub.coloreName}}&nbsp;&nbsp;{{ordSub.sizeName}}&nbsp;&nbsp;&nbsp;&nbsp;×{{ordSub.quantity}}
+        </div>
+
+        <table class="table bagTable hidden-xs">
+            <thead>
+            <tr>
+                <th style="width: 50%">商品</th>
+                <th style="width: 20%"></th>
+                <th>数量</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ordSub in logistic.ordSubList"
+                style="font-size:13px;">
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <img style="width:80px;" class="img-responsive center-left"
+                                     ng-src="{{ordSub.imageUrlJson | imgPathJson :'480'}}">
+                            </td>
+                            <td>
+                                <div style="text-align:left; margin-left: 8px;">
+                                    <div style="color:#333;">{{ordSub.goodsName}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="container-fluid text-left">
+                        <div class="">
+                            <span>颜色:</span>
+                            <span ng-if="ordSub.type=='10'">{{ordSub.sku | orderSkuFilter10:"color"}}</span>
+                            <span ng-if="ordSub.type=='20'">{{ordSub.sku | orderSkuFilter20:"color"}}</span>
+                        </div>
+                        <div style="margin-top: 2px;">
+                            <span>尺码:</span>
+                            <span ng-if="ordSub.type=='10'">{{ordSub.sku | orderSkuFilter10:"size"}}</span>
+                            <span ng-if="ordSub.type=='20'">{{ordSub.sku | orderSkuFilter20:"size"}}</span>
+                        </div>
+                    </div>
+                </td>
+                <td>{{ordSub.quantity}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="col-xs-12 track-list">
+            <ul class="col-xs-12">
+                <li class="col-xs-12 first"
+                    ng-if="logistic.deliverStatus != '10'">
+                    <i class="node-icon" ng-if="logistic.deliverStatus != '10' && logistic.deliverStatus != '20'"></i>
+                    <div class="row" style="padding:0;margin:0;">
+                        <!--<div ng-if="logistic.deliverStatus == '20'" class="col" style="padding:0;margin:0;">-->
+                            <!--<button class="button button-small button-assertive"-->
+                                    <!--ng-click="confirmReceived(logistic.orderId, logistic.expressNo)">-->
+                                <!--确认收货-->
+                            <!--</button>-->
+                        <!--</div>-->
+
+                        <div ng-if="logistic.deliverStatus != '10' && logistic.deliverStatus != '20'" class="col"
+                             style="padding:0;margin:0;">
+                            <button class="button button-small button-balanced" disabled="disabled">
+                                已签收
+                            </button>
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat="trace in logistic.traces" class="col-xs-12">
+                    <i class="node-icon"></i>
+                    <span class="time">{{trace.acceptTime}}</span>
+                    <span class="txt">{{trace.acceptStation}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

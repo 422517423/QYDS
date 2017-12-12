@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="qyds-web-file:war">
+    <output-path>$PROJECT_DIR$/qyds-web-file/target</output-path>
+    <root id="archive" name="qyds-web-file.war">
+      <element id="artifact" artifact-name="qyds-web-file:war exploded" />
+    </root>
+  </artifact>
+</component>

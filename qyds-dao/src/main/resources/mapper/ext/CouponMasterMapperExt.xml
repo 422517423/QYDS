@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.CouponMasterMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.CouponMasterExt">
+        <id column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="coupon_name" property="couponName" jdbcType="VARCHAR"/>
+        <result column="coupon_image" property="couponImage" jdbcType="VARCHAR"/>
+        <result column="coupon_code" property="couponCode" jdbcType="VARCHAR"/>
+        <result column="coupon_type" property="couponType" jdbcType="VARCHAR"/>
+        <result column="coupon_scope" property="couponScope" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="is_origin_price" property="isOriginPrice" jdbcType="VARCHAR"/>
+        <result column="min_goods_count" property="minGoodsCount" jdbcType="VARCHAR"/>
+        <result column="distribute_type" property="distributeType" jdbcType="VARCHAR"/>
+        <result column="worth" property="worth" jdbcType="INTEGER"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="max_count" property="maxCount" jdbcType="INTEGER"/>
+        <result column="distributed_count" property="distributedCount" jdbcType="INTEGER"/>
+        <result column="min_order_price" property="minOrderPrice" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="apply_user_id" property="applyUserId" jdbcType="VARCHAR"/>
+        <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="apply_content" property="applyContent" jdbcType="VARCHAR"/>
+        <result column="approve_user_id" property="approveUserId" jdbcType="VARCHAR"/>
+        <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP"/>
+        <result column="approve_content" property="approveContent" jdbcType="VARCHAR"/>
+        <result column="approve_status" property="approveStatus" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR"/>
+        <result column="send_start_time" property="sendStartTime" jdbcType="TIMESTAMP"/>
+        <result column="send_end_time" property="sendEndTime" jdbcType="TIMESTAMP"/>
+        <result column="valid_days" property="validDays" jdbcType="INTEGER"/>
+        <result column="exchange_point" property="exchangePoint" jdbcType="INTEGER"/>
+        <result column="coupon_style" property="couponStyle" jdbcType="CHAR" />
+        <result column="discount" property="discount" jdbcType="NUMERIC" />
+        <result column="member_level" property="memberLevel" jdbcType="VARCHAR" />
+        <result column="apply_user_name" property="applyUserName" jdbcType="VARCHAR"/>
+        <result column="approve_user_name" property="approveUserName" jdbcType="VARCHAR"/>
+        <result column="coupon_type_cn" property="couponTypeCn" jdbcType="VARCHAR"/>
+        <result column="coupon_type_en" property="couponTypeEn" jdbcType="VARCHAR"/>
+        <result column="approve_status_cn" property="approveStatusCn" jdbcType="VARCHAR"/>
+        <result column="approve_status_en" property="approveStatusEn" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="distribute_type_cn" property="distributeTypeCn" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="per_max_count" property="perMaxCount" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="NUMERIC" />
+        <result column="distribute_type_cn" property="distributeTypeCn" jdbcType="VARCHAR"/>
+        <result column="distribute_type_en" property="distributeTypeEn" jdbcType="VARCHAR"/>
+        <result column="coupon_scope_cn" property="couponScopeCn" jdbcType="VARCHAR"/>
+        <result column="coupon_scope_en" property="couponScopeEn" jdbcType="VARCHAR"/>
+        <result column="coupon_style_cn" property="couponStyleCn" jdbcType="VARCHAR"/>
+        <result column="coupon_style_en" property="couponStyleEn" jdbcType="VARCHAR"/>
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR"/>
+        <result column="used_count" property="usedCount" jdbcType="INTEGER" />
+        <result column="unuse_count" property="unuseCount" jdbcType="INTEGER" />
+        <result column="all_count" property="allCount" jdbcType="INTEGER" />
+        <result column="goods_type_value" property="goodsTypeValue" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        coupon_id, shop_id, coupon_name, coupon_image, coupon_code, coupon_type, coupon_scope,
+        goods_type, is_origin_price, min_goods_count, distribute_type, worth, start_time,
+        end_time, max_count, distributed_count, min_order_price, comment, apply_user_id,
+        apply_time, apply_content, approve_user_id, approve_time, approve_content, approve_status,
+        deleted, update_user_id, update_time, insert_user_id, insert_time, erp_send_status,
+        send_start_time, send_end_time, valid_days,exchange_point, coupon_style, discount,
+        member_level,sort,per_max_count,price,is_valid
+    </sql>
+    <select id="select" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.CouponMasterExt">
+        select at.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.display_cn as coupon_type_cn,
+        code1.display_en as coupon_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en,
+        code3.display_cn as distribute_type_cn,
+        code3.display_en as distribute_type_en,
+        code4.display_cn as coupon_scope_cn,
+        code4.display_en as coupon_scope_en,
+        code5.display_cn as coupon_style_cn,
+        code5.display_en as coupon_style_en,
+        (select count(1) from coupon_member
+        where coupon_id = at.coupon_id)
+        AS all_count,
+        (select count(1) from coupon_member
+          where coupon_id = at.coupon_id AND status = '20')
+        AS used_count,
+        (select count(1) from coupon_member
+          where coupon_id = at.coupon_id AND status = '10')
+        AS unuse_count
+        from coupon_master at
+        LEFT JOIN sys_user user1 ON at.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON at.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'COUPON_TYPE' and at.coupon_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and at.approve_status = code2.value
+        LEFT JOIN com_code code3 ON code3.code = 'COUPON_DISTRIBUTE_TYPE' and at.distribute_type = code3.value
+        LEFT JOIN com_code code4 ON code4.code = 'COUPON_SCOPE' and at.coupon_scope = code4.value
+        LEFT JOIN com_code code5 ON code5.code = 'COUPON_STYLE' and at.coupon_style = code5.value
+        <if test="_parameter != null">
+            <where>
+                <if test="couponName!=null and couponName!='' ">
+                    at.coupon_name LIKE CONCAT('%', #{couponName},'%')
+                </if>
+                <if test="couponType!= null and couponType!= '' ">
+                    AND at.coupon_type = #{couponType}
+                </if>
+                <if test="distributeType!= null and distributeType!= '' ">
+                    AND at.distribute_type = #{distributeType}
+                </if>
+                <if test="approveStatus!= null and approveStatus!= '' ">
+                    AND at.approve_status = #{approveStatus}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND at.deleted = #{deleted}
+                </if>
+                <if test="isValid!= null and isValid!= '' ">
+                    AND at.is_valid = #{isValid}
+                </if>
+            </where>
+        </if>
+        order by approve_status desc, sort,insert_time desc limit
+        #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.CouponMaster">
+        select count(1)
+        from coupon_master at
+        <if test="_parameter != null">
+            <where>
+                <if test="couponName!=null and couponName!='' ">
+                    at.coupon_name LIKE CONCAT('%', #{couponName},'%')
+                </if>
+                <if test="couponType!= null and couponType!= '' ">
+                    AND at.coupon_type = #{couponType}
+                </if>
+                <if test="distributeType!= null and distributeType!= '' ">
+                    AND at.distribute_type = #{distributeType}
+                </if>
+                <if test="approveStatus!= null and approveStatus!= '' ">
+                    AND at.approve_status = #{approveStatus}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND at.deleted = #{deleted}
+                </if>
+                <if test="isValid!= null and isValid!= '' ">
+                    AND at.is_valid = #{isValid}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.CouponMasterExt">
+        select at.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.display_cn as coupon_type_cn,
+        code1.display_en as coupon_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from coupon_master at
+        LEFT JOIN sys_user user1 ON at.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON at.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'COUPON_TYPE' and at.coupon_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and at.approve_status = code2.value
+        WHERE at.coupon_id = #{couponId}
+    </select>
+
+    <select id="selectApproveList" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMasterExt">
+        select at.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.display_cn as coupon_type_cn,
+        code1.display_en as coupon_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en,
+        code3.display_cn as distribute_type_cn,
+        code3.display_en as distribute_type_en,
+        code4.display_cn as coupon_scope_cn,
+        code4.display_en as coupon_scope_en,
+        code5.display_cn as coupon_style_cn,
+        code5.display_en as coupon_style_en,
+        (select count(1) from coupon_member
+        where coupon_id = at.coupon_id)
+        AS all_count,
+        (select count(1) from coupon_member
+        where coupon_id = at.coupon_id AND status = '20')
+        AS used_count,
+        (select count(1) from coupon_member
+        where coupon_id = at.coupon_id AND status = '10')
+        AS unuse_count
+        from coupon_master at
+        LEFT JOIN sys_user user1 ON at.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON at.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'COUPON_TYPE' and at.coupon_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and at.approve_status = code2.value
+        LEFT JOIN com_code code3 ON code3.code = 'COUPON_DISTRIBUTE_TYPE' and at.distribute_type = code3.value
+        LEFT JOIN com_code code4 ON code4.code = 'COUPON_SCOPE' and at.coupon_scope = code4.value
+        LEFT JOIN com_code code5 ON code5.code = 'COUPON_STYLE' and at.coupon_style = code5.value
+        where at.approve_status != '40'
+        <if test="couponName!=null and couponName!='' ">
+            AND at.coupon_name LIKE CONCAT('%', #{couponName},'%')
+        </if>
+        <if test="couponType!= null and couponType!= '' ">
+            AND at.coupon_type = #{couponType}
+        </if>
+        <if test="approveStatus!= null and approveStatus!= '' ">
+            AND at.approve_status = #{approveStatus}
+        </if>
+        <if test="deleted!= null and deleted!= '' ">
+            AND at.deleted = #{deleted}
+        </if>
+        <if test="isValid!= null and isValid!= '' ">
+            AND at.is_valid = #{isValid}
+        </if>
+        order by at.approve_status,at.is_valid,at.apply_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset
+        #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectApproveCount" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.CouponMaster">
+        select count(1)
+        from coupon_master at
+        where at.approve_status != '40'
+        <if test="couponName!=null and couponName!='' ">
+            AND at.coupon_name LIKE CONCAT('%', #{couponName},'%')
+        </if>
+        <if test="couponType!= null and couponType!= '' ">
+            AND at.coupon_type = #{couponType}
+        </if>
+        <if test="approveStatus!= null and approveStatus!= '' ">
+            AND at.approve_status = #{approveStatus}
+        </if>
+        <if test="deleted!= null and deleted!= '' ">
+            AND at.deleted = #{deleted}
+        </if>
+        <if test="isValid!= null and isValid!= '' ">
+            AND at.is_valid = #{isValid}
+        </if>
+    </select>
+
+    <select id="checkExistByCouponName" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.CouponMaster">
+        SELECT count(*)
+        FROM coupon_master at
+        WHERE at.coupon_name = #{couponName} AND at.deleted = '0'
+    </select>
+
+    <resultMap id="BaseResultMap2" type="net.dlyt.qyds.common.dto.ext.CouponMasterExt">
+        <id column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+        <result column="coupon_name" property="couponName" jdbcType="VARCHAR"/>
+        <result column="coupon_code" property="couponCode" jdbcType="VARCHAR"/>
+        <result column="coupon_image" property="couponImage" jdbcType="VARCHAR"/>
+        <result column="coupon_type" property="couponType" jdbcType="VARCHAR"/>
+        <result column="distribute_type" property="distributeType" jdbcType="VARCHAR"/>
+        <result column="worth" property="worth" jdbcType="VARCHAR"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="max_count" property="maxCount" jdbcType="VARCHAR"/>
+        <result column="min_order_price" property="minOrderPrice" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="isGeted" property="isGeted" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="exchange_point" property="exchangePoint" jdbcType="INTEGER"/>
+        <result column="coupon_style" property="couponStyle" jdbcType="CHAR" />
+        <result column="discount" property="discount" jdbcType="NUMERIC" />
+        <result column="price" property="price" jdbcType="NUMERIC" />
+        <result column="per_max_count" property="perMaxCount" jdbcType="INTEGER" />
+        <result column="member_level" property="memberLevel" jdbcType="VARCHAR" />
+        <result column="valid_days" property="validDays" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getAllCoupons" resultMap="BaseResultMap2"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT
+        cm.coupon_id,cm.coupon_code,cm.coupon_name,cm.coupon_type,cm.distribute_type,cm.worth,cm.start_time,cm.end_time,
+        cm.max_count,cm.min_order_price,cm.comment,cm.update_time,cm.coupon_image,cm.exchange_point,
+        cm.coupon_style, cm.discount,cm.member_level,cm.per_max_count,cm.price,cm.valid_days,
+        <if test="memberId!=null and memberId!='' ">
+            (select count(1) from coupon_member
+            where coupon_id = cm.coupon_id AND member_id = #{memberId})
+            AS isGeted
+        </if>
+        <if test="memberId==null or memberId=='' ">
+            '0' AS isGeted
+        </if>
+
+        FROM coupon_master cm
+
+        WHERE cm.coupon_type = '10'
+        AND (cm.distribute_type = '30' or cm.distribute_type = '60')
+        AND cm.send_start_time &lt;= now()
+        AND cm.send_end_time &gt;= now()
+        AND cm.approve_status = '20'
+        AND cm.deleted = '0'
+        AND cm.is_valid = '1'
+        order by sort, worth desc
+    </select>
+
+    <select id="getPointExchangeCoupons" resultMap="BaseResultMap2"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT cm.coupon_id,cm.coupon_code,cm.coupon_name,cm.coupon_type,cm.distribute_type,cm.worth,cm.start_time,cm.end_time,
+        cm.max_count,cm.min_order_price,cm.comment,cm.update_time,cm.coupon_image,cm.exchange_point,
+        cm.coupon_style, cm.discount,cm.member_level,cm.per_max_count,cm.price,cm.valid_days,
+        <if test="memberId!=null and memberId!='' ">
+            (select count(1) from coupon_member
+            where coupon_id = cm.coupon_id AND member_id = #{memberId})
+            AS isGeted
+        </if>
+        <if test="memberId==null or memberId=='' ">
+            '0' AS isGeted
+        </if>
+
+        FROM coupon_master cm
+        WHERE cm.coupon_type = '10'
+        AND cm.distribute_type = '50'
+        AND cm.send_start_time &lt;= now()
+        AND cm.send_end_time &gt;= now()
+        AND cm.approve_status = '20'
+        AND cm.deleted = '0'
+        AND cm.is_valid = '1'
+        AND (cm.member_level  = #{memberLevel} or cm.member_level = '00')
+        order by cm.sort,cm.worth desc
+    </select>
+
+    <resultMap id="BaseResultMap3" type="net.dlyt.qyds.common.dto.ext.CouponMasterExt">
+        <id column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+        <result column="coupon_name" property="couponName" jdbcType="VARCHAR"/>
+        <result column="coupon_code" property="couponCode" jdbcType="VARCHAR"/>
+        <result column="coupon_image" property="couponImage" jdbcType="VARCHAR"/>
+        <result column="coupon_type" property="couponType" jdbcType="VARCHAR"/>
+        <result column="worth" property="worth" jdbcType="VARCHAR"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="min_order_price" property="minOrderPrice" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="coupon_member_id" property="couponMemberId" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="isOverdue" property="isOverdue" jdbcType="VARCHAR"/>
+        <result column="coupon_scope" property="couponScope" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="is_origin_price" property="isOriginPrice" jdbcType="VARCHAR"/>
+        <result column="min_goods_count" property="minGoodsCount" jdbcType="VARCHAR"/>
+        <result column="coupon_style" property="couponStyle" jdbcType="CHAR" />
+        <result column="discount" property="discount" jdbcType="NUMERIC" />
+        <result column="price" property="price" jdbcType="NUMERIC" />
+        <result column="per_max_count" property="perMaxCount" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="getMyCoupons" resultMap="BaseResultMap3"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT cm.coupon_id,cm.coupon_name,cm.coupon_code,cm.coupon_image,cm.coupon_type,cm.worth,
+        member.start_time,
+        member.end_time,
+        cm.min_order_price,cm.comment,member.coupon_member_id,member.status,
+        cm.coupon_scope,cm.goods_type,cm.is_origin_price,cm.min_goods_count,
+        cm.coupon_style,cm.discount,cm.per_max_count,cm.price,
+        CASE
+        WHEN member.end_time &lt; now() THEN '1'
+        ELSE '0'
+        END
+        AS isOverdue
+        FROM coupon_member member
+        LEFT JOIN coupon_master cm ON member.coupon_id = cm.coupon_id
+        WHERE member.member_id = #{memberId}
+        <if test="updateTime!=null and updateTime!='' ">
+            AND update_time &lt; #{{update_time}}
+        </if>
+        order by member.status, member.insert_time desc limit 10
+    </select>
+
+    <select id="getMyCouponsCount" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT count(1)
+        FROM coupon_member member
+        LEFT JOIN coupon_master cm ON member.coupon_id = cm.coupon_id
+        WHERE member.member_id = #{memberId}
+        <if test="updateTime!=null and updateTime!='' ">
+            AND update_time &lt; #{{update_time}}
+        </if>
+    </select>
+
+    <select id="getOrderCoupons" resultMap="BaseResultMap3"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT cm.coupon_id,cm.coupon_name,cm.coupon_code,cm.coupon_image,cm.coupon_type,cm.worth,
+        member.start_time,
+        member.end_time,
+        cm.min_order_price,cm.comment,member.coupon_member_id,member.status,
+        cm.coupon_scope,cm.goods_type,cm.is_origin_price,cm.min_goods_count,
+        cm.coupon_style,cm.discount,cm.per_max_count,cm.price,
+        '0' AS isOverdue
+        FROM coupon_member member
+        LEFT JOIN coupon_master cm ON member.coupon_id = cm.coupon_id
+        WHERE member.member_id = #{memberId}
+        AND member.start_time &lt;= now()
+        AND member.end_time &gt;= now()
+        AND member.status = '10'
+        <if test="couponMemberId!=null and couponMemberId!='' ">
+            AND member.coupon_member_id = #{couponMemberId}
+        </if>
+        order by cm.worth DESC
+    </select>
+
+    <select id="getMyCouponsForPc" resultMap="BaseResultMap3"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT cm.coupon_id,cm.coupon_name,cm.coupon_code,cm.coupon_image,cm.coupon_type,cm.worth,
+        member.start_time,member.end_time,
+        cm.min_order_price,cm.comment,member.coupon_member_id,member.status,
+        cm.coupon_scope,cm.goods_type,cm.is_origin_price,cm.min_goods_count,
+        cm.coupon_style,cm.discount,cm.per_max_count,cm.price,
+        CASE
+        WHEN cm.end_time &lt; now() THEN '1'
+        ELSE '0'
+        END
+        AS isOverdue
+        FROM coupon_member member
+        LEFT JOIN coupon_master cm ON member.coupon_id = cm.coupon_id
+        WHERE member.member_id = #{memberId}
+        <if test="updateTime!=null and updateTime!='' ">
+            AND update_time &lt; #{{update_time}}
+        </if>
+        <if test="status !=null and status !='' ">
+            AND member.status = #{status}
+        </if>
+        order by member.status, member.insert_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset
+        #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+    <select id="getMyCouponsCountForPc" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT count(1) as count
+        FROM coupon_member member
+        LEFT JOIN coupon_master cm ON member.coupon_id = cm.coupon_id
+        WHERE member.member_id = #{memberId}
+        <if test="status != null and status != ''">
+            and member.status = #{status}
+        </if>
+        <if test="updateTime!=null and updateTime!='' ">
+            AND update_time &lt; #{{update_time}}
+        </if>
+    </select>
+    <update id="addOneDistributedById" parameterType="java.lang.String">
+        update coupon_master
+        set distributed_count = distributed_count + 1,
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+        update_time = now()
+        where coupon_id = #{couponId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateSendById" parameterType="net.dlyt.qyds.common.dto.CouponMaster">
+        update coupon_master
+        set erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+        update_time = now()
+        where coupon_id = #{couponId,jdbcType=VARCHAR}
+    </update>
+    <select id="selectSendFailById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from coupon_master
+        where deleted = '0'
+        and erp_send_status = '20'
+        and coupon_id = #{couponId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectSendFail" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from coupon_master
+        where deleted = '0'
+        and erp_send_status = '20'
+    </select>
+
+    <select id="selectBirthdayCoupon" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from coupon_master
+        WHERE coupon_type = '20'
+        AND member_level = #{memberLevel,jdbcType=VARCHAR}
+        AND approve_status = '20'
+        AND deleted = '0'
+        AND is_valid = '1'
+    </select>
+
+    <select id="selectBirthdayCouponList" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from coupon_master
+        WHERE coupon_type = '20'
+        AND approve_status = '20'
+        AND is_valid = '1'
+        AND deleted = '0'
+    </select>
+
+    <select id="selectRegisterCoupon" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from coupon_master
+        WHERE coupon_type = '30'
+        AND approve_status = '20'
+        AND is_valid = '1'
+        AND deleted = '0'
+    </select>
+
+    <update id="setOnlyCoupon" parameterType="net.dlyt.qyds.common.dto.CouponMaster">
+        update coupon_master
+        set deleted = '1'
+        where coupon_id != #{couponId,jdbcType=VARCHAR}
+        <if test="memberLevel!=null and memberLevel!='' ">
+            AND member_level = #{memberLevel}
+        </if>
+        AND coupon_type = #{couponType,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getSendList" resultMap="BaseResultMap">
+        select m.*,
+        c1.display_cn coupon_type_cn,c2.display_cn distribute_type_cn
+        from coupon_master m
+        left join com_code c1 on c1.code = 'COUPON_TYPE' and c1.value = m.coupon_type
+        left join com_code c2 on c2.code = 'COUPON_DISTRIBUTE_TYPE' and c2.value = m.distribute_type
+        where m.deleted='0'
+        and m.approve_status = '20'
+        and send_start_time &lt;=now()
+        and (end_time is null or end_time >= now())
+        order by send_start_time,send_end_time,start_time,end_time
+    </select>
+</mapper>

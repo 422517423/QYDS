@@ -1,0 +1,74 @@
+<!-- /.modal -->
+<div id="subOrderDeliverArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">订单发货</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px;overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <div class="row">
+                        <form id="deliverForm" class="form-horizontal validator">
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">商品代码</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="goods_code_processed" name="goods_code_processed" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">商品名称</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="goods_name_processed" name="goods_name_processed" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">商品SKU</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="sku_processed" name="sku_processed" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">收货人</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="delivery_contactor_processed" name="delivery_contactor_processed" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">收货地址</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="district_name_processed" name="district_name_processed" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display:none;">
+                                    <label class="col-md-3 control-label">快递单号<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="express_no" name="express_no" data-required="1"
+                                               class="form-control" maxlength="60">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="processed_deliver_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/ord_dispatch/processedDeliver.js"></script>

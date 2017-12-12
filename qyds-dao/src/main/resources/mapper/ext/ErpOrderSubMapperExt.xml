@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpOrderSubMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpOrderSub" >
+    <id column="sub_code" property="subCode" jdbcType="VARCHAR" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="count" property="count" jdbcType="NUMERIC" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sub_code, order_code, sku, goods_name, color, size, price, count, amount, comment, 
+    deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_order_sub
+    where order_code = #{orderCode,jdbcType=VARCHAR}
+  </select>
+  <sql id="Base_Where_Byselect" >
+    WHERE 1=1
+    <if test="subCode != null and !subCode.isEmpty()" >
+      AND sub_code = #{subCode,jdbcType=VARCHAR}
+    </if>
+    <if test="orderCode != null and !orderCode.isEmpty()" >
+      AND order_code = #{orderCode,jdbcType=VARCHAR}
+    </if>
+    <if test="sku != null and !sku.isEmpty()" >
+      AND sku = #{sku,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      AND goods_name = #{goodsName,jdbcType=VARCHAR}
+    </if>
+    <if test="color != null and !color.isEmpty()" >
+      AND color LIKE '%' || #{color,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="size != null and !size.isEmpty()" >
+      AND size LIKE '%' || #{size,jdbcType=VARCHAR} || '%'
+    </if>
+  </sql>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpOrderMasterForm" >
+    select
+    <include refid="Base_Column_List" />
+    from erp_order_sub
+    <include refid="Base_Where_Byselect" />
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpOrderMasterForm" >
+    select count(*)
+    from erp_order_sub
+    <include refid="Base_Where_Byselect" />
+  </select>
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ShpMasterMapperExt" >
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ShpMasterExt" >
+        <id column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="shop_code" property="shopCode" jdbcType="VARCHAR" />
+        <result column="shop_short_name" property="shopShortName" jdbcType="VARCHAR" />
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+        <result column="comment" property="comment" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+   	sm.shop_id,
+	sm.shop_code,
+	sm.shop_short_name,
+	sm.shop_name,
+	sm.is_valid,
+	sm. COMMENT,
+	sm.deleted,
+	sm.update_user_id,
+	sm.update_time,
+	sm.insert_user_id,
+	sm.insert_time,
+	su.login_id,
+	su.user_name
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from public.shp_master sm
+        left join public.sys_user su
+        on su.login_id = sm.update_user_id
+        where shop_id = #{shopId,jdbcType=VARCHAR}
+        and   sm.is_valid = '0' and sm.deleted='0'
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ShpMasterExt" >
+        select
+        <include refid="Base_Column_List" />
+       from public .shp_master sm
+       left join  public .sys_user su on su.login_id = sm.insert_user_id
+        where
+        sm.is_valid = '0' and sm.deleted='0'
+    </select>
+</mapper>
+

@@ -1,0 +1,131 @@
+<!-- product-nav -->
+<div class="col-xs-12" style="padding: 0px;margin-bottom: 30px">
+    <div class="row border-bottom" style="padding:20px 0px;text-align: center;max-width: 1000px;margin: 0px auto">
+        <span class="magazine-type" ng-repeat="item in magazineListDataTypes"  ng-click="getOtherType(item.itemCode)" >{{item.itemName}}</span>
+    </div>
+    <div ng-repeat="magazine in magazineListData">
+        <div class="hidden-xs" style="width: 844px;margin: 0px auto">
+            <!--模板二-->
+            <div class="row" style="margin-top:30px;margin-left: 0;margin-right: 0" ng-if="($index%2) == 0">
+                <div>
+                    <div style="position: relative">
+                        <span style="background-color: #ffffff;position: absolute;top: -10px;left: 50%;width: 100px;margin-left: -50px;text-align: center">&nbsp;&nbsp;{{magazine.insertTime | formatdate:''}}&nbsp;&nbsp;</span>
+                        <hr>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th style="width: 50%"></th>
+                        <th style="width: 50%"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th style="padding: 10px"><img style="cursor:pointer;"
+                                                       ng-src="{{magazine.imageUrl | imgPath:'800'}}"
+                                                       class="img-responsive"
+                                                       ng-click="goToTheStory(magazine.cmsId)"
+                                                       alt="" width="100%"/></th>
+                        <th style="padding: 10px">
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-xs-12">
+                                    <div style="text-align: center;font-size: 22px">
+                                        {{magazine.title}}</h1>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="margin-top: 10px;font-size: 16px;text-align: left">
+                                    {{magazine.textComment}}
+                                </div>
+                                <div class="col-xs-12" style="text-align: center;margin-top: 20px;"
+                                     ng-click="goToTheStory(magazine.cmsId)">
+                                    <span style="padding: 10px 20px 10px 20px;cursor: pointer;background-color: #F0F0F0;border-radius: 4px">Read The Story</span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--模板三-->
+            <div class="row" style="margin-top:30px;margin-left: 0;margin-right: 0" ng-if="($index%2) == 1">
+                <!--时间-->
+                <div>
+                    <div style="position: relative">
+                        <span style="background-color: #ffffff;position: absolute;top: -10px;left: 50%;width: 100px;margin-left: -50px;text-align: center">&nbsp;&nbsp;{{magazine.insertTime | formatdate:''}}&nbsp;&nbsp;</span>
+                        <hr>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th style="width: 50%"></th>
+                        <th style="width: 50%"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th style="padding: 10px">
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-xs-12">
+                                    <div style="text-align: center;font-size: 22px">
+                                        {{magazine.title}}</h1>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="margin-top: 10px;font-size: 16px;text-align: left">
+                                    {{magazine.textComment}}
+                                </div>
+                                <div class="col-xs-12" style="text-align: center;margin-top: 20px;"
+                                     ng-click="goToTheStory(magazine.cmsId)">
+                                    <span style="padding: 10px 20px 10px 20px;cursor: pointer;background-color: #F0F0F0;border-radius: 4px">Read The Story</span>
+                                </div>
+                            </div>
+                        </th>
+                        <th style="padding: 10px"><img style="cursor:pointer;"
+                                                       ng-src="{{magazine.imageUrl | imgPath:'800'}}"
+                                                       class="img-responsive"
+                                                       alt="" width="100%"
+                                                       ng-click="goToTheStory(magazine.cmsId)"/></th>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--手机版-->
+        <div class="row visible-xs" style="margin-top:20px;">
+            <!--时间-->
+            <div>
+                <div style="position: relative">
+                    <span style="background-color: #ffffff;position: absolute;top: -10px;left: 50%;width: 100px;margin-left: -50px;text-align: center">&nbsp;&nbsp;{{magazine.insertTime | formatdate:''}}&nbsp;&nbsp;</span>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <img style="cursor:pointer;" ng-src="{{magazine.imageUrl | imgPath:'800'}}"
+                     ng-click="goToTheStory(magazine.cmsId)"
+                     class="img-responsive"
+                     alt="" width="100%"/>
+            </div>
+            <div class="col-xs-12" style="margin-top:0px;padding: 0px">
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-xs-12">
+                        <div style="text-align: center;font-size: 22px">
+                            {{magazine.title}}
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="margin-top: 10px;font-size: 16px">
+                        {{magazine.textComment}}
+                    </div>
+                    <div class="col-xs-12" style="text-align: center;margin-top: 20px;"
+                         ng-click="goToTheStory(magazine.cmsId)">
+                        <span style="padding: 10px 20px 10px 20px;cursor: pointer;background-color: #F0F0F0;border-radius: 4px">Read The Story</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //product-nav -->

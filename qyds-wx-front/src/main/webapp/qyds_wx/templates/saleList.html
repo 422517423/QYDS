@@ -1,0 +1,65 @@
+<ion-view cache-view="false">
+    <ion-content class='bg-light'>
+        <div class="row goodsList_subTitle" style="padding:10px 0px;margin:0;color:#CCCCCC;font-size:18px;">
+            <div class="col col-33" style="font-size:16px;text-align:center;font-weight:bold;color:#000000" ng-click="doGetAll($event);">
+                全部
+            </div>
+            <div class="col col-33" style="text-align:center;position:relative">
+                <div>
+                    <span style="font-size:16px;"></span>
+                </div>
+            </div>
+            <div class="col col-33" style="font-size:16px;text-align:center;" ng-click="filter($event)">
+                价格筛选
+            </div>
+        </div>
+        <div class="divider_gray"></div>
+        <div style="padding:0 15px;margin-top:10px;font-size:16px;">
+            <div ng-if="!isLoading&&goodsList.length==0" class="text-center" style="color: #999999;margin-top: 100px">
+                没有符合条件的商品
+            </div>
+
+            <div ng-repeat="goods in goodsList" ng-if="$index%2==0" ng-click="">
+                <div class="row">
+                    <div class="col col-50" style="text-align:center;padding:0 10px;" ng-click="goProdocutDetail(goods.goodsId);">
+                        <div style="position:relative;">
+                            <img ng-src="{{goods.imageUrlJson | imgPath:'480'}}" width="100%" class='img-responsive'>
+                        </div>
+                        <div style="margin-top:8px;text-align:center;width:100%;">
+                            <div style="font-size:13px;" >{{goods.goodsName}}</div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'" style="font-size: 15px;color: #CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size: 15px;">{{goods.minAndMaxPrice | priceFilter2}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
+                                      style="font-size: 12px;margin-left:4px;text-decoration: line-through">{{goods.minAndMaxPrice | priceFilter2}}</span>
+                            </div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:13px;color:#CC0001">{{goods.activityName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-50" ng-if="$index<=goodsList.length-2" style="text-align:center;padding:0 10px"  ng-click="goProdocutDetail(goodsList[$index+1].goodsId);">
+                        <div style="position:relative;">
+                            <img ng-src="{{goodsList[$index+1].imageUrlJson | imgPath:'480'}}" width="100%" class='img-responsive'>
+                        </div>
+                        <div style="margin-top:8px;text-align:center;width:100%;font-size:14px;">
+                            <div style="font-size:13px;line-height: 1.2" >{{goodsList[$index+1].goodsName}}</div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goodsList[$index+1].minAndMaxPriceActivity != null && goodsList[$index+1].minAndMaxPriceActivity != '¥null'" style="font-size: 15px;color: #CC0001">{{goodsList[$index+1].minAndMaxPriceActivity | priceFilter2}}</span>
+                                <span ng-if="goodsList[$index+1].minAndMaxPriceActivity == null || goodsList[$index+1].minAndMaxPriceActivity == '¥null'" style="font-size: 15px;">{{goodsList[$index+1].minAndMaxPrice | priceFilter2}}</span>
+                                <span ng-if="goodsList[$index+1].minAndMaxPriceActivity != null && goodsList[$index+1].minAndMaxPriceActivity != '¥null'"
+                                      style="font-size: 12px;margin-left:4px;text-decoration: line-through">{{goodsList[$index+1].minAndMaxPrice | priceFilter2}}</span>
+                            </div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goodsList[$index+1].activityName != null && goodsList[$index+1].activityName != '¥null' " style="font-size:13px;color:#CC0001">{{goodsList[$index+1].activityName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0 10px">
+                <button  ng-if="!isLoading" class="button button-block button-dark button-small" style="border-radius: 0;" ng-click="doGetMore()">加载更多</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

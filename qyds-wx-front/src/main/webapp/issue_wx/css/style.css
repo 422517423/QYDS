@@ -1,0 +1,511 @@
+/* Empty. Add your own CSS if you like */
+
+.divider_gray {
+    width: 100%;
+    height: 1px;
+    border: none;
+    border-top: 1px solid #efefef;
+}
+
+.divider_gray_bold {
+    width: 100%;
+    height: 1px;
+    border: none;
+    border-top: 5px solid #EDEDED;
+}
+
+.bg-gray {
+    background-color: #F2F2F2
+}
+
+.bg-light {
+    background-color: #FFFFFF
+}
+
+.bg-selectRow {
+    background-color: #CCCCCC
+}
+
+.col-15 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 15%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 15%;
+    -ms-flex: 0 0 15%;
+    flex: 0 0 15%;
+    max-width: 15%;
+}
+
+.col-35 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 35%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 35%;
+    -ms-flex: 0 0 35%;
+    flex: 0 0 35%;
+    max-width: 35%;
+}
+
+.col-55 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 55%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 55%;
+    -ms-flex: 0 0 55%;
+    flex: 0 0 55%;
+    max-width: 55%;
+}
+
+.col-58 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 58%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 58%;
+    -ms-flex: 0 0 58%;
+    flex: 0 0 58%;
+    max-width: 58%;
+}
+
+.col-70 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 70%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 70%;
+    -ms-flex: 0 0 70%;
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+
+/* overwrite ionic.app.css start*/
+.homepageTab .tabs{
+    background-color:#333;
+}
+
+.tabs-top > .tabs,
+.tabs.tabs-top {
+    top: 0px;
+}
+
+.tab-item.tab-item-active {
+    font-weight: bold;
+}
+
+/* overwrite ionic.app.css end*/
+.selectedClassfication {
+    background: #ffffff !important;
+}
+
+.max-line-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.force_nowrap {
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+/* 物流进度 start*/
+ul li {
+    list-style: none;
+}
+
+.track-rcol {
+    width: 100%;
+    font-size: 14px;
+}
+
+.track-list {
+    margin: 20px;
+    padding-left: 5px;
+    position: relative;
+}
+
+.track-list li {
+    position: relative;
+    padding: 9px 0 0 25px;
+    line-height: 18px;
+    border-left: 1px solid #d9d9d9;
+    color: #999;
+}
+
+.track-list li .node-icon {
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    background: url(../image/order-icons.png) -21px -72px no-repeat;
+}
+
+.track-list li .time {
+    margin-right: 20px;
+    position: relative;
+    top: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.track-list li .txt {
+    max-width: 600px;
+    position: relative;
+    top: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.track-list li.first {
+    color: red;
+    padding-top: 0;
+    border-left-color: #fff;
+}
+
+.track-list li.first .node-icon {
+    background-position: 0 -72px;
+}
+
+.track-list li.first .time {
+    margin-right: 20px;
+}
+
+.track-list li.first .txt {
+    max-width: 600px;
+}
+
+/* 物流进度 end*/
+/* 圆形图片 start*/
+.circle {
+    -moz-border-radius: 50%; /* Gecko browsers */
+    -webkit-border-radius: 50%; /* Webkit browsers */
+    border-radius: 50%; /* W3C syntax */
+}
+
+/* 圆形图片 end  */
+
+/* check start*/
+/* .ng-invlid 不需要check的项目 加上.noCheck class*/
+/*input[type="text"]:not(.noCheck).ng-valid,input[type="password"]:not(.noCheck).ng-valid{*/
+/*padding-right:25px;*/
+/*background:url("../image/yes.png") no-repeat scroll right center transparent;*/
+/*background-size:25px 25px;*/
+/*}*/
+.has-error {
+    /*border-bottom:1px solid #ff0000!important;*/
+}
+
+.has-error input[type="text"].ng-invalid,
+.has-error input[type="password"].ng-invalid,
+.has-error select.ng-invalid {
+    /*padding-right:25px;*/
+    /*background:url("../image/error.png") no-repeat scroll right center transparent;*/
+    /*background-size:25px 25px;*/
+}
+
+.no-error input[type="text"].ng-valid,
+.no-error input[type="password"].ng-valid,
+.no-error select.ng-valid {
+    /*padding-right:25px;*/
+    /*background:url("../image/yes.png") no-repeat scroll right center transparent;*/
+    /*background-size:25px 25px;*/
+}
+
+.has-error .error_msg {
+    color: #ff0000;
+    font-size: 12px;
+}
+
+/* check end  */
+
+.border-bottom {
+    border-bottom: 1px #dddddd solid;
+}
+
+.border-top {
+    border-top: 1px #dddddd solid;
+}
+
+.bordered {
+    border: 1px #dddddd solid;
+}
+
+.line {
+    border: 1px #eeeeee solid;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/*修改默认弹出框样式 start*/
+.popup-container .popup {
+    background-color: #F2F2F2;
+    color: #333333;
+}
+
+.popup-title {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.popup-body {
+    padding: 20px !important;
+    text-align: center;
+}
+
+/*修改默认弹出框样式 start*/
+
+.richTxt img {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* accordion 商品分类左侧折叠菜单 start*/
+.accordion {
+    width: 100%;
+    max-width: 360px;
+    margin: 30px auto 20px;
+    background: #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.accordion .link {
+    cursor: pointer;
+    display: block;
+    padding: 14px 0;
+    color: #4D4D4D;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid #CCC;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    text-align: left;
+    text-indent: 10px;
+}
+
+.accordion li:last-child .link {
+    border-bottom: 0;
+}
+
+.accordion li i {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 18px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.accordion li i.fa-chevron-down {
+    right: 12px;
+    left: auto;
+    font-size: 16px;
+}
+
+.accordion li.open .link {
+    color: #b63b4d;
+}
+
+.accordion li.open i {
+    color: #b63b4d;
+}
+
+.accordion li.open i.fa-chevron-down {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/**
+ * Submenu
+ -----------------------------*/
+.submenu {
+    display: none;
+    /*background: #444359;*/
+    background: #666;
+    font-size: 14px;
+}
+
+.submenu li {
+    border-bottom: 1px solid #4b4a5e;
+    text-align: left;
+    text-indent: 15px;
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #d9d9d9;
+    padding: 12px;
+    /*padding-left: 42px;*/
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.submenu a:hover, .submenu .selected {
+    /*background: #b63b4d;*/
+    background: #333;
+    color: #FFF;
+}
+
+/* accordion 商品分类左侧折叠菜单 end  */
+
+.max-line-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* accordion 商品分类左侧折叠菜单 end*/
+
+/* 优惠券背景 start*/
+.coupon_bg {
+    background: url("../image/coupon_bg.png") repeat-x;
+    background-size: contain;
+    /*background-size:25px 25px;*/
+}
+
+/* 优惠券背景 end*/
+
+input[type=checkbox] {
+    outline: none !important;
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("../image/checkbox_bg.png");
+    background-size: 100%;
+    -webkit-box-shadow: none;
+    -moz-appearance: none;
+    box-shadow: none;
+}
+
+input[type=checkbox]:checked {
+    outline: none;
+    background-image: url("../image/checkbox_selected_bg.png");
+}
+
+/*表格定义*/
+
+.table {
+    display: table;
+}
+
+.table-row-group {
+    display: table-row-group;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+}
+
+.table-cell-50 {
+    display: table-cell;
+    width: 50%;
+}
+
+.table-cell-33 {
+    display: table-cell;
+    width: 33%;
+}
+
+.table-column-group {
+    display: table-column-group;
+}
+
+.table-column {
+    display: table-column;
+}
+
+.table-footer-group {
+    display: table-footer-group;
+}
+
+.table-header-group {
+    display: table-header-group;
+}
+
+.table-caption {
+    display: table-caption;
+}
+
+/*表格定义 END*/
+.slider-pager-page i {
+    font-size: 8px;
+}
+
+#swiper-container-phone {
+    width: 100%;
+    overflow: hidden;
+}
+
+#swiper-container-phone .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    width: 60%;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+#swiper-container-phone2 {
+    width: 100%;
+    overflow: hidden;
+}
+
+#swiper-container-phone2 .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    width: 60%;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+.purchaseInfoTab-focus{
+    background-color:#cccccc;
+}

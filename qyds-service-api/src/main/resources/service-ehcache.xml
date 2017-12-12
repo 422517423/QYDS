@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+         monitoring="autodetect" dynamicConfig="true">
+
+    <diskStore path="${service_cache_directory}"/>
+    <!--<terracottaConfig url="127.0.0.1:9510"></terracottaConfig>-->
+
+    <defaultCache maxElementsInMemory="10000" eternal="false"
+                  timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false"
+                  maxElementsOnDisk="10000000" diskPersistent="false"
+                  diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </defaultCache>
+
+    <cache name="${service_cache_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${role_memu_cache_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${web_address_cache_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${goods_list_catch_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${new_goods_list_catch_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${activity_goods_list_catch_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${goods_second_main_catch_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+    <cache name="${cms_items_catch_name}" maxElementsInMemory="10000"
+           maxElementsOnDisk="10000000" eternal="false" overflowToDisk="false"
+           diskSpoolBufferSizeMB="50">
+        <!--<terracotta clustered="true"></terracotta>-->
+    </cache>
+
+
+
+</ehcache>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpGoodsColorMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    <id column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="helpcode" property="helpcode" jdbcType="VARCHAR" />
+    <result column="color_name_en" property="colorNameEn" jdbcType="VARCHAR" />
+    <result column="color_name_cn" property="colorNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    color_code, helpcode, color_name_en, color_name_cn, comment, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_goods_color
+    ORDER BY color_code
+  </select>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    select
+    <include refid="Base_Column_List" />
+    from public.erp_goods_color
+    where color_code = #{colorCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_goods_color
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    update public.erp_goods_color
+    set helpcode = #{helpcode,jdbcType=VARCHAR},
+    color_name_en = #{colorNameEn,jdbcType=VARCHAR},
+    color_name_cn = #{colorNameCn,jdbcType=VARCHAR},
+    comment = #{comment,jdbcType=VARCHAR},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where color_code = #{colorCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.PrizeDrawMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.PrizeDraw" >
+    <id column="prize_draw_id" property="prizeDrawId" jdbcType="VARCHAR" />
+    <result column="prize_draw_name" property="prizeDrawName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="draw_type" property="drawType" jdbcType="VARCHAR" />
+    <result column="can_repeat_win" property="canRepeatWin" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prize_draw_id, prize_draw_name, start_time, end_time, draw_type, can_repeat_win, 
+    comment, is_valid, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.prize_draw
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.prize_draw
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.PrizeDraw" >
+    insert into public.prize_draw (prize_draw_id, prize_draw_name, start_time, 
+      end_time, draw_type, can_repeat_win, 
+      comment, is_valid, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time)
+    values (#{prizeDrawId,jdbcType=VARCHAR}, #{prizeDrawName,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{drawType,jdbcType=VARCHAR}, #{canRepeatWin,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{isValid,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.PrizeDraw" >
+    insert into public.prize_draw
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prizeDrawId != null" >
+        prize_draw_id,
+      </if>
+      <if test="prizeDrawName != null" >
+        prize_draw_name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="drawType != null" >
+        draw_type,
+      </if>
+      <if test="canRepeatWin != null" >
+        can_repeat_win,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prizeDrawId != null" >
+        #{prizeDrawId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeDrawName != null" >
+        #{prizeDrawName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drawType != null" >
+        #{drawType,jdbcType=VARCHAR},
+      </if>
+      <if test="canRepeatWin != null" >
+        #{canRepeatWin,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.PrizeDraw" >
+    update public.prize_draw
+    <set >
+      <if test="prizeDrawName != null" >
+        prize_draw_name = #{prizeDrawName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drawType != null" >
+        draw_type = #{drawType,jdbcType=VARCHAR},
+      </if>
+      <if test="canRepeatWin != null" >
+        can_repeat_win = #{canRepeatWin,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.PrizeDraw" >
+    update public.prize_draw
+    set prize_draw_name = #{prizeDrawName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      draw_type = #{drawType,jdbcType=VARCHAR},
+      can_repeat_win = #{canRepeatWin,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </update>
+</mapper>

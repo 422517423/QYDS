@@ -1,0 +1,155 @@
+<!-- 活动管理编辑画面 start-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            抽奖管理详细画面
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="index.html">抽奖管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#" onclick="gotoListPage();">抽奖管理</a><i class="icon-angle-right"></i></li>
+            <li><a href="#">获奖管理</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<!--查询-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-search"></i>查询条件</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="x_content">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="is_drawed" class=" col-sm-2 control-label">是否抽奖</label>
+                            <div class="col-sm-3">
+                                <select type="text" id="is_drawed" name="is_drawed" class="form-control" onchange="resetIsDrawed();">
+                                    <option value="">全部</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                            <label for="is_win" class=" col-sm-2 control-label">是否中奖</label>
+                            <div class="col-sm-3">
+                                <select type="text" id="is_win" name="is_win" class="form-control">
+                                    <option value="">全部</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prize_name" class=" col-sm-2 control-label">奖品名称</label>
+                            <div class="col-sm-3">
+                                <select type="text" id="prize_name" name="prize_name" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                            <label for="delivery_status" class=" col-sm-2 control-label">奖品发放</label>
+                            <div class="col-sm-3">
+                                <select type="text" id="delivery_status" name="delivery_status" class="form-control">
+                                    <option value="">全部</option>
+                                    <option value="10">未发放</option>
+                                    <option value="20">已发放</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" col-sm-offset-8 col-sm-3">
+                                <button type="button" class="btn btn-warning"
+                                        style="width: 100px" id="btn_reset">重置
+                                </button>
+                                <button type="button" class="btn btn-success"
+                                        style="width: 100px" id="btn_search">查询
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 列表-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="prize_oppo_table">
+                    <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>电话</th>
+                        <th>是否抽奖</th>
+                        <th>奖品名称</th>
+                        <th>是否发放</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="btn_cancel" class="btn default" data-dismiss="modal">返回</button>
+</div>
+
+<!-- 码表详细modal start-->
+<div class="modal fade" id="send_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">活动奖品发放确认</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="send_form" class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">备注</label>
+                                <div class="col-md-8">
+                                    <textarea type="text" style="resize: none" id="send_dialog_content"
+                                              class="form-control" placeholder="请输入奖品发放备注(可选)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="send_dialog_tip" style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="send_dialog_btn_confirm" class="btn blue">发放</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 获奖管理画面画面 end -->
+<script src="../page/prize_draw/prize_oppo.js"></script>

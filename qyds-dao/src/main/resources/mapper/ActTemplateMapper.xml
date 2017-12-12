@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ActTemplateMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ActTemplate" >
+    <id column="temp_id" property="tempId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="temp_code" property="tempCode" jdbcType="VARCHAR" />
+    <result column="temp_name" property="tempName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="actition_type" property="actitionType" jdbcType="VARCHAR" />
+    <result column="apply_user_id" property="applyUserId" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="apply_content" property="applyContent" jdbcType="VARCHAR" />
+    <result column="approve_user_id" property="approveUserId" jdbcType="VARCHAR" />
+    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="approve_content" property="approveContent" jdbcType="VARCHAR" />
+    <result column="approve_status" property="approveStatus" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    temp_id, shop_id, temp_code, temp_name, comment, actition_type, apply_user_id, apply_time, 
+    apply_content, approve_user_id, approve_time, approve_content, approve_status, deleted, 
+    update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.act_template
+    where temp_id = #{tempId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.act_template
+    where temp_id = #{tempId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ActTemplate" >
+    insert into public.act_template (temp_id, shop_id, temp_code, 
+      temp_name, comment, actition_type, 
+      apply_user_id, apply_time, apply_content, 
+      approve_user_id, approve_time, approve_content, 
+      approve_status, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{tempId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{tempCode,jdbcType=VARCHAR}, 
+      #{tempName,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{actitionType,jdbcType=VARCHAR}, 
+      #{applyUserId,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{applyContent,jdbcType=VARCHAR}, 
+      #{approveUserId,jdbcType=VARCHAR}, #{approveTime,jdbcType=TIMESTAMP}, #{approveContent,jdbcType=VARCHAR}, 
+      #{approveStatus,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ActTemplate" >
+    insert into public.act_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempId != null" >
+        temp_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="tempCode != null" >
+        temp_code,
+      </if>
+      <if test="tempName != null" >
+        temp_name,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="actitionType != null" >
+        actition_type,
+      </if>
+      <if test="applyUserId != null" >
+        apply_user_id,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="applyContent != null" >
+        apply_content,
+      </if>
+      <if test="approveUserId != null" >
+        approve_user_id,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="approveContent != null" >
+        approve_content,
+      </if>
+      <if test="approveStatus != null" >
+        approve_status,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempId != null" >
+        #{tempId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null" >
+        #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempName != null" >
+        #{tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="actitionType != null" >
+        #{actitionType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUserId != null" >
+        #{applyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyContent != null" >
+        #{applyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="approveUserId != null" >
+        #{approveUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveContent != null" >
+        #{approveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        #{approveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ActTemplate" >
+    update public.act_template
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null" >
+        temp_code = #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempName != null" >
+        temp_name = #{tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="actitionType != null" >
+        actition_type = #{actitionType,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUserId != null" >
+        apply_user_id = #{applyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyContent != null" >
+        apply_content = #{applyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="approveUserId != null" >
+        approve_user_id = #{approveUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveContent != null" >
+        approve_content = #{approveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="approveStatus != null" >
+        approve_status = #{approveStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where temp_id = #{tempId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ActTemplate" >
+    update public.act_template
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      temp_code = #{tempCode,jdbcType=VARCHAR},
+      temp_name = #{tempName,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      actition_type = #{actitionType,jdbcType=VARCHAR},
+      apply_user_id = #{applyUserId,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      apply_content = #{applyContent,jdbcType=VARCHAR},
+      approve_user_id = #{approveUserId,jdbcType=VARCHAR},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      approve_content = #{approveContent,jdbcType=VARCHAR},
+      approve_status = #{approveStatus,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where temp_id = #{tempId,jdbcType=VARCHAR}
+  </update>
+</mapper>

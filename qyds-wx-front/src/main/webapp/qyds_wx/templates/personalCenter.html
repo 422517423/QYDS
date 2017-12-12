@@ -1,0 +1,107 @@
+<ion-view cache-view="false">
+    <ion-content class="bg-gray">
+        <div class="row bg-light row-center" style="padding:10px 10px;margin:0">
+            <div class="col col-25" style="text-align:left;color:#CCCCCC;" ng-click="modifyHeaderImg()"
+                 ng-if="personal.memberPic">
+                <img ng-src="{{personal.memberPic | imgPath}}" width="80px" height="80px" class='img-responsive'
+                     style="border-radius:50%; overflow:hidden;">
+            </div>
+            <div class="col col-25" style="text-align:left;color:#CCCCCC;" ng-click="modifyHeaderImg()"
+                 ng-if="!personal.memberPic">
+                <img src="./image/dress.png" width="80px" height="80px" class='img-responsive'
+                     style="border-radius:50%; overflow:hidden;">
+            </div>
+            <div class="col-75 col-center" style="padding-left: 20px">
+                <div style="font-size:17px;" ng-click="goPersonal();">{{personal.memberName}}</div>
+                <div style="font-size:14px;margin-top: 10px;color: #999999">
+                    <i class="icon ion-android-phone-portrait" style="font-size:14px;"></i>
+                    <span ng-if="personal.telephone" ng-click="goPersonal();">{{personal.telephone}}</span>
+                    <span ng-if="!personal.openId" ng-click="goBinding()">未绑定</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="item item-icon-right item-icon-left" style="padding: 15px;" ng-click="goOrder()">
+            <img src="./image/personal_myorder.png" style="vertical-align: middle;width:24px;height:24px">
+            <span style="margin-left:5px;font-size:16px;">我的订单</span>
+            <span style="color: #999999;font-size: 14px;margin-right: 30px;float:right;height: 20px;line-height: 20px">查看全部订单</span>
+            <i class="icon ion-ios-arrow-forward placeholder-icon" style="font-size: 20px"></i>
+        </div>
+
+        <div class="row row-center bg-light" style="padding:10px 10px;margin:0">
+            <div class="col col-25 col-center" style="text-align:center" ng-click="goOrder(1)">
+                <img src="./image/personal_for_pay.png" height="40px" class='img-responsive'>
+                <div style="margin-top:10px;color:#666666;font-size:13px;">待付款
+                    <span ng-if="waitPayCount > 0" class="assertive" style="font-size:13px;">({{waitPayCount}})</span></div>
+            </div>
+            <div class="col col-25 col-center" style="text-align:center" ng-click="goOrder(2)">
+                <img src="./image/personal_for_send.png" height="40px" class='img-responsive'>
+                <div style="margin-top:10px;color:#666666;font-size:13px;">待发货
+                    <span ng-if="waitDeliveryCount > 0" class="assertive" style="font-size:13px;">({{waitDeliveryCount}})</span></div>
+            </div>
+            <div class="col col-25 col-center" style="text-align:center" ng-click="goOrder(3)">
+                <img src="./image/personal_for_receive.png" height="40px" class='img-responsive'>
+                <div style="margin-top:10px;color:#666666;font-size:13px;">待收货
+                    <span ng-if="waitReceiveCount > 0" class="assertive" style="font-size:13px;">({{waitReceiveCount}})</span></div>
+            </div>
+            <div class="col col-25 col-center" style="text-align:center" ng-click="goOrder(4)">
+                <img src="./image/personal_for_evaluation.png" height="40px" class='img-responsive'>
+                <div style="margin-top:10px;color:#666666;font-size:13px;">已完成</div>
+            </div>
+        </div>
+
+        <div class="item item-icon-right item-icon-left" style="padding: 15px;margin-top:15px;"
+             ng-click="goPointExchange()">
+            <img src="./image/personal_points.png" style="vertical-align: middle;width:24px;height:24px;margin-top: 10px;">
+            <span style="margin-left:5px;font-size:16px;">我的积分</span>
+            <span class="assertive">({{personal.point}}分)</span>
+            <span style="color: #999999;font-size: 14px;margin-right: 30px;float:right;height: 40px;line-height: 40px">积分兑换</span>
+            <div style="font-size:8px;color:#999999; margin-left: 31px;height: 20px;line-height: 20px">(积分会在消费1个月后生效)</div>
+
+            <i class="icon ion-ios-arrow-forward placeholder-icon" style="font-size: 20px"></i>
+        </div>
+        <div class="item item-icon-right item-icon-left" style="padding: 15px;" ng-click="goCoupon()">
+            <img src="./image/personal_coupon.png" style="vertical-align: middle;width:24px;height:24px">
+            <span style="margin-left:5px;font-size:16px;">我的优惠券</span>
+            <i class="icon ion-ios-arrow-forward placeholder-icon" style="font-size: 20px"></i>
+        </div>
+        <div class="item item-icon-right item-icon-left" style="padding: 15px;margin-top:15px;" ng-click="goPersonal()">
+            <img src="./image/personal_myinfo.png" style="vertical-align: middle;width:24px;height:24px">
+            <span style="margin-left:5px;font-size:16px;">我的信息</span>
+            <i class="icon ion-ios-arrow-forward placeholder-icon" style="font-size: 20px"></i>
+        </div>
+        <div class="item item-icon-right item-icon-left" style="padding: 15px;margin-bottom: 20px"
+             ng-click="goFavorite()">
+            <img src="./image/personal_mywishlist.png" style="vertical-align: middle;width:24px;height:24px">
+            <span style="margin-left:5px;font-size:16px;">我的心愿单</span>
+            <i class="icon ion-ios-arrow-forward placeholder-icon" style="font-size: 20px"></i>
+        </div>
+        <div class="item item-icon-right item-icon-left" style="padding: 15px;margin-bottom: 20px"
+             ng-click="goOrderListOffline()">
+            <img src="./image/personal_myorder_offline.png" style="vertical-align: middle;width:24px;height:24px">
+            <span style="margin-left:5px;font-size:16px;">线下订单</span>
+            <i class="icon ion-ios-arrow-forward placeholder-icon" style="font-size: 20px"></i>
+        </div>
+
+        <!--<div class="divider_gray"></div>-->
+        <!--<div class="row row-center bg-light" style="padding:10px 10px;">-->
+        <!--<div class="col col-50 col-center">-->
+        <!--<img src="./image/personal_mywishlist.png" width="24px" height="24px" style="vertical-align: middle;">-->
+        <!--<span style="margin-left:2px;display:inline-block;font-size:16px;">我的收货地址</span>-->
+        <!--</div>-->
+        <!--<div class="col col-50 col-center" style="text-align:right" ng-click="goAddress()">-->
+        <!--<i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right"></i>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="divider_gray"></div>-->
+        <!--<div class="row row-center bg-light" style="padding:10px 10px;">-->
+        <!--<div class="col col-50 col-center">-->
+        <!--<i class="icon ion-bag" style="margin-right:5px;"></i>常见问题-->
+        <!--</div>-->
+        <!--<div class="col col-50 col-center" style="text-align:right">-->
+        <!--<i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right"></i>-->
+        <!--</div>-->
+        <!--</div>-->
+    </ion-content>
+</ion-view>

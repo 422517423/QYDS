@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdTransferListMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdTransferList" >
+    <id column="order_transfer_id" property="orderTransferId" jdbcType="VARCHAR" />
+    <result column="sub_order_id" property="subOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="transfer_status" property="transferStatus" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="price_share" property="priceShare" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="apply_store" property="applyStore" jdbcType="VARCHAR" />
+    <result column="apply_user" property="applyUser" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="apply_address" property="applyAddress" jdbcType="VARCHAR" />
+    <result column="apply_contactor" property="applyContactor" jdbcType="VARCHAR" />
+    <result column="apply_phone" property="applyPhone" jdbcType="VARCHAR" />
+    <result column="apply_postcode" property="applyPostcode" jdbcType="VARCHAR" />
+    <result column="dispatch_user" property="dispatchUser" jdbcType="VARCHAR" />
+    <result column="dispatch_time" property="dispatchTime" jdbcType="TIMESTAMP" />
+    <result column="dispatch_store" property="dispatchStore" jdbcType="VARCHAR" />
+    <result column="refuse_store" property="refuseStore" jdbcType="VARCHAR" />
+    <result column="refuse_user" property="refuseUser" jdbcType="VARCHAR" />
+    <result column="refuse_time" property="refuseTime" jdbcType="TIMESTAMP" />
+    <result column="accept_user" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_user" property="deliveryUser" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_address" property="deliveryAddress" jdbcType="VARCHAR" />
+    <result column="delivery_contactor" property="deliveryContactor" jdbcType="VARCHAR" />
+    <result column="delivery_phone" property="deliveryPhone" jdbcType="VARCHAR" />
+    <result column="delivery_postcode" property="deliveryPostcode" jdbcType="VARCHAR" />
+    <result column="express_id" property="expressId" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="receive_user" property="receiveUser" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="erp_send_status_delivery" property="erpSendStatusDelivery" jdbcType="VARCHAR" />
+    <result column="erp_send_status_receive" property="erpSendStatusReceive" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_transfer_id, sub_order_id, order_id, transfer_status, goods_type, goods_id, 
+    goods_code, goods_name, colore_code, colore_name, size_code, size_name, sku, erp_sku, 
+    erp_style_no, erp_colore_code, erp_colore_name, erp_size_code, erp_size_name, price, 
+    price_discount, price_share, quantity, amount, amount_discount, apply_store, apply_user, 
+    apply_time, apply_address, apply_contactor, apply_phone, apply_postcode, dispatch_user, 
+    dispatch_time, dispatch_store, refuse_store, refuse_user, refuse_time, accept_user, 
+    accept_time, delivery_user, delivery_time, delivery_address, delivery_contactor, 
+    delivery_phone, delivery_postcode, express_id, express_name, express_no, receive_user, 
+    receive_time, erp_send_status_delivery, erp_send_status_receive, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_transfer_list
+    where order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_transfer_list
+    where order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdTransferList" >
+    insert into public.ord_transfer_list (order_transfer_id, sub_order_id, order_id, 
+      transfer_status, goods_type, goods_id, 
+      goods_code, goods_name, colore_code, 
+      colore_name, size_code, size_name, 
+      sku, erp_sku, erp_style_no, 
+      erp_colore_code, erp_colore_name, erp_size_code, 
+      erp_size_name, price, price_discount, 
+      price_share, quantity, amount, 
+      amount_discount, apply_store, apply_user, 
+      apply_time, apply_address, apply_contactor, 
+      apply_phone, apply_postcode, dispatch_user, 
+      dispatch_time, dispatch_store, refuse_store, 
+      refuse_user, refuse_time, accept_user, 
+      accept_time, delivery_user, delivery_time, 
+      delivery_address, delivery_contactor, delivery_phone, 
+      delivery_postcode, express_id, express_name, 
+      express_no, receive_user, receive_time, 
+      erp_send_status_delivery, erp_send_status_receive, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{orderTransferId,jdbcType=VARCHAR}, #{subOrderId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{transferStatus,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{coloreCode,jdbcType=VARCHAR}, 
+      #{coloreName,jdbcType=VARCHAR}, #{sizeCode,jdbcType=VARCHAR}, #{sizeName,jdbcType=VARCHAR}, 
+      #{sku,jdbcType=VARCHAR}, #{erpSku,jdbcType=VARCHAR}, #{erpStyleNo,jdbcType=VARCHAR}, 
+      #{erpColoreCode,jdbcType=VARCHAR}, #{erpColoreName,jdbcType=VARCHAR}, #{erpSizeCode,jdbcType=VARCHAR}, 
+      #{erpSizeName,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, #{priceDiscount,jdbcType=NUMERIC}, 
+      #{priceShare,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{amount,jdbcType=NUMERIC}, 
+      #{amountDiscount,jdbcType=NUMERIC}, #{applyStore,jdbcType=VARCHAR}, #{applyUser,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{applyAddress,jdbcType=VARCHAR}, #{applyContactor,jdbcType=VARCHAR}, 
+      #{applyPhone,jdbcType=VARCHAR}, #{applyPostcode,jdbcType=VARCHAR}, #{dispatchUser,jdbcType=VARCHAR}, 
+      #{dispatchTime,jdbcType=TIMESTAMP}, #{dispatchStore,jdbcType=VARCHAR}, #{refuseStore,jdbcType=VARCHAR}, 
+      #{refuseUser,jdbcType=VARCHAR}, #{refuseTime,jdbcType=TIMESTAMP}, #{acceptUser,jdbcType=VARCHAR}, 
+      #{acceptTime,jdbcType=TIMESTAMP}, #{deliveryUser,jdbcType=VARCHAR}, #{deliveryTime,jdbcType=TIMESTAMP}, 
+      #{deliveryAddress,jdbcType=VARCHAR}, #{deliveryContactor,jdbcType=VARCHAR}, #{deliveryPhone,jdbcType=VARCHAR}, 
+      #{deliveryPostcode,jdbcType=VARCHAR}, #{expressId,jdbcType=VARCHAR}, #{expressName,jdbcType=VARCHAR}, 
+      #{expressNo,jdbcType=VARCHAR}, #{receiveUser,jdbcType=VARCHAR}, #{receiveTime,jdbcType=TIMESTAMP}, 
+      #{erpSendStatusDelivery,jdbcType=VARCHAR}, #{erpSendStatusReceive,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdTransferList" >
+    insert into public.ord_transfer_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderTransferId != null" >
+        order_transfer_id,
+      </if>
+      <if test="subOrderId != null" >
+        sub_order_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="transferStatus != null" >
+        transfer_status,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name,
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code,
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount,
+      </if>
+      <if test="priceShare != null" >
+        price_share,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount,
+      </if>
+      <if test="applyStore != null" >
+        apply_store,
+      </if>
+      <if test="applyUser != null" >
+        apply_user,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="applyAddress != null" >
+        apply_address,
+      </if>
+      <if test="applyContactor != null" >
+        apply_contactor,
+      </if>
+      <if test="applyPhone != null" >
+        apply_phone,
+      </if>
+      <if test="applyPostcode != null" >
+        apply_postcode,
+      </if>
+      <if test="dispatchUser != null" >
+        dispatch_user,
+      </if>
+      <if test="dispatchTime != null" >
+        dispatch_time,
+      </if>
+      <if test="dispatchStore != null" >
+        dispatch_store,
+      </if>
+      <if test="refuseStore != null" >
+        refuse_store,
+      </if>
+      <if test="refuseUser != null" >
+        refuse_user,
+      </if>
+      <if test="refuseTime != null" >
+        refuse_time,
+      </if>
+      <if test="acceptUser != null" >
+        accept_user,
+      </if>
+      <if test="acceptTime != null" >
+        accept_time,
+      </if>
+      <if test="deliveryUser != null" >
+        delivery_user,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="deliveryAddress != null" >
+        delivery_address,
+      </if>
+      <if test="deliveryContactor != null" >
+        delivery_contactor,
+      </if>
+      <if test="deliveryPhone != null" >
+        delivery_phone,
+      </if>
+      <if test="deliveryPostcode != null" >
+        delivery_postcode,
+      </if>
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="expressName != null" >
+        express_name,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="receiveUser != null" >
+        receive_user,
+      </if>
+      <if test="receiveTime != null" >
+        receive_time,
+      </if>
+      <if test="erpSendStatusDelivery != null" >
+        erp_send_status_delivery,
+      </if>
+      <if test="erpSendStatusReceive != null" >
+        erp_send_status_receive,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderTransferId != null" >
+        #{orderTransferId,jdbcType=VARCHAR},
+      </if>
+      <if test="subOrderId != null" >
+        #{subOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="transferStatus != null" >
+        #{transferStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="priceDiscount != null" >
+        #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="priceShare != null" >
+        #{priceShare,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="applyStore != null" >
+        #{applyStore,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null" >
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyAddress != null" >
+        #{applyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applyContactor != null" >
+        #{applyContactor,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPhone != null" >
+        #{applyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPostcode != null" >
+        #{applyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchUser != null" >
+        #{dispatchUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchTime != null" >
+        #{dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dispatchStore != null" >
+        #{dispatchStore,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseStore != null" >
+        #{refuseStore,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseUser != null" >
+        #{refuseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseTime != null" >
+        #{refuseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptUser != null" >
+        #{acceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptTime != null" >
+        #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryUser != null" >
+        #{deliveryUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryAddress != null" >
+        #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryContactor != null" >
+        #{deliveryContactor,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPhone != null" >
+        #{deliveryPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPostcode != null" >
+        #{deliveryPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null" >
+        #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUser != null" >
+        #{receiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="erpSendStatusDelivery != null" >
+        #{erpSendStatusDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendStatusReceive != null" >
+        #{erpSendStatusReceive,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdTransferList" >
+    update public.ord_transfer_list
+    <set >
+      <if test="subOrderId != null" >
+        sub_order_id = #{subOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="transferStatus != null" >
+        transfer_status = #{transferStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        colore_code = #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        colore_name = #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        size_name = #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        erp_sku = #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount = #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="priceShare != null" >
+        price_share = #{priceShare,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="applyStore != null" >
+        apply_store = #{applyStore,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUser != null" >
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyAddress != null" >
+        apply_address = #{applyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applyContactor != null" >
+        apply_contactor = #{applyContactor,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPhone != null" >
+        apply_phone = #{applyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPostcode != null" >
+        apply_postcode = #{applyPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchUser != null" >
+        dispatch_user = #{dispatchUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchTime != null" >
+        dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dispatchStore != null" >
+        dispatch_store = #{dispatchStore,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseStore != null" >
+        refuse_store = #{refuseStore,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseUser != null" >
+        refuse_user = #{refuseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseTime != null" >
+        refuse_time = #{refuseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptUser != null" >
+        accept_user = #{acceptUser,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptTime != null" >
+        accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryUser != null" >
+        delivery_user = #{deliveryUser,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryAddress != null" >
+        delivery_address = #{deliveryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryContactor != null" >
+        delivery_contactor = #{deliveryContactor,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPhone != null" >
+        delivery_phone = #{deliveryPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryPostcode != null" >
+        delivery_postcode = #{deliveryPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="expressId != null" >
+        express_id = #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        express_name = #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUser != null" >
+        receive_user = #{receiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="erpSendStatusDelivery != null" >
+        erp_send_status_delivery = #{erpSendStatusDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendStatusReceive != null" >
+        erp_send_status_receive = #{erpSendStatusReceive,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdTransferList" >
+    update public.ord_transfer_list
+    set sub_order_id = #{subOrderId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      transfer_status = #{transferStatus,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      colore_code = #{coloreCode,jdbcType=VARCHAR},
+      colore_name = #{coloreName,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      erp_sku = #{erpSku,jdbcType=VARCHAR},
+      erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      price_discount = #{priceDiscount,jdbcType=NUMERIC},
+      price_share = #{priceShare,jdbcType=NUMERIC},
+      quantity = #{quantity,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=NUMERIC},
+      amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      apply_store = #{applyStore,jdbcType=VARCHAR},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      apply_address = #{applyAddress,jdbcType=VARCHAR},
+      apply_contactor = #{applyContactor,jdbcType=VARCHAR},
+      apply_phone = #{applyPhone,jdbcType=VARCHAR},
+      apply_postcode = #{applyPostcode,jdbcType=VARCHAR},
+      dispatch_user = #{dispatchUser,jdbcType=VARCHAR},
+      dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
+      dispatch_store = #{dispatchStore,jdbcType=VARCHAR},
+      refuse_store = #{refuseStore,jdbcType=VARCHAR},
+      refuse_user = #{refuseUser,jdbcType=VARCHAR},
+      refuse_time = #{refuseTime,jdbcType=TIMESTAMP},
+      accept_user = #{acceptUser,jdbcType=VARCHAR},
+      accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      delivery_user = #{deliveryUser,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      delivery_address = #{deliveryAddress,jdbcType=VARCHAR},
+      delivery_contactor = #{deliveryContactor,jdbcType=VARCHAR},
+      delivery_phone = #{deliveryPhone,jdbcType=VARCHAR},
+      delivery_postcode = #{deliveryPostcode,jdbcType=VARCHAR},
+      express_id = #{expressId,jdbcType=VARCHAR},
+      express_name = #{expressName,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      receive_user = #{receiveUser,jdbcType=VARCHAR},
+      receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      erp_send_status_delivery = #{erpSendStatusDelivery,jdbcType=VARCHAR},
+      erp_send_status_receive = #{erpSendStatusReceive,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+  </update>
+</mapper>

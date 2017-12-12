@@ -1,0 +1,61 @@
+<div class="modal-dialog">
+    <div>
+        <div class="modal-header" style="padding: 0px 0px 10px 10px">
+            <h3 class="modal-title" style="text-align: left">尺码和版型</h3>
+        </div>
+        <div class="modal-body">
+
+            <div style="max-height: 500px;overflow-y: scroll">
+                <div ng-if="goodsTypeIdPath=='b97f11e6-df14-4c75-ab1f-2c037c70f77b'">
+                    <div style="padding: 10px 20px 10px 0px" class="border-bottom">
+                        <div ng-click="showFirst=!showFirst">
+                            <span>人体测量方法</span>
+                            <i class="glyphicon glyphicon-menu-down" ng-if="!showFirst" style="float: right;"></i>
+                            <i class="glyphicon glyphicon-menu-up" ng-if="showFirst" style="float: right"></i>
+                        </div>
+                        <div ng-if="showFirst">
+                            <img src="images/size_guide_man1.jpg" style="width: 100%">
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px">尺码</div>
+                    <img src="images/size_guide_man2.jpg" style="width: 100%">
+                </div>
+                <div ng-if="goodsTypeIdPath=='66c85de5-2bd4-4517-8387-cdcda445a5b4'">
+                    <div style="padding: 10px 20px 10px 0px" class="border-bottom">
+                        <div ng-click="showFirst=!showFirst">
+                            <span>人体测量方法</span>
+                            <i class="glyphicon glyphicon-menu-down" ng-if="!showFirst" style="float: right;"></i>
+                            <i class="glyphicon glyphicon-menu-up" ng-if="showFirst" style="float: right"></i>
+                        </div>
+                        <div ng-if="showFirst">
+                            <img src="images/size_guide_child1.jpg" style="width: 100%">
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px">尺码</div>
+                    <img src="images/size_guide_child2.jpg" style="width: 100%">
+                </div>
+
+                <div ng-if="goodsTypeIdPath=='b21efa89-e4cf-4d35-a8d9-53aae6db578c'">
+                    <div style="padding: 10px 20px 10px 0px" class="border-bottom">
+                        <div ng-click="showFirst=!showFirst">
+                            <span>人体测量方法</span>
+                            <i class="glyphicon glyphicon-menu-down" ng-if="!showFirst" style="float: right;"></i>
+                            <i class="glyphicon glyphicon-menu-up" ng-if="showFirst" style="float: right"></i>
+                        </div>
+                        <div ng-if="showFirst">
+                            <img src="images/size_guide_women1.jpg" style="width: 100%">
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px">尺码</div>
+                    <img src="images/size_guide_women2.jpg" style="width: 100%">
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button type="submit" class="btn btn-default hvr-outline-out-light" ng-click="close()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

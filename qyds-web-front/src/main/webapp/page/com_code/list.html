@@ -1,0 +1,132 @@
+<!-- 码表管理画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE -->
+        <h3 class="page-title">
+            码表管理
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">系统设置</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">码表管理</a> </li>
+        </ul>
+        <!-- END PAGE TITLE -->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <button id="addBtn" class="btn green" href="#" >
+                            添加<i class="icon-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="com_code_table">
+                    <thead>
+                    <tr>
+                        <th>修改时间</th>
+                        <th>编码</th>
+                        <th>编码名称</th>
+                        <th>编码值</th>
+                        <th>中文表示</th>
+                        <th>英文表示</th>
+                        <th>说明</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <th>详细</th>
+                        <!--<th>操作</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+<!-- 码表详细modal start-->
+<div class="modal fade" id="com_code_edit" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">码表编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="com_code_form" class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">编码<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="code" name="code" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">编码名称<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="name" name="name" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">编码值<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="value" name="value" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">中文表示<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="display_cn" name="display_cn" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">英文表示<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="display_en" name="display_en" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">说明<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <textarea type="text" id="comment" name="comment" data-required="1" class="form-control">
+                                        </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="com_code_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 码表详细modal end -->
+<script src="../page/com_code/code.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        TableEditable.init();
+    });
+</script>

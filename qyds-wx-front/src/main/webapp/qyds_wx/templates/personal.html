@@ -1,0 +1,163 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">我的信息</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-light'>
+        <div style="padding:0 15px;">
+            <form role="form" name="personalForm" class="form-horizontal" novalidate>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        姓名
+                    </div>
+                    <div class="col col-70 col-center item-input" style="height:44px;">
+                        <input type="text" max-length=16 placeholder="请输入姓名" ng-model="personalInfo.memberName" style="font-size:15px;width:100%;text-align:right">
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        性别
+                    </div>
+                    <div class="col col-70 col-center item-select" data-tap-disabled="true" style="height:44px;">
+                            <select style="font-size:15px;" ng-model="personalInfo.sex" ng-options="x for (x, y) in genderList"></select>
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        生日
+                    </div>
+                    <div ng-if="birthdateStatus==20" class="col col-70 item-input item-select" style="height:44px;" ng-click="openDatePicker()">
+                        <input type="text" style="background-color:#fff!important;text-align:right;" readonly  ng-model="personalInfo.birthdate"  style="font-size:15px;width:100%;text-align:right;">
+                    </div>
+                    <div ng-if="birthdateStatus==10" class="col col-70 item-input" style="height:44px;">
+                        <input type="text" style="background-color:#fff!important;text-align:right;" disabled="disabled"  ng-model="personalInfo.birthdate"  style="font-size:15px;width:100%;text-align:right;">
+                    </div>
+                    <!--<div class="col col-70 col-center item-select" style="height:44px;position:relative;padding-top:0px;">-->
+                        <!--<input type="text"  ng-model="birthdate.data"  style="font-size:15px;width:100%;text-align:right;">-->
+                        <!--&lt;!&ndash;<ionic-datepicker idate="currentDate" disablepreviousdates="true"  disablefuturedates="false" callback="datePickerCallback" title="title">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<button class="button button-block button-positive"> {{ currentDate | date:'dd - MMMM - yyyy' }} </button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</ionic-datepicker>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button class="button button-positive button-block" style="margin: 0;" ng-click="openDatePickerOne()">Open Date Picker Popup&ndash;&gt;-->
+                        <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="date"  ng-model="birthdate.data"  style="font-size:15px;width:100%;text-align:right;">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="icon ion-android-calendar placeholder-icon" style="font-size:28px;"></i>&ndash;&gt;-->
+                        <!--&lt;!&ndash;ion-ios-calendar&ndash;&gt;-->
+                    <!--</div>-->
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        会员级别
+                    </div>
+                    <div ng-if="personalInfo.memberLevelName" class="col col-70 item-input " style="height:44px;">
+                        <input type="text" style="background-color:#fff!important;text-align:right;" readonly  ng-model="personalInfo.memberLevelName"  style="font-size:15px;width:100%;text-align:right;">
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        职业
+                    </div>
+                    <div class="col col-70 item-select"  data-tap-disabled="true" style="height:44px;">
+                        <select ng-model="personalInfo.profession" style="font-size:15px;">
+                            <option value="">--请选择--</option>
+                            <option ng-repeat="profession in professionList" value="{{profession}}">{{profession}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        收入
+                    </div>
+                    <div class="col col-70 item-select"  data-tap-disabled="true" style="height:44px;">
+                        <select ng-model="personalInfo.income" style="font-size:15px;">
+                            <option value="">--请选择--</option>
+                            <option ng-repeat="income in incomeList" value="{{income}}">{{income}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        省
+                    </div>
+                    <div class="col col-70 col-center item-select"  data-tap-disabled="true" style="height:44px;">
+                        <select style="font-size:15px;" ng-model="info.provinceCd" ng-init="info.provinceCd='0'" ng-change="changeArea('0',info.provinceCd)">
+                            <option value="0">--请选择--</option>
+                            <option ng-repeat="province in provincesList" value="{{province.pcode}}">{{province.pname}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        市
+                    </div>
+                    <div class="col col-70 col-center item-select"  data-tap-disabled="true" style="height:44px;">
+                        <select style="font-size:15px;" ng-model="info.cityCd"  ng-init="info.cityCd='0'" ng-change="changeArea('1',info.cityCd)">
+                            <option value="0">--请选择--</option>
+                            <option ng-repeat="city in citiesList" value="{{city.ccode}}">{{city.cname}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        区/县
+                    </div>
+                    <div class="col col-70 col-center item-select" data-tap-disabled="true" style="height:44px;">
+                        <select style="font-size:15px;" ng-model="info.areaCd" ng-init="info.areaCd='0'" id="area_selected">
+                            <option value="0">--请选择--</option>
+                            <option ng-repeat="area in areasList" value="{{area.dcode}}">{{area.dname}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="form-group" ng-class="{'has-error':personalForm.email.$invalid && submitted}">
+                    <div class="row" style="padding:0;margin:0" >
+                        <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                            邮件
+                        </div>
+                        <div class="col col-70 item-input" style="height:44px;">
+                            <input class="form-control" type="text" maxlength="40" name="email" id="email" ng-pattern="/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/" placeholder="请输入邮箱" ng-model="personalInfo.email" style="font-size:15px;width:100%;text-align:right;background-size:15px 15px;">
+                        </div>
+                    </div>
+                    <div class="col item-input error_msg" style="text-align:right;" ng-show="personalForm.email.$error.pattern && submitted">邮箱格式不正确</div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="form-group" ng-class="{'has-error':personalForm.postCode.$invalid && submitted}">
+                    <div class="row" style="padding:0;margin:0">
+                        <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                            邮编
+                        </div>
+                        <div class="col col-70 item-input" style="height:44px;">
+                            <input type="text" id="postCode" name="postCode" maxlength="6" ng-pattern="/^[1-9][0-9]{5}$/" placeholder="请输入邮编" ng-model="personalInfo.postCode" style="font-size:15px;width:100%;text-align:right;background-size:15px 15px;">
+                        </div>
+                    </div>
+                    <div class="col item-input error_msg" style="text-align:right;" ng-show="personalForm.postCode.$error.pattern && submitted">邮编格式不正确</div>
+                </div>
+                <div class="divider_gray"></div>
+                <div class="row" style="padding:0;margin:0">
+                    <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                        联系地址
+                    </div>
+                    <div class="col col-70 item-input" style="height:44px;">
+                        <input type="text" maxlength="50" placeholder="请输入联系地址" ng-model="personalInfo.address" style="font-size:15px;width:100%;text-align:right;">
+                    </div>
+                </div>
+                <div class="divider_gray"></div>
+
+                <button class="button button-dark button-block" style="font-size:17px;margin-top:20px" ng-click="modifyPersonalInfo(personalForm.$valid)">
+                    修改个人信息
+                </button>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>
+
+
+
+<!--{{personalInfo.name}}-->

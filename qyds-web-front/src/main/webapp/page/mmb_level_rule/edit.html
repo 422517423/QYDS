@@ -1,0 +1,92 @@
+<!-- /.modal -->
+<div id="mmbLevelRuleEditArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">会员等级规则</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="scroller" style="max-height:300px; overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <div class="row">
+                        <form id="mmb_level_rule_edit_form" class="form-horizontal validator">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">级别名称<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <select id="member_level_code_edit" data-rel="chosen" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">积分系数<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="number" id="point_radio_edit" name="point_radio_edit"
+                                               data-required="1"
+                                               class="form-control" max="999.99" min="1.00">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">单笔消费</label>
+                                    <div class="col-md-8">
+                                        <input type="number" id="point_single_edit" name="point_single_edit"
+                                               data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">积分下限值</label>
+                                    <div class="col-md-8">
+                                        <input type="number" id="point_lower_edit" name="point_lower_edit"
+                                               data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">积分上限值</label>
+                                    <div class="col-md-8">
+                                        <input type="number" id="point_upper_edit" name="point_upper_edit"
+                                               data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">优惠折扣<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="number" id="discount_edit" name="discount_edit" data-required="1"
+                                               class="form-control" max="999.99" min="0.01">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">说明</label>
+                                    <div class="col-md-8">
+                                        <textarea id="comment_edit" rows="8" class="form-control"
+                                                  maxlength="200"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div id="mmb_level_rule_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="../page/mmb_level_rule/edit.js"></script>

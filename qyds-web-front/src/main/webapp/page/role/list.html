@@ -1,0 +1,202 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            角色管理
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">系统设置</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">角色管理</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <button id="addBtn" class="btn green" href="#" >
+                            添加<i class="icon-plus"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <table class="table table-striped table-hover table-bordered" id="role_table">
+                    <thead>
+                    <tr>
+                        <th>更新时间</th>
+                        <th>角色名称</th>
+                        <th>创建者</th>
+                        <th>创建时间</th>
+                        <th>详细</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<!-- END PAGE CONTENT -->
+
+<!-- 角色详细modal start-->
+<div class="modal fade" style="height: 400px;" id="roleEdit" tabindex="-1" role="basic" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">角色编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="roleForm" class="form-horizontal validator">
+                        <input type="hidden" value="" name="role_id" id="role_id" />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">角色名称<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="text" id="role_name" name="role_name" data-required="1" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- 角色详细modal end -->
+
+<!-- 绑定用户modal -->
+<div class="modal fade" style="height: 400px;" id="add_user_modal" tabindex="-1" role="basic" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">绑定用户</h4>
+            </div>
+            <div class="modal-body">
+                <div >
+                    <div id="div_left">
+                        <table class="table table-striped table-hover table-bordered" >
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>电话</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr >
+                                <td>alex</td>
+                                <td>Alex Nilson</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div id="div_right">
+                        <table class="table table-striped table-hover table-bordered" >
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>电话</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr >
+                                <td>alex</td>
+                                <td>Alex Nilson</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="save_user_btn" class="btn blue">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- 绑定用户modal end-->
+
+<!-- 绑定菜单 modal start -->
+<div id="menuTreeModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">菜单编辑</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" style="display: none" id="menuRoleId" value="">
+                <div id="roleMenuTree" class="ztree">
+
+                </div>
+                <div id="alertMsg" class="alert alert-danger" style="display: none;">
+                    数据取得失败
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="saveMenuBtn" class="btn green">保存</button>
+                <button type="button" data-dismiss="modal" class="btn default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="role_delete_modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">角色删除</h4>
+            </div>
+            <div class="modal-body">
+                确定删除该角色？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="del_btn" class="btn blue">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- 绑定菜单 modal end -->
+<script src="../page/role/role.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        TableEditable.init();
+    });
+</script>

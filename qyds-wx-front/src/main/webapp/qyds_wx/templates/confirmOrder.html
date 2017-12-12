@@ -1,0 +1,294 @@
+<ion-view cache-view="false">
+    <form role="form" name="confirmForm" class="form-horizontal" novalidate>
+        <ion-content class='bg-gray'>
+            <div class="row light-bg" style="padding: 0;text-align: center;">
+                <div class="col col-50 col-center" style="padding: 0px 20px" ng-click="selectTab('10')">
+                    <div class="padding">物流发货</div>
+                    <div class="dark-bg" style="height: 2px;width: 100%" ng-if="selectedDeliveryTab == '10'"></div>
+                </div>
+                <div class="col col-50 col-center" style="padding: 0px 20px" ng-click="selectTab('20')">
+                    <div class="padding">到店自提</div>
+                    <div class="dark-bg" style="height: 2px;width: 100%" ng-if="selectedDeliveryTab == '20'"></div>
+                </div>
+            </div>
+            <div class="border-top"></div>
+            <div ng-if="selectedDeliveryTab == '10'">
+                <div ng-if="!addressInfo" class="light-bg" style="font-size:13px;margin-top: 10px">
+                    <ion-item class="" style="width:100%;border:0" ng-click="selectAddress()">
+                        <i class="icon ion-ios-location-outline placeholder-icon"></i>
+                        <span>请选择收货地址</span>
+                        <i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right"></i>
+                    </ion-item>
+                </div>
+                <div ng-if="addressInfo" class="light-bg" style="font-size:13px;margin-top: 10px">
+                    <ion-item class="item-icon-left item-icon-right" style="width:100%;border:0" ng-click="selectAddress()">
+                        <i class="icon ion-ios-location-outline placeholder-icon" style="font-size: 20px"></i>
+                        <div style="padding-left: 10px;">
+                            <div style="overflow: hidden">
+                                <div style="font-size:14px;">
+                                    <span style="display:inline-block">{{addressInfo.contactor}}</span>
+                                    <span style="display:inline-block">({{addressInfo.phone}})</span>
+                                </div>
+                            </div>
+                            <div style="font-size:12px;margin-top:10px;">{{addressInfo.address}}</div>
+
+                        </div>
+                        <i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right;font-size: 20px"></i>
+                    </ion-item>
+                </div>
+            </div>
+            <div ng-if="selectedDeliveryTab == '20'">
+                <div ng-if="!shopInfo" class="light-bg" style="font-size:13px;margin-top: 10px">
+                    <ion-item class="" style="width:100%;border:0" ng-click="selectShop()">
+                        <i class="icon ion-ios-box-outline placeholder-icon"></i>
+                        <span>请选择门店</span>
+                        <i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right"></i>
+                    </ion-item>
+                </div>
+                <div ng-if="shopInfo" class="light-bg" style="font-size:12px;margin-top: 10px">
+                    <ion-item class="item-icon-left item-text-wrap item-icon-right" style="width:100%;border:0"
+                              ng-click="selectShop()">
+                        <i class="icon ion-ios-location-outline placeholder-icon" style="font-size: 20px"></i>
+                        <div style="padding-left: 10px;">
+                            <div style="font-size:14px;">{{shopInfo.store_name_cn}}</div>
+                            <div style="font-size:12px;">{{shopInfo.address}}&nbsp;&nbsp;{{shopInfo.phone}}</div>
+                        </div>
+                        <i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right;font-size: 20px"></i>
+                    </ion-item>
+                </div>
+            </div>
+
+            <div ng-if="selectedDeliveryTab == '20'" class="light-bg" style="font-size:12px;margin-top: 10px">
+                    <div style="font-size: 14px;margin-top: 10px" class="padding border-bottom">联系人信息
+                        <br><span style="font-size: 10px;color: red;">*到店取货前请跟门店联系,确认门店可以取货的时间。</span>
+                    </div>
+
+                    <div class="row" style="border-bottom:1px solid #C0C0C0;height: 40px;"
+                         ng-class="{'has-error':(confirmForm.cname.$invalid || conInfo.cname == '') && submitted_confirm,'no-error':(confirmForm.name.$valid && conInfo.cname != '') && submitted_confirm}">
+                        <label class="item-input">
+                            <i class="icon ion-ios-person-outline placeholder-icon" style="font-size:24px;"></i>
+                            <input class="form-control" id="cname" name="cname" type="text" required
+                                   maxlength="20"
+                                   ng-model='conInfo.cname' placeholder="请输入联系人姓名"
+                                   style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                        </label>
+                        <div class="item-input error_msg"
+                             ng-show="(confirmForm.cname.$error.required || conInfo.cname == '0')&& submitted_confirm">
+                            必需
+                        </div>
+                    </div>
+                    <div class="row" ng-class="{'has-error':confirmForm.ctel.$invalid && submitted_confirm,'no-error':confirmForm.ctel.$valid && submitted_confirm}"
+                         style="border-bottom:1px solid #C0C0C0;height: 40px;margin-top: 2px;">
+                        <label class="item-input">
+                            <i class="icon ion-android-phone-portrait placeholder-icon" style="font-size:24px;"></i>
+                            <input class="form-control" maxlength="11" id="ctel" name="ctel" type="tel"
+                                   ng-pattern="/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/"
+                                   ng-model='conInfo.ctel' placeholder="输入联系人手机号" required
+                                   style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                        </label>
+                        <div class="item-input error_msg"
+                             ng-show="confirmForm.ctel.$error.required && submitted_confirm">必需
+                        </div>
+                        <div class="item-input error_msg"
+                             ng-show="confirmForm.ctel.$error.pattern && submitted_confirm">格式不正确
+                        </div>
+                    </div>
+            </div>
+
+            <div style="margin-top:10px;">
+                <div ng-repeat="goodItem in confirmData.goodsInfo" class="light-bg padding border-bottom"
+                     style="padding:0;">
+                    <!--单品情况-->
+                    <div style="padding: 10px;overflow: hidden" ng-if="goodItem.type!='30'">
+                        <img ng-if="goodItem.type=='10'" ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].imageUrlJson | imgPathJson:'480'}}"
+                             style="float:left;width:80px;margin-right: 10px;" class="bordered">
+                        <img ng-if="goodItem.type=='20'"
+                             ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:'image'| imgPath:'480'}}"
+                             style="float:left;width:80px;margin-right: 10px" class="bordered">
+                        <div>
+                            <div style="font-size: 15px;margin-top: 10px" class="max-line-1">{{goodItem.goodsName}}</div>
+                            <div style="font-size: 12px;color: #666666;padding: 10px 0px">
+                                <span>颜色:</span>
+                                <span ng-if="goodItem.type=='10'">{{goodItem.ordConfirmOrderUnitExtList[0].colorName}}</span>
+                                <span ng-if="goodItem.type=='20'">{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:"color"}}</span>
+                                <span ng-if="goodItem.type=='30'">{{goodItem.colorName }}</span>
+                                <span style="margin-left: 10px">尺码:</span>
+                                <span ng-if="goodItem.type=='10'">{{goodItem.ordConfirmOrderUnitExtList[0].sizeName | sizeFilter}}</span>
+                                <span ng-if="goodItem.type=='20'">{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:"size"}}</span>
+                                <span ng-if="goodItem.type=='30'">{{goodItem.sizeName | sizeFilter}}</span>
+                            </div>
+                            <div style="font-size: 12px;color: #666666;">
+                                <span>数量: </span>
+                                <span>×{{goodItem.quantity}}</span>
+                            </div>
+                            <div style="margin-top: 8px">
+                                <div ng-if="goodItem.activity">
+                                    <span class="assertive bold" style="font-size: 14px;">¥{{goodItem.activity.newPrice | priceFilter}}</span>
+                                    <span ng-if="goodItem.activity.newPrice!=goodItem.ordConfirmOrderUnitExtList[0].price"
+                                          style="font-size: 10px;text-decoration: line-through">¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}</span>
+                                    <span style="font-size: 12px;border-radius: 2px;background: #666666;padding: 2px;color: #ffffff;float: right">{{goodItem.activity.activityName}}</span>
+
+                                </div>
+                                <div ng-if="!goodItem.activity">
+                                        <span class="assertive bold"
+                                              style="font-size: 14px;">¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--套装情况-->
+                    <div style="padding: 0px 10px;overflow: hidden" ng-if="goodItem.type=='30'">
+                        <div style="padding: 10px 0px;overflow: hidden">
+                            <div style="float: left;font-size: 15px" class="max-line-1">{{goodItem.goodsName}}</div>
+                        </div>
+                        <div ng-repeat="skuInfo in goodItem.ordConfirmOrderUnitExtList" class="border-top" style="overflow: hidden;padding: 10px 0px">
+                            <img ng-if="skuInfo.imageUrlJson" ng-src="{{skuInfo.imageUrlJson | imgPathJson}}"
+                                 style="float:left;width:80px;margin-right: 10px;" class="bordered">
+                            <!--<img ng-if="skuInfo.type=='20'"-->
+                                 <!--ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:'image'| imgPath:'120'}}"-->
+                                 <!--style="float:left;width:80px;height: 80px;margin-right: 10px" class="bordered">-->
+                            <div>
+                                <div style="font-size: 15px;margin-top: 10px" class="max-line-1">{{skuInfo.goodsName}}</div>
+                                <div style="font-size: 12px;color: #666666;padding: 10px 0px">
+                                    <span>颜色:</span>
+                                    <span ng-if="skuInfo.colorName">{{skuInfo.colorName}}</span>
+                                    <span ng-if="skuInfo.skucontent">{{skuInfo.skucontent | ecSkuFilter:"color"}}</span>
+                                    <span style="margin-left: 10px">尺码:</span>
+                                    <span ng-if="skuInfo.sizeName">{{skuInfo.sizeName | sizeFilter}}</span>
+                                    <span ng-if="skuInfo.skucontent">{{skuInfo.skucontent | ecSkuFilter:"size"}}</span>
+                                </div>
+                                <div style="font-size: 12px;color: #666666;">
+                                    <span>数量: </span>
+                                    <span>×{{goodItem.quantity}}</span>
+                                </div>
+                                <div style="margin-top: 8px">
+                                    <div>
+                                        <span class="assertive bold"
+                                              style="font-size: 14px;">¥{{skuInfo.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding text-right light-bg" style="font-size: 13px">
+                <span>商品合计：</span>
+                <span class="assertive bold">{{goodsTotalPrice}}</span>
+                <span>元</span>
+            </div>
+            <!--活动区-->
+            <div ng-if="confirmData.actMasterList!=null&&confirmData.actMasterList.length>0" class="light-bg">
+                <div style="font-size: 14px;margin-top: 10px" class="padding border-bottom">促销活动</div>
+                <div>
+                    <div ng-repeat="orderActivity in confirmData.actMasterList" style="padding: 0px 10px"
+                         ng-click="setSelectedActivity(orderActivity.activityId)">
+                        <div style="overflow: hidden;padding: 10px 0px 10px 5px;" class="clearfix">
+                            <input type="radio" style="float: left;margin-right: 10px;margin-top: 3px"
+                                   ng-value="orderActivity.activityId" ng-model="selectedOrderActivity.id">
+                            <span style="font-size:12px ">{{orderActivity.activityName}}</span>
+                            <span ng-if="orderActivity.activityType == '41'||orderActivity.activityType == '44'" style="float:right;font-size:12px" class="assertive">-¥{{orderActivity.cutPrice}}</span>
+                            <span ng-if="orderActivity.activityType == '40'" style="font-size:12px;float: right" class="assertive">送优惠券</span>
+                            <span ng-if="orderActivity.activityType == '42'" style="font-size:12px;float: right" class="assertive">送货品</span>
+                            <span ng-if="orderActivity.activityType == '43'" style="font-size:12px;float: right" class="assertive">送{{orderActivity.sendPoint}}积分</span>
+                            <span style="font-size:12px;float: right" class="assertive" ng-if="orderActivity.needFee>0">+ ¥{{orderActivity.needFee}},</span>
+                            <span style="font-size:12px;float: right" class="assertive" ng-if="orderActivity.needPoint>0">+ {{orderActivity.needPoint}}积分,</span>
+                        </div>
+                        <div ng-if="orderActivity.activityType == '42'&&orderActivity.activityId == selectedOrderActivity.id"
+                             style="margin-top: 5px;background: #fefefe;font-size: 13px;padding: 0px 10px 10px 10px" >
+                            <div style="color: #666666">请在以下货品中任选其一</div>
+                            <div ng-repeat="goods in orderActivity.sendGoodsList" style="padding: 5px"  class="clearfix">
+                                <span style="line-height: 30px;height: 30px">{{goods.goodsName}}</span>
+                                <button style="float: right;" class="button button-dark button-small"
+                                        ng-click="selectGiftSku($event,goods,orderActivity)">
+                                    选择
+                                </button>
+                            </div>
+                        </div>
+                        <div style="border-bottom: 1px #dddddd solid"></div>
+                    </div>
+                    <div class="padding border-bottom"
+                         style="overflow: hidden" ng-click="setSelectedActivity(-1)">
+                        <input type="radio" style="float: left;margin:3px 10px 0 5px;" ng-value="-1"
+                               ng-model="selectedOrderActivity.id">
+                        <div>
+                            <span style="font-size:12px ">不使用活动优惠</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--优惠券区-->
+            <div ng-if="couponList!=null&&couponList.length>0" class="light-bg">
+                <div style="font-size: 14px;margin-top: 10px" class="padding border-bottom">优惠券</div>
+                <div>
+                    <div ng-repeat="coupon in couponList" ng-click="setSelectedCoupon(coupon.couponMemberId)"
+                         style="padding: 0px 10px">
+                        <div style="overflow: hidden;padding: 10px 0px 10px 5px">
+                            <input type="radio" style="float: left;margin-right: 10px;margin-top: 3px"
+                                   ng-value="coupon.couponMemberId" ng-model="selectedCoupon.id">
+                            <div>
+                                <span style="font-size:12px ">{{coupon.couponName}}</span>
+                                <span ng-if="coupon.couponStyle==0"style="float: right;font-size:12px;" class="assertive">-¥{{coupon.worth}}</span>
+                                <span ng-if="coupon.couponStyle==1"style="float: right;font-size:12px;" class="assertive">{{coupon.discount}}折 - ¥{{coupon.discountPrice}}</span>
+                            </div>
+                        </div>
+                        <div style="border-bottom: 1px #dddddd solid"></div>
+                    </div>
+                    <div class="padding border-bottom"
+                         style="overflow: hidden" ng-click="setSelectedCoupon(-1)">
+                        <input type="radio" style="float: left;margin:3px 10px 0 5px" ng-value="-1"
+                               ng-model="selectedCoupon.id">
+                        <div>
+                            <span style="font-size:12px ">不使用优惠券</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="list" style="margin-top: 10px">
+                <!--<div class="item item-icon-right" ng-click="goInvoice()">-->
+                    <!--<div>-->
+                        <!--<span style="font-size:14px;">发票信息</span>-->
+                        <!--<span style="font-size:14px;float: right" ng-if="!invoiceInfo">不开发票</span>-->
+                        <!--<span style="font-size:14px;float: right" ng-if="invoiceInfo && invoiceInfo.type == '10'"-->
+                              <!--class="max-line-1">{{invoiceInfo.invoiceTitle}}</span>-->
+                        <!--<span style="font-size:14px;float: right" ng-if="invoiceInfo && invoiceInfo.type == '20'">{{invoiceInfo.companyName}}</span>-->
+                    <!--</div>-->
+
+                    <!--<i class="icon ion-ios-arrow-forward" style="font-size: 16px"></i>-->
+                <!--</div>-->
+                <div class="item">
+                    <span style="font-size:14px;">运费</span>
+                    <span style="font-size:14px;float:right;color:#c0c0c0">免运费</span>
+                </div>
+                <div class="item">
+                    <label class="item item-input">
+                        <textarea ng-model="comment.message" placeholder="给卖家留言" rows="3" cols="20" style="font-size:13px;resize: none"></textarea>
+                    </label>
+                </div>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="bar-light">
+            <div style="width:100%;">
+                <div style="font-size: 14px;float: left;height: 33px;line-height: 33px">
+                    <span>合计：</span>
+                    <span class="assertive" style="font-size: 14px">¥{{orderFinalPrice}}</span>
+                    <span class="assertive" style="font-size: 14px" ng-if="exchangePointCount>0">+{{exchangePointCount}}积分</span>
+                    <span>（免运费）</span>
+                </div>
+                <div style="float:right;">
+                    <button ng-if="selectedDeliveryTab == '20'" class="button button-block button-dark button-small" style="font-size:14px;margin: 0"
+                            ng-click="submitOrder(confirmForm.$valid)">
+                        提交订单
+                    </button>
+                    <button ng-if="selectedDeliveryTab != 20 " class="button button-block button-dark button-small" style="font-size:14px;margin: 0"
+                            ng-click="submitOrder(true)">
+                        提交订单
+                    </button>
+                </div>
+            </div>
+        </ion-footer-bar>
+    </form>
+</ion-view>

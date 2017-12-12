@@ -1,0 +1,22 @@
+{
+  "code": "200",
+  "message": "success",
+  "results": [
+    {
+      "requirement":"590",
+      "val":"20",
+      "limit":"2016-07-30"
+    },
+    {
+      "requirement":"590",
+      "val":"30",
+      "limit":"2016-07-30",
+      "used":true
+    },
+    {
+      "requirement":"590",
+      "val":"40",
+      "limit":"2016-07-30"
+    }
+  ]
+}

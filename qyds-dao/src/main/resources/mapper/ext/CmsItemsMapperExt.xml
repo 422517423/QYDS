@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.CmsItemsMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.CmsItemsExt" >
+    <id column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="item_id_parent" property="itemIdParent" jdbcType="VARCHAR" />
+    <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="item_type" property="itemType" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="itme_full_name" property="itmeFullName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="item_name_parent" property="itemNameParent" jdbcType="VARCHAR" />
+
+  </resultMap>
+
+  <resultMap id="BaseMasterResultMap" type="net.dlyt.qyds.common.dto.ext.CmsMasterExt" >
+    <id column="text_comment" property="textComment" jdbcType="VARCHAR" />
+    <id column="item_code" property="itemCode" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapSort" type="java.lang.Short" >
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ci.item_id, ci.shop_id, ci.item_code, ci.item_id_parent, ci.sort, ci.item_type, ci.item_name, ci.itme_full_name, ci.comment,
+    ci.deleted, ci.update_user_id, ci.update_time, ci.insert_user_id, ci.insert_time
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />, cip.item_name as item_name_parent
+    from public.cms_items ci
+    left join cms_items cip on cip.item_id = ci.item_id_parent
+    where ci.deleted = '0'
+    order by ci.sort asc
+  </select>
+
+  <select id="selectMaxSrot" resultMap="BaseResultMapSort" parameterType="net.dlyt.qyds.common.dto.CmsItems">
+    select
+    max(ci.sort) as sort
+    from public.cms_items ci
+    where ci.item_id_parent = #{itemIdParent}
+    and ci.deleted = '0'
+  </select>
+
+  <update id="delete" parameterType="net.dlyt.qyds.common.dto.CmsItems" >
+    update public.cms_items
+    set deleted = '1'
+    where item_id = #{itemId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByItemCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from public.cms_items ci
+    where ci.item_code = #{itemCode}
+    and ci.deleted = '0'
+  </select>
+
+  <select id="getChildItemList" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from public.cms_items ci
+    inner join cms_items cm on cm.item_id = ci.item_id
+    inner join cms_items cm1 on cm1.item_id = cm.item_id_parent and cm1.item_code = #{itemCode}
+    where ci.deleted = '0'
+    order by ci.sort
+  </select>
+
+  <select id="getDeliverData" resultMap="BaseMasterResultMap" parameterType="java.lang.String">
+    select cm.text_comment
+
+    from public.cms_items ci inner join cms_master cm on cm.item_id = ci.item_id
+    where ci.item_code = #{itemCode}
+    and ci.deleted = '0'
+  </select>
+
+  <select id="getMetaData" resultMap="BaseMasterResultMap" parameterType="java.lang.String">
+    select
+    cm.text_comment,ci.item_code
+    from public.cms_items ci inner join cms_master cm on cm.item_id = ci.item_id
+    where ci.item_id_parent = (select item_id from cms_items where item_code = #{itemCode})
+    and ci.deleted = '0'
+  </select>
+
+</mapper>

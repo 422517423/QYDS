@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbAddressMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.MmbAddressExt">
+        <id column="address_id" property="addressId" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="SMALLINT"/>
+        <result column="is_default" property="isDefault" jdbcType="VARCHAR"/>
+        <result column="districtid_province" property="districtidProvince" jdbcType="VARCHAR"/>
+        <result column="districtid_city" property="districtidCity" jdbcType="VARCHAR"/>
+        <result column="districtid_district" property="districtidDistrict" jdbcType="VARCHAR"/>
+        <result column="districtid_province_name" property="districtidProvinceName" jdbcType="VARCHAR"/>
+        <result column="districtid_city_name" property="districtidCityName" jdbcType="VARCHAR"/>
+        <result column="districtid_district_name" property="districtidDistrictName" jdbcType="VARCHAR"/>
+        <result column="districtid_street" property="districtidStreet" jdbcType="VARCHAR" />
+        <result column="districtid_street_name" property="districtidStreetName" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="postcode" property="postcode" jdbcType="VARCHAR"/>
+        <result column="contactor" property="contactor" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="queryList" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbAddressForm">
+        select ma.*,
+        cd.district_name districtid_province_name,cd1.district_name districtid_city_name, cd2.district_name districtid_district_name, cd3.district_name districtid_street_name
+        from public.mmb_address ma
+        left join com_district cd on cd.district_id = ma.districtid_province
+        left join com_district cd1 on cd1.district_id = ma.districtid_city
+        left join com_district cd2 on cd2.district_id = ma.districtid_district
+        left join com_district cd3 on cd3.district_id = ma.districtid_street
+        where ma.member_id = #{memberId,jdbcType=VARCHAR} and ma.deleted = '0'
+        order by ma.is_default, ma.update_time desc
+  </select>
+
+    <select id="selectDefaultAddress" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbAddressForm">
+        select ma.*,
+         cd.district_name districtid_province_name,cd1.district_name districtid_city_name, cd2.district_name districtid_district_name, cd3.district_name districtid_street_name
+        from public.mmb_address ma
+        left join com_district cd on cd.district_id = ma.districtid_province
+        left join com_district cd1 on cd1.district_id = ma.districtid_city
+        left join com_district cd2 on cd2.district_id = ma.districtid_district
+        left join com_district cd3 on cd3.district_id = ma.districtid_street
+        where ma.member_id = #{memberId,jdbcType=VARCHAR} and ma.deleted = '0' and ma.is_default = '0'
+    </select>
+    <select id="selectByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.MmbAddress" >
+        select ma.* 
+        from public.mmb_address ma
+        where ma.member_id = #{memberId,jdbcType=VARCHAR} and ma.deleted = '0' and ma.is_default = '0'
+        order by ma.is_default, ma.update_time desc
+    </select>
+
+    <select id="selectAddressByPK" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbAddressForm">
+        select ma.*,
+        cd.district_name districtid_province_name,cd1.district_name districtid_city_name, cd2.district_name districtid_district_name, cd3.district_name districtid_street_name
+        from public.mmb_address ma
+        left join com_district cd on cd.district_id = ma.districtid_province
+        left join com_district cd1 on cd1.district_id = ma.districtid_city
+        left join com_district cd2 on cd2.district_id = ma.districtid_district
+        left join com_district cd3 on cd3.district_id = ma.districtid_street
+        where ma.member_id = #{memberId,jdbcType=VARCHAR} and ma.deleted = '0' and address_id = #{addressId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

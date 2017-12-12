@@ -1,0 +1,167 @@
+<!-- 订单列表画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 -->
+        <h3 class="page-title">
+            订单管理
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">订单管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">订单列表</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 检索条件 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-search"></i>查询条件</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="x_content">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="orderCode" class="col-sm-2 control-label">订单编码</label>
+                            <div class="col-sm-3">
+                                <input id="orderCode" class="form-control" />
+                            </div>
+                            <!--<label for="orderId" class="col-sm-2 control-label">订单ID</label>-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<input id="orderId" class="form-control" />-->
+                            <!--</div>-->
+                        </div>
+                        <div class="form-group">
+                            <label for="orderTimeStart" class="col-sm-2 control-label">下单时间(开始)</label>
+                            <div class="col-sm-3">
+                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" class="form-control" id="orderTimeStart" name="orderTimeStart">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <label for="orderTimeEnd" class="col-sm-2 control-label">下单时间(结束)</label>
+                            <div class="col-sm-3">
+                                <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" class="form-control" id="orderTimeEnd"  name="orderTimeEnd">
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="col-sm-2 control-label">活动名称</label>
+                            <div class="col-sm-3">
+                                <select id="activity" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                            <label for="type" class="col-sm-2 control-label">优惠劵名称</label>
+                            <div class="col-sm-3">
+                                <select id="couppon" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="col-sm-2 control-label">会员代码</label>
+                            <div class="col-sm-3">
+                                <input id="telephone" class="form-control" />
+                            </div>
+                            <label for="type" class="col-sm-2 control-label">订单状态</label>
+                            <div class="col-sm-3">
+                                <select id="type" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="payStatus" class="col-sm-2 control-label">付款状态</label>
+                            <div class="col-sm-3">
+                                <select id="payStatus" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                            <label for="deliverStatus" class="col-sm-2 control-label">发货状态</label>
+                            <div class="col-sm-3">
+                                <select id="deliverStatus" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="deliverType" class="col-sm-2 control-label">发货方式</label>
+                            <div class="col-sm-3">
+                                <select id="deliverType" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                            <label for="memberName" class="col-sm-2 control-label">会员名称</label>
+                            <div class="col-sm-3">
+                                <input id="memberName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-8 col-sm-4">
+                                <button type="button" class="btn btn-success"
+                                        style="width: 100px" id="btn_search">查询</button>
+                                <button type="button" class="btn btn-file"
+                                        style="width: 100px" id="btn_export">导出</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 列表-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="ord_master_table">
+                    <thead>
+                    <tr>
+                        <th>订单编码</th>
+                        <th>会员编码</th>
+                        <th>会员姓名</th>
+                        <th>订单状态</th>
+                        <th>订单类型</th>
+                        <th>发货方式</th>
+                        <th>原价金额</th>
+                        <th>支付金额</th>
+                        <th>参加活动名称</th>
+                        <th>参加优惠劵名称</th>
+                        <th>下单时间</th>
+                        <!--<th>说明</th>-->
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 订单列表画面 结束-->
+
+<script src="../page/ord_master/list.js"></script>

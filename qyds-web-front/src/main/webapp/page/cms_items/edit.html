@@ -1,0 +1,87 @@
+<!-- 商品分类编辑画面 start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- 标题 & 面包屑-->
+                    <h3 class="page-title">
+                        栏目管理
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="#">CMS管理</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#" onclick="gotoListPage();">栏目管理</a><i class="icon-angle-right"></i></li>
+                        <li><a href="#">栏目编辑</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption">栏目编辑</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <form id="cms_items_form" class="form-horizontal validator">
+                                <input type="hidden" value="" name="goods_type_id" id="goods_type_id" />
+                                <div class="col-md-12">
+                                    <div class="form-body">
+                                        <div class="form-group" id="parent_div">
+                                            <label  class="col-md-2 control-label">上级栏目名称</label>
+                                            <div class="col-md-4">
+                                               <input type="text" id="item_parent_name" name="item_parent_name" data-required="1" class="form-control" disabled="disabled">
+                                               <input type="text" id="item_parent_id" hidden>
+                                                <input type="text" id="item_id" hidden>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">栏目形式<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <select id="item_type" name="item_type" multiple="multiple">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">栏目CODE<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="item_code" name="item_code" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">栏目名称<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="item_name" name="item_name" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">栏目全称<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="itme_full_name" name="itme_full_name" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">说明</label>
+                                            <div class="col-md-4">
+                                                <textarea id="comment" name="comment" data-required="1" class="form-control" rows="5" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancel_btn" class="btn default" >取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+<!-- 商品分类编辑画面 end -->
+<script src="../page/cms_items/edit.js"></script>

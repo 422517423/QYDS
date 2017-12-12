@@ -1,0 +1,153 @@
+<!-- 活动优惠券列表画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            优惠劵列表
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">优惠券管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">优惠券列表</a></li>
+        </ul>
+    </div>
+</div>
+<!--查询-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-search"></i>查询条件</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="x_content">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="coupon_name" class="col-sm-2 control-label">优惠券名称</label>
+                            <div class="col-sm-3">
+                                <input id="coupon_name" class="form-control"/>
+                            </div>
+                            <label for="coupon_type" class="col-sm-2 control-label">优惠劵类型</label>
+                            <div class="col-sm-3">
+                                <select id="coupon_type" data-rel="chosen" class="form-control">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="distribute_type" class="col-sm-2 control-label">下发方式</label>
+                            <div class="col-sm-3">
+                                <select id="distribute_type" data-rel="chosen" class="form-control">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                            <label for="approve_status" class=" col-sm-2 control-label">审批状态</label>
+                            <div class=" col-sm-3 ">
+                                <select id="approve_status" data-rel="chosen" class="form-control">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" col-sm-offset-8 col-sm-4">
+                                <button type="button" class="btn btn-primary"
+                                        style="width: 100px" id="btn_add">新建
+                                </button>
+                                <button type="button" class="btn btn-success"
+                                        style="width: 100px" id="btn_search">查询
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- 列表-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="coupon_master_table">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>优惠券名称</th>
+                        <th>优惠券类型</th>
+                        <th>下发方式</th>
+                        <th>已领取数量</th>
+                        <!--<th>申请人</th>-->
+                        <!--<th>申请时间</th>-->
+                        <th>审批状态</th>
+                        <!--<th>审批人</th>-->
+                        <!--<th>审批时间</th>-->
+                        <th>开始发放</th>
+                        <th>结束发放</th>
+                        <th>是否启用</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 码表详细modal start-->
+<div class="modal fade" id="apply_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">申请启用优惠券</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="com_code_form" class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">申请说明</label>
+                                <div class="col-md-8">
+                                    <textarea type="text" style="resize: none" id="apply_dialog_apply_content"
+                                              class="form-control" placeholder="请输入申请说明(可选)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="apply_dialog_tip" style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="apply_dialog_btn_apply" class="btn blue">申请</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<form id="exportForm" action="/qyds-web-front/coupon_master/exportSKUFile.json">-->
+    <!--<input type="hidden" id="couponId1">-->
+<!--</form>-->
+
+<script src="../page/coupon_master/list.js"></script>
+

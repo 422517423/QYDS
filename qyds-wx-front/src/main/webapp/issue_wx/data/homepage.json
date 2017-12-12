@@ -1,0 +1,94 @@
+{
+  "resultCode": "200",
+  "resultMessage": "success",
+  "results": {
+    "banners": [
+      {
+        "imageUrl": "./image/slider.jpg"
+      },
+      {
+        "imageUrl": "./image/slider.jpg"
+      },
+      {
+        "imageUrl": "./image/slider.jpg"
+      }
+    ],
+    "notice": "dealuna 夏季折扣全场5折,满100免邮费!",
+    "coupons": [
+      {
+        "imageUrl": "./image/coupon1.jpg"
+      },
+      {
+        "imageUrl": "./image/coupon2.jpg"
+      }
+    ],
+    "guides": [
+      {
+        "imageUrl": "./image/guide1.jpg"
+      }
+    ],
+    "discounts": [
+      {
+        "imageUrl": "./image/discount1.jpg",
+        "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+        "price": "349.00"
+      },
+      {
+        "imageUrl": "./image/discount2.jpg",
+        "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+        "price": "349.00"
+      },
+      {
+        "imageUrl": "./image/discount3.jpg",
+        "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+        "price": "349.00"
+      },
+      {
+        "imageUrl": "./image/discount4.jpg",
+        "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+        "price": "349.00"
+      }
+    ],
+    "newProducts": {
+      "titleImage": "./image/newProduct.jpg",
+      "products": [
+        {
+          "imageUrl": "./image/newProduct1.jpg",
+          "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+          "price": "349.00"
+        },
+        {
+          "imageUrl": "./image/newProduct2.jpg",
+          "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+          "price": "349.00"
+        }
+      ]
+    },
+    "categories": [
+      {
+        "name": "上衣",
+        "imageUrl": "./image/category1.png"
+      },
+      {
+        "name": "下装",
+        "imageUrl": "./image/category2.png"
+      },
+      {
+        "name": "外套",
+        "imageUrl": "./image/category3.png"
+      },
+      {
+        "name": "配件",
+        "imageUrl": "./image/category4.png"
+      },
+      {
+        "name": "热销新品",
+        "imageUrl": "./image/category5.png"
+      },
+      {
+        "name": "折扣季",
+        "imageUrl": "./image/category6.png"
+      }
+    ]
+  }
+}

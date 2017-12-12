@@ -1,0 +1,109 @@
+<!-- 订单派单列表画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 -->
+        <h3 class="page-title">
+            调货收货
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">订单管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">调货收货</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 检索条件 -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-search"></i>查询条件</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="x_content">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <!--<div class="form-group">-->
+                            <!--<label for="orderId" class="col-sm-2 control-label">订单ID</label>-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<input id="orderId" class="form-control" />-->
+                            <!--</div>-->
+                            <!--<label for="subOrderId" class="col-sm-2 control-label">订单编码</label>-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<input id="subOrderId" class="form-control" />-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label for="sku" class="col-sm-2 control-label">SKU</label>
+                            <div class="col-sm-3">
+                                <input id="sku" class="form-control" />
+                            </div>
+                            <label for="transferStatus" class="col-sm-2 control-label">调货状态</label>
+                            <div class="col-sm-3">
+                                <select id="transferStatus" data-rel="chosen" class="form-control">
+                                    <option value="">全部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-8 col-sm-4">
+                                <button type="button" class="btn btn-success"
+                                        style="width: 100px" id="btn_search">查询</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 列表-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="ord_receive_table">
+                    <thead>
+                    <tr>
+                        <!--<th>子订单ID</th>-->
+                        <!--<th>订单ID</th>-->
+                        <!--<th>下单时间</th>-->
+                        <th>SKU</th>
+                        <th>商品名称</th>
+                        <th>颜色</th>
+                        <th>尺码</th>
+                        <th>件数</th>
+                        <th>调货状态</th>
+                        <!--<th>申请店铺</th>-->
+                        <th>申请时间</th>
+                        <th>分派店铺</th>
+                        <th>分派时间</th>
+                        <th>发货时间</th>
+                        <th>收货时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <!--<tbody>-->
+                    <!--</tbody>-->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 订单列表画面 结束-->
+<script src="../page/ord_transfer/receiveList.js"></script>

@@ -1,0 +1,202 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+    <!--</button>-->
+    <!--<div class="h1 title" style="font-size:24px;">订单详细</div>-->
+    <!--</button>-->
+    <!--</ion-header-bar>-->
+    <ion-content>
+        <div style="font-size:13px;padding: 10px;overflow: hidden;">
+            <span>订单号：{{orderDetail.orderCode}}</span>
+            <span style="float:right;color:red;">{{orderDetail.orderStatusName}}</span>
+        </div>
+        <div class="divider_gray_bold"></div>
+        <div style="font-size:13px;padding: 10px;overflow: hidden;">
+            <span>下单时间：{{orderDetail.orderTime | date : 'yyyy-MM-dd hh:mm:ss'}}</span>
+        </div>
+        <div class="divider_gray_bold"></div>
+
+        <div ng-if="orderDetail.deliverType=='10'" style="font-size: 13px;line-height: 1.2">
+            <div class="table" style="padding: 10px">
+                <div class="table-row-group">
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">配送方式:</div>
+                        <div class="table-cell" style="padding-top: 5px;">物流快递</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">收货人:</div>
+                        <div class="table-cell" style="padding-top: 5px;">
+                            {{orderDetail.deliveryContactor}}
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">联系电话:</div>
+                        <div class="table-cell" style="padding-top: 5px;">
+                            {{orderDetail.deliveryPhone}}
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">
+                            收货地址:
+                        </div>
+                        <div class="table-cell" style="padding-top: 5px;">{{orderDetail.deliveryAddress}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="divider_gray_bold"></div>
+            <div class="item item-icon-right" ng-click="logisticsDetail()">
+                <span style="font-size: 15px">物流信息</span>
+                <i class="icon ion-ios-arrow-forward placeholder-icon" style="float:right;font-size: 20px"></i>
+            </div>
+        </div>
+        <div ng-if="orderDetail.deliverType=='20'" style="font-size: 13px;line-height: 1.2">
+            <div class="table" style="padding: 10px;width: 100%">
+                <div class="table-row-group">
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">配送方式:</div>
+                        <div class="table-cell" style="padding-top: 5px;">门店自提</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">门店名称:</div>
+                        <div class="table-cell" style="padding-top: 5px;">
+                            {{orderDetail.storeName}}
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">门店电话:</div>
+                        <div class="table-cell" style="padding-top: 5px;">
+                            {{orderDetail.storePhone}}
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell" style="padding-top: 5px;width: 60px">
+                            门店地址:
+                        </div>
+                        <div class="table-cell" style="padding-top: 5px;">
+                            {{orderDetail.storeAddress}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divider_gray_bold"></div>
+        <div class="row row-wrap">
+            <div class="col" style="font-size:15px;">
+                商品：
+            </div>
+        </div>
+        <div class="divider_gray"></div>
+        <div ng-repeat="good in orderDetail.ordList">
+            <div style="padding: 10px" ng-click="goGoodsDetail('{{good.goodsId}}')" class="clearfix">
+                <img ng-src="{{good.imageUrlJson | imgPathJson :'480'}}"
+                     style="width:80px;float:left;margin-right: 10px;"
+                     class='bordered'>
+                <div>
+                    <div style="font-size: 13px;margin-top: 10px" class="max-line-1">{{good.goodsName}}</div>
+                    <div style="font-size: 12px;color: #666666;margin-top: 10px" ng-if="good.type!=30">
+                        <span>颜色:</span>
+                        <span ng-if="good.type==20">{{good.sku | orderSkuFilter20:"color"}}</span>
+                        <span ng-if="good.type==10">{{good.sku | orderSkuFilter10:"color"}}</span>
+                        <span style="margin-left: 10px">尺码:</span>
+                        <span ng-if="good.type==20">{{good.sku | orderSkuFilter20:"size"}}</span>
+                        <span ng-if="good.type==10">{{good.sku | orderSkuFilter10:"size"}}</span>
+                    </div>
+                    <div style="font-size: 12px;color: #999999;margin-top: 10px">
+                        <span>数量: </span>
+                        <span>×{{good.quantity}}</span>
+                    </div>
+                    <!--价钱-->
+                    <div style="text-align:right;font-size:13px;margin-top: 10px">
+                        <div ng-if="good.priceDiscount == null" style="font-weight:bold;">{{good.price |
+                            currency : '￥'}}
+                        </div>
+                        <div ng-if="good.priceDiscount != null" style="font-weight:bold;">
+                            {{good.priceDiscount
+                            | currency : '￥'}}
+                        </div>
+                        <div ng-if="good.priceDiscount != null"
+                             style="color:#999999;text-decoration:line-through">
+                            {{good.price | currency : '￥'}}
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col col-25 text-right"><img  ng-src="{{good.imageUrlJson | imgPath:'480'}}" width="100%" class='img-responsive'></div>-->
+                <!--<div class="col col item-text-wrap" style="color:#B7B7B7;font-size:13px;">-->
+                <!--{{good.goodsName}}-->
+                <!--<div style="position:absolute; bottom:10px;font-size:13px;">-->
+                <!--X {{good.quantity}}-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div ng-if="goodsItem.priceDiscount == null" class="col col-25" style="text-align:right;font-size:13px;">{{good.price | currency : '￥'}}</div>-->
+                <!--<div ng-if="goodsItem.priceDiscount != null" class="col col-25" style="text-align:right;font-size:13px;">{{good.priceDiscount | currency : '￥'}}</div>-->
+            </div>
+            <div class="divider_gray"></div>
+        </div>
+        <div class="divider_gray_bold"></div>
+        <div style="font-size:13px;">
+            <div class="item padding" style="overflow:hidden;font-size:13px;">
+                <sapn>运费：</sapn>
+                <span style="color:#FF0000;float: right">+{{orderDetail.deliveryFee | currency : '￥'}}</span>
+            </div>
+            <div ng-if="orderDetail.actionName != null" class="item padding" style="overflow:hidden;font-size:13px;">
+                <sapn>促销活动：</sapn>
+                <span>{{orderDetail.actionName}}</span>
+                <span style="color:#FF0000;float: right">-{{orderDetail.amountDiscount | currency : '￥'}}</span>
+            </div>
+            <div ng-if="orderDetail.amountCoupon != null" class="item padding" style="overflow:hidden;font-size:13px;">
+                <sapn>优惠券：</sapn>
+                <span>{{orderDetail.coupon.couponName}}</span>
+                <span style="color:#FF0000;float: right">-{{orderDetail.amountCoupon | currency : '￥'}}</span>
+            </div>
+            <div ng-if="orderDetail.amountPoint != 0" class="item padding" style="overflow:hidden;font-size:13px;">
+                <sapn>会员积分：</sapn>
+                <span style="color:#FF0000;float: right">-{{orderDetail.amountPoint}}</span>
+            </div>
+        </div>
+        <div class="padding">
+            <div class="text-right" style="font-size:15px;">
+                实付款：<span style="color:#CC0001;font-size:14px;">{{orderDetail.payInfact | currency : '￥'}}</span>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+        <div style="width: 100%">
+            <!-- 10.订单未完成 and (10.未付款 or 21.付款失败) -->
+            <button class="button button-small button-dark" style="margin-top: 0px;float: right;margin-left: 10px"
+                    ng-if="orderDetail.orderStatus == 10 && (orderDetail.payStatus == 10 || orderDetail.payStatus == 21)"
+                    ng-click="getWXPayInfo()">
+                付款
+            </button>
+            <button class="button button-small" style="margin-top: 0px;float: right;margin-left: 10px"
+                    ng-if="orderDetail.orderStatus == 10 && orderDetail.deliverStatus == 10 && orderDetail.payStatus == 20"
+                    ng-click="applyRefund()">
+                申请退款
+            </button>
+            <!-- 10.订单未完成 and 20.付款成功 and 20.全部发货 -->
+            <button class="button button-small button-dark" style="margin-top: 0px;float: right;margin-left: 10px"
+                    ng-if="(orderDetail.orderStatus == 10 || orderDetail.orderStatus == 23) && orderDetail.deliverStatus == 20 && orderDetail.payStatus == 20"
+                    ng-click="confirmReceiptInMaster();">
+                确认收货
+            </button>
+
+            <!-- 90.订单完成 -->
+            <button class="button button-small" style="margin-top: 0px;float: right;margin-left: 10px"
+                    ng-if="(orderDetail.orderStatus == 10 || orderDetail.orderStatus == 23) && orderDetail.deliverStatus == 21 && orderDetail.payStatus == 20"
+                    ng-click="refunds(orderDetail);">
+                申请退货
+            </button>
+
+            <!-- 交易状态-->
+            <button class="button button-small" style="margin-top: 0px;float: right;margin-left: 10px"
+                    ng-if="orderDetail.tradeStatus == 20 || orderDetail.tradeStatus == 30"
+                    ng-click="deleteOrder();">
+                删除订单
+            </button>
+            <button class="button button-small" style="margin-top: 0px;float: right;margin-left: 10px;"
+                    ng-if="orderDetail.orderStatus == 10 && (orderDetail.payStatus == 10 || orderDetail.payStatus == 21)"
+                    ng-click="cancelOrder();">
+                取消订单
+            </button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

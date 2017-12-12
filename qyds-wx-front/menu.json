@@ -1,0 +1,49 @@
+{
+  "button": [
+    {
+      "name": "品牌资讯",
+      "sub_button": [
+        {
+          "name": "最新门店",
+          "type": "view",
+          "url": "https://www.dealuna.com/#/storeList"
+        },
+        {
+          "type": "view_limited",
+          "name": "每期新品",
+          "media_id": "br7lZZZ9ZigdUE0B1Je2W8IR6cUzXWoj3rZYbZKm8j8"
+        },
+        {
+          "type": "view_limited",
+          "name": "广告大片",
+          "media_id": "br7lZZZ9ZigdUE0B1Je2W30800LXUpMPWrpMMiPqAcY"
+        }
+      ]
+    },
+    {
+      "name": "折扣",
+      "type": "view",
+      "url": "https://www.dealuna.com/#/saleList"
+    },
+    {
+      "name": "微信商城",
+      "sub_button": [
+        {
+          "name": "时尚购物",
+          "type": "view",
+          "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx38bf661fefcdc9b5&redirect_uri=https%3A%2F%2Fwww.dealuna.com%2Fqyds-wx-front%2Fqyds_wx%2Findex.html&response_type=code&scope=snsapi_base"
+        },
+        {
+          "name": "会员中心",
+          "type": "view",
+          "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx38bf661fefcdc9b5&redirect_uri=https%3A%2F%2Fwww.dealuna.com%2Fqyds-wx-front%2Fqyds_wx%2FtoPersonalCenter.html&response_type=code&scope=snsapi_base"
+        },
+        {
+          "type": "view_limited",
+          "name": "会员政策",
+          "media_id": "br7lZZZ9ZigdUE0B1Je2W-2DDCST_gwBWtqINdSHALA"
+        }
+      ]
+    }
+  ]
+}

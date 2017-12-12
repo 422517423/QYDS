@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbShoppingBagMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.MmbShoppingBagExt">
+        <id column="bag_no" property="bagNo" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="act_goods_id" property="actGoodsId" jdbcType="VARCHAR"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+        <result column="count" property="count" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="selectSameShoppingIdGoods" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbShoppingBagForm">
+        select msb.*
+        from public.mmb_shopping_bag msb
+        where msb.member_id = #{memberId, jdbcType=VARCHAR}
+        and msb.goods_id = #{goodsId, jdbcType=VARCHAR}
+        and msb.deleted = '0'
+    </select>
+
+
+    <resultMap id="BaseResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbShoppingBagExt">
+        <id column="bag_no" property="bagNo" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="act_goods_id" property="actGoodsId" jdbcType="VARCHAR"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+
+        <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="brand_id" property="brandId" jdbcType="VARCHAR"/>
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR"/>
+        <result column="goods_deleted" property="goodsDeleted" jdbcType="VARCHAR"/>
+        <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR"/>
+
+
+    </resultMap>
+    <select id="queryList" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.form.MmbShoppingBagForm">
+
+        select msb.*,
+        gd.image_url_json,
+        master.type,
+        master.brand_id,
+        master.goods_type_id,
+        master.goods_name,
+        master.goods_type_name_path,
+        master.deleted as goods_deleted,
+        master.is_onsell
+        from
+        mmb_shopping_bag msb
+        LEFT JOIN gds_master master ON msb.goods_id = master.goods_id
+        left join gds_detail gd on gd.goods_id = msb.goods_id
+
+        where msb.member_id = #{memberId, jdbcType=VARCHAR}
+        and msb.deleted = '0'
+        order by msb.insert_time desc
+    </select>
+
+    <resultMap id="SKUResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbShoppingSKuExt">
+        <result column="bag_no" property="bagNo" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+
+        <result column="brand_id" property="brandId" jdbcType="VARCHAR"/>
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR"/>
+        <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR"/>
+        <result column="skucontent" property="skucontent" jdbcType="VARCHAR"/>
+        <result column="color_code" property="colorCode" jdbcType="VARCHAR"/>
+        <result column="color_name" property="colorName" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="NUMERIC"/>
+        <result column="safe_bank" property="safeBank" jdbcType="INTEGER"/>
+        <result column="size_code" property="sizeCode" jdbcType="VARCHAR"/>
+        <result column="size_name" property="sizeName" jdbcType="VARCHAR"/>
+        <result column="sku_deleted" property="skuDeleted" jdbcType="VARCHAR"/>
+        <result column="goods_deleted" property="goodsDeleted" jdbcType="VARCHAR"/>
+        <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR"/>
+        <result column="new_count" property="newCount" jdbcType="INTEGER"/>
+
+    </resultMap>
+    <select id="querySKUList" resultMap="SKUResultMapExt" parameterType="java.lang.String">
+
+        select
+        mss.*,
+
+        vas.brand_id,
+        vas.goods_type_id,
+        vas.goods_name,
+        vas.goods_type_name_path,
+        vas.image_url_json,
+        vas.skucontent,
+        vas.color_code,
+        vas.color_name,
+        vas.price,
+        vas.safe_bank,
+        vas.size_code,
+        vas.size_name,
+        vas.sku_deleted,
+        vas.goods_deleted,
+        vas.is_onsell
+        from
+        mmb_shopping_sku mss
+        left join view_all_sku vas ON vas.skuid = mss.sku_id
+        where mss.bag_no = #{bagNo, jdbcType=VARCHAR} and mss.deleted = '0'
+    </select>
+    <select id="queryListByBagNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select msb.*,mss.sku_id,gm.type
+      from mmb_shopping_bag msb
+      left join mmb_shopping_sku mss on msb.bag_no = mss.bag_no
+      left join gds_master gm on msb.goods_id = gm.goods_id
+      where msb.bag_no in (${_parameter}) order by goods_id
+    </select>
+
+    <select id="getCountForPc" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.form.MmbShoppingBagForm">
+        select count(*) as count
+        from
+        mmb_shopping_bag msb
+        LEFT JOIN gds_master master ON msb.goods_id = master.goods_id
+        left join gds_detail gd on gd.goods_id = msb.goods_id
+        where msb.member_id = #{memberId, jdbcType=VARCHAR}
+        and msb.deleted = '0'
+    </select>
+</mapper>

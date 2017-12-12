@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdReturnExchangeMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdReturnExchange" >
+    <id column="rex_order_id" property="rexOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="sub_order_id" property="subOrderId" jdbcType="VARCHAR" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="rex_type" property="rexType" jdbcType="VARCHAR" />
+    <result column="rex_mode" property="rexMode" jdbcType="VARCHAR" />
+    <result column="rex_point" property="rexPoint" jdbcType="VARCHAR" />
+    <result column="rex_store_id" property="rexStoreId" jdbcType="VARCHAR" />
+    <result column="rex_store_name" property="rexStoreName" jdbcType="VARCHAR" />
+    <result column="rex_status" property="rexStatus" jdbcType="VARCHAR" />
+    <result column="rex_member_id" property="rexMemberId" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="apply_comment" property="applyComment" jdbcType="VARCHAR" />
+    <result column="apply_answer_user_id" property="applyAnswerUserId" jdbcType="VARCHAR" />
+    <result column="apply_answer_time" property="applyAnswerTime" jdbcType="TIMESTAMP" />
+    <result column="apply_answer_comment" property="applyAnswerComment" jdbcType="VARCHAR" />
+    <result column="return_goods_memberid" property="returnGoodsMemberid" jdbcType="VARCHAR" />
+    <result column="return_goods_time" property="returnGoodsTime" jdbcType="TIMESTAMP" />
+    <result column="return_express_id" property="returnExpressId" jdbcType="VARCHAR" />
+    <result column="return_express_name" property="returnExpressName" jdbcType="VARCHAR" />
+    <result column="return_express_no" property="returnExpressNo" jdbcType="VARCHAR" />
+    <result column="return_delivery_fee" property="returnDeliveryFee" jdbcType="VARCHAR" />
+    <result column="return_pay_delivery" property="returnPayDelivery" jdbcType="VARCHAR" />
+    <result column="return_accept_user_id" property="returnAcceptUserId" jdbcType="VARCHAR" />
+    <result column="return_accept_time" property="returnAcceptTime" jdbcType="TIMESTAMP" />
+    <result column="reback_express_id" property="rebackExpressId" jdbcType="VARCHAR" />
+    <result column="reback_express_name" property="rebackExpressName" jdbcType="VARCHAR" />
+    <result column="reback_express_no" property="rebackExpressNo" jdbcType="VARCHAR" />
+    <result column="reback_delivery_fee" property="rebackDeliveryFee" jdbcType="VARCHAR" />
+    <result column="reback_pay_delivery" property="rebackPayDelivery" jdbcType="VARCHAR" />
+    <result column="reback_accept_member_id" property="rebackAcceptMemberId" jdbcType="VARCHAR" />
+    <result column="reback_accept_time" property="rebackAcceptTime" jdbcType="TIMESTAMP" />
+    <result column="refund_status" property="refundStatus" jdbcType="VARCHAR" />
+    <result column="refund_goods" property="refundGoods" jdbcType="NUMERIC" />
+    <result column="delivery_fee" property="deliveryFee" jdbcType="NUMERIC" />
+    <result column="refund_infact" property="refundInfact" jdbcType="NUMERIC" />
+    <result column="pay_account" property="payAccount" jdbcType="VARCHAR" />
+    <result column="receipt_account" property="receiptAccount" jdbcType="VARCHAR" />
+    <result column="refund_member_id" property="refundMemberId" jdbcType="VARCHAR" />
+    <result column="refund_time" property="refundTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rex_order_id, order_id, sub_order_id, order_code, member_id, shop_id, rex_type, rex_mode, 
+    rex_point, rex_store_id, rex_store_name, rex_status, rex_member_id, apply_time, apply_comment, 
+    apply_answer_user_id, apply_answer_time, apply_answer_comment, return_goods_memberid, 
+    return_goods_time, return_express_id, return_express_name, return_express_no, return_delivery_fee, 
+    return_pay_delivery, return_accept_user_id, return_accept_time, reback_express_id, 
+    reback_express_name, reback_express_no, reback_delivery_fee, reback_pay_delivery, 
+    reback_accept_member_id, reback_accept_time, refund_status, refund_goods, delivery_fee, 
+    refund_infact, pay_account, receipt_account, refund_member_id, refund_time, deleted, 
+    update_user_id, update_time, insert_user_id, insert_time, erp_send_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_return_exchange
+    where rex_order_id = #{rexOrderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_return_exchange
+    where rex_order_id = #{rexOrderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchange" >
+    insert into public.ord_return_exchange (rex_order_id, order_id, sub_order_id, 
+      order_code, member_id, shop_id, 
+      rex_type, rex_mode, rex_point, 
+      rex_store_id, rex_store_name, rex_status, 
+      rex_member_id, apply_time, apply_comment, 
+      apply_answer_user_id, apply_answer_time, apply_answer_comment, 
+      return_goods_memberid, return_goods_time, 
+      return_express_id, return_express_name, return_express_no, 
+      return_delivery_fee, return_pay_delivery, return_accept_user_id, 
+      return_accept_time, reback_express_id, reback_express_name, 
+      reback_express_no, reback_delivery_fee, reback_pay_delivery, 
+      reback_accept_member_id, reback_accept_time, 
+      refund_status, refund_goods, delivery_fee, 
+      refund_infact, pay_account, receipt_account, 
+      refund_member_id, refund_time, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time, erp_send_status)
+    values (#{rexOrderId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{subOrderId,jdbcType=VARCHAR}, 
+      #{orderCode,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, 
+      #{rexType,jdbcType=VARCHAR}, #{rexMode,jdbcType=VARCHAR}, #{rexPoint,jdbcType=VARCHAR}, 
+      #{rexStoreId,jdbcType=VARCHAR}, #{rexStoreName,jdbcType=VARCHAR}, #{rexStatus,jdbcType=VARCHAR}, 
+      #{rexMemberId,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{applyComment,jdbcType=VARCHAR}, 
+      #{applyAnswerUserId,jdbcType=VARCHAR}, #{applyAnswerTime,jdbcType=TIMESTAMP}, #{applyAnswerComment,jdbcType=VARCHAR}, 
+      #{returnGoodsMemberid,jdbcType=VARCHAR}, #{returnGoodsTime,jdbcType=TIMESTAMP}, 
+      #{returnExpressId,jdbcType=VARCHAR}, #{returnExpressName,jdbcType=VARCHAR}, #{returnExpressNo,jdbcType=VARCHAR}, 
+      #{returnDeliveryFee,jdbcType=VARCHAR}, #{returnPayDelivery,jdbcType=VARCHAR}, #{returnAcceptUserId,jdbcType=VARCHAR}, 
+      #{returnAcceptTime,jdbcType=TIMESTAMP}, #{rebackExpressId,jdbcType=VARCHAR}, #{rebackExpressName,jdbcType=VARCHAR}, 
+      #{rebackExpressNo,jdbcType=VARCHAR}, #{rebackDeliveryFee,jdbcType=VARCHAR}, #{rebackPayDelivery,jdbcType=VARCHAR}, 
+      #{rebackAcceptMemberId,jdbcType=VARCHAR}, #{rebackAcceptTime,jdbcType=TIMESTAMP}, 
+      #{refundStatus,jdbcType=VARCHAR}, #{refundGoods,jdbcType=NUMERIC}, #{deliveryFee,jdbcType=NUMERIC}, 
+      #{refundInfact,jdbcType=NUMERIC}, #{payAccount,jdbcType=VARCHAR}, #{receiptAccount,jdbcType=VARCHAR}, 
+      #{refundMemberId,jdbcType=VARCHAR}, #{refundTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{erpSendStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchange" >
+    insert into public.ord_return_exchange
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rexOrderId != null" >
+        rex_order_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="subOrderId != null" >
+        sub_order_id,
+      </if>
+      <if test="orderCode != null" >
+        order_code,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="rexType != null" >
+        rex_type,
+      </if>
+      <if test="rexMode != null" >
+        rex_mode,
+      </if>
+      <if test="rexPoint != null" >
+        rex_point,
+      </if>
+      <if test="rexStoreId != null" >
+        rex_store_id,
+      </if>
+      <if test="rexStoreName != null" >
+        rex_store_name,
+      </if>
+      <if test="rexStatus != null" >
+        rex_status,
+      </if>
+      <if test="rexMemberId != null" >
+        rex_member_id,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="applyComment != null" >
+        apply_comment,
+      </if>
+      <if test="applyAnswerUserId != null" >
+        apply_answer_user_id,
+      </if>
+      <if test="applyAnswerTime != null" >
+        apply_answer_time,
+      </if>
+      <if test="applyAnswerComment != null" >
+        apply_answer_comment,
+      </if>
+      <if test="returnGoodsMemberid != null" >
+        return_goods_memberid,
+      </if>
+      <if test="returnGoodsTime != null" >
+        return_goods_time,
+      </if>
+      <if test="returnExpressId != null" >
+        return_express_id,
+      </if>
+      <if test="returnExpressName != null" >
+        return_express_name,
+      </if>
+      <if test="returnExpressNo != null" >
+        return_express_no,
+      </if>
+      <if test="returnDeliveryFee != null" >
+        return_delivery_fee,
+      </if>
+      <if test="returnPayDelivery != null" >
+        return_pay_delivery,
+      </if>
+      <if test="returnAcceptUserId != null" >
+        return_accept_user_id,
+      </if>
+      <if test="returnAcceptTime != null" >
+        return_accept_time,
+      </if>
+      <if test="rebackExpressId != null" >
+        reback_express_id,
+      </if>
+      <if test="rebackExpressName != null" >
+        reback_express_name,
+      </if>
+      <if test="rebackExpressNo != null" >
+        reback_express_no,
+      </if>
+      <if test="rebackDeliveryFee != null" >
+        reback_delivery_fee,
+      </if>
+      <if test="rebackPayDelivery != null" >
+        reback_pay_delivery,
+      </if>
+      <if test="rebackAcceptMemberId != null" >
+        reback_accept_member_id,
+      </if>
+      <if test="rebackAcceptTime != null" >
+        reback_accept_time,
+      </if>
+      <if test="refundStatus != null" >
+        refund_status,
+      </if>
+      <if test="refundGoods != null" >
+        refund_goods,
+      </if>
+      <if test="deliveryFee != null" >
+        delivery_fee,
+      </if>
+      <if test="refundInfact != null" >
+        refund_infact,
+      </if>
+      <if test="payAccount != null" >
+        pay_account,
+      </if>
+      <if test="receiptAccount != null" >
+        receipt_account,
+      </if>
+      <if test="refundMemberId != null" >
+        refund_member_id,
+      </if>
+      <if test="refundTime != null" >
+        refund_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rexOrderId != null" >
+        #{rexOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="subOrderId != null" >
+        #{subOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="rexType != null" >
+        #{rexType,jdbcType=VARCHAR},
+      </if>
+      <if test="rexMode != null" >
+        #{rexMode,jdbcType=VARCHAR},
+      </if>
+      <if test="rexPoint != null" >
+        #{rexPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="rexStoreId != null" >
+        #{rexStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="rexStoreName != null" >
+        #{rexStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="rexStatus != null" >
+        #{rexStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rexMemberId != null" >
+        #{rexMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyComment != null" >
+        #{applyComment,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAnswerUserId != null" >
+        #{applyAnswerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAnswerTime != null" >
+        #{applyAnswerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyAnswerComment != null" >
+        #{applyAnswerComment,jdbcType=VARCHAR},
+      </if>
+      <if test="returnGoodsMemberid != null" >
+        #{returnGoodsMemberid,jdbcType=VARCHAR},
+      </if>
+      <if test="returnGoodsTime != null" >
+        #{returnGoodsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnExpressId != null" >
+        #{returnExpressId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnExpressName != null" >
+        #{returnExpressName,jdbcType=VARCHAR},
+      </if>
+      <if test="returnExpressNo != null" >
+        #{returnExpressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDeliveryFee != null" >
+        #{returnDeliveryFee,jdbcType=VARCHAR},
+      </if>
+      <if test="returnPayDelivery != null" >
+        #{returnPayDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="returnAcceptUserId != null" >
+        #{returnAcceptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnAcceptTime != null" >
+        #{returnAcceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rebackExpressId != null" >
+        #{rebackExpressId,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackExpressName != null" >
+        #{rebackExpressName,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackExpressNo != null" >
+        #{rebackExpressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackDeliveryFee != null" >
+        #{rebackDeliveryFee,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackPayDelivery != null" >
+        #{rebackPayDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackAcceptMemberId != null" >
+        #{rebackAcceptMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackAcceptTime != null" >
+        #{rebackAcceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundStatus != null" >
+        #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="refundGoods != null" >
+        #{refundGoods,jdbcType=NUMERIC},
+      </if>
+      <if test="deliveryFee != null" >
+        #{deliveryFee,jdbcType=NUMERIC},
+      </if>
+      <if test="refundInfact != null" >
+        #{refundInfact,jdbcType=NUMERIC},
+      </if>
+      <if test="payAccount != null" >
+        #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAccount != null" >
+        #{receiptAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMemberId != null" >
+        #{refundMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundTime != null" >
+        #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="erpSendStatus != null" >
+        #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchange" >
+    update public.ord_return_exchange
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="subOrderId != null" >
+        sub_order_id = #{subOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null" >
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="rexType != null" >
+        rex_type = #{rexType,jdbcType=VARCHAR},
+      </if>
+      <if test="rexMode != null" >
+        rex_mode = #{rexMode,jdbcType=VARCHAR},
+      </if>
+      <if test="rexPoint != null" >
+        rex_point = #{rexPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="rexStoreId != null" >
+        rex_store_id = #{rexStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="rexStoreName != null" >
+        rex_store_name = #{rexStoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="rexStatus != null" >
+        rex_status = #{rexStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rexMemberId != null" >
+        rex_member_id = #{rexMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyComment != null" >
+        apply_comment = #{applyComment,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAnswerUserId != null" >
+        apply_answer_user_id = #{applyAnswerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAnswerTime != null" >
+        apply_answer_time = #{applyAnswerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyAnswerComment != null" >
+        apply_answer_comment = #{applyAnswerComment,jdbcType=VARCHAR},
+      </if>
+      <if test="returnGoodsMemberid != null" >
+        return_goods_memberid = #{returnGoodsMemberid,jdbcType=VARCHAR},
+      </if>
+      <if test="returnGoodsTime != null" >
+        return_goods_time = #{returnGoodsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnExpressId != null" >
+        return_express_id = #{returnExpressId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnExpressName != null" >
+        return_express_name = #{returnExpressName,jdbcType=VARCHAR},
+      </if>
+      <if test="returnExpressNo != null" >
+        return_express_no = #{returnExpressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnDeliveryFee != null" >
+        return_delivery_fee = #{returnDeliveryFee,jdbcType=VARCHAR},
+      </if>
+      <if test="returnPayDelivery != null" >
+        return_pay_delivery = #{returnPayDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="returnAcceptUserId != null" >
+        return_accept_user_id = #{returnAcceptUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnAcceptTime != null" >
+        return_accept_time = #{returnAcceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rebackExpressId != null" >
+        reback_express_id = #{rebackExpressId,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackExpressName != null" >
+        reback_express_name = #{rebackExpressName,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackExpressNo != null" >
+        reback_express_no = #{rebackExpressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackDeliveryFee != null" >
+        reback_delivery_fee = #{rebackDeliveryFee,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackPayDelivery != null" >
+        reback_pay_delivery = #{rebackPayDelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackAcceptMemberId != null" >
+        reback_accept_member_id = #{rebackAcceptMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="rebackAcceptTime != null" >
+        reback_accept_time = #{rebackAcceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundStatus != null" >
+        refund_status = #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="refundGoods != null" >
+        refund_goods = #{refundGoods,jdbcType=NUMERIC},
+      </if>
+      <if test="deliveryFee != null" >
+        delivery_fee = #{deliveryFee,jdbcType=NUMERIC},
+      </if>
+      <if test="refundInfact != null" >
+        refund_infact = #{refundInfact,jdbcType=NUMERIC},
+      </if>
+      <if test="payAccount != null" >
+        pay_account = #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAccount != null" >
+        receipt_account = #{receiptAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="refundMemberId != null" >
+        refund_member_id = #{refundMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundTime != null" >
+        refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rex_order_id = #{rexOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchange" >
+    update public.ord_return_exchange
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      sub_order_id = #{subOrderId,jdbcType=VARCHAR},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      rex_type = #{rexType,jdbcType=VARCHAR},
+      rex_mode = #{rexMode,jdbcType=VARCHAR},
+      rex_point = #{rexPoint,jdbcType=VARCHAR},
+      rex_store_id = #{rexStoreId,jdbcType=VARCHAR},
+      rex_store_name = #{rexStoreName,jdbcType=VARCHAR},
+      rex_status = #{rexStatus,jdbcType=VARCHAR},
+      rex_member_id = #{rexMemberId,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      apply_comment = #{applyComment,jdbcType=VARCHAR},
+      apply_answer_user_id = #{applyAnswerUserId,jdbcType=VARCHAR},
+      apply_answer_time = #{applyAnswerTime,jdbcType=TIMESTAMP},
+      apply_answer_comment = #{applyAnswerComment,jdbcType=VARCHAR},
+      return_goods_memberid = #{returnGoodsMemberid,jdbcType=VARCHAR},
+      return_goods_time = #{returnGoodsTime,jdbcType=TIMESTAMP},
+      return_express_id = #{returnExpressId,jdbcType=VARCHAR},
+      return_express_name = #{returnExpressName,jdbcType=VARCHAR},
+      return_express_no = #{returnExpressNo,jdbcType=VARCHAR},
+      return_delivery_fee = #{returnDeliveryFee,jdbcType=VARCHAR},
+      return_pay_delivery = #{returnPayDelivery,jdbcType=VARCHAR},
+      return_accept_user_id = #{returnAcceptUserId,jdbcType=VARCHAR},
+      return_accept_time = #{returnAcceptTime,jdbcType=TIMESTAMP},
+      reback_express_id = #{rebackExpressId,jdbcType=VARCHAR},
+      reback_express_name = #{rebackExpressName,jdbcType=VARCHAR},
+      reback_express_no = #{rebackExpressNo,jdbcType=VARCHAR},
+      reback_delivery_fee = #{rebackDeliveryFee,jdbcType=VARCHAR},
+      reback_pay_delivery = #{rebackPayDelivery,jdbcType=VARCHAR},
+      reback_accept_member_id = #{rebackAcceptMemberId,jdbcType=VARCHAR},
+      reback_accept_time = #{rebackAcceptTime,jdbcType=TIMESTAMP},
+      refund_status = #{refundStatus,jdbcType=VARCHAR},
+      refund_goods = #{refundGoods,jdbcType=NUMERIC},
+      delivery_fee = #{deliveryFee,jdbcType=NUMERIC},
+      refund_infact = #{refundInfact,jdbcType=NUMERIC},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      receipt_account = #{receiptAccount,jdbcType=VARCHAR},
+      refund_member_id = #{refundMemberId,jdbcType=VARCHAR},
+      refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      erp_send_status = #{erpSendStatus,jdbcType=VARCHAR}
+    where rex_order_id = #{rexOrderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

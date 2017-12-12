@@ -1,0 +1,53 @@
+{
+  "resultCode": "200",
+  "resultMessage": "success",
+  "results": {
+    "productInfo": {
+      "imageUrl": "image/newProduct1.jpg",
+      "name": "Dealuna(迪洛纳)春季棉亚麻单西服",
+      "description": "高品质面料来打破亚洲传统男性的穿着方式.Dealuna尽显独到的穿衣个性和品味这也是UOMO系列的魅力所在.",
+      "price": "360",
+      "oldPrice": "790",
+      "solded": "102",
+      "stockNum": "258"
+    },
+    "productDetails": [
+      "image/productDetail1.jpg",
+      "image/productDetail2.jpg",
+      "image/productDetail3.jpg"
+    ],
+    "colors":[
+      {
+        "name":"灰色",
+        "value":"1"
+      },
+      {
+        "name":"蓝色",
+        "value":"2"
+      },{
+        "name":"红色",
+        "value":"3"
+      },{
+        "name":"白色",
+        "value":"4"
+      }
+    ],
+    "sizes":[
+      {
+        "name":"S",
+        "value":"1"
+      },
+      {
+        "name":"M",
+        "value":"2"
+      },{
+        "name":"L",
+        "value":"3"
+      },{
+        "name":"XL",
+        "value":"4"
+      }
+    ],
+    "isInWishlist":"0"
+  }
+}

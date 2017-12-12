@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx.xsd
+                            http://www.springframework.org/schema/cache
+                            http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <import resource="classpath:spring-dao.xml"/>
+
+    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <context:component-scan base-package="net.dlyt.qyds.web.service.impl" >
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+    <context:component-scan base-package="net.dlyt.qyds.web.service.common" >
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+    </context:component-scan>
+
+
+    <import resource="classpath:service-cache.xml"/>
+    <import resource="classpath:weixin-beans.xml"/>
+
+</beans>

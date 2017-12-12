@@ -1,0 +1,145 @@
+<ion-view view-title="分类" hide-nav-bar="true"  cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<div class="h1 title" style="font-size:17px;">分类</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class="light-bg" overflow-scroll="true" style="font-size: 14px">
+
+        <div class="row row-no-padding" style="padding:0;margin-top:5px;">
+            <div class="col col-100" ng-if="levelRootList.length > 0" style="padding:0;" id="typeList">
+                <div ng-if="levelRootList.length > 0">
+                    <!-- ng-click="" 添加在下边的div上-->
+                    <div  ng-repeat="firstMenu in levelRootList"
+                          style="border-bottom:1px solid #cccdce;" >
+                        <div style="padding:15px 15px;" ng-click="displayNext(firstMenu.goodsTypeId);">
+                            {{firstMenu.goodsTypeNameCn}}
+                        </div>
+                        <!--<div class="col col-100" ng-if="firstMenu.secondTypeList.length > 0" style="padding:0;">-->
+                            <!--<div ng-if="firstMenu.secondTypeList.length > 0">-->
+                                <!--&lt;!&ndash; ng-click="" 添加在下边的div上&ndash;&gt;-->
+                                <!--<div  ng-repeat="secondMenu in firstMenu.secondTypeList"-->
+                                      <!--style="border-top:1px solid #cccdce;">-->
+                                    <!--<div style="padding:15px 15px;margin-left: 60px;">-->
+                                        <!--{{secondMenu.goodsTypeNameCn}}-->
+                                    <!--</div>-->
+
+                                    <!--<div class="col col-100" ng-if="secondMenu.secondTypeList.length > 0" style="padding:0;">-->
+                                        <!--<div ng-if="secondMenu.secondTypeList.length > 0">-->
+                                            <!--&lt;!&ndash; ng-click="" 添加在下边的div上&ndash;&gt;-->
+                                            <!--<div  ng-repeat="threeMenu in secondMenu.secondTypeList"-->
+                                                  <!--style="border-top:1px solid #cccdce;text-align: center" ng-click="goGoodsList(threeMenu.goodsTypeId);">-->
+                                                <!--<div style="padding:15px 15px;">-->
+                                                    <!--{{threeMenu.goodsTypeNameCn}}-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-no-padding" style="padding:0;margin-top:5px;"  id="actTitle">
+            <div class="col col-100" ng-if="activityTypeList.length > 0" style="padding:0;">
+                <div style="padding:15px 15px;color:#CC0001;border-bottom:1px solid #cccdce;" ng-click="displayNextAct();">
+                    SALE
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-no-padding" style="padding:0;margin-top:5px;" id="actList">
+            <div class="col col-100" ng-if="activityTypeList.length > 0" style="padding:0;">
+                <div ng-if="activityTypeList.length > 0">
+                    <!-- ng-click="" 添加在下边的div上-->
+                    <div  ng-repeat="actMenu in activityTypeList"
+                          style="border-bottom:1px solid #cccdce;text-align: center" ng-click="goSaleList(actMenu.activityId);">
+                        <div style="padding:15px 15px;">
+                            {{actMenu.activityName}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="grid" style="height: 100%">-->
+            <!--<div class="row row-no-padding" style="height: 100%">-->
+                <!--<div class="col col-33" style="height:100%;background: #f2f2f2">-->
+                    <!--&lt;!&ndash;左侧&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="text-center" ng-repeat="catalog in secondTypes"&ndash;&gt;-->
+                         <!--&lt;!&ndash;style="border-bottom:1px #cccccc solid;padding: 10px 0px;background: #f2f2f2;"&ndash;&gt;-->
+                         <!--&lt;!&ndash;ng-click="setSubChildren(catalog,$index)"&ndash;&gt;-->
+                         <!--&lt;!&ndash;ng-class="{selectedClassfication: $index==selectedRow}">{{catalog.goodsTypeNameCn}}&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="hidden" value={{catalog.goodsTypeId}}>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<ul id="accordion" class="accordion">-->
+                        <!--<li ng-repeat="catalog in categoryList">-->
+                            <!--<div class="link" ng-click="initSub(catalog,$index);">{{catalog.goodsTypeNameCn}}</div>-->
+                            <!--<ul class="submenu">-->
+                                <!--<li ng-repeat="subCatalog in catalog.secondTypeList" ng-class="setClass($index,$parent.$index)" ng-if="$parent.$index != 0" ng-click="setSubChildren(subCatalog,$index,$parent.$index)">-->
+                                    <!--<a href="javascript:void(0);">{{subCatalog.goodsTypeNameCn}}</a>-->
+                                <!--</li>-->
+
+                                <!--<li ng-repeat="subCatalog in catalog.secondTypeList" ng-class="setClass($index,$parent.$index)" ng-if="$parent.$index == 0" ng-click="setSubBrandChildren(subCatalog,$index,$parent.$index)">-->
+                                    <!--<a href="javascript:void(0);">{{subCatalog.goodsTypeNameCn}}</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div id='rightArea' class="col col-67" style="position:relative">-->
+                    <!--&lt;!&ndash;右侧&ndash;&gt;-->
+                    <!--<ion-scroll id="rightScrollArea" zooming="true" direction="y" style="width:100%;">-->
+                        <!--<div ng-repeat="child in subGdsTypes" ng-if="$index%2==0">-->
+                            <!--<div class="row">-->
+                                <!--&lt;!&ndash;<div class="col col-50" style="text-align:center;position:relative">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<img ng-src="{{goods.gdsMasterExt.imageUrlJson | imgPathJson:'120'}}" width="95%" class='img-responsive'>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<i class="icon ion-ios-close-outline" style="position:absolute;top:15px;right:20px;font-size:28px;" ng-click="removeFavorite($index)"></i>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div style="padding:5px;text-align:left;">{{goods.name}}</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div style="padding:5px;text-align:left;">{{goods.gdsMasterExt.minAndMaxPrice}}</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--<div class="col col-50" style="text-align:center"-->
+                                     <!--ng-click="goGoodsList(child.goodsTypeId)">-->
+                                    <!--<img ng-src="{{child.imageUrl | imgPath:'480'}}" style="width:100%;">-->
+                                    <!--<input type="hidden" value={{child.goodsTypeId}}>-->
+                                    <!--<div class="max-line-1" style="margin-top: 4px">-->
+                                        <!--{{child.goodsTypeNameCn}}-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col col-50" ng-if="$index<=subGdsTypes.length-2" style="text-align:center;"-->
+                                    <!--ng-click="goGoodsList(subGdsTypes[$index+1].goodsTypeId)">-->
+                                    <!--<img ng-src="{{subGdsTypes[$index+1].imageUrl | imgPath:'480'}}" style="width:100%">-->
+                                    <!--<input type="hidden" value={{subGdsTypes[$index+1].goodsTypeId}}>-->
+                                    <!--<div class="max-line-1" style="margin-top: 4px">-->
+                                        <!--{{subGdsTypes[$index+1].goodsTypeNameCn}}-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<img ng-src="{{goodsList[$index+1].gdsMasterExt.imageUrlJson | imgPathJson:'120'}}" width="95%" class='img-responsive'>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<i class="icon ion-ios-close-outline" style="position:absolute;top:15px;right:20px;font-size:28px;" ng-click="removeFavorite($index + 1)"></i>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div style="padding:5px;text-align:left;">{{goodsList[$index+1].name}}</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div style="padding:5px;text-align:left;">{{goodsList[$index+1].gdsMasterExt.minAndMaxPrice}}</div>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+
+                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col col-50" style="padding:0 5px;text-align:center" ng-repeat="child in subGdsTypes"&ndash;&gt;-->
+                                 <!--&lt;!&ndash;ng-style="tabStyle" ng-click="goGoodsList(child.goodsTypeId)">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<img ng-src="{{child.imageUrl | imgPath:'120'}}" style="width:100%">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<input type="hidden" value={{child.goodsTypeId}}>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="max-line-1" style="margin-top: 4px">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;{{child.goodsTypeNameCn}}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</ion-scroll>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </ion-content>
+</ion-view>

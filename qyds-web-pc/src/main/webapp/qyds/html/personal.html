@@ -1,0 +1,166 @@
+<div class="container-fluid" style="background-color: white">
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px">
+            <h4>我的信息</h4>
+        </div>
+    </div>
+    <form role="form" name="personalForm" ng-class="{'have-error':personalForm.$invalid && submitted}"
+          class="form-horizontal" novalidate>
+        <div class="form-group">
+            <label for="inputName" class="col-xs-12 col-sm-2  col-sm-offset-0 control-label">姓名</label>
+            <div class="col-xs-12 col-sm-6 col-sm-offset-0">
+                <input type="text" class="form-control" id="inputName" name="inputName"
+                       ng-model="personalInfo.memberName"
+                       required
+                       placeholder="请输入姓名" maxlength="16">
+                <div class="col-xs-12 error_msg" ng-show="personalForm.inputName.$error.required && submitted">
+                    用户姓名不能为空
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-sm-offset-0 control-label"
+                   id="image_title_area">头像</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <img style="width:80px;height:80px;border: 1px solid #d4d4d4" src="./images/dress.png"
+                     ng-click="imgClick()" ng-if="!personalInfo.memberPic"/>
+                <img style="width:80px;height:80px;border: 1px solid #d4d4d4" src="" ng-click="imgClick()"
+                     ng-src="{{personalInfo.memberPic | imgPath}}" ng-if="personalInfo.memberPic"/>
+                <input type="file" id="image_img_file" file-model="myfile">
+                <input type="text" id="image_url" hidden ng-model="personalInfo.memberPic">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="selectSex" class="col-xs-12 col-sm-2 col-sm-offset-0 control-label">性别</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <select id="selectSex" class="form-control" ng-model="personalInfo.sex"
+                        ng-options="x for (x, y) in genderList"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputBirthDate"
+                   class="col-xs-12 col-sm-2  col-sm-offset-0 control-label">生日</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <div class="input-group" ng-if="birthdateStatus==20">
+                    <input  type="text" readonly class="form-control"  style="background-color:#ffffff;" ng-model="personalInfo.birthdate"
+                            id="inputBirthDate" name="inputBirthDate">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" onClick="$('#inputBirthDate').trigger('focus')">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </div>
+                <input ng-if="birthdateStatus==10" type="text" class="form-control" disabled="disabled"
+                       ng-model="personalInfo.birthdate">
+                <div class="col-xs-12 error_msg" ng-show="personalForm.inputBirthDate.$error.required && submitted">
+                    请填写您的生日
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="selectProfession"
+                   class="col-xs-12 col-sm-2 col-sm-offset-0 control-label">职业</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <select class="form-control" ng-model="personalInfo.profession" id="selectProfession">
+                    <option value="">--请选择--</option>
+                    <option ng-repeat="profession in professionList" value="{{profession}}"
+                            ng-selected="personalInfo.profession == profession">{{profession}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0px">
+            <label for="selectInCome"
+                   class="col-xs-12 col-sm-2 col-sm-offset-0 control-label">收入</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <select class="form-control" ng-model="personalInfo.income" id="selectInCome">
+                    <option value="">--请选择--</option>
+                    <option ng-repeat="income in incomeList" value="{{income}}"
+                            ng-selected="personalInfo.income == income">{{income}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="selectProvince"
+                   class="col-xs-12 col-sm-2 col-sm-offset-0 control-label" style="margin-top: 15px">地址</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <select id="selectProvince" class="form-control" ng-model="info.provinceCd"
+                        ng-init="info.provinceCd='0'" ng-change="changeArea('0',info.provinceCd)"
+                        style="margin-top: 15px">
+                    <option value="0">--请选择--</option>
+                    <option ng-repeat="province in provincesList" value="{{province.pcode}}"
+                            ng-selected="info.provinceCd == province.pcode">{{province.pname}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <select ng-model="info.cityCd" class="form-control" ng-init="info.cityCd='0'"
+                        ng-change="changeArea('1',info.cityCd)" style="margin-top: 15px">
+                    <option value="0">--请选择--</option>
+                    <option ng-repeat="city in citiesList" value="{{city.ccode}}"
+                            ng-selected="info.cityCd == city.ccode">{{city.cname}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <select ng-model="info.areaCd" class="form-control" ng-init="info.areaCd='0'" id="area_selected"
+                        style="margin-top: 15px">
+                    <option value="0">--请选择--</option>
+                    <option ng-repeat="area in areasList" value="{{area.dcode}}"
+                            ng-selected="info.areaCd == area.dcode">{{area.dname}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputAddress"
+                   class="col-xs-12 col-sm-2  col-sm-offset-0 control-label">详细地址</label>
+            <div class="col-xs-12 col-sm-9 col-sm-offset-0">
+                <input type="text" class="form-control" id="inputAddress" placeholder="请输入详细地址"
+                       ng-model="personalInfo.address" maxlength="50">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPostCode"
+                   class="col-xs-12 col-sm-2  col-sm-offset-0 control-label">邮编</label>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-0">
+                <input type="text" class="form-control" id="inputPostCode" name="inputPostCode" maxlength="6"
+                       ng-pattern="/^[1-9][0-9]{5}$/" placeholder="请输入邮编"
+                       ng-model="personalInfo.postCode">
+                <div class="col-xs-12 error_msg" ng-show="personalForm.inputPostCode.$error.pattern && submitted">
+                    邮编格式不正确
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail" class="col-xs-12 col-sm-2  col-sm-offset-0 control-label">邮箱</label>
+            <div class="col-xs-12 col-sm-6 col-sm-offset-0">
+                <input type="email" class="form-control" maxlength="40" name="inputEmail" id="inputEmail"
+                       ng-pattern="/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/" placeholder="请输入邮箱地址"
+                       ng-model="personalInfo.email">
+                <div class="col-xs-12 error_msg" ng-show="personalForm.inputEmail.$error.pattern && submitted">邮箱格式不正确
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-2 col-xs-offset-5">
+                <button type="submit" class="btn btn-default btn-small hvr-outline-out-dark"
+                        ng-click="modifyPersonalInfo(personalForm.$valid);">保存
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

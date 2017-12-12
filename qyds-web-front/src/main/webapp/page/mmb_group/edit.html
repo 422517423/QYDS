@@ -1,0 +1,48 @@
+
+<!-- /.modal -->
+<div id="mmbGroupEditArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">会员组</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="scroller" style="height:auto;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <form id="mmb_group_edit_form" class="form-horizontal validator">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">分组名称<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="group_name_edit" name="group_name_edit" data-required="1" class="form-control" maxlength="20">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="type_edit" class="col-md-3 control-label">分组类型<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <select id="type_edit" data-rel="chosen" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div id="mmb_group_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script src="../page/mmb_group/edit.js"></script>

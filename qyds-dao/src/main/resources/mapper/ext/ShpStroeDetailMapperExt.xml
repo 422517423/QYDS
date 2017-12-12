@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ShpStroeDetailMapperExt" >
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.ShpStroeDetailExt" >
+        <id column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+        <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+        <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+        <result column="contactor" property="contactor" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="districtid_province" property="districtidProvince" jdbcType="VARCHAR" />
+        <result column="districtid_city" property="districtidCity" jdbcType="VARCHAR" />
+        <result column="districtid_district" property="districtidDistrict" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+        <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+        <result column="introduce_html" property="introduceHtml" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+        <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="BaseResultMapCount" type="java.lang.Integer">
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        org_id, erp_store_id, search_key, image_url, contactor, phone, districtid_province,
+        districtid_city, districtid_district, address, longitude, latitude, introduce_html,
+        deleted, update_user_id, update_time, insert_user_id, insert_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from public.shp_stroe_detail
+        where org_id = #{orgId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.ShpStroeDetailExt" >
+        select
+       ssd.org_id, ssd.erp_store_id, ssd.search_key, ssd.image_url, ssd.contactor, ssd.phone, ssd.districtid_province,
+        ssd.districtid_city, ssd.districtid_district, ssd.address, ssd.longitude, ssd.latitude, ssd.introduce_html,
+        ssd.deleted, ssd.update_user_id, ssd.update_time, ssd.insert_user_id, ssd.insert_time,su.login_id,su.user_name
+        from public.shp_stroe_detail ssd
+        left join public.sys_user su
+        on su.login_id=ssd.insert_user_id
+        where  deleted='0'
+          order by ssd.update_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+    </select>
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.ShpStroeDetailExt">
+        select
+        <include refid="Base_Column_List"/>
+        from public.shp_stroe_detail
+        ORDER BY update_time
+    </select>
+    <select id="getAllDataCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.ext.ShpStroeDetailExt">
+        select count(*) as count
+        from public.shp_stroe_detail ssd
+        LEFT JOIN PUBLIC.sys_user sys
+        ON sys.login_id = ssd.insert_user_id
+        and sys.is_valid = '0'
+        where ssd.deleted='0'
+    </select>
+</mapper>

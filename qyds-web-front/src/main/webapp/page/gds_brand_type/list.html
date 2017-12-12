@@ -1,0 +1,65 @@
+
+        <!-- 页头开始-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- title&面包屑-->
+                <h3 class="page-title">
+                    品牌系列管理
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">品牌系列管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">品牌系列</a></li>
+                </ul>
+                <!-- title&面包屑-->
+            </div>
+        </div>
+        <!-- 页头结束-->
+
+        <!-- 画面内容-->
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet grey box">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>品牌系列管理</div>
+                            <div class="tools" style="margin-top: auto;">
+                                <div id="button-groups">
+                                    <a id="addBtn" href="javascript:;" class="btn btn-xs green">添加 <i class="icon-plus"></i></a>
+                                    <a id="editBtn" href="javascript:;" class="btn btn-xs purple">编辑 <i class="icon-edit"></i></a>
+                                    <a id="upBtn" href="javascript:;" class="btn btn-xs blue">上移 <i class="icon-long-arrow-up"></i></a>
+                                    <a id="downBtn" href="javascript:;" class="btn btn-xs yellow">下移 <i class="icon-long-arrow-down"></i></a>
+                                    <a id="delBtn" href="javascript:;" class="btn btn-xs red">删除 <i class="icon-remove"></i></a>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="portlet-body">
+                        <div id="gdsTypeTree" class="ztree">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 画面内容结束-->
+
+        <!-- 引入JS开始 -->
+        <script src="../page/gds_brand_type/list.js"></script>
+        <!-- 引入JS开始 -->
+
+        <script>
+            jQuery(document).ready(function() {
+                App.initScroller();
+                zTree.init();
+            });
+        </script>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="smsCaptchaConfig" class="net.dlyt.qyds.config.SmsCaptchaConfig">
+        <property name="url" value="http://gw.api.taobao.com/router/rest" />
+        <property name="appkey" value="23320071" />
+        <property name="secret" value="23243410e09e3f0ad0f433a58a79297a" />
+        <property name="sign" value="迪洛纳官方" />
+        <property name="template" value="SMS_15410101" />
+    </bean>
+</beans>

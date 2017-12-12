@@ -1,0 +1,79 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">门店选择</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-gray'>
+
+        <div style="padding:0 15px;" class='bg-light'>
+            <div class="row" style="padding:0;margin:0">
+                <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                    省
+                </div>
+                <div class="col col-70 col-center item-select" style="height:44px;">
+                    <select style="font-size:15px;" ng-model="info.provinceCd" ng-init="info.provinceCd='0'" ng-change="changeArea('0',info.provinceCd)">
+                        <option value="0">--请选择--</option>
+                        <option ng-repeat="province in provincesList" value="{{province.pcode}}">{{province.pname}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="divider_gray"></div>
+            <div class="row" style="padding:0;margin:0">
+                <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                    市
+                </div>
+                <div class="col col-70 col-center item-select" style="height:44px;">
+                    <select style="font-size:15px;" ng-model="info.cityCd"  ng-init="info.cityCd='0'" ng-change="changeArea('1',info.cityCd)">
+                        <option value="0">--请选择--</option>
+                        <option ng-repeat="city in citiesList" value="{{city.ccode}}">{{city.cname}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="divider_gray"></div>
+            <div class="row" style="padding:0;margin:0">
+                <div class="col col-30 col-center" style="font-size:13px;text-align:left;color:#CCCCCC;">
+                    区/县
+                </div>
+                <div class="col col-70 col-center item-select" style="height:44px;">
+                    <select style="font-size:15px;" ng-model="info.areaCd" ng-init="info.areaCd='0'"
+                            id="area_selected" ng-change="getStoreList()">
+                        <option value="0">--请选择--</option>
+                        <option ng-repeat="area in areasList" value="{{area.dcode}}">{{area.dname}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="divider_gray"></div>
+
+
+        <div ng-repeat="store in storeList" class="item" ng-class="setBgColor(store.store_code)"
+             style="margin-top:15px;padding:0;" ng-click="selectStore(store)" ng-if="store.store_code != '010001'">
+            <div class="row" style="margin:0;">
+                <div class="row" style="margin-left:10px;padding:0;font-size:18px;">
+                    <div class="col col-80 item-text-wrap">
+                        <div style="font-size:16px;margin-top:5px;position:relative;">
+                            {{store.store_name_cn}}
+                            <!--<span ng-if="store.new_count && store.new_count > 0" style="font-size:14px;margin-left: 8px;">-->
+                                <!--有货-->
+                            <!--</span>-->
+                            <!--<span ng-if="!store.new_count || store.new_count == 0" class="assertive" style="font-size:14px;margin-left: 8px;">-->
+                                <!--无货-->
+                            <!--</span>-->
+                        </div>
+                        <div style="font-size:12px;margin-top:5px;position:relative;">
+                            <p ng-if="store.phone" style="margin-left: 8px;">
+                                电话:{{store.phone}}
+                            </p>
+                            <p ng-if="store.address" style="margin-left: 8px;">
+                                地址:{{store.address}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col col-20 col-center" style="text-align:right;margin-right:5px;">
+                        <i class="icon ion-ios-arrow-forward"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

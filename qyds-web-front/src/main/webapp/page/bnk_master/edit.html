@@ -1,0 +1,43 @@
+<!-- /.modal -->
+<div id="bnkMasterEditArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">商品库存详细画面</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="bnk_master_edit_form" class="form-horizontal validator">
+                        <div class="form-body">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">库存数<span class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <input type="number" id="new_count" name="new_count" data-required="1" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-md-3 control-label">说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="comment" name="comment" data-required="1" class="form-control" rows="5" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div id=""
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="../page/bnk_master/edit.js"></script>

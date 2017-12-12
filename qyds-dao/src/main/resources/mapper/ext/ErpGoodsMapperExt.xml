@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpGoodsMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.ErpGoodsExt" >
+    <id column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="top_type_code" property="topTypeCode" jdbcType="VARCHAR" />
+    <result column="top_type_name" property="topTypeName" jdbcType="VARCHAR" />
+    <result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="style_name" property="styleName" jdbcType="VARCHAR" />
+    <result column="goods_name_cn" property="goodsNameCn" jdbcType="VARCHAR" />
+    <result column="brand_code" property="brandCode" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="line_code" property="lineCode" jdbcType="VARCHAR" />
+    <result column="line_name" property="lineName" jdbcType="VARCHAR" />
+    <result column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="color_name" property="colorName" jdbcType="VARCHAR" />
+    <result column="size_type_code" property="sizeTypeCode" jdbcType="VARCHAR" />
+    <result column="size_type_name" property="sizeTypeName" jdbcType="VARCHAR" />
+    <result column="size_sort" property="sizeSort" jdbcType="INTEGER" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="sell_year" property="sellYear" jdbcType="VARCHAR" />
+    <result column="season_code" property="seasonCode" jdbcType="VARCHAR" />
+    <result column="season_name" property="seasonName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="bnk_no_limit" property="bnkNoLimit" jdbcType="NUMERIC" />
+    <result column="bnk_less_limit" property="bnkLessLimit" jdbcType="NUMERIC" />
+    <result column="face" property="face" jdbcType="VARCHAR" />
+    <result column="material" property="material" jdbcType="VARCHAR" />
+    <result column="filler" property="filler" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_code, style_name, goods_name_cn,sku, brand_code, brand_name,
+    line_code, line_name, color_code, color_name,
+    size_type_code, size_type_name, size_sort, size_code, size_name, sell_year, season_code, season_name, price,
+    face, material, filler, comment, update_time, insert_time
+  </sql>
+  <sql id="Base_Where_Bypage" >
+    WHERE 1 = 1
+    <if test="goodsCode != null and !goodsCode.isEmpty()" >
+      AND goods_code LIKE '%' || #{goodsCode,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="styleName != null and !styleName.isEmpty()" >
+      AND style_name LIKE '%' || #{styleName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="goodsNameCn != null and !goodsNameCn.isEmpty()" >
+      AND goods_name_cn LIKE '%' || #{goodsNameCn,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="sku != null and !sku.isEmpty()" >
+      AND sku LIKE '%' || #{sku,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="brandName != null and !brandName.isEmpty()" >
+      AND brand_name LIKE '%' || #{brandName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="lineName != null and !lineName.isEmpty()" >
+      AND line_name LIKE '%' || #{lineName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="colorName != null and !colorName.isEmpty()" >
+      AND color_name LIKE '%' || #{colorName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="sizeName != null and !sizeName.isEmpty()" >
+      AND size_name LIKE '%' || #{sizeName,jdbcType=VARCHAR} || '%'
+    </if>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.view_erp_goods
+    order by sku
+  </select>
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select sku,color_name,size_name,price,size_type_code,size_code,bnk_no_limit,bnk_less_limit
+    from public.view_erp_goods
+    where goods_code = #{goodsCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpGoodsForm" >
+    select
+    <include refid="Base_Column_List" />
+    from public.view_erp_goods
+    <include refid="Base_Where_Bypage" />
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpGoodsForm" >
+    select count(*)
+    from public.view_erp_goods
+    <include refid="Base_Where_Bypage" />
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.view_erp_goods
+    where sku = #{sku,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_goods
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpGoods" >
+    update public.erp_goods
+    set goods_code = #{goodsCode,jdbcType=VARCHAR},
+      style_name = #{styleName,jdbcType=VARCHAR},
+      goods_name_en = #{goodsNameEn,jdbcType=VARCHAR},
+      goods_name_cn = #{goodsNameCn,jdbcType=VARCHAR},
+      brand_code = #{brandCode,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      top_type_code = #{topTypeCode,jdbcType=VARCHAR},
+      top_type_name = #{topTypeName,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      line_code = #{lineCode,jdbcType=VARCHAR},
+      color_code = #{colorCode,jdbcType=VARCHAR},
+      color_name = #{colorName,jdbcType=VARCHAR},
+      size_type_code = #{sizeTypeCode,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      sell_year = #{sellYear,jdbcType=VARCHAR},
+      season_code = #{seasonCode,jdbcType=VARCHAR},
+      season_name = #{seasonName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      face = #{face,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      filler = #{filler,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = now()
+    where sku = #{sku,jdbcType=VARCHAR}
+  </update>
+  <select id="getCouponSkuListById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select v.sku,v.goods_code,v.color_name,v.size_name
+    from view_erp_goods v,coupon_goods c
+    where v.sku = c.sku_id
+    and c.coupon_id = #{couponId,jdbcType=VARCHAR}
+  </select>
+  <select id="getActGoodsColorListById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select m.goods_code,m.color_code,c.color_name_cn color_name
+    from
+    (select replace(goods_code::text,'"','') goods_code,replace(color_code::text,'"','') color_code from
+    (select param->'goodsCode'::TEXT goods_code,param->'colorCode'::TEXT color_code
+    from
+    (select json_array_elements(param_value::json)::json param from act_temp_param
+    where temp_id= #{tempId,jdbcType=VARCHAR}
+    )p)l)m
+    left join erp_goods_color c
+    on c.color_code = m.color_code
+    order by goods_code,color_code
+  </select>
+  <resultMap id="ColorResultMap" type="net.dlyt.qyds.common.form.GoodsCodeColorNameDto" >
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="color_name" property="colorName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getGoodsColorCodeByName" resultMap="ColorResultMap" parameterType="java.lang.String" >
+    select m.goods_code,c.color_code
+    from
+    (select replace(goods_code::text,'"','') goods_code,replace(color_name::text,'"','') color_name from
+    (select param->'goodsCode'::TEXT goods_code,param->'colorName'::TEXT color_name
+    from
+    (select json_array_elements(#{tempId,jdbcType=VARCHAR} ::json)::json param
+    )p)l)m
+    left join erp_goods_color c
+    on c.color_name_cn = m.color_name
+    order by goods_code,color_code
+  </select>
+</mapper>

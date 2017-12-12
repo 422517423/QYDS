@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysMenuMapperExt" >
+  <resultMap id="SysMenuResultMap" type="net.dlyt.qyds.common.dto.SysMenu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="NUMERIC" />
+    <result column="access_start" property="accessStart" jdbcType="DATE" />
+    <result column="access_end" property="accessEnd" jdbcType="DATE" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="SysMenuValidResultMap" type="net.dlyt.qyds.common.dto.SysMenu" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="NUMERIC" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    menu_id, menu_name, menu_type, url, parent_id, sort, to_date(to_char(access_start, 'yyyy-MM-dd'),'yyyy-MM-dd') as access_start, access_end, logo_url
+  </sql>
+  <sql id="Valid_Column_List" >
+    m.menu_id, menu_name, menu_type, url, parent_id, sort, logo_url
+  </sql>
+
+  <select id="getMenu" resultMap="SysMenuResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from public.sys_menu
+    where is_valid = '0'
+    order by parent_id,sort
+  </select>
+
+  <select id="getValidMenu" resultMap="SysMenuValidResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Valid_Column_List" />
+    from public.sys_menu m inner join sys_role_menu rm on m.menu_id = rm.menu_id
+    inner join sys_user_role ur on ur.role_id = rm.role_id
+    inner join sys_user u on u.user_id = ur.user_id
+    inner join sys_role r on r.role_id = ur.role_id
+    where now() >= m.access_start
+          and now() &lt;= m.access_end
+          and u.is_valid = '0'
+          and m.is_valid = '0'
+          and r.is_valid = '0'
+          and u.user_id = #{userId,jdbcType=INTEGER}
+    order by m.parent_id,m.sort
+  </select>
+
+  <select id="getRoleMenu" resultMap="SysMenuValidResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Valid_Column_List" />
+    from public.sys_menu m
+    inner join sys_role_menu rm on m.menu_id = rm.menu_id
+    where now() &gt;= m.access_start
+    and now() &lt;= m.access_end
+    and m.is_valid= '0'
+    and rm.role_id = #{roleId,jdbcType=INTEGER}
+    order by m.parent_id,m.sort
+  </select>
+
+  <insert id="addMenu" useGeneratedKeys="true" keyProperty="menuId" parameterType="net.dlyt.qyds.common.dto.SysMenu" >
+
+    insert into public.sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuType != null" >
+        menu_type,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="accessStart != null" >
+        access_start,
+      </if>
+      <if test="accessEnd != null" >
+        access_end,
+      </if>
+      <if test="logoUrl != null" >
+        logo_url,
+      </if>
+      menu_id,
+      create_time,
+      update_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=NUMERIC},
+      </if>
+      <if test="accessStart != null" >
+        #{accessStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessEnd != null" >
+        #{accessEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoUrl != null" >
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      nextval('sys_menu_menu_id_seq'),
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <update id="updateSort" parameterType="net.dlyt.qyds.common.dto.SysMenu">
+    UPDATE sys_menu set sort = #{sort,jdbcType=NUMERIC},update_time = now() where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateSortForDel" parameterType="net.dlyt.qyds.common.dto.SysMenu">
+    UPDATE sys_menu set sort = sort -1 where parent_id = #{parentId} and sort > #{sort} and is_valid = '0'
+  </update>
+
+  <update id="editMenu" parameterType="net.dlyt.qyds.common.dto.SysMenu" >
+    update public.sys_menu
+    <set >
+
+      <if test="menuName != null and menuName !='' " >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null and menuType !=''" >
+        menu_type = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null and updateUser !='' " >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=NUMERIC},
+      </if>
+      <if test="accessStart != null" >
+        access_start = #{accessStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessEnd != null" >
+        access_end = #{accessEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoUrl != null" >
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      update_time = now()
+    </set>
+    where menu_id = #{menuId,jdbcType=INTEGER} and is_valid = '0'
+  </update>
+
+  <update id="deleteMenu" parameterType="net.dlyt.qyds.common.dto.SysMenu">
+      update public.sys_menu set is_valid = '1',update_time = now(),update_user = #{updateUser,jdbcType=VARCHAR}
+      where menu_id = #{menuId,jdbcType=INTEGER}
+  </update>
+</mapper>

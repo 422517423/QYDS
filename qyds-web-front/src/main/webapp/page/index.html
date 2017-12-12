@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.0
+Version: 1.5.2
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+   <meta charset="utf-8" />
+   <title>千业电商信息管理平台</title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+   <meta content="" name="description" />
+   <meta content="" name="author" />
+   <meta name="MobileOptimized" content="320">
+   <!-- BEGIN GLOBAL MANDATORY STYLES -->
+   <link href="../assets/css/fonticon/jquery.fonticonpicker.min.css" rel="stylesheet" type="text/css" />
+   <link href="../assets/css/fonticon/themes/grey-theme/jquery.fonticonpicker.grey.css" rel="stylesheet" type="text/css" />
+   <link href="../assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+   <!-- END GLOBAL MANDATORY STYLES -->
+   <!-- BEGIN PAGE LEVEL PLUGIN STYLES --> 
+   <link href="../assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+   <link href="../assets/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css"/>
+   <!-- END PAGE LEVEL PLUGIN STYLES -->
+   <!-- BEGIN THEME STYLES --> 
+   <link href="../assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/css/plugins.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/css/pages/tasks.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+   <link href="../assets/css/custom.css" rel="stylesheet" type="text/css"/>
+
+   <link rel="stylesheet" type="text/css" href="../assets/plugins/select2/select2_metro.css" />
+   <link rel="stylesheet" href="../assets/plugins/data-tables/DT_bootstrap.css" />
+
+   <!-- END THEME STYLES -->
+   <link href="../assets/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css"/>
+   <link href="../assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" type="text/css" href="../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+   <link href="../assets/css/gantt/dhtmlxgantt.css" rel="stylesheet" />
+
+   <link href="../assets/css/multiple-select.css" rel="stylesheet" type="text/css"/>
+
+   <link rel="shortcut icon" href="favicon.ico" />
+   <script type="text/javascript">
+//      window.UEDITOR_HOME_URL = "../assets/plugins/ueditor/";
+   </script>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+   <!-- BEGIN HEADER -->   
+   <div class="header navbar navbar-inverse navbar-fixed-top">
+      <!-- BEGIN TOP NAVIGATION BAR -->
+      <div class="header-inner">
+         <!-- BEGIN LOGO -->  
+         <a class="navbar-brand" href="index.html">
+            <!--<img src="../assets/img/logo.png" alt="logo" class="img-responsive" />-->
+            <span class="img-responsive" style="margin-left:20px;color:#ffffff;">千业电商信息管理平台</span>
+         </a>
+         <!-- END LOGO -->
+         <!-- BEGIN RESPONSIVE MENU TOGGLER --> 
+         <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+         <img src="../assets/img/menu-toggler.png" alt="" />
+         </a> 
+         <!-- END RESPONSIVE MENU TOGGLER -->
+         <!-- BEGIN TOP NAVIGATION MENU -->
+         <ul class="nav navbar-nav pull-right">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+               <span class="username">刘德华</span>
+               <i class="icon-angle-down"></i>
+               </a>
+               <ul class="dropdown-menu">
+                  <!--<li><a href="#"><i class="icon-envelope"></i> 我的消息 <span class="badge badge-danger">3</span></a>-->
+                  <!--</li>-->
+                  <!--<li><a href="#"><i class="icon-tasks"></i> 我的任务 <span class="badge badge-danger">7</span></a>-->
+                  <!--</li>-->
+                  <li><a href="http://demo.dealuna.com/qyds-web-pc/qyds/#/homepage"><i class="icon-tasks"></i> Pc 版前台 </a>
+                  </li>
+                  <li><a href="#" onclick="changePassword();"><i class="icon-glass"></i> 修改密码 </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li><a href="#" onclick="logout();"><i class="icon-key"></i> 退出</a>
+                  </li>
+               </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+         </ul>
+         <!-- END TOP NAVIGATION MENU -->
+      </div>
+      <!-- END TOP NAVIGATION BAR -->
+   </div>
+   <!-- END HEADER -->
+   <div class="clearfix"></div>
+   <!-- BEGIN CONTAINER -->
+   <div class="page-container">
+      <!-- BEGIN SIDEBAR -->
+      <div class="page-sidebar navbar-collapse collapse">
+         <!-- BEGIN SIDEBAR MENU -->        
+         <ul class="page-sidebar-menu">
+            <li>
+               <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+               <div class="sidebar-toggler hidden-phone"></div>
+               <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <li style="height: 15px;">
+            </li>
+
+         </ul>
+         <!-- END SIDEBAR MENU -->
+      </div>
+      <!-- END SIDEBAR -->
+      <!-- BEGIN PAGE -->
+      <div class="page-content">
+         <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->               
+         <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                     <h4 class="modal-title">Modal title</h4>
+                  </div>
+                  <div class="modal-body">
+                     Widget settings form goes here
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn blue">Save changes</button>
+                     <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                  </div>
+               </div>
+               <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+         </div>
+
+         <div id="content">
+
+         </div>
+      </div>
+      <!-- END PAGE -->
+   </div>
+   <!--<div id="subLoading" class="center" style="display: none">Loading...<div class="center"></div></div>-->
+
+   <!-- 修改密码 -->
+   <div class="modal fade" id="changePasswordDialog" tabindex="-1" role="basic" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal"></button>
+               <h3 id="modal-title">修改密码</h3>
+            </div>
+            <div class="modal-body">
+
+                  <div class="row">
+                     <form id="changePasswordForm" class="form-horizontal validator">
+                        <div class="form-body">
+                           <div class="form-group">
+                              <label  class="col-md-3 control-label">旧密码<span class="required">*</span></label>
+                              <div class="col-md-8">
+                                 <input type="password" id="old_password" name="old_password" data-required="1" class="form-control">
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label  class="col-md-3 control-label">新密码<span class="required">*</span></label>
+                              <div class="col-md-8">
+                                 <input type="password" id="new_password" name="new_password" data-required="1" class="form-control">
+                              </div>
+                           </div>
+
+                           <div class="form-group">
+                              <label  class="col-md-3 control-label">确认密码<span class="required">*</span></label>
+                              <div class="col-md-8">
+                                 <input type="password" id="confirm_password" name="confirm_password" data-required="1" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn default" data-dismiss="modal">取消</button>
+               <button type="button" id="changePasswordBtn" class="btn blue">保存</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <!-- 自定义Alert -->
+   <div class="modal fade" id="alertDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal"></button>
+               <h3 id="alertTitle">提示</h3>
+            </div>
+            <div class="modal-body">
+               <p id="alertMessage">提示内容。</p>
+            </div>
+            <div class="modal-footer">
+               <a id="alertBtn" href="#" class="btn btn-primary" data-dismiss="modal">确定</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- 自定义提示Alert -->
+   <div id="confirmModal" class="modal fade" style="z-index: 111111" tabindex="-1" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+               <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+               <p>Would you like to continue with some arbitrary task?</p>
+            </div>
+            <div class="modal-footer">
+               <button type="button" data-dismiss="modal" class="btn blue" id="confirmBtn">确定</button>
+               <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- 自定义提示Alert -->
+   <div id="confirmModalD" class="modal fade" style="z-index: 111111" tabindex="-1" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+               <h4 class="modal-title">危险</h4>
+            </div>
+            <div class="modal-body" style="color: red">
+               <p>Would you like to continue with some arbitrary task?</p>
+            </div>
+            <div class="modal-footer">
+               <button type="button" data-dismiss="modal" class="btn blue" id="confirmBtnD">确定</button>
+               <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <!-- 自定义对话框 用来实现弹出dialog的list和edit分离 START-->
+   <div id="customDialog">
+   </div>
+   <!-- 自定义对话框 END -->
+
+   <!-- END CONTAINER -->
+   <!-- BEGIN FOOTER -->
+   <div class="footer">
+      <div class="footer-inner">
+         2016 &copy; Dealuna有限公司.
+      </div>
+      <div class="footer-tools">
+         <span class="go-top">
+         <i class="icon-angle-up"></i>
+         </span>
+      </div>
+   </div>
+   <!-- END FOOTER -->
+   <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+   <!-- BEGIN CORE PLUGINS -->   
+   <!--[if lt IE 9]>
+   <script src="../assets/plugins/respond.min.js"></script>
+   <script src="../assets/plugins/excanvas.min.js"></script>
+   <![endif]-->   
+   <script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jquery_md5.js"></script>
+   <script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+   <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+   <script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+   <script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
+   <!-- END CORE PLUGINS -->
+   <!-- BEGIN PAGE LEVEL PLUGINS -->
+   <script src="../assets/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+   <script src="../assets/plugins/flot/jquery.flot.js" type="text/javascript"></script>
+   <script src="../assets/plugins/flot/jquery.flot.resize.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+   <script type="text/javascript" src="../assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+   <script src="../assets/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
+   <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+   <script src="../assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js" type="text/javascript"></script>
+   <script src="../assets/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+   <!-- END PAGE LEVEL PLUGINS -->
+   <script src="../assets/scripts/app.js" type="text/javascript"></script>
+   <script src="../assets/scripts/common.js"></script>
+   <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+   <script src="../assets/scripts/index.js" type="text/javascript"></script>
+   <script src="../assets/scripts/jquery.history.js" type="text/javascript"></script>
+   <script src="../assets/scripts/tasks.js" type="text/javascript"></script>
+   <script src="../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+   <script src="../assets/plugins/ztree/jquery.ztree.all.js"></script>
+   <script src="../assets/plugins/ztree/jquery.ztree.exhide.js"></script>
+   <script src="../assets/plugins/fonticon/jquery.fonticonpicker.min.js"></script>
+   <script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
+   <script type="text/javascript" src="../assets/plugins/data-tables/jquery.dataTables.js"></script>
+   <script type="text/javascript" src="../assets/plugins/data-tables/DT_bootstrap.js"></script>
+   <script type="text/javascript" src="../assets/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+   <script type="text/javascript" src="../assets/scripts/multiple-select.js"></script>
+
+   <script type="text/javascript" charset="utf-8" src="../assets/plugins/ueditor/ueditor.config.js"></script>
+   <script type="text/javascript" charset="utf-8" src="../assets/plugins/ueditor/ueditor.all.js"> </script>
+   <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+   <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+   <script type="text/javascript" charset="utf-8" src="../assets/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+   <script src="../page/echarts.js" type="text/javascript"></script>
+   <!--<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>-->
+
+   <script type="text/javascript" src="../assets/plugins/ajaxfileupload.js"></script>
+
+   <!-- END PAGE LEVEL SCRIPTS -->
+   <script>
+      if($.cookie("the_user_info")==null || sessionStorage.getItem("userName") == null){
+         window.location.href = 'login.html';
+      };
+      $('.username').text(sessionStorage.getItem("userName"));
+
+      jQuery(document).ready(function() {    
+         App.init(); // initlayout and core plugins
+         Index.init();
+         Index.changePasswordValid();
+         Index.changePasswordBtnClick();
+         Index.initLeftMenuList();
+         Index.checkNameAndPassword();
+
+         //获取图片的上传和显示的URI
+         Index.getUri();
+      });
+   </script>
+   <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

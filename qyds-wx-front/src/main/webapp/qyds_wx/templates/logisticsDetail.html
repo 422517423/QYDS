@@ -1,0 +1,62 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--</button>-->
+        <!--<div class="h1 title" style="font-size:24px;">物流详细</div>-->
+        <!--</button>-->
+    <!--</ion-header-bar>-->
+    <ion-content on-swipe-left="onSwipeLeft()">
+
+        <div ng-if="logistics.length==0" class="vertical-align">
+            <div class="row" style="margin-top:15%">
+                <div class="col col-10"></div>
+                <div class="col">
+                    <img src="./image/empty.png" width="300px">
+                </div>
+                <div class="col col-10"></div>
+            </div>
+            <div class="row">
+                <div class="col col-10"></div>
+                <div class="col" style="text-align:center;font-size:18px;">
+                    没有查到物流信息
+                </div>
+                <div class="col col-10"></div>
+            </div>
+        </div>
+
+        <div ng-if="logistics.length > 0" class="track-rcol">
+            <div ng-repeat="logistic in logistics" class="track-list">
+                <div ng-repeat="ordSub in logistic.ordSubList" class="col item-text-wrap" style="color:#B7B7B7;">
+                    {{ordSub.coloreName}}&nbsp;&nbsp;{{ordSub.sizeName}}&nbsp;&nbsp;{{ordSub.goodsName}}&nbsp;&nbsp;&nbsp;&nbsp;×{{ordSub.quantity}}
+                </div>
+                <ul>
+                    <li class="first">
+                        <i class="node-icon"></i>
+                        <div class="row" style="padding:0;margin:0;">
+                            <!--<div ng-if="logistic.deliverStatus == '20'" class="col" style="padding:0;margin:0;">-->
+                                <!--<button class="button button-small button-assertive" ng-click="confirmReceived(logistic.orderId, logistic.expressNo)">-->
+                                    <!--确认收货-->
+                                <!--</button>-->
+                            <!--</div>-->
+
+                            <div ng-if="logistic.deliverStatus != '10' && logistic.deliverStatus != '20'" class="col" style="padding:0;margin:0;">
+                                <span>
+                                    已签收
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li ng-repeat="trace in logistic.traces">
+                        <i class="node-icon"></i>
+                        <div class="row" style="padding:0;margin:0;">
+                            <div class="col" style="padding:0;margin:0;">
+                                <span class="time">{{trace.acceptTime}}</span>
+                                <span class="txt">{{trace.acceptStation}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

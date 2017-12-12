@@ -1,0 +1,38 @@
+<!-- /.modal -->
+<div id="uploadSecKillModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">秒杀商品导入</h4>
+            </div>
+            <div class="modal-body">
+                <div style="height:50px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <form id="uploadSecForm">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <input id="activityName" class="form-control" readonly/>
+                                    <div class="fileinput fileinput-new">
+                                            <span class="btn default btn-file">
+                                                <input type="file" name="import" id="import" >
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="upload_sec_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn_sec_upload" class="btn blue">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/act_master/uploadSecKill.js"></script>

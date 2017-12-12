@@ -1,0 +1,328 @@
+<div class="goodList container-fluid" style="margin:0;position: relative;padding:0;">
+    <div class="crumbs">
+        <div class="col-xs-8 col-xs-offset-2">
+            <span style="display:inline-block;background:#ffffff;">
+                <div style="padding:0 10px;">
+                    <span>DEALUNA.COM</span>
+                    <span ng-if="crumbs.first != ''">&nbsp;&nbsp;/&nbsp;&nbsp;{{crumbs.first}}</span>
+                    <span ng-if="crumbs.second != ''">&nbsp;&nbsp;/&nbsp;&nbsp;{{crumbs.second}}</span>
+                    <span ng-if="crumbs.third != ''">&nbsp;&nbsp;/&nbsp;&nbsp;{{crumbs.third}}</span>
+                    <span ng-if="crumbs.last != ''">&nbsp;&nbsp;/&nbsp;&nbsp;{{crumbs.last}}</span>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- add by sunt at 20170704 start -->
+
+    <!-- 分类图片 -->
+    <div class="visible-xs col-xs-12" style="margin-top:15px;padding:0px;">
+        <!--<div class="col-xs-12">-->
+            <!--&lt;!&ndash; test data  img &ndash;&gt;-->
+            <!--<img src="image_temp/10.jpg" style="width:100%;height:50px;">-->
+        <!--</div>-->
+        <!-- 分类 $scope.levelRootList-->
+        <div class="col-xs-12" style="padding:0;margin-top:5px;">
+
+            <div class="level col-xs-12" ng-if="levelRootList.length > 0" style="border-bottom:1px solid #cccdce;padding:0;">
+                <div ng-if="activityTypeList.length > 0">
+                    <!-- ng-click="" 添加在下边的div上-->
+                    <div ng-repeat="thirdMenu in activityTypeList"
+                         style="border-top:1px solid #cccdce;" ng-click="gotoGoodsList(thirdMenu);">
+                        <div style="padding:15px 15px;">
+                            {{thirdMenu.activityName}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- add by sunt at 20170704 end -->
+
+    <div class="custom-full-width" style="margin: 0 auto">
+        <div class="hidden-xs product-list" style="margin-top:5px;font-size: 10px;">
+            <div class="col-xs-12">
+                <div class="col-xs-2 classify_menu">
+                <span class='col-xs-12 title'>
+                    <p style="color: #333;text-decoration: none;">SALE</p>
+                </span>
+                <span class="col-xs-12 second">
+                    <a href="javascript:void(0);" ng-click="getGoodsList();">全部</a>
+                </span>
+                <span class="col-xs-12 second" ng-if="activityTypeList.length > 0">
+                     <span class="col-xs-12 third" ng-repeat="thirdMenu in activityTypeList"
+                           ng-click="getDataByActId(thirdMenu.activityId,thirdMenu.activityName)">
+                        <a href="javascript:void(0);">{{thirdMenu.activityName}}</a>
+                    </span>
+                </span>
+
+                <!--<span ng-click="selectClassify('2',levelRootList[0].goodsTypeId+'_'+secondMenu.goodsTypeId,secondMenu.goodsTypeNameCn);$event.stopPropagation();"-->
+                          <!--class="col-xs-12 second" ng-repeat="secondMenu in levelRootList[0].secondTypeList">-->
+                    <!--<a href="javascript:void(0);">{{secondMenu.goodsTypeNameCn}}</a>-->
+                    <!--<span class="col-xs-12 third" ng-repeat="thirdMenu in secondMenu.secondTypeList"-->
+                          <!--ng-click="selectClassify('3',levelRootList[0].goodsTypeId+'_'+secondMenu.goodsTypeId+'_'+thirdMenu.goodsTypeId,secondMenu.goodsTypeNameCn,thirdMenu.goodsTypeNameCn);$event.stopPropagation();">-->
+                        <!--<a href="javascript:void(0);">{{thirdMenu.goodsTypeNameCn}}</a>-->
+                    <!--</span>-->
+                <!--</span>-->
+
+                <span ng-click="selectClassify('2',secondMenu.goodsTypeId,secondMenu.goodsTypeNameCn);$event.stopPropagation();"
+                          class="col-xs-12 second" ng-repeat="secondMenu in levelRootList">
+                    <a href="javascript:void(0);">{{secondMenu.goodsTypeNameCn}}</a>
+                    <span class="col-xs-12 third" ng-repeat="thirdMenu in secondMenu.secondTypeList"
+                          ng-click="selectClassify('3',secondMenu.goodsTypeId+'_'+thirdMenu.goodsTypeId,secondMenu.goodsTypeNameCn,thirdMenu.goodsTypeNameCn);$event.stopPropagation();">
+                        <a href="javascript:void(0);">{{thirdMenu.goodsTypeNameCn}}</a>
+                        <span class="col-xs-12 last" ng-repeat="lastMenu in thirdMenu.secondTypeList"
+                              ng-click="selectClassify('4',secondMenu.goodsTypeId+'_'+thirdMenu.goodsTypeId +'_'+lastMenu.goodsTypeId,secondMenu.goodsTypeNameCn,thirdMenu.goodsTypeNameCn,lastMenu.goodsTypeNameCn);$event.stopPropagation();">
+                        <a href="javascript:void(0);">{{lastMenu.goodsTypeNameCn}}</a>
+                        </span>
+                    </span>
+                </span>
+
+                </div>
+                <div class="col-xs-10">
+                    <!--<div ng-if="(!goodsList || goodsList.length==0) && isFirstInMain == 1" class="row vertical-align"-->
+                         <!--style="margin-top: 20px;">-->
+                        <!--<div class="col-xs-12" style="text-align: center"-->
+                             <!--ng-repeat="new in goodsTypeNewData">-->
+                            <!--<img ng-src="{{new.imageUrl | imgPath:''}}" width="100%"-->
+                                 <!--ng-click="getGoodsList();">-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-12" style="margin-top: 16px;margin-bottom: 16px;">-->
+                            <!--&lt;!&ndash; 新品上市&ndash;&gt;-->
+                            <!--<div class="row"-->
+                                 <!--ng-if="goodsTypeGoodsListData != null && goodsTypeGoodsListData.length > 0">-->
+                                <!--<div class="col-xs-12" style="padding-top: 15px">-->
+                                    <!--<h4 style="text-align: center">新品推荐</h4>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="row"-->
+                                 <!--style="text-align: center;margin-top:30px;padding:0 8px;background-color:#ffffff;border:1px solid #ffffff;">-->
+                                <!--<div ng-repeat="propter in goodsTypeGoodsListData"-->
+                                     <!--class="col-xs-12 col-sm-4 text-center"-->
+                                     <!--style="margin:10px 0;" ng-click="goGoodsDetail(propter.goodsId)">-->
+                                    <!--<div class="new_arrived" ng-click="goProdocutDetail(propter.goodsId)">-->
+                                        <!--&lt;!&ndash;<a href="javascript:void(0);" style="display:inline-block;cursor:pointer;width:85%;margin:0 auto;padding:0;border:1px solid #f2f2f2;">&ndash;&gt;-->
+                                        <!--<a href="javascript:void(0);" class="img_blink">-->
+                                            <!--<img ng-src="{{propter.imageUrlJson | imgPath:''}}" class="" alt=""-->
+                                                 <!--width="100%"/>-->
+                                        <!--</a>-->
+                                        <!--<div class="card-goods-price">-->
+                                            <!--<span ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#CC0001">{{propter.minAndMaxPriceActivity}}</span>-->
+                                            <!--<span ng-if="propter.minAndMaxPriceActivity == null || propter.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color: #333;">{{propter.minAndMaxPrice}}</span>-->
+                                            <!--<span class="font_del"-->
+                                              <!--ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null'"-->
+                                                  <!--style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{propter.minAndMaxPrice}}</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="card-goods-name" style="font-size: 12px;color: #333;">-->
+                                            <!--{{propter.goodsName}}-->
+                                        <!--</div>-->
+                                        <!--<div class="card-goods-activityName">-->
+                                            <!--<span ng-if="propter.activityName != null && propter.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{propter.activityName}}</span>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div ng-if="(!goodsList || goodsList.length==0) && isFirstInMain == 0" class="row vertical-align"
+                         style="margin-top: 20px;">
+                        <div ng-if="!isLoading && goodsList.length==0"
+                             style="text-align: center;color: #666666;margin: 100px 0px">
+                            查找的商品不存在
+                        </div>
+                    </div>
+
+                    <div ng-if="goodsList.length > 0" class="row good_table">
+                        <div class="col-xs-12 goodListTitle text-left" style="padding:8px 3px" ng-click="goTop()">
+                            <div class="col-xs-4 col-sm-3 toTopBtn" style="text-align:center;margin:0;cursor: pointer;">
+                                <img src="images/toTop.png" alt="返回顶部" height="30px" style="margin-top:3px;">
+                                <img src="images/logo_white.png" alt="返回顶部" height="20px"
+                                     style="margin-left:3px;margin-top:3px;">
+                            </div>
+                            <div style="float:left;">
+                                <div class="filterBtn" ng-click="openFilterPanel()">筛选条件</div>
+                            </div>
+                            <div style="float:right;margin-right:15px;">
+                                <div ng-class="{2 :'up', 1 :'down'}[sortByPriceValue]" class="sort price"
+                                     ng-click="sortByPrice()">价格&nbsp;&nbsp;</div>
+                            </div>
+                            <div style="float:right;margin-right:15px;">
+                                <div ng-class="{2 :'up', 1 :'down'}[sortByTimeValue]" class="sort time"
+                                     ng-click="sortByTime()">上架时间&nbsp;&nbsp;</div>
+                            </div>
+                            <div class="filterTemplate" style="display:none">
+                                <div class="container-fluid filterPanel" style="padding:0;">
+                                    <div class="row" style="padding:20px 20px;margin-left:0px;margin-right:0px;">
+                                        <div class="col-xs-12" style="padding:0;">
+                                            <div class="col-xs-12 title" style="padding:0;">尺码:</div>
+                                            <div class="col-xs-12"
+                                                 style="padding:0 0 0 10px;height:100px;overflow-y: auto!important;">
+                                            <span ng-repeat="size in sizeList"
+                                                  ng-class="{true: 'active', false: ''}[goodListTitle.selectSize == size.sizeCode]"
+                                                  class="sizeTag"
+                                                  data-code="{{size.sizeCode}}"><span>{{size.sizeName}}</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12" style="padding:0;;">
+                                            <div class="col-xs-12 title" style="padding:0;">价格:</div>
+                                            <div class="col-xs-12" style="padding:0 0 0 10px;">
+                                                <input class="min" type="text" style="width:45px;" id="priceFrom"
+                                                       maxlength="6">
+                                                ~
+                                                <input class="max" type="text" style="width:45px;" id="priceTo"
+                                                       maxlength="6">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="divider_gray" style="position:absolute;bottom:50px;"></div>
+                                    <div style="position: absolute;bottom:10px; right:10px;">
+                                        <button type="submit" id="clearBtn"
+                                                class="btn btn-default btn-small hvr-outline-out-dark">清除
+                                        </button>
+                                        <button type="submit" id="okBtn"
+                                                class="btn btn-default btn-small hvr-outline-out-dark">确定
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="goodsList.length > 0" class="row" style="margin-top:0px;padding-top:0px;">
+                            <div class="col-sm-4" data-ng-repeat="goods in goodsList"
+                                 style="border-top:0;margin-top:10px;cursor: pointer;padding:5px 0;"
+                                 ng-click="goProdocutDetail(goods.goodsId);">
+                                <div class="good">
+                                    <div style="position:relative">
+                                        <a href="javascript:void(0);" class="img_blink">
+                                            <img ng-src="{{goods.imageUrlJson | imgPath:''}}" class="" alt=""
+                                                 width="100%" style="margin:0 auto;"/>
+                                        </a>
+                                    </div>
+                                    <div class="card-goods-price">
+                                        <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                                        <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color: #333;">{{goods.minAndMaxPrice | priceFilter2}}</span>
+                                        <span class="font_del"
+                                              ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
+                                              style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">
+                                            {{goods.minAndMaxPrice | priceFilter2}}</span>
+                                    </div>
+                                    <div class="card-goods-name" style="font-size: 12px;color: #333;">
+                                        {{goods.goodsName}}
+                                    </div>
+
+                                    <div class="card-goods-activityName">
+                                        <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{goods.activityName}}</span>
+                                        <span ng-if="goods.activityName == null && goods.activityName == '¥null' " style="font-size:12px;color:#CC0001"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="isLoading" style="text-align: center;margin: 20px 0px;">
+                        <img src="css/images/loading.gif" style="width: 30px;height: 30px">
+                    </div>
+                    <!--<div style="margin-top:5px;" class="pager" id="pic_page"></div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row visible-xs" id="phone">
+            <div class="col-xs-12" style="font-size:16px;background:#fff;">
+                <!-- del by sunt at 20170704 start-->
+                <!--<div class="col-xs-12" style="padding:5px;">-->
+                    <!--<img ng-click="popClassify_xs()" src="images/category.png" style="float:right;"-->
+                         <!--class="img-responsive center-block" alt="" width="30px"/>-->
+                <!--</div>-->
+                <!-- del by sunt at 20170704 end-->
+                <div ng-if="goodsListPhone && goodsListPhone.length==0" class="row vertical-align"
+                     style="margin-top: 20px;">
+                    <div ng-if="!isPhoneLoading && goodsListPhone.length==0" class="col-xs-10 col-xs-offset-1"
+                         style="text-align: center;margin-top: 16px;margin-bottom: 16px;">
+                        查找的商品不存在
+                    </div>
+                </div>
+                <div ng-if="goodsListPhone.length>0" class="product-list-xs" style="padding:0 10px;">
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col col-xs-12 goodListTitle text-left" style="padding:8px 10px;">
+                            <div class="col-xs-4" style="text-align:left;cursor: pointer;white-space:nowrap;"
+                                 ng-click="sortByPrice();">
+                                <div style="font-size:11px;width:65px;margin-top:10px;"
+                                     ng-class="{true: 'down', false: 'up'}[classUpAndDownPrice]">
+                                    价格排序
+                                </div>
+                                <!--<div ng-if="classUpAndDownPrice == false" style="width:65px;" class="up">-->
+                                <!--价格排序-->
+                                <!--</div>-->
+                            </div>
+                            <div class="col-xs-4" style="text-align:left;cursor: pointer;white-space:nowrap;"
+                                 ng-click="sortByTime();">
+                                <div style="font-size:11px;width:65px;margin-top:10px;"
+                                     ng-class="{true: 'up', false: 'down'}[classUpAndDownTime]">
+                                    上架时间
+                                </div>
+                            </div>
+                            <!--<div class="col col-xs-2">排序方式：</div>-->
+                            <!--<div class="col col-xs-1 arrow">综合</div>-->
+                            <!--<div class="col col-xs-1 arrow">销量</div>-->
+                            <!--<div ng-if="classUpAndDownPrice == true" class="col col-xs-6 down" style="text-align:right;" ng-click="sortByPrice();"><div style="margin-right:5px;">价格排序</div></div>-->
+                            <!--<div ng-if="classUpAndDownPrice == false" class="col col-xs-6 arrow" style="text-align:right;" ng-click="sortByPrice();"><div style="margin-right:5px;">价格排序</div></div>-->
+                            <!--<div ng-if="classUpAndDownTime == true" class="col col-xs-6 down" style="text-align:right;" ng-click="sortByTime();"><div style="margin-right:5px;">上架时间</div></div>-->
+                            <!--<div ng-if="classUpAndDownTime == false" class="col col-xs-6 arrow" style="text-align:right;" ng-click="sortByTime();"><div style="margin-right:5px;">上架时间</div></div>-->
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-xs-6" ng-repeat="goods in goodsListPhone" style="padding: 0;margin-top: 10px">
+                            <div ng-click="goProdocutDetail(goods.goodsId);">
+                                <div class="good">
+                                    <div>
+                                        <img ng-src="{{goods.imageUrlJson | imgPath:''}}" class="" alt="" width="100%"
+                                             style="margin:0 auto;"/>
+                                        <!--<div class="tag">-->
+                                        <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">-->
+                                        <!--<img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                                        <!--<img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                                        <!--<img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                                        <!--<img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                                        <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                    <div class="card-goods-price">
+                                        <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                                        <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice | priceFilter2}}</span>
+                                        <span class="font_del"
+                                              ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
+                                              style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice | priceFilter2}}</span>
+
+                                        <!--{{goods.minAndMaxPrice}}-->
+                                    </div>
+                                    <div class="card-goods-name" style="font-size: 12px;color: #333;">
+                                        {{goods.goodsName}}
+                                    </div>
+
+                                    <div class="card-goods-activityName">
+                                        <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{goods.activityName}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <button ng-if="!isPhoneLoading" class="btn btn-default btn-block hvr-outline-out-dark"
+                                ng-click="doGetMore()">加载更多
+                        </button>
+                    </div>
+                </div>
+                <div ng-if="isPhoneLoading" style="text-align: center;margin: 20px 0px">
+                    <img src="css/images/loading.gif" style="width: 30px;height: 30px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

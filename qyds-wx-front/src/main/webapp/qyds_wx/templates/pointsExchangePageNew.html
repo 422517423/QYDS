@@ -1,0 +1,91 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">商品列表</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-light'>
+
+        <div class="divider_gray"></div>
+        <div style="padding:0 15px;margin-top:10px;font-size:16px;">
+            <div ng-if="!isLoading&&goodsListNew.length==0" class="text-center" style="color: #999999;margin-top: 100px">
+                没有符合条件的商品
+            </div>
+
+            <div class="row vertical-align"
+                 style="margin-top: 0px;">
+                <!-- 海报展示 -->
+                 <div style="padding:0;"> 
+                <img ng-if="playbilltop.imageUrl != null && playbilltop.imageUrl.length > 0" ng-src="{{playbilltop.imageUrl | imgPath:''}}" style="float:left;padding-top:10px;padding-bottom: 10px;" 
+                     class="img-responsive" width="100%">
+                 </div>
+            </div>
+
+            <div ng-repeat="goods in goodsListNew" ng-if="$index%2==0" ng-click="">
+                <div class="row">
+                    <div class="col col-50" style="text-align:center;padding:0 10px;" ng-click="goProdocutDetail(goods.goodsId);">
+                        <div style="position:relative;">
+                            <img ng-src="{{goods.imageUrlJson | imgPath:'480'}}" width="100%" class='img-responsive'>
+                            <!--<div class="row" style="position:absolute;bottom:0;padding:0">-->
+                                <!--<div class="col col-25" ng-repeat="tag in goods.activityTags">-->
+                                    <!--<img src="./image/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                                    <!--<img src="./image/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                                    <!--<img src="./image/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                                    <!--<img src="./image/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div style="margin-top:8px;text-align:center;width:100%;">
+                            <div style="font-size:13px;" >{{goods.goodsName}}</div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'" style="font-size: 15px;color: #CC0001">{{goods.minAndMaxPriceActivity}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size: 15px;">{{goods.minAndMaxPrice}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
+                                      style="font-size: 12px;margin-left:4px;text-decoration: line-through">{{goods.minAndMaxPrice}}</span>
+                                <!--{{goods.minAndMaxPrice}}-->
+                            </div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:13px;color:#CC0001">{{goods.activityName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-50" ng-if="$index<=goodsListNew.length-2" style="text-align:center;padding:0 10px"  ng-click="goProdocutDetail(goodsListNew[$index+1].goodsId);">
+                        <div style="position:relative;">
+                            <img ng-src="{{goodsListNew[$index+1].imageUrlJson | imgPath:'480'}}" width="100%" class='img-responsive'>
+                            <!--<div class="row row-center" style="position:absolute;bottom:0;padding:0">-->
+                                <!--<div class="col col-25" ng-repeat="tag in goodsList[$index+1].activityTags">-->
+                                    <!--<img src="./image/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">-->
+                                    <!--<img src="./image/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">-->
+                                    <!--<img src="./image/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">-->
+                                    <!--<img src="./image/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div style="margin-top:8px;text-align:center;width:100%;font-size:14px;">
+                            <div style="font-size:13px;line-height: 1.2" >{{goodsListNew[$index+1].goodsName}}</div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <!--{{goodsList[$index+1].minAndMaxPrice}}-->
+                                <span ng-if="goodsListNew[$index+1].minAndMaxPriceActivity != null && goodsListNew[$index+1].minAndMaxPriceActivity != '¥null'" style="font-size: 15px;color: #CC0001">{{goodsListNew[$index+1].minAndMaxPriceActivity}}</span>
+                                <span ng-if="goodsListNew[$index+1].minAndMaxPriceActivity == null || goodsListNew[$index+1].minAndMaxPriceActivity == '¥null'" style="font-size: 15px;">{{goodsListNew[$index+1].minAndMaxPrice}}</span>
+                                <span ng-if="goodsListNew[$index+1].minAndMaxPriceActivity != null && goodsListNew[$index+1].minAndMaxPriceActivity != '¥null'"
+                                      style="font-size: 12px;margin-left:4px;text-decoration: line-through">{{goodsListNew[$index+1].minAndMaxPrice}}</span>
+                            </div>
+                            <div style="font-size:15px;padding-top:3px;">
+                                <span ng-if="goodsListNew[$index+1].activityName != null && goodsListNew[$index+1].activityName != '¥null' " style="font-size:13px;color:#CC0001">{{goodsListNew[$index+1].activityName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row vertical-align"
+                 style="margin-top: 20px;">
+                <!-- 海报展示 -->
+                 <div style="padding:0;"> 
+                <img ng-if="playbill.imageUrl != null && playbill.imageUrl.length > 0" ng-src="{{playbill.imageUrl | imgPath:''}}" style="float:left;padding-top:10px;padding-bottom: 10px;" 
+                     class="img-responsive" width="100%">
+                 </div>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

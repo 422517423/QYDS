@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ActSubMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.form.ActMasterForm">
+        <result column="activity_id" property="activityId" jdbcType="VARCHAR"/>
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectByActivityId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ActSub">
+        select
+        sub.sub_activity_id as activity_id,
+        am.activity_name
+        from public.act_sub sub
+        LEFT JOIN act_master am on am.activity_id = sub.sub_activity_id
+        WHERE sub.activity_id = #{activityId,jdbcType=VARCHAR}
+    </select>
+
+    <update id="deleteByActivityId" parameterType="net.dlyt.qyds.common.dto.ActSub">
+        DELETE FROM public.act_sub WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

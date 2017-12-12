@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.SysLogLogonMapper" >
+  <resultMap id="SysLogLogonResultMap" type="net.dlyt.qyds.common.dto.SysLogLogon" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_ip" property="userIp" jdbcType="VARCHAR" />
+    <result column="mac_addr" property="macAddr" jdbcType="VARCHAR" />
+    <result column="logon_time" property="logonTime" jdbcType="TIMESTAMP" />
+    <result column="logoff_time" property="logoffTime" jdbcType="TIMESTAMP" />
+    <result column="logon_flag" property="logonFlag" jdbcType="VARCHAR" />
+    <result column="exception_reason" property="exceptionReason" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seq, user_id, user_ip, mac_addr, logon_time, logoff_time, logon_flag, exception_reason, 
+    session_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysLogLogonResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.sys_log_logon
+    where seq = #{seq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from public.sys_log_logon
+    where seq = #{seq,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.SysLogLogon" >
+    insert into public.sys_log_logon (seq, user_id, user_ip, 
+      mac_addr, logon_time, logoff_time, 
+      logon_flag, exception_reason, session_id
+      )
+    values (#{seq,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{userIp,jdbcType=VARCHAR},
+      #{macAddr,jdbcType=VARCHAR}, #{logonTime,jdbcType=TIMESTAMP}, #{logoffTime,jdbcType=TIMESTAMP}, 
+      #{logonFlag,jdbcType=VARCHAR}, #{exceptionReason,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.SysLogLogon" >
+    insert into public.sys_log_logon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seq != null" >
+        seq,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userIp != null" >
+        user_ip,
+      </if>
+      <if test="macAddr != null" >
+        mac_addr,
+      </if>
+      <if test="logonTime != null" >
+        logon_time,
+      </if>
+      <if test="logoffTime != null" >
+        logoff_time,
+      </if>
+      <if test="logonFlag != null" >
+        logon_flag,
+      </if>
+      <if test="exceptionReason != null" >
+        exception_reason,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddr != null" >
+        #{macAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="logonTime != null" >
+        #{logonTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoffTime != null" >
+        #{logoffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logonFlag != null" >
+        #{logonFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionReason != null" >
+        #{exceptionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.SysLogLogon" >
+    update public.sys_log_logon
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        user_ip = #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddr != null" >
+        mac_addr = #{macAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="logonTime != null" >
+        logon_time = #{logonTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoffTime != null" >
+        logoff_time = #{logoffTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logonFlag != null" >
+        logon_flag = #{logonFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionReason != null" >
+        exception_reason = #{exceptionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.SysLogLogon" >
+    update public.sys_log_logon
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_ip = #{userIp,jdbcType=VARCHAR},
+      mac_addr = #{macAddr,jdbcType=VARCHAR},
+      logon_time = #{logonTime,jdbcType=TIMESTAMP},
+      logoff_time = #{logoffTime,jdbcType=TIMESTAMP},
+      logon_flag = #{logonFlag,jdbcType=VARCHAR},
+      exception_reason = #{exceptionReason,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR}
+    where seq = #{seq,jdbcType=INTEGER}
+  </update>
+</mapper>

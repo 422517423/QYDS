@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbCollectionMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.MmbCollectionExt">
+        <id column="collect_no" property="collectNo" jdbcType="INTEGER"/>
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="object_id" property="objectId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="collect_time" property="collectTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+        <result column="count" property="count" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="selectSameCollection" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbCollectionForm">
+        select
+        mc.*
+        from public.mmb_collection mc
+        where mc.member_id = #{memberId, jdbcType=VARCHAR}
+        and mc.object_id = #{objectId, jdbcType=VARCHAR}
+        and mc.deleted = '0'
+        <if test="type!=null and !type.isEmpty() ">
+            AND mc.type = #{type, jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryList" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbCollectionForm">
+        select
+        mc.*
+        from public.mmb_collection mc
+        where mc.member_id = #{memberId, jdbcType=VARCHAR}
+        and mc.deleted = '0'
+        <if test="type!=null and !type.isEmpty() ">
+            AND mc.type = #{type, jdbcType=VARCHAR}
+        </if>
+        <if test="lastUpdateTime!=null">
+            and mc.update_time &lt; #{lastUpdateTime, jdbcType=TIMESTAMP}
+        </if>
+        order by mc.update_time desc
+        limit 10
+    </select>
+
+    <select id="getListForPC" resultMap="BaseResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbCollectionForm">
+        select
+        mc.*
+        from public.mmb_collection mc
+        where mc.member_id = #{memberId, jdbcType=VARCHAR}
+        and mc.deleted = '0'
+        <if test="type!=null and !type.isEmpty() ">
+            AND mc.type = #{type, jdbcType=VARCHAR}
+        </if>
+        order by mc.update_time desc
+        limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="getCountForPC" resultMap="BaseResultMapCount"
+            parameterType="net.dlyt.qyds.common.form.MmbCollectionForm">
+        select
+        count(*) as count
+        from public.mmb_collection mc
+        where mc.member_id = #{memberId, jdbcType=VARCHAR}
+        and mc.deleted = '0'
+        <if test="type!=null and !type.isEmpty() ">
+            AND mc.type = #{type, jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="queryCollectionNewCount" resultType="java.util.HashMap"
+            parameterType="java.lang.String">
+        select mc.object_id, min(vs.new_count) as count
+        from mmb_collection mc
+        left join view_onsell_sku_select vs on mc.object_id = vs.goods_id
+        where member_id = #{memberId, jdbcType=VARCHAR}
+        and deleted = '0'
+        group by mc.object_id
+    </select>
+
+    <select id="queryMinCountOfGoods" resultType="java.lang.Integer"
+            parameterType="java.lang.String">
+        select (case when min(vs.new_count) is null then 0 else min(vs.new_count) end)  as count
+        from view_onsell_sku_select vs
+        where vs.goods_id = #{goodsId, jdbcType=VARCHAR}
+    </select>
+
+</mapper>

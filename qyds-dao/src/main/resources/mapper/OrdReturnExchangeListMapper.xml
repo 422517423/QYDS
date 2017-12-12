@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdReturnExchangeListMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdReturnExchangeList" >
+    <id column="detail_id" property="detailId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="return_type" property="returnType" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="return_quantity" property="returnQuantity" jdbcType="INTEGER" />
+    <result column="amount_return" property="amountReturn" jdbcType="NUMERIC" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    detail_id, order_id, return_type, goods_type, goods_code, goods_name, sku, colore_code, 
+    colore_name, size_code, size_name, erp_sku, erp_style_no, erp_colore_code, erp_colore_name, 
+    erp_size_code, erp_size_name, price, action_id, price_discount, quantity, amount, 
+    amount_discount, return_quantity, amount_return, deleted, update_user_id, update_time, 
+    insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_return_exchange_list
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_return_exchange_list
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchangeList" >
+    insert into public.ord_return_exchange_list (detail_id, order_id, return_type, 
+      goods_type, goods_code, goods_name, 
+      sku, colore_code, colore_name, 
+      size_code, size_name, erp_sku, 
+      erp_style_no, erp_colore_code, erp_colore_name, 
+      erp_size_code, erp_size_name, price, 
+      action_id, price_discount, quantity, 
+      amount, amount_discount, return_quantity, 
+      amount_return, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{detailId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{returnType,jdbcType=VARCHAR}, 
+      #{goodsType,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{sku,jdbcType=VARCHAR}, #{coloreCode,jdbcType=VARCHAR}, #{coloreName,jdbcType=VARCHAR}, 
+      #{sizeCode,jdbcType=VARCHAR}, #{sizeName,jdbcType=VARCHAR}, #{erpSku,jdbcType=VARCHAR}, 
+      #{erpStyleNo,jdbcType=VARCHAR}, #{erpColoreCode,jdbcType=VARCHAR}, #{erpColoreName,jdbcType=VARCHAR}, 
+      #{erpSizeCode,jdbcType=VARCHAR}, #{erpSizeName,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, 
+      #{actionId,jdbcType=VARCHAR}, #{priceDiscount,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, 
+      #{amount,jdbcType=NUMERIC}, #{amountDiscount,jdbcType=NUMERIC}, #{returnQuantity,jdbcType=INTEGER}, 
+      #{amountReturn,jdbcType=NUMERIC}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchangeList" >
+    insert into public.ord_return_exchange_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="returnType != null" >
+        return_type,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name,
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code,
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount,
+      </if>
+      <if test="returnQuantity != null" >
+        return_quantity,
+      </if>
+      <if test="amountReturn != null" >
+        amount_return,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnType != null" >
+        #{returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="priceDiscount != null" >
+        #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="returnQuantity != null" >
+        #{returnQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="amountReturn != null" >
+        #{amountReturn,jdbcType=NUMERIC},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchangeList" >
+    update public.ord_return_exchange_list
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnType != null" >
+        return_type = #{returnType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        colore_code = #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        colore_name = #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        size_name = #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        erp_sku = #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        action_id = #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount = #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="returnQuantity != null" >
+        return_quantity = #{returnQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="amountReturn != null" >
+        amount_return = #{amountReturn,jdbcType=NUMERIC},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchangeList" >
+    update public.ord_return_exchange_list
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      return_type = #{returnType,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      colore_code = #{coloreCode,jdbcType=VARCHAR},
+      colore_name = #{coloreName,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      erp_sku = #{erpSku,jdbcType=VARCHAR},
+      erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      action_id = #{actionId,jdbcType=VARCHAR},
+      price_discount = #{priceDiscount,jdbcType=NUMERIC},
+      quantity = #{quantity,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=NUMERIC},
+      amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      return_quantity = #{returnQuantity,jdbcType=INTEGER},
+      amount_return = #{amountReturn,jdbcType=NUMERIC},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </update>
+</mapper>

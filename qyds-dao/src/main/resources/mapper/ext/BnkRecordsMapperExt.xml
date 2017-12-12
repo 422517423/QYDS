@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.BnkRecordsMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.BnkRecordsExt">
+        <id column="record_id" property="recordId" jdbcType="INTEGER"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="type_type" property="typeType" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR"/>
+        <result column="sku" property="sku" jdbcType="VARCHAR"/>
+        <result column="erp_sku" property="erpSku" jdbcType="VARCHAR"/>
+        <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR"/>
+        <result column="bank_type" property="bankType" jdbcType="VARCHAR"/>
+        <result column="inout_count" property="inoutCount" jdbcType="INTEGER"/>
+        <result column="inout_time" property="inoutTime" jdbcType="TIMESTAMP"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="login_id" property="loginId" jdbcType="VARCHAR"/>
+        <result column="goods_type_name" property="goodsTypeName" jdbcType="VARCHAR"/>
+        <result column="gds_type_name" property="gdsTypeName" jdbcType="VARCHAR"/>
+        <result column="bank_type_name" property="bankTypeName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="BaseResultMapCount" type="java.lang.Integer">
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        br.record_id, br.shop_id, br.goods_type, br.type_type, br.goods_id, br.goods_code, br.erp_goods_code,
+        br.sku, br.erp_sku, br.erp_store_id, br.bank_type, br.inout_count, br.inout_time, br.comment, br.deleted,
+        br.update_user_id, br.update_time, br.insert_user_id, br.insert_time
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.BnkRecordsExt">
+        SELECT
+        <include refid="Base_Column_List"/>, ccgoods.display_cn as goods_type_name,
+        ccgds.display_cn as gds_type_name,ccbank.display_cn as bank_type_name
+        from public.bnk_records br
+        left join com_code ccgoods on ccgoods.value = br.goods_type and ccgoods.code = 'GOODS_TYPE'
+        left join com_code ccgds on ccgds.value = br.type_type and ccgds.code = 'GDS_TYPE'
+        left join com_code ccbank on ccbank.value = br.bank_type and ccbank.code = 'BANK_IO_TYPE'
+        where br.deleted = '0'
+        and br.sku = #{sku,jdbcType=VARCHAR}
+        <if test="goodsType != null and !goodsType.isEmpty()">
+            and br.goods_type = #{goodsType,jdbcType=VARCHAR}
+        </if>
+        <if test="bankType != null and !bankType.isEmpty()">
+            and br.bank_type = #{bankType,jdbcType=VARCHAR}
+        </if>
+        <if test="erpStoreId != null and !erpStoreId.isEmpty()">
+            and br.erp_store_id = #{erpStoreId,jdbcType=VARCHAR}
+        </if>
+        order by br.update_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAllDataCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.ext.BnkRecordsExt">
+        select count(*) as count
+        from public.bnk_records br
+        where br.deleted = '0'
+        and br.goods_id = #{goodsId,jdbcType=VARCHAR}
+        and br.sku = #{sku,jdbcType=VARCHAR}
+        <if test="bankType != null and !bankType.isEmpty()">
+            and br.bank_type = #{bankType,jdbcType=VARCHAR}
+        </if>
+        <if test="goodsType != null and !goodsType.isEmpty()">
+            and br.goods_Type = #{goodsType,jdbcType=VARCHAR}
+        </if>
+        <if test="erpStoreId != null and !erpStoreId.isEmpty()">
+            and br.erp_store_id = #{erpStoreId,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

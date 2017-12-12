@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdPayRecordMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdPayRecord" >
+    <id column="pay_id" property="payId" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="pay_account" property="payAccount" jdbcType="VARCHAR" />
+    <result column="receipt_account" property="receiptAccount" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_req_json" property="payReqJson" jdbcType="VARCHAR" />
+    <result column="pay_resp_json" property="payRespJson" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pay_id, trade_no, order_id, order_type, amount, pay_account, receipt_account, pay_time, 
+    pay_status, pay_type, pay_req_json, pay_resp_json, deleted, update_user_id, update_time, 
+    insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_pay_record
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_pay_record
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdPayRecord" >
+    insert into public.ord_pay_record (pay_id, trade_no, order_id, 
+      order_type, amount, pay_account, 
+      receipt_account, pay_time, pay_status, 
+      pay_type, pay_req_json, pay_resp_json, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{payId,jdbcType=VARCHAR}, #{tradeNo,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=VARCHAR}, #{amount,jdbcType=NUMERIC}, #{payAccount,jdbcType=VARCHAR}, 
+      #{receiptAccount,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=VARCHAR}, #{payReqJson,jdbcType=VARCHAR}, #{payRespJson,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdPayRecord" >
+    insert into public.ord_pay_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="payAccount != null" >
+        pay_account,
+      </if>
+      <if test="receiptAccount != null" >
+        receipt_account,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payReqJson != null" >
+        pay_req_json,
+      </if>
+      <if test="payRespJson != null" >
+        pay_resp_json,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="payAccount != null" >
+        #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAccount != null" >
+        #{receiptAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payReqJson != null" >
+        #{payReqJson,jdbcType=VARCHAR},
+      </if>
+      <if test="payRespJson != null" >
+        #{payRespJson,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdPayRecord" >
+    update public.ord_pay_record
+    <set >
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="payAccount != null" >
+        pay_account = #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptAccount != null" >
+        receipt_account = #{receiptAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payReqJson != null" >
+        pay_req_json = #{payReqJson,jdbcType=VARCHAR},
+      </if>
+      <if test="payRespJson != null" >
+        pay_resp_json = #{payRespJson,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdPayRecord" >
+    update public.ord_pay_record
+    set trade_no = #{tradeNo,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=NUMERIC},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      receipt_account = #{receiptAccount,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_status = #{payStatus,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_req_json = #{payReqJson,jdbcType=VARCHAR},
+      pay_resp_json = #{payRespJson,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </update>
+</mapper>

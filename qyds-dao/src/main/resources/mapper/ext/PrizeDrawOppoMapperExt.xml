@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.PrizeDrawOppoMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.PrizeDrawOppoExt" >
+    <id column="prize_draw_oppo_id" property="prizeDrawOppoId" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="prize_draw_id" property="prizeDrawId" jdbcType="VARCHAR" />
+    <result column="is_drawed" property="isDrawed" jdbcType="CHAR" />
+    <result column="is_win" property="isWin" jdbcType="CHAR" />
+    <result column="prize_name" property="prizeName" jdbcType="CHAR" />
+    <result column="prize_image" property="prizeImage" jdbcType="CHAR" />
+    <result column="prize_desc" property="prizeDesc" jdbcType="CHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_status" property="deliveryStatus" jdbcType="CHAR" />
+    <result column="delivery_comment" property="deliveryComment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pdo.prize_draw_oppo_id, pdo.member_id, pdo.prize_draw_id, pdo.is_drawed, pdo.is_win, pdo.prize_name, pdo.prize_image,
+    pdo.prize_desc, pdo.deleted, pdo.update_user_id, pdo.update_time, pdo.insert_user_id, pdo.insert_time, pdo.delivery_status,
+    pdo.delivery_comment
+  </sql>
+  <select id="select" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawOppoExt" >
+    select
+    mm.member_name, mm.telephone,
+    <include refid="Base_Column_List" />
+    from public.prize_draw_oppo pdo
+    left join mmb_master mm on pdo.member_id = mm.member_id and mm.deleted = '0'
+    where pdo.prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+    <if test="isDrawed!=null and isDrawed!='' ">
+      AND pdo.is_drawed = #{isDrawed}
+    </if>
+    <if test="isWin!=null and isWin!='' ">
+      AND pdo.is_win = #{isWin}
+    </if>
+    <if test="memberId!= null and memberId!= '' ">
+      AND pdo.member_id = #{memberId}
+    </if>
+    <if test="prizeName!=null and prizeName!='' ">
+      AND pdo.prize_name LIKE CONCAT('%', #{prizeName},'%')
+    </if>
+    <if test="deliveryStatus!=null and deliveryStatus!='' ">
+      AND pdo.delivery_status = #{deliveryStatus}
+    </if>
+    <if test="deleted!= null and deleted!= '' ">
+      AND pdo.deleted = #{deleted}
+    </if>
+    order by pdo.is_drawed desc, pdo.is_win desc, pdo.delivery_status ASC, pdo.prize_name ASC, pdo.insert_time desc, mm.member_name ASC
+    <if test="iDisplayLength!= null and iDisplayLength!= 0 ">
+      limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawOppoExt" >
+    select count(pdo.prize_draw_oppo_id)
+    from public.prize_draw_oppo pdo
+    where pdo.prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+    <if test="isDrawed!=null and isDrawed!='' ">
+      AND pdo.is_drawed = #{isDrawed}
+    </if>
+    <if test="isWin!=null and isWin!='' ">
+      AND pdo.is_win = #{isWin}
+    </if>
+    <if test="memberId!= null and memberId!= '' ">
+      AND pdo.member_id = #{memberId}
+    </if>
+    <if test="prizeName!=null and prizeName!='' ">
+      AND pdo.prize_name LIKE CONCAT('%', #{prizeName},'%')
+    </if>
+    <if test="deliveryStatus!=null and deliveryStatus!='' ">
+      AND pdo.delivery_status = #{deliveryStatus}
+    </if>
+    <if test="deleted!= null and deleted!= '' ">
+      AND pdo.deleted = #{deleted}
+    </if>
+  </select>
+
+
+  <select id="selectMemberPrizeList" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawOppoExt" >
+    select pdo.prize_draw_oppo_id, pdo.member_id, pdo.prize_draw_id, pdo.is_drawed, pdo.is_win, pdo.prize_name, pdo.prize_image,
+    pdo.prize_desc, pdo.deleted, pdo.update_user_id, pdo.update_time, pdo.insert_user_id, pdo.insert_time, pdo.delivery_status,
+    pdo.delivery_comment, pd.prize_draw_name,
+    case when pdo.is_drawed = '0' and now() > pd.end_time then '0'
+    else pd.is_valid end as is_valid,
+    pd.comment
+    from prize_draw_oppo pdo
+    left join prize_draw pd on pd.prize_draw_id = pdo.prize_draw_id
+    where pdo.member_id = #{memberId} and pdo.deleted = '0'
+    order by is_valid desc, pdo.is_drawed asc, pdo.is_win desc, pd.prize_draw_name asc, pdo.prize_name asc, pdo.update_time desc
+    limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectMemberPrizeListCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawOppoExt" >
+    select count(pdo.prize_draw_oppo_id)
+    from prize_draw_oppo pdo
+    where pdo.member_id = #{memberId} and pdo.deleted = '0'
+  </select>
+
+</mapper>

@@ -1,0 +1,132 @@
+<!-- /.modal -->
+<div id="mmbMasterEditArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">用户详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px;overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <div class="row">
+                        <form id="userEditForm" class="form-horizontal validator">
+                            <div class="form-body">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">姓名<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="member_name_edit" name="member_name_edit" data-required="1"
+                                               class="form-control" maxlength="60">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">手机号<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="telephone_edit" name="telephone_edit" data-required="1"
+                                               class="form-control" maxlength="20">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">生日<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="date" id="birthdate_edit" name="birthdate_edit" data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">性别</label>
+                                    <div class="col-md-8">
+                                        <select id="sex_edit" data-rel="chosen" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">会员类型</label>
+                                    <div class="col-md-8">
+                                        <select id="type_edit" data-rel="chosen" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">邮箱</label>
+                                    <div class="col-md-8">
+                                        <input type="email" id="email_edit" name="email_edit" data-required="1"
+                                               class="form-control" maxlength="60">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">职业</label>
+                                    <div class="col-md-8">
+                                        <select id="profession_edit" data-rel="chosen" class="form-control">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">收入</label>
+                                    <div class="col-md-8">
+                                        <select id="income_edit" data-rel="chosen" class="form-control">
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">邮编</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="postCode_edit" name="postCode_edit" data-required="1"
+                                               class="form-control" maxlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">省</label>
+                                    <div class="col-md-8">
+                                        <select id="province_edit" data-rel="chosen" class="form-control" onchange="selectProvince()">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">市</label>
+                                    <div class="col-md-8">
+                                        <select id="city_edit" data-rel="chosen" class="form-control" onchange="selectCity()">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">区/县</label>
+                                    <div class="col-md-8">
+                                        <select id="district_edit" data-rel="chosen" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">联系地址</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="address_edit" name="address_edit" data-required="1"
+                                               class="form-control" maxlength="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="mmb_master_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/mmb_master/edit.js"></script>

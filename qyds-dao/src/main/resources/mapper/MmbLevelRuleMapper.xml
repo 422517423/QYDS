@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.MmbLevelRuleMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.MmbLevelRule" >
+    <id column="member_level_id" property="memberLevelId" jdbcType="VARCHAR" />
+    <result column="member_level_code" property="memberLevelCode" jdbcType="VARCHAR" />
+    <result column="member_level_name" property="memberLevelName" jdbcType="VARCHAR" />
+    <result column="point_lower" property="pointLower" jdbcType="INTEGER" />
+    <result column="point_upper" property="pointUpper" jdbcType="INTEGER" />
+    <result column="discount" property="discount" jdbcType="NUMERIC" />
+    <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="point_single" property="pointSingle" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    member_level_id, member_level_code, member_level_name, point_lower, point_upper, 
+    discount, point_ratio, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time, point_single
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.mmb_level_rule
+    where member_level_id = #{memberLevelId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.mmb_level_rule
+    where member_level_id = #{memberLevelId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.MmbLevelRule" >
+    insert into public.mmb_level_rule (member_level_id, member_level_code, member_level_name, 
+      point_lower, point_upper, discount, 
+      point_ratio, comment, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time, point_single)
+    values (#{memberLevelId,jdbcType=VARCHAR}, #{memberLevelCode,jdbcType=VARCHAR}, #{memberLevelName,jdbcType=VARCHAR}, 
+      #{pointLower,jdbcType=INTEGER}, #{pointUpper,jdbcType=INTEGER}, #{discount,jdbcType=NUMERIC}, 
+      #{pointRatio,jdbcType=NUMERIC}, #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP}, #{pointSingle,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.MmbLevelRule" >
+    insert into public.mmb_level_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberLevelId != null" >
+        member_level_id,
+      </if>
+      <if test="memberLevelCode != null" >
+        member_level_code,
+      </if>
+      <if test="memberLevelName != null" >
+        member_level_name,
+      </if>
+      <if test="pointLower != null" >
+        point_lower,
+      </if>
+      <if test="pointUpper != null" >
+        point_upper,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="pointRatio != null" >
+        point_ratio,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="pointSingle != null" >
+        point_single,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberLevelId != null" >
+        #{memberLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberLevelCode != null" >
+        #{memberLevelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberLevelName != null" >
+        #{memberLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="pointLower != null" >
+        #{pointLower,jdbcType=INTEGER},
+      </if>
+      <if test="pointUpper != null" >
+        #{pointUpper,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=NUMERIC},
+      </if>
+      <if test="pointRatio != null" >
+        #{pointRatio,jdbcType=NUMERIC},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pointSingle != null" >
+        #{pointSingle,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.MmbLevelRule" >
+    update public.mmb_level_rule
+    <set >
+      <if test="memberLevelCode != null" >
+        member_level_code = #{memberLevelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberLevelName != null" >
+        member_level_name = #{memberLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="pointLower != null" >
+        point_lower = #{pointLower,jdbcType=INTEGER},
+      </if>
+      <if test="pointUpper != null" >
+        point_upper = #{pointUpper,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=NUMERIC},
+      </if>
+      <if test="pointRatio != null" >
+        point_ratio = #{pointRatio,jdbcType=NUMERIC},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pointSingle != null" >
+        point_single = #{pointSingle,jdbcType=INTEGER},
+      </if>
+    </set>
+    where member_level_id = #{memberLevelId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.MmbLevelRule" >
+    update public.mmb_level_rule
+    set member_level_code = #{memberLevelCode,jdbcType=VARCHAR},
+      member_level_name = #{memberLevelName,jdbcType=VARCHAR},
+      point_lower = #{pointLower,jdbcType=INTEGER},
+      point_upper = #{pointUpper,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=NUMERIC},
+      point_ratio = #{pointRatio,jdbcType=NUMERIC},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      point_single = #{pointSingle,jdbcType=INTEGER}
+    where member_level_id = #{memberLevelId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,64 @@
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    栏目管理
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">CMS管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">栏目管理</a></li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet grey box">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>栏目管理</div>
+                            <div class="tools" style="margin-top: auto;">
+                                <div id="button-groups">
+                                    <a id="add_cms_items_btn"  class="btn btn-xs green">添加 <i class="icon-plus"></i></a>
+                                    <a id="cms_item_edit_btn"  class="btn btn-xs purple">编辑 <i class="icon-edit"></i></a>
+                                    <a id="upBtn" href="javascript:;" class="btn btn-xs blue">上移 <i class="icon-long-arrow-up"></i></a>
+                                    <a id="downBtn" href="javascript:;" class="btn btn-xs yellow">下移 <i class="icon-long-arrow-down"></i></a>
+                                    <!--<a id="cms_edit_btn" href="javascript:;" class="btn btn-xs yellow">CMS编辑 <i class="icon-edit"></i></a>-->
+                                    <a id="delBtn" href="javascript:;" class="btn btn-xs red">删除 <i class="icon-remove"></i></a>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="cms_tiems_list" class="ztree">
+
+                        </div>
+                        <div id="alertMsg" class="alert alert-danger" style="display: none;">
+                            数据取得失败
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END PAGE CONTENT-->
+
+        <!-- START PAGE LEVEL SCRIPTS -->
+        <script src="../page/cms_items/list.js"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+
+        <script>
+            jQuery(document).ready(function() {
+
+                App.initScroller();
+                zTree.init();
+
+            });
+        </script>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.GdsSkuMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsSku" >
+    <id column="goods_sku_id" property="goodsSkuId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="safe_bank" property="safeBank" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_sku_id, goods_id, sku, colore_code, colore_name, size_code, size_name, erp_sku, 
+    erp_style_no, erp_colore_code, erp_colore_name, erp_size_code, erp_size_name, image_url_json, 
+    price, safe_bank, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.gds_sku
+    where goods_sku_id = #{goodsSkuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.gds_sku
+    where goods_sku_id = #{goodsSkuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.GdsSku" >
+    insert into public.gds_sku (goods_sku_id, goods_id, sku, 
+      colore_code, colore_name, size_code, 
+      size_name, erp_sku, erp_style_no, 
+      erp_colore_code, erp_colore_name, erp_size_code, 
+      erp_size_name, image_url_json, price, 
+      safe_bank, comment, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time)
+    values (#{goodsSkuId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, 
+      #{coloreCode,jdbcType=VARCHAR}, #{coloreName,jdbcType=VARCHAR}, #{sizeCode,jdbcType=VARCHAR}, 
+      #{sizeName,jdbcType=VARCHAR}, #{erpSku,jdbcType=VARCHAR}, #{erpStyleNo,jdbcType=VARCHAR}, 
+      #{erpColoreCode,jdbcType=VARCHAR}, #{erpColoreName,jdbcType=VARCHAR}, #{erpSizeCode,jdbcType=VARCHAR}, 
+      #{erpSizeName,jdbcType=VARCHAR}, #{imageUrlJson,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC}, 
+      #{safeBank,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.GdsSku" >
+    insert into public.gds_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsSkuId != null" >
+        goods_sku_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name,
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code,
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name,
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="safeBank != null" >
+        safe_bank,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsSkuId != null" >
+        #{goodsSkuId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="safeBank != null" >
+        #{safeBank,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.GdsSku" >
+    update public.gds_sku
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        colore_code = #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        colore_name = #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        size_name = #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        erp_sku = #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json = #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="safeBank != null" >
+        safe_bank = #{safeBank,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goods_sku_id = #{goodsSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.GdsSku" >
+    update public.gds_sku
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      colore_code = #{coloreCode,jdbcType=VARCHAR},
+      colore_name = #{coloreName,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      erp_sku = #{erpSku,jdbcType=VARCHAR},
+      erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      image_url_json = #{imageUrlJson,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      safe_bank = #{safeBank,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where goods_sku_id = #{goodsSkuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

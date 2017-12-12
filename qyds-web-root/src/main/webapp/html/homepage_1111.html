@@ -1,0 +1,122 @@
+<div style="margin-top: 20px;">
+<!--轮播图-->
+<div class="row">
+    <div class="homepage slider clearfix">
+        <div class="callbacks_container">
+            <carousel interval="interval" style="cursor:pointer;">
+                <slide ng-repeat="slide in slides" active="slide.active">
+                    <img ng-click="goOtherPage(slide.itemType, slide.itemTypeVal,'',slide.cmsId)"
+                         ng-src="{{slide.imageUrl | imgPath:''}}" class="img-responsive"
+                         style="margin:auto;"/>
+                </slide>
+            </carousel>
+        </div>
+    </div>
+</div>
+<div style="max-width: 960px;margin: 0px auto;">
+    <!--优惠劵-->
+    <div class="row" style="margin: 0px 0px 20px -10px">
+        <div ng-repeat="coupon in couponData" style="margin-top: 20px;padding: 0px 0px 0px 0px" class="col-xs-6 col-sm-3"
+             ng-click="getCoupon(coupon.couponId)">
+            <div style="padding-left: 10px">
+                <img ng-src="{{coupon.couponImage | imgPath:''}}" style="width: 100%;"
+                     class="bordered">
+            </div>
+            <div style="padding-left: 10px">{{coupon.couponName}}
+            </div>
+        </div>
+    </div>
+    <!--双十一活动-->
+    <div class="row" ng-if="activity11">
+        <div class="col-xs-12" style="padding: 0px">
+            <img ng-repeat="activity in activity11" ng-click="goGoodsDetail(activity.goodsId)" style="cursor:pointer;"
+                 ng-src="{{activity.imageUrl}}" class="img-responsive" width="100%"/>
+            <div  class="clearfix" style="padding: 40px 0px 40px 0px;text-align: center;border-left: 1px #000000 solid;border-right: 1px #000000 solid;border-bottom: 1px #000000 solid">
+                <span style="font-size: 14px;border:1px #000000 solid;padding: 8px 10px;text-align: center;margin: 0px 30px;cursor: pointer" data-ng-click="goTop();">返回顶部</span>
+                <span style="font-size: 14px;border:1px #000000 solid;padding: 8px 10px;text-align: center;margin: 0px 30px;cursor: pointer" data-ng-click="goActivityMore('双11')">查看更多</span>
+            </div>
+        </div>
+    </div>
+    <!-- product-nav -->
+    <div class="row" style="margin-top: 15px;">
+        <!--模板一-->
+        <div class="row" style="display: none">
+            <div ng-repeat="guide in indexNewsData" class="col-xs-12" style="padding: 0px">
+                <img ng-click="goOtherPage(guide.itemType, guide.itemTypeVal,'',guide.cmsId)" style="cursor:pointer;"
+                     ng-src="{{guide.imageUrl | imgPath:''}}" class="img-responsive" alt="" width="100%"/>
+            </div>
+        </div>
+        <!--模板二-->
+        <div ng-repeat="guideTwo in indexNewsTwoData" class="row" style="margin-top:15px;display: none">
+            <div class="col-xs-12" style="padding: 0px">
+                <div class="col-xs-4" style="padding:0 0px 0 0;cursor:pointer;">
+                    <img ng-click="goOtherPage(guideTwo.cmList[0].itemType, guideTwo.cmList[0].itemTypeVal,'',guideTwo.cmList[0].cmsId)"
+                         ng-src="{{guideTwo.cmList[0].imageUrl | imgPath:''}}" style="float:right;"
+                         class="img-responsive"/>
+                </div>
+                <div class="col-xs-8" style="padding:0 0 0 0px;">
+                    <div class="col-xs-12" style="padding:0;cursor:pointer;">
+                        <img ng-click="goOtherPage(guideTwo.cmList[1].itemType, guideTwo.cmList[1].itemTypeVal,'',guideTwo.cmList[1].cmsId)"
+                             ng-src="{{guideTwo.cmList[1].imageUrl | imgPath:''}}" style="float:left;"
+                             class="img-responsive" alt="" width="100%"/>
+                    </div>
+                    <div class="col-xs-6" style="padding:0 0 0 0;cursor:pointer;">
+                        <img ng-click="goOtherPage(guideTwo.cmList[2].itemType, guideTwo.cmList[2].itemTypeVal,'',guideTwo.cmList[2].cmsId)"
+                             ng-src="{{guideTwo.cmList[2].imageUrl | imgPath:''}}" style="float:left;"
+                             class="img-responsive" alt="" width="100%"/>
+                    </div>
+                    <div class="col-xs-6" style="padding:0 0 0 0;cursor:pointer;">
+                        <img ng-click="goOtherPage(guideTwo.cmList[3].itemType, guideTwo.cmList[3].itemTypeVal,'',guideTwo.cmList[3].cmsId)"
+                             ng-src="{{guideTwo.cmList[3].imageUrl | imgPath:''}}" style="float:left;"
+                             class="img-responsive" alt="" width="100%"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新品上市-->
+        <div class="row"
+             style="margin:30px 0px;padding:0 8px;background-color:#ffffff;border:1px solid #ffffff;">
+            <div class="col-xs-12" style="margin:0;padding:10px 0;border-bottom:1px solid #f2f2f2;">
+                <div class="col-xs-6 col-xs-offset-3" style="font-size:22px;text-align: center">
+                    {{title.title}}
+                </div>
+                <div class="col-xs-3" ng-click="doMore();"
+                     style="cursor:pointer;font-size:12px;text-align:right;padding-right:10px;color: #999999">
+                    更多
+                </div>
+            </div>
+            <!--<div ng-repeat="propter in indexNewGoodsData" >-->
+            <div class="col-xs-12" style="margin-top: 20px;padding: 0px">
+                <div ng-repeat="propter in indexNewGoodsData" class="col-xs-6 col-sm-3 text-center"
+                     style="margin:10px 0;"
+                     ng-click="goGoodsDetail(propter.goodsId)">
+                    <div class="new_arrived">
+                        <!--<a href="javascript:void(0);" style="display:inline-block;cursor:pointer;width:85%;margin:0 auto;padding:0;border:1px solid #f2f2f2;">-->
+                        <a href="javascript:void(0);" class="img_blink">
+                            <img ng-src="{{propter.imageUrlJson | imgPath:''}}" class="" alt=""
+                                 width="100%"/>
+                        </a>
+                        <div class="card-goods-price">
+                            <span ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null' " style="font-size:18px;color:#ff0000">{{propter.minAndMaxPriceActivity}}</span>
+                            <span ng-if="propter.minAndMaxPriceActivity == null || propter.minAndMaxPriceActivity == '¥null'">{{propter.minAndMaxPrice}}</span>
+                            <span class="font_del"
+                                  ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null'"
+                                  style="color:#000000;font-size: 12px;margin-left:4px;text-decoration:line-through">{{propter.minAndMaxPrice}}</span>
+                        </div>
+                        <div class="card-goods-name">
+                            {{propter.goodsName}}
+                        </div>
+
+
+
+                        <!--</a>-->
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+</div>
+<!-- //product-nav -->

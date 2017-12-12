@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.MmbSalerMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.MmbSaler" >
+    <id column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="all_point" property="allPoint" jdbcType="INTEGER" />
+    <result column="member_level_id" property="memberLevelId" jdbcType="VARCHAR" />
+    <result column="birthdate" property="birthdate" jdbcType="TIMESTAMP" />
+    <result column="member_pic" property="memberPic" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="referrer_id" property="referrerId" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="regist_style" property="registStyle" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+    <result column="oldphone" property="oldphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    member_id, type, open_id, member_name, nick_name, telephone, password, point, all_point, 
+    member_level_id, birthdate, member_pic, email, sex, referrer_id, id_card, regist_style, 
+    is_valid, deleted, update_user_id, update_time, insert_user_id, insert_time, profession, 
+    income, post_code, address, province_code, province_name, city_code, city_name, district_code, 
+    district_name, erp_send_status, oldphone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.mmb_saler
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.mmb_saler
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.MmbSaler" >
+    insert into public.mmb_saler (member_id, type, open_id, 
+      member_name, nick_name, telephone, 
+      password, point, all_point, 
+      member_level_id, birthdate, member_pic, 
+      email, sex, referrer_id, 
+      id_card, regist_style, is_valid, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time, profession, 
+      income, post_code, address, 
+      province_code, province_name, city_code, 
+      city_name, district_code, district_name, 
+      erp_send_status, oldphone)
+    values (#{memberId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{memberName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{allPoint,jdbcType=INTEGER}, 
+      #{memberLevelId,jdbcType=VARCHAR}, #{birthdate,jdbcType=TIMESTAMP}, #{memberPic,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{referrerId,jdbcType=VARCHAR}, 
+      #{idCard,jdbcType=VARCHAR}, #{registStyle,jdbcType=VARCHAR}, #{isValid,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{profession,jdbcType=VARCHAR}, 
+      #{income,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{provinceCode,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, #{districtName,jdbcType=VARCHAR}, 
+      #{erpSendStatus,jdbcType=VARCHAR}, #{oldphone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.MmbSaler" >
+    insert into public.mmb_saler
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="allPoint != null" >
+        all_point,
+      </if>
+      <if test="memberLevelId != null" >
+        member_level_id,
+      </if>
+      <if test="birthdate != null" >
+        birthdate,
+      </if>
+      <if test="memberPic != null" >
+        member_pic,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="referrerId != null" >
+        referrer_id,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="registStyle != null" >
+        regist_style,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="provinceCode != null" >
+        province_code,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="districtName != null" >
+        district_name,
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status,
+      </if>
+      <if test="oldphone != null" >
+        oldphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="allPoint != null" >
+        #{allPoint,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevelId != null" >
+        #{memberLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberPic != null" >
+        #{memberPic,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerId != null" >
+        #{referrerId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="registStyle != null" >
+        #{registStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtName != null" >
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendStatus != null" >
+        #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="oldphone != null" >
+        #{oldphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.MmbSaler" >
+    update public.mmb_saler
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="allPoint != null" >
+        all_point = #{allPoint,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevelId != null" >
+        member_level_id = #{memberLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        birthdate = #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberPic != null" >
+        member_pic = #{memberPic,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerId != null" >
+        referrer_id = #{referrerId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="registStyle != null" >
+        regist_style = #{registStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtName != null" >
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="oldphone != null" >
+        oldphone = #{oldphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.MmbSaler" >
+    update public.mmb_saler
+    set type = #{type,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      all_point = #{allPoint,jdbcType=INTEGER},
+      member_level_id = #{memberLevelId,jdbcType=VARCHAR},
+      birthdate = #{birthdate,jdbcType=TIMESTAMP},
+      member_pic = #{memberPic,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      referrer_id = #{referrerId,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      regist_style = #{registStyle,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      profession = #{profession,jdbcType=VARCHAR},
+      income = #{income,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=VARCHAR},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+      oldphone = #{oldphone,jdbcType=VARCHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

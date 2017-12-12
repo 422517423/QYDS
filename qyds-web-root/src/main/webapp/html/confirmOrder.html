@@ -1,0 +1,603 @@
+<div class="container-fluid" style="background-color: white">
+    <form role="form" name="confirmForm" ng-class="{'have-error':confirmForm.$invalid && submitted}"
+          class="form-horizontal" novalidate>
+        <div class="row">
+            <div class="col-xs-12" style="padding-top: 15px">
+                <h4>订单确认</h4>
+                <div class="col-xs-12">
+                    <div class="confirmStep" style="width: 300px;margin: auto"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="agentFlag == 1">
+            <div class="col-xs-12">
+                <div>
+                    <label>代理下单</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 control-label">会员手机号:</label>
+                    <div class="col-xs-7 col-sm-6" ng-class="{'have-error':confirmForm.$invalid && submitted_captcha}">
+                        <input type="text" class="form-control"
+                               id="tel" name="tel"
+                               maxlength="11" ng-pattern="/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/"
+                               required
+                               ng-model="conInfo.tel" placeholder="请输入手机号">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.tel.$error.required && (submitted_captcha || submitted)">
+                            手机号不能为空
+                        </div>
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.tel.$error.pattern && (submitted_captcha ||submitted)">
+                            手机号格式不正确
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <button type="submit" class="btn btn-default"
+                                ng-click="getCouponList('1');">
+                            获取优惠劵
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 control-label">验证码:</label>
+                    <div class="col-xs-7 col-sm-6">
+                        <input type="text" class="form-control" name="captcha" maxlength="6" required
+                               ng-model="conInfo.captcha" placeholder="请输入验证码">
+                        <div class="col-xs-12 error_msg" ng-show="confirmForm.captcha.$error.required && submitted">
+                            验证码不能为空
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                        <button id="captcha_reset_btn1" type="submit" class="btn btn-default"
+                                ng-click="getVerifyCode(confirmForm.tel.$valid);">
+                            获取验证码
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div>
+                    <label>配送方式</label>
+                </div>
+                <div style="margin-top: 10px">
+                    <div ng-if="selectedDeliveryTab =='10'"
+                         class="deliveryTabSelected border-left border-right border-top"
+                         ng-click="selectTab('10')">
+                        物流快递
+                    </div>
+                    <div ng-if="selectedDeliveryTab =='10'" id="mdzt10" class="deliveryTabUnselect border-right border-top"
+                         ng-click="selectTab('20')">
+                        到店自提
+                    </div>
+                    <div ng-if="selectedDeliveryTab =='20'"
+                         class="deliveryTabUnselect border-left border-right border-top"
+                         ng-click="selectTab('10')">
+                        物流快递
+                    </div>
+                    <div ng-if="selectedDeliveryTab =='20'" id="mdzt20" class="deliveryTabSelected border-right border-top"
+                         ng-click="selectTab('20')">
+                        到店自提
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="selectedDeliveryTab =='10'">
+            <div class="col-xs-12">
+                <div style="background: #eeeeee;padding: 15px;font-size: 12px">
+                    <label>选择收货地址</label>
+                    <div style="max-height: 300px;overflow: scroll">
+                        <div class="selectAddress" ng-repeat="addressItem in addressList"
+                             ng-class="getSelectAddressCls(addressItem.addressId)">
+                            <label ng-click="selectedAddress(addressItem)">
+                                <input type="radio" value="addressItem.addressId"
+                                       ng-checked="addressInfo.addressId == addressItem.addressId">
+                                <span style="color: #333333;margin-left: 20px">{{addressItem.districtidProvinceName}}</span>
+                                <span style="color: #333333;">{{addressItem.districtidCityName}}</span>
+                                <span style="color: #333333;">{{addressItem.districtidDistrictName}}</span>
+                                <span style="color: #333333;">{{addressItem.address}}</span>
+                                <span style="color: #333333;">({{addressItem.contactor}} 收)</span>
+                                <span style="color: #666666;">{{addressItem.phone}}</span>
+                                <span ng-if="addressItem.isDefault == '0'">[默认地址]</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="text-align: right">
+                        <!--<a ng-if="showAllAddressFlag=='1'" href="javascript:void(0);"-->
+                        <!--ng-click="showAllAddress('0')">显示全部地址</a>-->
+                        <!--<a ng-if="showAllAddressFlag=='0'" href="javascript:void(0);" ng-click="showAllAddress('1')">收起</a>-->
+                        <a style="margin-left: 20px;" href="javascript:void(0);" ng-click="addAddress()">添加新地址</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="selectedDeliveryTab =='20'">
+            <div class="col-xs-12">
+                <div style="background: #eeeeee;padding: 15px;font-size: 12px">
+                    <label>选择提货店铺</label>
+
+                    <div class="row form-group form-group-sm">
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0" style="margin-top:4px;">
+                            <select id="selectProvince" class="form-control" ng-model="info.provinceCd"
+                                    ng-init="info.provinceCd='0'" ng-change="changeArea('0',info.provinceCd)">
+                                <option value="0">--全国--</option>
+                                <option ng-repeat="province in provincesList" value="{{province.pcode}}"
+                                        ng-selected="info.provinceCd == province.pcode">{{province.pname}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0" style="margin-top:4px;">
+                            <select ng-model="info.cityCd" class="form-control"
+                                    ng-init="info.cityCd='0'"
+                                    ng-change="changeArea('1',info.cityCd)">
+                                <option value="0">--请选择--</option>
+                                <option ng-repeat="city in citiesList" value="{{city.ccode}}"
+                                        ng-selected="info.cityCd == city.ccode">{{city.cname}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0" style="margin-top:4px;">
+                            <select ng-model="info.areaCd" class="form-control"
+                                    ng-init="info.areaCd='0'" id="area_selected"
+                                    ng-change="getStoreList()">
+                                <option value="0">--请选择--</option>
+                                <option ng-repeat="area in areasList" value="{{area.dcode}}"
+                                        ng-selected="info.areaCd == area.dcode">{{area.dname}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="max-height: 300px;overflow: scroll">
+                        <div class="selectAddress" ng-repeat="storeItem in storeList" ng-class="getSelectStoreCls(storeItem.store_code)" ng-if="storeItem.store_code != '010001'">
+                            <label ng-click="selectedStore(storeItem)">
+                                <input type="radio" value="storeItem.store_code"
+                                       ng-checked="shopInfo.store_code == storeItem.store_code">
+                                <span style="margin-left: 20px;color: #333333;">{{storeItem.store_name_cn}} {{storeItem.phone}} {{storeItem.address}}</span>
+                                <!--<span style="color: #0b8443;" ng-if="storeItem.new_count != 0">&nbsp;&nbsp;有货</span>-->
+                                <!--<span style="color: #0b8443;" ng-if="storeItem.new_count == 0">&nbsp;&nbsp;无货</span>-->
+                            </label>
+                        </div>
+                        <div ng-if="!isLoadingStore&&(!storeList||storeList.length==0)" style="text-align: center;margin-top: 10px">没有有货的门店</div>
+                        <div ng-if="isLoadingStore" style="text-align: center;margin-top: 10px">
+                            <img src="css/images/loading.gif" style="width: 30px;height: 30px">
+                        </div>
+                    </div>
+                    <!--<div style="text-align: right">-->
+                    <!--<a ng-if="showAllStoreFlag=='1'" href="javascript:void(0);" ng-click="showAllStore('0')">显示全部店铺</a>-->
+                    <!--<a ng-if="showAllStoreFlag=='0'" href="javascript:void(0);" ng-click="showAllStore('1')">收起</a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="row"  ng-if="selectedDeliveryTab =='20'">
+            <div class="col-xs-12">
+                <div>
+                    <label>联系人信息</label>
+                </div>
+                <div>
+                    <span style="color: red;">*到店取货前请跟门店联系,确认门店可以取货的时间。</span>
+                    <!--<label class="col-xs-12 col-sm-2 control-label"  style="color: red;">*到店取货前请跟门店联系,确认门店可以取货的时间。</label>-->
+                </div>
+
+                <div class="form-group hidden-xs">
+                    <label class="col-xs-12 col-sm-2 control-label">联系人姓名:</label>
+                    <div class="col-xs-7 col-sm-6" ng-class="{'have-error':confirmForm.$invalid && submitted_captcha}">
+                        <input type="text" class="form-control"
+                               id="cName" name="cName"
+                               maxlength="20"
+                               required
+                               ng-model="conInfo.cName" placeholder="请输入联系人姓名">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.cName.$error.required && (submitted_captcha || submitted)">
+                            联系人姓名不能为空
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group hidden-xs">
+                    <label class="col-xs-12 col-sm-2 control-label">联系人电话:</label>
+                    <div class="col-xs-7 col-sm-6" ng-class="{'have-error':confirmForm.$invalid && submitted_captcha}">
+                        <input type="text" class="form-control"
+                               id="ctel" name="ctel"
+                               maxlength="11" ng-pattern="/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/"
+                               required
+                               ng-model="conInfo.ctel" placeholder="请输入联系人手机号">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.ctel.$error.required && (submitted_captcha || submitted)">
+                            联系人手机号不能为空
+                        </div>
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.ctel.$error.pattern && (submitted_captcha ||submitted)">
+                            联系人手机号格式不正确
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group visible-xs">
+                    <label class="col-xs-12 col-sm-2 control-label">联系人姓名:</label>
+                    <div class="col-xs-12 col-sm-6" ng-class="{'have-error':confirmForm.$invalid && submitted_captcha}">
+                        <input type="text" class="form-control"
+                               name="cName1"
+                               maxlength="20"
+                               required
+                               ng-model="conInfo.cName" placeholder="请输入联系人姓名">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.cName1.$error.required && (submitted_captcha || submitted)">
+                            联系人姓名不能为空
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group visible-xs">
+                    <label class="col-xs-12 col-sm-2 control-label">联系人电话:</label>
+                    <div class="col-xs-12 col-sm-6" ng-class="{'have-error':confirmForm.$invalid && submitted_captcha}">
+                        <input type="text" class="form-control"
+                               name="ctel1"
+                               maxlength="11" ng-pattern="/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/"
+                               required
+                               ng-model="conInfo.ctel" placeholder="请输入联系人手机号">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.ctel1.$error.required && (submitted_captcha || submitted)">
+                            联系人手机号不能为空
+                        </div>
+                        <div class="col-xs-12 error_msg"
+                             ng-show="confirmForm.ctel1.$error.pattern && (submitted_captcha ||submitted)">
+                            联系人手机号格式不正确
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top: 15px">
+            <div class="col-xs-12">
+                <label>订单信息</label>
+            </div>
+            <div class="hidden-xs col-sm-12">
+                <table class="table bagTable bordered">
+                    <thead>
+                    <tr>
+                        <th style="width: 50%">商品</th>
+                        <th style="width: 20%"></th>
+                        <th>数量</th>
+                        <th>单价</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="goodItem in confirmData.goodsInfo" style="border-top: none">
+                    <!--单品情况-->
+                    <tr style="font-size:13px;">
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img style="width:80px;" class=" center-left"
+                                             ng-if="goodItem.type=='10'"
+                                             ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].imageUrlJson | imgPathJson:'480'}}">
+                                        <img style="width:80px;" class=" center-left"
+                                             ng-if="goodItem.type=='20'"
+                                             ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:'image'| imgPath:'480'}}">
+                                        <img style="width:80px;" class=" center-left"
+                                             ng-if="goodItem.type=='30'"
+                                             ng-src="{{goodItem.imageUrlJson | imgPathJson:'480'}}">
+                                    </td>
+                                    <td>
+                                        <div style="text-align:left; margin-left: 8px;">
+                                            <div style="color:#333;">
+                                                {{goodItem.goodsName}}
+                                            </div>
+                                            <div ng-if="goodItem.activity!=null" style="margin-top: 2px;">
+                                                <span style="color: red">{{goodItem.activity.activityName}}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <div class="container text-left">
+                                <div class="">
+                                    <span ng-if="goodItem.type!='30'">颜色:</span>
+                                    <span ng-if="goodItem.type=='10'">{{goodItem.ordConfirmOrderUnitExtList[0].colorName}}</span>
+                                    <span ng-if="goodItem.type=='20'">{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:"color"}}</span>
+                                </div>
+                                <div style="margin-top: 2px;">
+                                    <span ng-if="goodItem.type!='30'">尺码:</span>
+                                    <span ng-if="goodItem.type=='10'">{{goodItem.ordConfirmOrderUnitExtList[0].sizeName | sizeFilter}}</span>
+                                    <span ng-if="goodItem.type=='20'">{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:"size"}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>×{{goodItem.quantity}}</td>
+                        <td>
+                            <div ng-if="goodItem.type!='30'">
+                                <div ng-if="goodItem.activity!=null">
+                                    <div ng-if="goodItem.activity.newPrice!=goodItem.ordConfirmOrderUnitExtList[0].price"
+                                         style="font-size: 10px;text-decoration: line-through">
+                                        ¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}
+                                    </div>
+                                    <div style="color: red;">¥{{goodItem.activity.newPrice | priceFilter}}</div>
+                                </div>
+                                <div ng-if="goodItem.activity==null">
+                            <span class="assertive bold" style="font-size: 14px;">
+                                ¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}
+                            </span>
+                                </div>
+                            </div>
+                            <div ng-if="goodItem.type=='30'">
+                                <div ng-if="goodItem.activity!=null">
+                                    <div ng-if="goodItem.activity.newPrice!=goodItem.ordConfirmOrderUnitExtList[0].price"
+                                         style="font-size: 10px;text-decoration: line-through">
+                                        ¥{{totalPriceOfGoods(goodItem)}}
+                                    </div>
+                                    <div style="color: red;">¥{{goodItem.activity.newPrice | priceFilter}}</div>
+                                </div>
+                                <div ng-if="goodItem.activity==null">
+                            <span class="assertive bold" style="font-size: 14px;">
+                               ¥{{totalPriceOfGoods(goodItem)}}
+                            </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!--套装情况-->
+                    <tr ng-if="goodItem.type == '30'" ng-repeat="skuInfo in goodItem.ordConfirmOrderUnitExtList"
+                        style="font-size:13px;">
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img style="width:80px" class=" center-left"
+                                             ng-if="skuInfo.imageUrlJson"
+                                             ng-src="{{skuInfo.imageUrlJson | imgPathJson}}">
+                                    </td>
+                                    <td>
+                                        <div style="text-align:left; margin-left: 8px;">
+                                            <div style="color:#333;">{{skuInfo.goodsName}}</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <div class="container-fluid text-left">
+                                <div class="">
+                                    <span>颜色:</span>
+                                    <span ng-if="skuInfo.colorName">{{skuInfo.colorName}}</span>
+                                    <span ng-if="!skuInfo.colorName">{{skuInfo.skucontent | ecSkuFilter:"color"}}</span>
+                                </div>
+                                <div style="margin-top: 2px;">
+                                    <span>尺码:</span>
+                                    <span ng-if="skuInfo.sizeName">{{skuInfo.sizeName | sizeFilter}}</span>
+                                    <span ng-if="!skuInfo.sizeName">{{skuInfo.skucontent | ecSkuFilter:"size" | sizeFilter}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{goodItem.quantity}}</td>
+                        <td>
+                            <span style="font-size: 10px;text-decoration: line-through">¥{{skuInfo.price}}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="visible-xs col-xs-12">
+                <div ng-repeat="goodItem in confirmData.goodsInfo">
+                    <!--单品情况-->
+                    <div style="padding: 10px;overflow: hidden">
+                        <img ng-if="goodItem.type=='10'"
+                             ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].imageUrlJson | imgPathJson:'480'}}"
+                             style="float:left;width:80px;margin-right: 10px;">
+                        <img ng-if="goodItem.type=='20'"
+                             ng-src="{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:'image'| imgPath:'480'}}"
+                             style="float:left;width:80px;margin-right: 10px">
+                        <img style="float:left;width:80px;margin-right: 10px"
+                             ng-if="goodItem.type=='30'"
+                             ng-src="{{goodItem.imageUrlJson | imgPathJson:'480'}}">
+                        <div>
+                            <div style="font-size: 15px" class="max-line-1">{{goodItem.goodsName}}</div>
+                            <div ng-if="goodItem.type!='30'" style="font-size: 12px;color: #666666;padding: 10px 0px">
+                                <span>颜色:</span>
+                                <span ng-if="goodItem.type=='10'">{{goodItem.ordConfirmOrderUnitExtList[0].colorName}}</span>
+                                <span ng-if="goodItem.type=='20'">{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:"color"}}</span>
+                                <span style="margin-left: 10px">尺码:</span>
+                                <span ng-if="goodItem.type=='10'">{{goodItem.ordConfirmOrderUnitExtList[0].sizeName | sizeFilter}}</span>
+                                <span ng-if="goodItem.type=='20'">{{goodItem.ordConfirmOrderUnitExtList[0].skucontent | ecSkuFilter:"size"}}</span>
+                            </div>
+                            <div style="font-size: 12px;color: #666666;">
+                                <span>数量: </span>
+                                <span>×{{goodItem.quantity}}</span>
+                            </div>
+                            <div style="margin-top: 8px">
+
+                                <div ng-if="goodItem.type!='30'">
+                                    <div ng-if="goodItem.activity!=null">
+                                        <div ng-if="goodItem.activity.newPrice!=goodItem.ordConfirmOrderUnitExtList[0].price"
+                                             style="font-size: 10px;text-decoration: line-through">
+                                            ¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}
+                                        </div>
+                                        <div style="color: red;">¥{{goodItem.activity.newPrice | priceFilter}}</div>
+                                    </div>
+                                    <div ng-if="goodItem.activity==null">
+                            <span class="assertive bold" style="font-size: 14px;">
+                                ¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}
+                            </span>
+                                    </div>
+                                </div>
+                                <div ng-if="goodItem.type=='30'">
+                                    <div ng-if="goodItem.activity!=null">
+                                        <div ng-if="goodItem.activity.newPrice!=goodItem.ordConfirmOrderUnitExtList[0].price"
+                                             style="font-size: 10px;text-decoration: line-through">
+                                            ¥{{totalPriceOfGoods(goodItem)}}
+                                        </div>
+                                        <div style="color: red;">¥{{goodItem.activity.newPrice | priceFilter}}</div>
+                                    </div>
+                                    <div ng-if="goodItem.activity==null">
+                            <span class="assertive bold" style="font-size: 14px;">
+                               ¥{{totalPriceOfGoods(goodItem)}}
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 8px" ng-if="goodItem.activity!=null">
+                        <div style="font-size: 12px; color: red">
+                            <span>{{goodItem.activity.activityName}}</span>
+                        </div>
+                    </div>
+                    <!--套装情况-->
+                    <div style="padding: 0px 10px;overflow: hidden" ng-if="goodItem.type=='30'">
+                        <div ng-repeat="skuInfo in goodItem.ordConfirmOrderUnitExtList"
+                             style="overflow: hidden;padding: 10px 0px">
+                            <img ng-if="skuInfo.imageUrlJson" ng-src="{{skuInfo.imageUrlJson | imgPathJson}}"
+                                 style="float:left;width:80px;margin-right: 10px;">
+                            <div>
+                                <div style="font-size: 15px" class="max-line-1">{{skuInfo.goodsName}}</div>
+                                <div style="font-size: 12px;color: #666666;padding: 10px 0px">
+                                    <span>颜色:</span>
+                                    <span ng-if="skuInfo.colorName">{{skuInfo.colorName}}</span>
+                                    <span ng-if="skuInfo.skucontent">{{skuInfo.skucontent | ecSkuFilter:"color"}}</span>
+                                    <span style="margin-left: 10px">尺码:</span>
+                                    <span ng-if="skuInfo.sizeName">{{skuInfo.sizeName | sizeFilter}}</span>
+                                    <span ng-if="skuInfo.skucontent">{{skuInfo.skucontent | ecSkuFilter:"size"}}</span>
+                                </div>
+                                <div style="margin-top: 8px">
+                                    <div><span
+                                            style="font-size: 14px;text-decoration: line-through">¥{{skuInfo.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+            <textarea ng-model="comment.message" placeholder="给卖家留言,不超过100个字" rows="4"
+                      style="width: 100%;resize: none;outline: none;padding: 10px" class="bordered"></textarea>
+            </div>
+        </div>
+
+        <hr class="col-xs-12"/>
+
+        <div class="row text-right" style="margin-top: 15px;">
+            <div class="col-xs-12">
+                <span>商品合计:</span>
+                <span style="color: red;font-size: 20px">¥{{goodsTotalPrice}}</span>
+            </div>
+        </div>
+
+        <!--活动区-->
+        <div class="row" ng-if="confirmData.actMasterList!=null&&confirmData.actMasterList.length>0"
+             style="margin-top: 10px">
+            <div class="col-xs-12">
+                <label>可选活动</label>
+            </div>
+            <div class="col-xs-12">
+                <div style="background: #eeeeee;">
+                    <div ng-repeat="orderActivity in confirmData.actMasterList"
+                         style="border-bottom: 1px #dddddd solid;padding:6px 6px;overflow: hidden">
+                        <div style="width: 100%;margin-bottom: 0px"
+                             ng-click="setSelectedActivity(orderActivity.activityId)">
+                            <input type="radio" style="margin-right: 4px;overflow: hidden"
+                                   ng-value="orderActivity.activityId" ng-model="selectedOrderActivity.id">
+                            <span style="font-size:12px">{{orderActivity.activityName}}</span>
+                            <span style="color: red;float: right" ng-if="orderActivity.activityType == '41'||orderActivity.activityType == '44'">- ¥{{orderActivity.cutPrice}}</span>
+                            <span style="color: red;float: right" ng-if="orderActivity.activityType == '40'">送优惠券</span>
+                            <span style="color: red;float: right" ng-if="orderActivity.activityType == '42'">送货品</span>
+                            <span style="color: red;float: right" ng-if="orderActivity.activityType == '43'">送{{orderActivity.sendPoint}}积分</span>
+                            <span style="color: red;float: right" ng-if="orderActivity.needFee>0">+ ¥{{orderActivity.needFee}},</span>
+                            <span style="color: red;float: right" ng-if="orderActivity.needPoint>0">+ {{orderActivity.needPoint}}积分,</span>
+                        </div>
+                        <div ng-if="orderActivity.activityType == '42'&&orderActivity.activityId == selectedOrderActivity.id"
+                             style="margin-top: 5px;background: #fefefe;font-size: 13px;padding: 10px">
+                            <div style="color: #666666">请在以下货品中任选其一</div>
+                            <div ng-repeat="goods in orderActivity.sendGoodsList">
+                                <span>{{goods.goodsName}}</span>
+                                <a style="float: right;font-size: 13px;text-decoration: none;cursor: pointer"
+                                   ng-click="selectGiftSku(goods,orderActivity)">选择</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding:6px 6px;" ng-click="setSelectedActivity(-1)">
+                        <div style="width: 100%;margin-bottom: 0px">
+                            <input type="radio" style="margin-right: 4px;"
+                                   ng-value="-1" ng-model="selectedOrderActivity.id">
+                            <span style="font-size:12px ">不使用活动优惠</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--优惠券区-->
+        <div class="row" ng-if="couponList!=null&&couponList.length>0" style="margin-top: 10px">
+            <div class="col-xs-12">
+                <label>可选优惠券</label>
+            </div>
+            <div class="col-xs-12">
+                <div style="background: #eeeeee;">
+                    <div ng-repeat="coupon in couponList" ng-click="setSelectedCoupon(coupon.couponMemberId)"
+                         style="border-bottom: 1px #dddddd solid;padding:6px 6px;">
+                        <div style="width: 100%;margin-bottom: 0px">
+                            <input type="radio"
+                                   ng-value="coupon.couponMemberId" ng-model="selectedCoupon.id">
+                            <span style="font-size:12px">{{coupon.couponName}}</span>
+                            <span ng-if="coupon.couponStyle==0" style="color: red;float: right">- ¥{{coupon.worth}}</span>
+                            <span ng-if="coupon.couponStyle==1" style="color: red;float: right">{{coupon.discount}}折 - ¥{{coupon.discountPrice}}</span>
+                        </div>
+                    </div>
+                    <div style="padding:6px 6px;" ng-click="setSelectedCoupon(-1)">
+                        <div style="width: 100%;margin-bottom: 0px">
+                            <input type="radio" ng-value="-1"
+                                   ng-model="selectedCoupon.id">
+                            <span style="font-size:12px ">不使用优惠券</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-right" style="margin-top: 15px;">
+            <div class="col-xs-12">
+                <span>运费:</span>
+                <span style="color: red;font-size: 20px">¥0.00</span>
+            </div>
+        </div>
+
+        <div class="row text-right" style="margin-top: 15px;">
+            <div class="col-xs-12">
+                <span>合计:</span>
+                <span style="margin-left: 8px;font-size: 20px;color: red">¥{{orderFinalPrice}}</span>
+                <span style="margin-left: 8px;font-size: 20px;color: red" ng-if="exchangePointCount>0">+{{exchangePointCount}}积分</span>
+            </div>
+        </div>
+
+        <hr class="col-xs-12"/>
+
+        <div class="row text-right" style="margin-bottom: 30px">
+            <div class="col-xs-12">
+                <div class="btn btn-large hvr-outline-out-dark" ng-click="submitOrder(confirmForm.$valid)">提交订单</div>
+            </div>
+        </div>
+
+    </form>
+    <form id="ordMaster1" name="ordMaster1">
+        <input type="text" id="orderId" name="orderId" hidden>
+        <input type="text" id="signcode" name="signcode" hidden>
+
+        <input type="text" id="operate" name="operate" hidden>
+        <input type="text" id="storeid" name="storeid" hidden>
+        <input type="text" id="storesubid" name="storesubid" hidden>
+
+    </form>
+</div>

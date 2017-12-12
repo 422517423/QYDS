@@ -1,0 +1,66 @@
+<div class="modal fade" id="template_detail_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">模板详细</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0px">
+                <div class="row">
+                    <!-- 查询条件 -->
+                    <form id="temp_detail_act_template_form" class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">优惠类型</label>
+                                    <div class="col-md-4">
+                                        <select type="text" id="temp_detail_actition_type" name="actition_type" class="form-control"
+                                                disabled>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">模板名称</label>
+                                    <div class="col-md-4">
+                                        <input type="text" id="temp_detail_temp_name" name="temp_name" data-required="1"
+                                               class="form-control" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="div_act_rule">
+                                    <label class="col-md-2 control-label">活动规则</label>
+                                    <div class="col-md-8" style="padding: 20px 15px 0px 15px">
+                                        <div id="temp_detail_paramList" style="padding: 10px 0">
+                                            <div class="template param-item" style="padding: 5px 0">
+                                                <label class="condition-label">满</label>
+                                                <input class="condition-input" type="text" data-required="1"
+                                                       style="width: 70px;padding: 4px;outline: none; border: 1px solid #e5e5e5;">
+                                                <label class="condition-unit-label" class="control-label">件,</label>
+                                                <label class="value-label">送</label>
+                                                <input class="value-input" type="text" data-required="1"
+                                                       style="width: 70px;padding: 4px;outline: none;border: 1px solid #e5e5e5;">
+                                                <label class="value-unit-label" class="control-label">元</label>
+                                                <button class="value-detail btn-default">查看详细</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">说明</label>
+                                    <div class="col-md-8">
+                                        <textarea id="temp_detail_comment" rows="4" class="form-control" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 0">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../page/act_master/template_detail.js"></script>
+

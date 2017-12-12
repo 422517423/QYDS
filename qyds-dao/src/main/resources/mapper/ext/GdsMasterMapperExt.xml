@@ -1,0 +1,1231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.GdsMasterMapperExt" >
+
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="type_display_cn" property="typeName" jdbcType="VARCHAR" />
+    <result column="user_name" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeName" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_name" property="erpGoodsName" jdbcType="VARCHAR" />
+    <result column="maintain_status" property="maintainStatus" jdbcType="VARCHAR" />
+    <result column="status_display_cn" property="maintainStatusName" jdbcType="VARCHAR" />
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR" />
+    <result column="is_waste" property="isWaste" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="erp_brand_name" property="erpBrandName" jdbcType="VARCHAR" />
+    <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR" />
+    <result column="erp_send_type_status" property="erpSendTypeStatus" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapFroOrder" type="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="type_display_cn" property="typeName" jdbcType="VARCHAR" />
+    <result column="user_name" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeName" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_name" property="erpGoodsName" jdbcType="VARCHAR" />
+    <result column="maintain_status" property="maintainStatus" jdbcType="VARCHAR" />
+    <result column="status_display_cn" property="maintainStatusName" jdbcType="VARCHAR" />
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR" />
+    <result column="is_waste" property="isWaste" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="erp_brand_name" property="erpBrandName" jdbcType="VARCHAR" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapDetail" type="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="type_display_cn" property="typeName" jdbcType="VARCHAR" />
+    <result column="user_name" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeName" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_name" property="erpGoodsName" jdbcType="VARCHAR" />
+    <result column="maintain_status" property="maintainStatus" jdbcType="VARCHAR" />
+    <result column="status_display_cn" property="maintainStatusName" jdbcType="VARCHAR" />
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR" />
+    <result column="is_waste" property="isWaste" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+    <result column="property_json" property="propertyJson" jdbcType="VARCHAR" />
+    <result column="introduce_html" property="introduceHtml" jdbcType="VARCHAR" />
+    <result column="cms_gds_id" property="cmsGdsId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapDetailAPI" type="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="type_display_cn" property="typeName" jdbcType="VARCHAR" />
+    <result column="user_name" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_name_cn" property="goodsTypeName" jdbcType="VARCHAR" />
+    <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_name" property="erpGoodsName" jdbcType="VARCHAR" />
+    <result column="maintain_status" property="maintainStatus" jdbcType="VARCHAR" />
+    <result column="status_display_cn" property="maintainStatusName" jdbcType="VARCHAR" />
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR" />
+    <result column="is_waste" property="isWaste" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="insert_time_gds" property="insertTimeGds" jdbcType="TIMESTAMP" />
+    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+    <result column="property_json" property="propertyJson" jdbcType="VARCHAR" />
+    <result column="introduce_html" property="introduceHtml" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="size_description" property="sizeDescription" jdbcType="VARCHAR" />
+    <result column="min_price" property="minPrice" jdbcType="VARCHAR" />
+    <result column="max_price" property="maxPrice" jdbcType="VARCHAR" />
+    <result column="min_and_max_price" property="minAndMaxPrice" jdbcType="VARCHAR" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+    <result column="totalStore" property="totalStore" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="goods_type_id_path" property="goodsTypeIdPath" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapColorImage" type="net.dlyt.qyds.common.dto.GdsColoreimage" >
+    <result column="color_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="color_name" property="coloreName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="All_Base_Column_List" >
+    gds.goods_id, gds.shop_id, gds.type, gds.brand_id, gds.goods_type_id, gds.erp_style_no,
+    gds.goods_code, gds.goods_name,gds.erp_goods_code, gds.erp_goods_name, gds.maintain_status,
+    gds.is_onsell,gds.is_waste,gds.deleted,gds.update_user_id,gds.update_time, gds.insert_user_id, gds.insert_time
+  </sql>
+
+  <sql id="Base_Column_List" >
+    gds.sort,gds.goods_id, gds.shop_id, gds.type,code.display_cn as type_display_cn, gds.brand_id, gds.goods_type_id, gds.erp_style_no,
+    gds.goods_code, gds.goods_name,gds.erp_goods_code, gds.erp_goods_name, gds.maintain_status,codeStatus.display_cn as status_display_cn,
+    gds.is_onsell,gds.is_waste,gds.deleted,gds.update_user_id,gds.update_time, gds.insert_user_id,sys.user_name, gds.insert_time,
+    gdsBrand.brand_name,gdsType.goods_type_name_cn,gds.erp_brand_name
+  </sql>
+
+  <sql id="Base_Column_List_Detail" >
+    gds.goods_id, gds.shop_id, gds.type,code.display_cn as type_display_cn, gds.brand_id, gds.goods_type_id, gds.erp_style_no,
+    gds.goods_code, gds.goods_name,gds.erp_goods_code, gds.erp_goods_name, gds.maintain_status,codeStatus.display_cn as status_display_cn,
+    gds.is_onsell,gds.is_waste,gds.deleted,gds.update_user_id,gds.update_time, gds.insert_user_id,sys.user_name, gds.insert_time,
+    gdsBrand.brand_name,gdsType.goods_type_name_cn,detail.search_key,detail.property_json,detail.introduce_html
+  </sql>
+
+  <select id="getAllList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select
+    <include refid="All_Base_Column_List" />
+    from public.gds_master gds
+    where gds.deleted = '0'
+    and gds.is_onsell = '0'
+    <if test="shopId != null and !shopId.isEmpty()" >
+      and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    order by gds.update_time DESC
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select
+    <include refid="Base_Column_List" />
+    from public.view_erp_goods_goods_master gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    and gdsType.deleted= '0'
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    left join public.gds_sell sell
+    on sell.goods_id = gds.goods_id
+    and sell.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    <if test="shopId != null and !shopId.isEmpty()" >
+      and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and gds.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="goodsCode != null and !goodsCode.isEmpty()" >
+      and gds.goods_code LIKE '%' || #{goodsCode,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="maintainStatus != null and !maintainStatus.isEmpty()" >
+      and gds.maintain_status = #{maintainStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="isOnsell != null and !isOnsell.isEmpty()" >
+      and gds.is_onsell = #{isOnsell,jdbcType=VARCHAR}
+    </if>
+    <if test="cmsGoodsTypeId != null and !cmsGoodsTypeId.isEmpty()" >
+      and gds.goods_type_id_path LIKE '%' || #{cmsGoodsTypeId,jdbcType=VARCHAR}|| '%'
+    </if>
+    order by maintain_status,is_onsell,sort,sell.update_time
+    DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    count(*) as count
+    from public.view_erp_goods_goods_master gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    and gdsType.deleted= '0'
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    <if test="shopId != null and !shopId.isEmpty()" >
+      and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and gds.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="goodsCode != null and !goodsCode.isEmpty()" >
+      and gds.goods_code LIKE '%' || #{goodsCode,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="maintainStatus != null and !maintainStatus.isEmpty()" >
+      and gds.maintain_status = #{maintainStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="isOnsell != null and !isOnsell.isEmpty()" >
+      and gds.is_onsell = #{isOnsell,jdbcType=VARCHAR}
+    </if>
+    <if test="cmsGoodsTypeId != null and !cmsGoodsTypeId.isEmpty()" >
+      and gds.goods_type_id_path LIKE '%' || #{cmsGoodsTypeId,jdbcType=VARCHAR}|| '%'
+    </if>
+  </select>
+
+  <select id="selectItemByKey" resultMap="BaseResultMapDetail" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List_Detail" />
+    from public.gds_master gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    and gdsType.deleted= '0'
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    left join public.gds_detail detail
+    on detail.goods_id = gds.goods_id
+    where gds.deleted = '0' and code.deleted = '0' and detail.deleted = '0'
+    and codeStatus.deleted = '0'
+    and gds.goods_id = #{goodsId,jdbcType=VARCHAR}
+
+  </select>
+
+
+  <select id="selectViewByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.view_erp_goods_goods_master gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GOODS_TYPE'
+    and gds.type = code.value
+    LEFT JOIN public.com_code codeStatus
+    ON codeStatus.code = 'MAINTAIN_STATUS'
+    and gds.maintain_status = codeStatus.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    left join public.gds_type gdsType
+    on gds.goods_type_id = gdsType.goods_type_id
+    and gdsType.deleted= '0'
+    left join public.gds_brand gdsBrand
+    on gds.brand_id = gdsBrand.brand_id
+    and gdsBrand.deleted = '0'
+    where gds.deleted = '0' and code.deleted = '0'
+    and codeStatus.deleted = '0'
+    and gds.goods_id = #{goodsId,jdbcType=VARCHAR}
+
+  </select>
+
+
+  <select id="selectColorCodeAndName" resultMap="BaseResultMapColorImage" parameterType="java.lang.String" >
+    select distinct erpgoods.color_code,erpgoods.color_name
+    from view_erp_goods erpgoods where erpgoods.goods_code = #{erpGoodsCode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getGoodsInfo" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select gm.goods_id,gm.shop_id,gm.type,gm.goods_code,gm.goods_name,gd.image_url_json,sm.shop_name,
+    gs.sku,gs.colore_name,gs.size_name,gs.price,gs.safe_bank,(select SUM(new_count) from bnk_master join gds_master
+    on gds_master.shop_id = bnk_master.shop_id and  gds_master.goods_id = #{goodsId,jdbcType=VARCHAR} where
+    bnk_master.sku = #{goodsSkuId,jdbcType=VARCHAR}) as sumCount
+    from gds_master gm
+    left join gds_detail gd on gm.goods_type_id = gd.goods_type_id
+    left join shp_master sm on gm.shop_id = sm.shop_id
+    left join gds_sku gs on gd.goods_type_id = gs.goods_type_id
+    where gm.goods_id = #{goodsId,jdbcType=VARCHAR}
+    and gs.goods_sku_id = #{goodsSkuId,jdbcType=VARCHAR}
+    and gm.maintain_status = '30'
+    and gm.is_onsell = '1'
+    and gm.is_waste = '0'
+    and gm.deleted = '0'
+
+  </select>
+
+  <select id="selectGoodsMinAndMaxPrice" resultMap="BaseResultMapDetailAPI" parameterType="net.dlyt.qyds.common.dto.GdsMaster" >
+    select
+    <include refid="All_Base_Column_List" />, max(vos.price) as max_price, min(vos.price) as min_price,
+    gd.image_url_json as image_url_json,
+    case when (min(vos.price) = max(vos.price)) then ('¥' || max(vos.price))
+    else ('¥'  || min(vos.price)  || '~' || '¥' || max(vos.price)  ) end as min_and_max_price
+    from public.gds_master gds
+    left join view_onsell_sku_select_new2 vos on vos.goods_id = gds.goods_id
+    left join gds_detail gd on gd.goods_id = gds.goods_id
+    where gds.goods_id = #{goodsId}
+    and gds.deleted = '0'
+    and gds.is_onsell = '0'
+    group by <include refid="All_Base_Column_List" />, gd.image_url_json
+  </select>
+
+  <select id="selectSuitMinAndMaxPrice" resultMap="BaseResultMapDetailAPI" parameterType="net.dlyt.qyds.common.dto.GdsMaster" >
+    select
+    <include refid="All_Base_Column_List" />, max(vos.price) as max_price, min(vos.price) as min_price,
+    gd.image_url_json as image_url_json,
+    case when (min(vos.price) = max(vos.price)) then ('¥' || max(vos.price) )
+    else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price) ) end as min_and_max_price
+    from public.gds_master gds
+    left join gds_suitlist gu on gu.goods_id = gds.goods_id
+    left join view_onsell_sku vos on vos.goods_id = gu.goods_id_suit
+    left join gds_detail gd on gd.goods_id = gds.goods_id
+    where gds.goods_id = #{goodsId}
+    and gds.deleted = '0'
+    and gds.is_onsell = '0'
+    group by <include refid="All_Base_Column_List" />, gd.image_url_json
+  </select>
+
+  <select id="selectProductsByParameter" resultMap="BaseResultMapDetailAPI" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select * from (
+    select to_char(gds.update_time,'yyyy-mm-dd') as upTime,
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_type_name_path,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html,detail.description,detail.size_description,
+    max(vos.price) as max_price, min(vos.price) as min_price,
+    case when max(vos.price) = min(vos.price) then ('¥' || min(vos.price)) else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price)) end as min_and_max_price,
+    sum(vos.new_count) as totalStore
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    left join gds_suitlist gu on gu.goods_id = gds.goods_id
+    left join view_onsell_sku_select vos on vos.goods_id = gu.goods_id_suit
+
+    where  gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type = '30'
+
+    group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_type_name_path,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html,detail.description,detail.size_description
+
+    UNION ALL
+
+    select to_char(gds.update_time,'yyyy-mm-dd') as upTime,
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_type_name_path,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html,detail.description,detail.size_description,
+    max(vos.price) as max_price, min(vos.price) as min_price,
+    case when max(vos.price) = min(vos.price) then ('¥' || min(vos.price)) else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price)) end as min_and_max_price,
+    sum(vos.new_count) as totalStore
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    left join view_onsell_sku_select vos on vos.goods_id = gds.goods_id
+
+    where gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type != '30'
+
+    group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_type_name_path,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html,detail.description,detail.size_description
+    ) as master
+    where 1 = 1
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '20'" >
+      and master.goods_type_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '30'" >
+      and master.brand_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '40'" >
+      and master.goods_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '50'" >
+      and master.goods_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+
+    <if test="goodsId != null and !goodsId.isEmpty()" >
+      and master.goods_id = #{goodsId,jdbcType=VARCHAR}
+    </if>
+
+    <if test="goodsId != null and !goodsId.isEmpty()" >
+      and master.goods_id = #{goodsId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsCode != null and !goodsCode.isEmpty()" >
+      and master.goods_code = #{goodsCode,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsTypeId != null and !goodsTypeId.isEmpty()" >
+      and master.goods_type_id = #{goodsTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsBrandTypeId != null and !goodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id = #{goodsBrandTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="brandId != null and !brandId.isEmpty()" >
+      and master.brand_id = #{brandId,jdbcType=VARCHAR}
+    </if>
+    <if test="searchKey != null and !searchKey.isEmpty()" >
+      and master.search_key LIKE '%' || #{searchKey,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="updateTime != null" >
+      and master.update_time &lt; #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="from != null and from != 0" >
+      and master.min_price >= #{from,jdbcType=VARCHAR}
+    </if>
+    <if test="firstGoodsTypeId != null and !firstGoodsTypeId.isEmpty()" >
+      and master.goods_type_id_path LIKE '%' || #{firstGoodsTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="firstGoodsBrandTypeId != null and !firstGoodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id_path LIKE '%' || #{firstGoodsBrandTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="to != null and to != 0" >
+      and master.min_price &lt;= #{to,jdbcType=VARCHAR}
+    </if>
+    order by
+
+    <if test="(sortByTime == null || sortByTime == 0) and (sortByPrice == null || sortByPrice == 0) " >
+      master.update_time desc
+    </if>
+    <if test="sortByTime != null and sortByTime == 1" >
+      master.upTime desc
+    </if>
+    <if test="sortByTime != null and sortByTime == 2" >
+      master.upTime asc
+    </if>
+    <if test="sortByPrice != null and sortByPrice == 1" >
+      master.min_price desc
+    </if>
+    <if test="sortByPrice != null and sortByPrice == 2" >
+      master.min_price asc
+    </if>
+
+    <if test="pageSize != null and pageSize != 0 " >
+      limit #{pageSize,jdbcType=INTEGER} offset #{displayItemCount,jdbcType=INTEGER}
+    </if>
+    <if test="pageSize == null or  pageSize == 0" >
+      limit 10
+    </if>
+
+  </select>
+
+  <select id="selectProductsByParameterCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select count(*) as count from (
+    select
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html,
+    max(vos.price) as max_price, min(vos.price) as min_price,
+    ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price) ) as min_and_max_price,
+    sum(vos.new_count) as totalStore
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    left join gds_suitlist gu on gu.goods_id = gds.goods_id
+    left join view_onsell_sku_select vos on vos.goods_id = gu.goods_id_suit
+    where  gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type = '30'
+    group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html
+
+    UNION
+
+    select
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html,
+    max(vos.price) as max_price, min(vos.price) as min_price,
+    ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price) ) as min_and_max_price,
+    sum(vos.new_count) as totalStore
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    left join view_onsell_sku_select vos on vos.goods_id = gds.goods_id
+
+    where gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type != '30'
+    group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html
+    ) as master
+    where 1 = 1
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '20'" >
+      and master.goods_type_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '30'" >
+      and master.brand_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '40'" >
+      and master.goods_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '50'" >
+      and master.goods_id in (#{activitySearchKey,jdbcType=VARCHAR})
+    </if>
+    <if test="goodsId != null and !goodsId.isEmpty()" >
+      and master.goods_id = #{goodsId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsTypeId != null and !goodsTypeId.isEmpty()" >
+      and master.goods_type_id = #{goodsTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsBrandTypeId != null and !goodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id = #{goodsBrandTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="brandId != null and !brandId.isEmpty()" >
+      and master.brand_id = #{brandId,jdbcType=VARCHAR}
+    </if>
+    <if test="searchKey != null and !searchKey.isEmpty()" >
+      and master.search_key LIKE '%' || #{searchKey,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="updateTime != null" >
+      and master.update_time &lt; #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="from != null and from != 0" >
+      and master.min_price >= #{from,jdbcType=VARCHAR}
+    </if>
+    <if test="firstGoodsTypeId != null and !firstGoodsTypeId.isEmpty()" >
+      and master.goods_type_id_path LIKE '%' || #{firstGoodsTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="firstGoodsBrandTypeId != null and !firstGoodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id_path LIKE '%' || #{firstGoodsBrandTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="to != null and to != 0" >
+      and master.min_price &lt;= #{to,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="getAllDataCountByActId" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    count(*) as count
+    from (
+    select
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html
+    --, max(vos.price) as max_price, min(vos.price) as min_price,
+    --('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price) ) as min_and_max_price,
+    --sum(vos.new_count) as totalStore
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    --left join gds_suitlist gu on gu.goods_id = gds.goods_id
+    --left join view_onsell_sku_new vos on vos.goods_id = gu.goods_id_suit
+    left join view_suit_and_act_goods_id_new vsacgid on vsacgid.goods_id = gds.goods_id
+    where  gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type = '30'
+    and vsacgid.activity_id = #{activityId}
+    --group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    --gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html
+
+    UNION
+
+    select
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html
+    --, max(vos.price) as max_price, min(vos.price) as min_price,
+    --('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price) ) as min_and_max_price,
+    --sum(vos.new_count) as totalStore
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    --left join view_onsell_sku_new vos on vos.goods_id = gds.goods_id
+    left join view_skuid_and_activity_id_new vsaaid on vsaaid.goods_id = gds.goods_id
+    where gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type != '30'
+    and vsaaid.activity_id = #{activityId}
+    --group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    --gds.goods_name,gds.goods_code,detail.search_key,detail.image_url_json,gds.update_time,detail.introduce_html
+    ) as master
+    where 1 = 1
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and master.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and master.type = #{type,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectAllByActId" resultMap="BaseResultMapDetail" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select * from (
+    select
+    gds.goods_id,
+    gds.type,
+    gds.brand_id,
+    gds.goods_type_id,
+    gds.goods_name,
+    gds.goods_code,
+
+    detail.search_key,
+    detail.image_url_json,
+
+    gds.update_time,
+
+    detail.introduce_html,
+    cct.display_cn as type_display_cn,
+
+    gdsb.brand_name,
+    gt.goods_type_name_cn
+
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    left join view_suit_and_act_goods_id_new vsacgid on vsacgid.goods_id = gds.goods_id
+    left join com_code cct on cct.code = 'GOODS_TYPE' and cct.value = gds.type
+    left join gds_brand gdsb on gdsb.brand_id = gds.brand_id
+    left join gds_type gt on gt.goods_type_id = gds.goods_type_id
+    where  gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type = '30'
+    and vsacgid.activity_id = #{activityId}
+
+    UNION
+    select
+    gds.goods_id,
+    gds.type,
+    gds.brand_id,
+    gds.goods_type_id,
+    gds.goods_name,
+    gds.goods_code,
+    detail.search_key,
+    detail.image_url_json,
+    gds.update_time,
+    detail.introduce_html,
+    cct.display_cn as type_display_cn,
+    gdsb.brand_name,
+    gt.goods_type_name_cn
+    from public.gds_master gds
+    left join gds_detail detail
+    on gds.goods_id = detail.goods_id
+    and detail.deleted = '0'
+    left join view_skuid_and_activity_id_new vsaaid on vsaaid.goods_id = gds.goods_id
+    left join com_code cct on cct.code = 'GOODS_TYPE' and cct.value = gds.type
+    left join gds_brand gdsb on gdsb.brand_id = gds.brand_id
+    left join gds_type gt on gt.goods_type_id = gds.goods_type_id
+    where gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type != '30'
+    and vsaaid.activity_id = #{activityId}
+    ) as master
+    where 1 = 1
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and master.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and master.type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by master.update_time desc
+    limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectActivityItems" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select distinct t.actition_type from view_skuid_and_activity_id t
+    where t.is_onsell = '0'
+    and (t.actition_type = '10' or t.actition_type='20')
+    and  goods_id=  #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectActivityItemsForSuit" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select distinct t.actition_type from view_suit_and_act_goods_id t
+    where 1=1
+    and (t.actition_type = '10' or t.actition_type='20')
+    and t.goods_id =  #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectActivityIds" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select t.activity_id from view_goods_id_and_activity_id t
+    where  goods_id=  #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectActivityIdsForSuit" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select t.activity_id from view_suit_and_act_goods_id t
+    where t.goods_id =  #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSkuItems" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select t.skuid,t.skucontent,t.color_code,t.color_name,t.price,t.size_code,t.size_name,t.erpimg,t.new_count,erp.bnk_no_limit,erp.bnk_less_limit from view_onsell_sku t
+    left join view_erp_goods erp
+    on t.skuid = erp.sku
+    where t.is_onsell = '0' and  goods_id=  #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getColorList" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select DISTINCT t.color_code,t.color_name from view_onsell_sku t
+    where t.is_onsell = '0' and  goods_id=  #{goodsId,jdbcType=VARCHAR}
+    order by t.color_code
+  </select>
+
+  <select id="getSizeList" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select DISTINCT t.size_code,t.size_name from view_onsell_sku t
+    where t.is_onsell = '0' and  goods_id=  #{goodsId,jdbcType=VARCHAR}
+    order by t.size_code
+  </select>
+
+  <select id="selectSKUInfo" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select t.* from view_onsell_sku t
+    where t.is_onsell = '0' and  t.skuid=  #{skuId,jdbcType=VARCHAR}
+  </select>
+  <select id="getAllGoodsInfo" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select gm.shop_id,sm.shop_name,vos.* from view_onsell_sku vos
+    left join gds_master gm on vos.goods_id = gm.goods_id
+    left join shp_master sm on sm.shop_id = gm.shop_id
+    where vos.goods_id = #{goodsId,jdbcType=VARCHAR}
+    and vos.skuid = #{goodsSkuId,jdbcType=VARCHAR}
+    and vos.is_onsell = '0'
+  </select>
+
+  <select id="getSuitGoodsInfo" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select gm.shop_id,sm.shop_name,vos.*
+    from view_onsell_sku vos
+    left join gds_master gm on vos.goods_id = gm.goods_id
+    left join shp_master sm on sm.shop_id = gm.shop_id
+    where vos.skuid = #{goodsSkuId,jdbcType=VARCHAR}
+    and vos.is_onsell = '0'
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMapFroOrder" parameterType="java.lang.String" >
+    select gm.*,gd.image_url_json
+    from public.gds_master gm
+    left join gds_detail gd on gm.goods_id = gd.goods_id
+    where gm.goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getMasterGoodsByCmsId" resultMap="BaseResultMapDetail" parameterType="java.lang.String">
+    select
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    gds.goods_name,gds.goods_code,gds.update_time,cmg.insert_time,
+    cct.display_cn as type_display_cn, gdsb.brand_name, gt.goods_type_name_cn
+    ,cmg.cms_gds_id,cmg.sort
+    from public.cms_master_goods cmg
+    left join gds_master gds on gds.goods_id = cmg.goods_id
+    left join com_code cct on cct.code = 'GOODS_TYPE' and cct.value = gds.type
+    left join gds_brand gdsb on gdsb.brand_id = gds.brand_id
+    left join gds_type gt on gt.goods_type_id = gds.goods_type_id
+    where cmg.cms_id = #{cmsId}
+    group by cmg.cms_gds_id,cmg.sort,gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    gds.goods_name,gds.goods_code,gds.update_time,cmg.insert_time,
+    cct.display_cn, gdsb.brand_name, gt.goods_type_name_cn
+    order by cmg.sort ASC
+  </select>
+
+  <select id="getGoodsByGoodsId" resultMap="BaseResultMapDetail" parameterType="java.lang.String">
+    select
+    gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    gds.goods_name,gds.goods_code,gds.update_time,
+    cct.display_cn as type_display_cn, gdsb.brand_name, gt.goods_type_name_cn
+    from public.gds_master gds
+    left join com_code cct on cct.code = 'GOODS_TYPE' and cct.value = gds.type
+    left join gds_brand gdsb on gdsb.brand_id = gds.brand_id
+    left join gds_type gt on gt.goods_type_id = gds.goods_type_id
+    where 1=1
+    and gds.goods_id = #{goodsId}
+    group by gds.goods_id,gds.type,gds.brand_id,gds.goods_type_id,
+    gds.goods_name,gds.goods_code,gds.update_time,
+    cct.display_cn, gdsb.brand_name, gt.goods_type_name_cn
+    order by gds.update_time DESC
+  </select>
+
+  <select id="checkSkuByErp" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsMaster">
+    select count(*) as count from gds_coloreimage where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="checkSkuByGoods" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsMaster">
+    select count(*) as count from gds_sku where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectSendFail" resultMap="BaseResultMap">
+    select goods_id,erp_goods_code,goods_type_name_path
+    from gds_master
+    where deleted = '0'
+    and erp_send_type_status = '20'
+  </select>
+
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select goods_id
+    from gds_master
+    where deleted = '0'
+    and type = '10'
+    and goods_code = #{goodsCode}
+  </select>
+
+  <select id="getErpGoodsCodeByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select goods_id,erp_goods_code
+    from gds_master
+    where deleted = '0'
+    and type = '10'
+    and goods_id = #{goodsId}
+  </select>
+
+  <select id="selectErpByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select goods_id
+    from gds_master
+    where deleted = '0'
+    and type = '10'
+    and erp_goods_code = #{goodsCode}
+  </select>
+
+
+  <select id="selectProductsByParameterUp" resultMap="BaseResultMapDetailAPI" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select master.*
+    <if test="cmsId != null and !cmsId.isEmpty()" >
+    ,cms.sort as insert_time_gds
+    </if>
+    from (
+    select to_char(gds.insert_time,'yyyy-mm-dd') as inTime,gds.sort,
+    gds4.goods_id,gds4.min_price,gds4.max_price,gds4.min_and_max_price,
+    gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,
+    gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,
+    detail.image_url_json,sell.update_time as insert_time,detail.introduce_html
+    from (
+    select gds3.goods_id ,max(vos.price) as max_price, min(vos.price) as min_price,
+
+    case when max(vos.price) = min(vos.price) then ('¥' || min(vos.price)) else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price)) end as min_and_max_price
+    from public.gds_master gds3
+    inner join view_onsell_sku_select_new2 vos
+    on vos.goods_id = gds3.goods_id
+    <if test="sizeCode != null and !sizeCode.isEmpty()" >
+      and vos.size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and vos.size_code = #{sizeCode,jdbcType=VARCHAR}
+    </if>
+    and vos.deleted = '0'
+    and vos.is_onsell = '0'
+    and vos.type != '30'
+    group by gds3.goods_id
+
+
+    ) gds4
+
+    left join gds_detail detail on gds4.goods_id = detail.goods_id and detail.deleted = '0'
+    left join  public.gds_master gds on  gds4.goods_id = gds.goods_id
+    left join public.gds_sell sell
+    on gds4.goods_id = sell.goods_id
+    and sell.deleted = '0'
+    UNION ALL
+
+    select to_char(gds.insert_time,'yyyy-mm-dd') as inTime,gds.sort,
+    gds4.goods_id,gds4.min_price,gds4.max_price,gds4.min_and_max_price,
+
+
+    gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,
+    gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,
+    detail.image_url_json,sell.update_time as insert_time,detail.introduce_html
+
+    from (
+    select gds3.goods_id ,max(vos.price) as max_price, min(vos.price) as min_price,
+    case when max(vos.price) = min(vos.price) then ('¥' || min(vos.price)) else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price)) end as min_and_max_price
+    from public.gds_master gds3
+    inner join view_onsell_sku_select_new2 vos
+    on vos.goods_id = gds3.goods_id
+    <if test="sizeCode != null and !sizeCode.isEmpty()" >
+      and vos.size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and vos.size_code = #{sizeCode,jdbcType=VARCHAR}
+    </if>
+    and vos.deleted = '0'
+    and vos.is_onsell = '0'
+    and vos.type != '30'
+    group by gds3.goods_id
+
+    ) gds4
+    left join gds_detail detail
+    on gds4.goods_id = detail.goods_id and detail.deleted = '0'
+    left join gds_master gds on  gds4.goods_id = gds.goods_id
+    left join public.gds_sell sell
+    on gds4.goods_id = sell.goods_id
+    and sell.deleted = '0'
+    left join gds_suitlist gu on gu.goods_id = gds4.goods_id
+    where  gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type = '30'
+
+    ) as master
+    <if test="goodsIds != null and !goodsIds.isEmpty()" >
+      INNER JOIN
+      cms_master_goods cms on cms.goods_id = master.goods_id and cms.deleted = '0'
+      and cms.cms_id = #{cmsId,jdbcType=VARCHAR}
+    </if>
+    where 1 = 1
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '20'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_type_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '30'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.brand_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '40'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '50'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '60'" >
+      and (#{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+      or #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.brand_id||'%'
+      or #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_type_id||'%'
+      )
+    </if>
+
+    <if test="goodsId != null and !goodsId.isEmpty()" >
+      and master.goods_id = #{goodsId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsIds != null and !goodsIds.isEmpty()" >
+      and #{goodsIds,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+    </if>
+    <if test="goodsTypeId != null and !goodsTypeId.isEmpty()" >
+      and master.goods_type_id = #{goodsTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsBrandTypeId != null and !goodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id = #{goodsBrandTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="brandId != null and !brandId.isEmpty()" >
+      and master.brand_id = #{brandId,jdbcType=VARCHAR}
+    </if>
+    <if test="searchKey != null and !searchKey.isEmpty()" >
+      and lower(master.search_key) LIKE '%' || #{searchKey,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="insertTime != null" >
+      <if test="sort != null" >
+        and ((master.sort is null and master.insert_time &lt; #{insertTime,jdbcType=TIMESTAMP}) or (master.sort is not null and master.sort > #{sort}) )
+      </if>
+      <if test="sort == null" >
+        and (master.sort is null and master.insert_time &lt; #{insertTime,jdbcType=TIMESTAMP})
+      </if>
+    </if>
+    <if test="insertTimeGds != null and insertTimeGds != 0" >
+      and cms.sort > #{insertTimeGds}
+    </if>
+    <if test="from != null and from != 0" >
+      and master.min_price >= #{from,jdbcType=VARCHAR}
+    </if>
+    <if test="firstGoodsTypeId != null and !firstGoodsTypeId.isEmpty()" >
+      and master.goods_type_id_path LIKE '%' || #{firstGoodsTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="firstGoodsBrandTypeId != null and !firstGoodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id_path LIKE '%' || #{firstGoodsBrandTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="to != null and to != 0" >
+      and master.min_price &lt;= #{to,jdbcType=VARCHAR}
+    </if>
+    order by
+
+    <if test="(sortByTime == null || sortByTime == 0) and (sortByPrice == null || sortByPrice == 0) " >
+      master.sort,master.insert_time desc
+    </if>
+    <if test="sortByTime != null and sortByTime == 1" >
+      master.insert_time desc
+    </if>
+    <if test="sortByTime != null and sortByTime == 2" >
+      master.insert_time asc
+    </if>
+    <if test="sortByPrice != null and sortByPrice == 1" >
+      master.min_price desc
+    </if>
+    <if test="sortByPrice != null and sortByPrice == 2" >
+      master.min_price asc
+    </if>
+    <if test="goodsIds != null and !goodsIds.isEmpty() and sortByTime != null and sortByTime == 3" >
+      cms.sort asc
+    </if>
+    <if test="pageSize != null and pageSize != 0 " >
+      limit #{pageSize,jdbcType=INTEGER} offset #{displayItemCount,jdbcType=INTEGER}
+    </if>
+    <if test="pageSize == null or  pageSize == 0" >
+      limit 10
+    </if>
+
+  </select>
+
+  <select id="selectProductsByParameterCountUp" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select count(1) as count from (
+    select
+    gds4.goods_id,gds4.min_price,gds4.max_price,gds4.min_and_max_price,
+    gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,
+    gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,
+    detail.image_url_json,gds.update_time,detail.introduce_html
+    from (
+    select gds3.goods_id ,max(vos.price) as max_price, min(vos.price) as min_price,
+    case when max(vos.price) = min(vos.price) then ('¥' || min(vos.price)) else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price)) end as min_and_max_price
+    from public.gds_master gds3
+    inner join view_onsell_sku_select_new2 vos
+    on vos.goods_id = gds3.goods_id
+    <if test="sizeCode != null and !sizeCode.isEmpty()" >
+      and vos.size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and vos.size_code = #{sizeCode,jdbcType=VARCHAR}
+    </if>
+    and vos.deleted = '0'
+    and vos.is_onsell = '0'
+    and vos.type != '30'
+    group by gds3.goods_id
+    ) gds4
+
+    left join gds_detail detail on gds4.goods_id = detail.goods_id and detail.deleted = '0'
+    left join  public.gds_master gds on  gds4.goods_id = gds.goods_id
+
+    UNION ALL
+
+    select
+    gds4.goods_id,gds4.min_price,gds4.max_price,gds4.min_and_max_price,
+    gds.type,gds.brand_id,gds.goods_type_id,gds.goods_brand_type_id,
+    gds.goods_type_id_path,gds.goods_brand_type_id_path,
+    gds.goods_name,gds.goods_code,detail.search_key,
+    detail.image_url_json,gds.update_time,detail.introduce_html
+
+    from (
+    select gds3.goods_id ,max(vos.price) as max_price, min(vos.price) as min_price,
+    case when max(vos.price) = min(vos.price) then ('¥' || min(vos.price)) else ('¥' || min(vos.price) ||  '~' || '¥' || max(vos.price)) end as min_and_max_price
+    from public.gds_master gds3
+    inner join view_onsell_sku_select_new2 vos
+    on vos.goods_id = gds3.goods_id
+    <if test="sizeCode != null and !sizeCode.isEmpty()" >
+      and vos.size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and vos.size_code = #{sizeCode,jdbcType=VARCHAR}
+    </if>
+    and vos.deleted = '0'
+    and vos.is_onsell = '0'
+    and vos.type != '30'
+    group by gds3.goods_id
+    ) gds4
+    left join gds_detail detail
+    on gds4.goods_id = detail.goods_id and detail.deleted = '0'
+    left join gds_master gds on  gds4.goods_id = gds.goods_id
+    left join gds_suitlist gu on gu.goods_id = gds4.goods_id
+    where  gds.deleted = '0'
+    and gds.is_onsell = '0'
+    and gds.type = '30'
+    ) as master
+    where 1 = 1
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '20'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_type_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '30'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.brand_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '40'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '50'" >
+      and #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+    </if>
+    <if test="activityType != null and !activityType.isEmpty() and activityType == '60'" >
+      and (#{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+      or #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.brand_id||'%'
+      or #{activitySearchKey,jdbcType=VARCHAR} like '%'||master.goods_type_id||'%'
+      )
+    </if>
+    <if test="goodsId != null and !goodsId.isEmpty()" >
+      and master.goods_id = #{goodsId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsIds != null and !goodsIds.isEmpty()" >
+      and #{goodsIds,jdbcType=VARCHAR} like '%'||master.goods_id||'%'
+    </if>
+    <if test="goodsTypeId != null and !goodsTypeId.isEmpty()" >
+      and master.goods_type_id = #{goodsTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="goodsBrandTypeId != null and !goodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id = #{goodsBrandTypeId,jdbcType=VARCHAR}
+    </if>
+    <if test="brandId != null and !brandId.isEmpty()" >
+      and master.brand_id = #{brandId,jdbcType=VARCHAR}
+    </if>
+    <if test="searchKey != null and !searchKey.isEmpty()" >
+      and master.search_key LIKE '%' || #{searchKey,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="updateTime != null" >
+      and master.update_time &lt; #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="from != null and from != 0" >
+      and master.min_price >= #{from,jdbcType=VARCHAR}
+    </if>
+    <if test="firstGoodsTypeId != null and !firstGoodsTypeId.isEmpty()" >
+      and master.goods_type_id_path LIKE '%' || #{firstGoodsTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="firstGoodsBrandTypeId != null and !firstGoodsBrandTypeId.isEmpty()" >
+      and master.goods_brand_type_id_path LIKE '%' || #{firstGoodsBrandTypeId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="to != null and to != 0" >
+      and master.min_price &lt;= #{to,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <resultMap id="BaseRMap" type="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    <result column="size_type_code" property="sizeTypeCode" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="size_type_name" property="sizeTypeMame" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="getSizeCodeListByfirstErp" resultMap="BaseRMap" parameterType="java.lang.String">
+select distinct foo.size_type_code,foo.size_type_name,foo.size_code,foo.size_name,foo.size_sort from (
+    select e.size_type_code,e.size_type_name,e.size_code,e.size_name,e.size_sort
+    from
+    gds_master g,
+    (select goods_code,size_type_code,size_type_name,size_sort,size_code,size_name
+    from view_erp_goods
+    group by goods_code,size_type_code,size_type_name,size_sort,size_code,size_name) e
+    where g.goods_code=e.goods_code
+    and g.type='10'
+    and g.is_onsell='0'
+    and g.goods_type_id_path LIKE '%' || #{firstGoodsTypeId,jdbcType=VARCHAR} || '%'
+    group by g.goods_type_id,g.goods_type_id_path,e.size_type_code,e.size_type_name,e.size_sort,e.size_code,e.size_name
+    order by g.goods_type_id,e.size_type_code,e.size_sort) as foo
+    order by foo.size_type_code,foo.size_sort
+  </select>
+
+  <select id="getSizeCodeListByfirstBrandErp" resultMap="BaseRMap" parameterType="java.lang.String">
+    select distinct foo.size_type_code,foo.size_type_name,foo.size_code,foo.size_name,foo.size_sort from (
+    select e.size_type_code,e.size_type_name,e.size_code,e.size_name,e.size_sort
+    from
+    gds_master g,
+    (select goods_code,size_type_code,size_type_name,size_sort,size_code,size_name
+    from view_erp_goods
+    group by goods_code,size_type_code,size_type_name,size_sort,size_code,size_name) e
+    where g.goods_code=e.goods_code
+    and g.type='10'
+    and g.is_onsell='0'
+    and g.goods_brand_type_id_path LIKE '%' || #{firstBrandGoodsTypeId,jdbcType=VARCHAR} || '%'
+    group by g.goods_brand_type_id,g.goods_brand_type_id_path,e.size_type_code,e.size_type_name,e.size_sort,e.size_code,e.size_name
+    order by g.goods_brand_type_id,e.size_type_code,e.size_sort) as foo
+    order by foo.size_type_code,foo.size_sort
+  </select>
+
+  <select id="getSizeCodeListByGoodsIdsErp" resultMap="BaseRMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt">
+    select distinct foo.size_type_code,foo.size_type_name,foo.size_code,foo.size_name,foo.size_sort from (
+    select e.size_type_code,e.size_type_name,e.size_code,e.size_name,e.size_sort
+    from
+    gds_master g,
+    (select goods_code,size_type_code,size_type_name,size_sort,size_code,size_name
+    from view_erp_goods
+    group by goods_code,size_type_code,size_type_name,size_sort,size_code,size_name) e
+    where g.goods_code=e.goods_code
+    and g.type='10'
+    and g.is_onsell='0'
+    <if test="goodsIds != null and !goodsIds.isEmpty()" >
+      and #{goodsIds,jdbcType=VARCHAR} like '%'||g.goods_id||'%'
+    </if>
+    group by g.goods_brand_type_id,g.goods_brand_type_id_path,e.size_type_code,e.size_type_name,e.size_sort,e.size_code,e.size_name
+    order by g.goods_brand_type_id,e.size_type_code,e.size_sort) as foo
+    order by foo.size_type_code,foo.size_sort
+  </select>
+
+  <select id="getSizeCodeListByErp" resultMap="BaseRMap" parameterType="java.lang.String">
+    select distinct foo.size_type_code,foo.size_type_name,foo.size_code,foo.size_name,foo.size_sort from (
+    select e.size_type_code,e.size_type_name,e.size_code,e.size_name,e.size_sort
+    from
+    gds_master g,
+    (select goods_code,size_type_code,size_type_name,size_sort,size_code,size_name
+    from view_erp_goods
+    group by goods_code,size_type_code,size_type_name,size_sort,size_code,size_name) e
+    where g.goods_code=e.goods_code
+    and g.type='10'
+    and g.is_onsell='0'
+    and master.goods_type_id = #{goodsTypeId,jdbcType=VARCHAR}
+    group by g.goods_type_id,g.goods_type_id_path,e.size_type_code,e.size_type_name,e.size_sort,e.size_code,e.size_name
+    order by g.goods_type_id,e.size_type_code,e.size_sort) as foo
+    order by foo.size_type_code,foo.size_sort
+  </select>
+
+  <select id="getGoodsListByGoodsCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="All_Base_Column_List" />
+    from public.gds_master gds
+    WHERE gds.goods_code in (${_parameter})
+  </select>
+
+  <select id="getIdBySku" resultType="java.lang.String" parameterType="java.lang.String" >
+    select m.goods_id
+    from gds_master m,erp_goods e
+    WHERE m.deleted = '0'
+    and m.erp_goods_code = e.goods_code
+    and e.sku = #{sku,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

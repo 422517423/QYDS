@@ -1,0 +1,86 @@
+{
+  "code": "200",
+  "message": "success",
+  "results": [
+    {
+      "brandNm": "个罗那啊啊啊啊啊",
+      "brandId": "12345678",
+      "goods":[
+        {
+          "no": "87654323",
+          "name":"aaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "status": "等发货",
+          "discounted":"200",
+          "price":"380",
+          "img":"",
+          "count":"2",
+          "total":"720",
+          "color":"红色",
+          "size":"M"
+        },{
+          "no": "87654323",
+          "name":"bbbbb",
+          "status": "等发货",
+          "discounted":"200",
+          "price":"380",
+          "img":"",
+          "count":"2",
+          "total":"720",
+          "color":"蓝色",
+          "size":"S"
+        },{
+          "no": "87654323",
+          "name":"",
+          "status": "等发货",
+          "discounted":"",
+          "price":"380",
+          "img":"",
+          "count":"2",
+          "total":"720",
+          "color":"红色",
+          "size":"M"
+        }
+    ]
+    },
+    {
+      "brandNm": "个罗那啊啊啊啊啊",
+      "brandId": "12345678",
+      "goods":[
+        {
+          "no": "87654323",
+          "name":"aaaaaaaaaaaa",
+          "status": "等发货",
+          "discounted":"200",
+          "price":"380",
+          "img":"",
+          "count":"2",
+          "total":"720",
+          "color":"红色",
+          "size":"M"
+        },{
+          "no": "87654323",
+          "name":"bbbbb",
+          "status": "等发货",
+          "discounted":"200",
+          "price":"380",
+          "img":"",
+          "count":"2",
+          "total":"720",
+          "color":"绿色",
+          "size":"M"
+        },{
+          "no": "87654323",
+          "name":"",
+          "status": "等发货",
+          "discounted":"",
+          "price":"380",
+          "img":"",
+          "count":"2",
+          "total":"720",
+          "color":"红色",
+          "size":"M"
+        }
+      ]
+    }
+  ]
+}

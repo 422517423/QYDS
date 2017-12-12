@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.CouponOrderMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.CouponOrder" >
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_infact" property="payInfact" jdbcType="NUMERIC" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="deliver_status" property="deliverStatus" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliverTime" jdbcType="TIMESTAMP" />
+    <result column="can_return" property="canReturn" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, coupon_id, member_id, order_time, pay_status, pay_type, pay_infact, pay_time, 
+    deliver_status, deliver_time, can_return, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.coupon_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.coupon_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.CouponOrder" >
+    insert into public.coupon_order (order_id, coupon_id, member_id, 
+      order_time, pay_status, pay_type, 
+      pay_infact, pay_time, deliver_status, 
+      deliver_time, can_return, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time)
+    values (#{orderId,jdbcType=VARCHAR}, #{couponId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{orderTime,jdbcType=TIMESTAMP}, #{payStatus,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, 
+      #{payInfact,jdbcType=NUMERIC}, #{payTime,jdbcType=TIMESTAMP}, #{deliverStatus,jdbcType=VARCHAR}, 
+      #{deliverTime,jdbcType=TIMESTAMP}, #{canReturn,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.CouponOrder" >
+    insert into public.coupon_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payInfact != null" >
+        pay_infact,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status,
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time,
+      </if>
+      <if test="canReturn != null" >
+        can_return,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payInfact != null" >
+        #{payInfact,jdbcType=NUMERIC},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverStatus != null" >
+        #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="canReturn != null" >
+        #{canReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.CouponOrder" >
+    update public.coupon_order
+    <set >
+      <if test="couponId != null" >
+        coupon_id = #{couponId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payInfact != null" >
+        pay_infact = #{payInfact,jdbcType=NUMERIC},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="canReturn != null" >
+        can_return = #{canReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.CouponOrder" >
+    update public.coupon_order
+    set coupon_id = #{couponId,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      pay_status = #{payStatus,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_infact = #{payInfact,jdbcType=NUMERIC},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+      deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+      can_return = #{canReturn,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

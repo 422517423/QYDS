@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysSmsCaptchaMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.SysSmsCaptcha" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="captcha" property="captcha" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seq, org_id, mobile, captcha, is_valid, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.SysSmsCaptcha" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.sys_sms_captcha
+    where  is_valid = '0'
+    <if test="seq != null" >
+      and seq = #{seq,jdbcType=INTEGER}
+    </if>
+    <if test="orgId != null" >
+      and org_id = #{orgId,jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null" >
+      and mobile = #{mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="captcha != null" >
+      and captcha = #{captcha,jdbcType=VARCHAR}
+    </if>
+    <if test="createUser != null" >
+      and create_user = #{createUser,jdbcType=VARCHAR}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateUser != null" >
+      and update_user = #{updateUser,jdbcType=VARCHAR}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    order by update_time desc
+    limit 1
+  </select>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.SysSmsCaptcha" >
+    insert into public.sys_sms_captcha
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        seq,
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="captcha != null" >
+        captcha,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      nextval('sys_sms_captcha_seq_seq'),
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="captcha != null" >
+        #{captcha,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      now()
+    </trim>
+  </insert>
+</mapper>

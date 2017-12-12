@@ -1,0 +1,266 @@
+<ion-view style="background-color:#efefef">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<div class="h1 title" style="font-size:24px;">登录</div>-->
+    <!--<button class="button no-animation button-icon icon ion-close-round" ng-click="goBack()"></button>-->
+    <!--</ion-header-bar>-->
+    <ion-content class="">
+        <div style="background-color:#ffffff;margin:8px 0px;padding:0px">
+            <div class="row" style="padding: 15px;font-size: 18px;">
+                <div class="col col-50" ng-click="selectTab(0)" style="padding:5px 0;text-align:center;" ng-class="{'0':'purchaseInfoTab-focus'}[purchaseInfo.tab]">
+                    进行中
+                </div>
+                <div class="col col-50" ng-click="selectTab(1)" style="padding:5px 0;text-align:center;" ng-class="{'1':'purchaseInfoTab-focus'}[purchaseInfo.tab]">
+                    已完成
+                </div>
+            </div>
+        </div>
+        <div class="" style="padding:20px 15px;color:#000000;">
+            <div ng-if="purchaseInfo.tab==0">
+                <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;position:relative;">
+                    <div  style="left:71%;top:8px;position:relative;padding:5px 0;border-radius:5px;border:1px solid #066BA2;width:90px;" ng-click="openMorePopover($event,'shopcart');">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="margin-left:2px;color:#066BA2;font-size:14px;"></i>
+                        <span style="display:inline-block;position:absolute;top:5px;color:#066BA2; font-size:16px;">查看指标</span>
+                    </div>
+                    <div class="row row-center" style="margin-top:15px;padding:6px 5px;height:42px;border-top:1px solid #efefef;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：动力煤</span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">公司：保密</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="margin-top:20px;">
+                        <div class="col col-70 col-center" style="padding:0;">
+                            <div style="text-align:left;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+                        </div>
+                        <div class="col col-30">
+                            <button ng-click="onOffer(0)" class="button button-small" style="border-radius:5px;padding:0 8px;font-size:16px;color:#ffffff;background-color:#066BA2;">
+                                我要报价
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;position:relative;margin-top:15px;">
+                    <div  style="left:71%;top:8px;position:relative;padding:5px 0;border-radius:5px;border:1px solid #066BA2;width:90px;" ng-click="openMorePopover($event,'shopcart');">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="margin-left:2px;color:#066BA2;font-size:16px;"></i>
+                        <span style="display:inline-block;position:absolute;top:5px;color:#066BA2; font-size:16px;">查看指标</span>
+                    </div>
+                    <div class="row row-center" style="margin-top:15px;padding:6px 5px;height:42px;border-top:1px solid #efefef;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：焦煤</span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">公司：保密</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="margin-top:20px;">
+                        <div class="col col-70 col-center" style="padding:0;">
+                            <div style="text-align:left;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+                        </div>
+                        <div class="col col-30">
+                            <button ng-click="onOffer(1)" class="button button-small" style="border-radius:5px;padding:0 8px;font-size:16px;color:#ffffff;background-color:#066BA2;">
+                                我要报价
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;position:relative;margin-top:15px;">
+                    <div  style="left:71%;top:8px;position:relative;padding:5px 0;border-radius:5px;border:1px solid #066BA2;width:90px;" ng-click="openMorePopover($event,'shopcart');">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="margin-left:2px;color:#066BA2;font-size:16px;"></i>
+                        <span style="display:inline-block;position:absolute;top:5px;color:#066BA2; font-size:16px;">查看指标</span>
+                    </div>
+                    <div class="row row-center" style="margin-top:15px;padding:6px 5px;height:42px;border-top:1px solid #efefef;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：焦炭</span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">公司：保密</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="margin-top:20px;">
+                        <div class="col col-70 col-center" style="padding:0;">
+                            <div style="text-align:left;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+                        </div>
+                        <div class="col col-30">
+                            <button ng-click="onOffer(2)" class="button button-small" style="border-radius:5px;padding:0 8px;font-size:16px;color:#ffffff;background-color:#066BA2;">
+                                我要报价
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="purchaseInfo.tab==1">
+                <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;position:relative;">
+                    <div  style="left:71%;top:8px;position:relative;padding:5px 0;border-radius:5px;border:1px solid #066BA2;width:90px;" ng-click="openMorePopover($event,'shopcart');">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="margin-left:2px;color:#066BA2;font-size:16px;"></i>
+                        <span style="display:inline-block;position:absolute;top:5px;color:#066BA2; font-size:16px;">查看指标</span>
+                    </div>
+                    <div class="row row-center" style="margin-top:15px;padding:6px 5px;height:42px;border-top:1px solid #efefef;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：动力煤</span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">公司：山东分公司</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="margin-top:20px;">
+                        <div class="col col-70 col-center" style="padding:0;">
+                            <div style="text-align:left;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+                        </div>
+                        <div class="col col-30">
+                            <button ng-click="onDetail(0)" class="button button-small" style="border-radius:5px;padding:0 8px;font-size:16px;color:#ffffff;background-color:#066BA2;">
+                                查看详细
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;position:relative;margin-top:15px;">
+                    <div  style="left:71%;top:8px;position:relative;padding:5px 0;border-radius:5px;border:1px solid #066BA2;width:90px;" ng-click="openMorePopover($event,'shopcart');">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="margin-left:2px;color:#066BA2;font-size:16px;"></i>
+                        <span style="display:inline-block;position:absolute;top:5px;color:#066BA2; font-size:16px;">查看指标</span>
+                    </div>
+                    <div class="row row-center" style="margin-top:15px;padding:6px 5px;height:42px;border-top:1px solid #efefef;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：焦煤</span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">公司：华东分公司</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="margin-top:20px;">
+                        <div class="col col-70 col-center" style="padding:0;">
+                            <div style="text-align:left;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+                        </div>
+                        <div class="col col-30">
+                            <button ng-click="onDetail(1)" class="button button-small" style="border-radius:5px;padding:0 8px;font-size:16px;color:#ffffff;background-color:#066BA2;">
+                                查看详细
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;position:relative;margin-top:15px;">
+                    <div  style="left:71%;top:8px;position:relative;padding:5px 0;border-radius:5px;border:1px solid #066BA2;width:90px;" ng-click="openMorePopover($event,'shopcart');">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="margin-left:2px;color:#066BA2;font-size:16px;"></i>
+                        <span style="display:inline-block;position:absolute;top:5px;color:#066BA2; font-size:16px;">查看指标</span>
+                    </div>
+                    <div class="row row-center" style="margin-top:15px;padding:6px 5px;height:42px;border-top:1px solid #efefef;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：焦炭</span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">公司：广东分公司</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                        </div>
+                        <div class="col col-50 col-center" style="padding:5px 0">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="margin-top:20px;">
+                        <div class="col col-70 col-center" style="padding:0;">
+                            <div style="text-align:left;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+                        </div>
+                        <div class="col col-30">
+                            <button ng-click="onDetail(2)" class="button button-small" style="border-radius:5px;padding:0 8px;font-size:16px;color:#ffffff;background-color:#066BA2;">
+                                查看详细
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
