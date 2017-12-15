@@ -112,7 +112,7 @@
         from PUBLIC.mmb_point_record mpr
         where mpr.deleted = '0'
         and mpr.point_surplus &gt; 0
-        and to_char(mpr.point_time , 'yyyyMM') = to_char(#{pointTime,jdbcType=TIMESTAMP} -  interval '36 month' , 'yyyyMM')
+        and to_char(mpr.point_time , 'yyyyMM') = to_char(#{pointTime,jdbcType=TIMESTAMP} -  interval '24 month' , 'yyyyMM')
         GROUP by mpr.member_id
     </select>
     <select id="selectNotifyPoint" resultMap="CountSubPointResultMap">
