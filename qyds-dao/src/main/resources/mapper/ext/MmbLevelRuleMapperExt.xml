@@ -17,6 +17,8 @@
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
         <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <!-- 20171214-->
+        <result column="point_cumulative" property="pointCumulative" jdbcType="NUMERIC"/>
     </resultMap>
 
     <resultMap id="ResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbLevelRuleExt">
@@ -37,6 +39,9 @@
         <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
         <result column="insert_user_name" property="insertUserName" jdbcType="VARCHAR"/>
         <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+
+        <!-- 20171214-->
+        <result column="point_cumulative" property="pointCumulative" jdbcType="NUMERIC"/>
     </resultMap>
 
     <select id="selectAll" resultMap="ResultMapExt" parameterType="net.dlyt.qyds.common.form.MmbLevelRuleForm">
@@ -45,7 +50,7 @@
         mlr.member_level_id, mlr.member_level_code, mlr.point_lower,mlr.point_upper,
         mlr.discount, mlr.point_ratio, mlr.comment, mlr.deleted, mlr.update_user_id, mlr.update_time,
         mlr.insert_user_id,
-        mlr.insert_time, mlr.point_single,
+        mlr.insert_time, mlr.point_single, mlr.point_cumulative,
         su1.user_name as insert_user_name, su2.user_name as update_user_name,mmc.member_count,
         cc.display_cn as member_level_name
         from public.mmb_level_rule mlr

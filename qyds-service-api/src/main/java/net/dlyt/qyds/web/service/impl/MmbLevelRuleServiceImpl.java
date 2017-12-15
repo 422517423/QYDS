@@ -169,6 +169,8 @@ public class MmbLevelRuleServiceImpl implements MmbLevelRuleService {
 
             levelRule.setPointRatio(form.getPointRatio());
             levelRule.setPointSingle(form.getPointSingle());
+            // TODO: 2017/12/14
+            levelRule.setPointCumulative(form.getPointCumulative());
             levelRule.setPointLower(form.getPointLower());
             levelRule.setPointUpper(form.getPointUpper());
             levelRule.setDiscount(form.getDiscount());
@@ -265,6 +267,8 @@ public class MmbLevelRuleServiceImpl implements MmbLevelRuleService {
             levelRule.setPointUpper(form.getPointUpper());
             levelRule.setPointLower(form.getPointLower());
             levelRule.setPointSingle(form.getPointSingle());
+            // TODO: 2017/12/14
+            levelRule.setPointCumulative(form.getPointCumulative());
             levelRule.setInsertTime(date);
             levelRule.setInsertUserId(userId);
             levelRule.setUpdateUserId(userId);

@@ -46,6 +46,7 @@ function initTable() {
             {"mData": "memberCount"},
             {"mData": "pointRatio"},
             {"mData": "pointSingle"},
+            {"mData": "pointCumulative"},<!--20171214-->
             {"mData": "pointLower"},
             {"mData": "pointUpper"},
             {"mData": "discount"},

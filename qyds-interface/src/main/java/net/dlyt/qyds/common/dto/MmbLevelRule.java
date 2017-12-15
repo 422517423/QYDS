@@ -35,11 +35,24 @@ public class MmbLevelRule implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // TODO: 2017/12/14 累计消费
+    private Integer pointCumulative;
+
+    public Integer getPointCumulative() {
+        return pointCumulative;
+    }
+
+    public void setPointCumulative(Integer pointCumulative) {
+        this.pointCumulative = pointCumulative;
+    }
+
     public String getMemberLevelId() {
         return memberLevelId;
     }
 
+
     public void setMemberLevelId(String memberLevelId) {
+
         this.memberLevelId = memberLevelId == null ? null : memberLevelId.trim();
     }
 

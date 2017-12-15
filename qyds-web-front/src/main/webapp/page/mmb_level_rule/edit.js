@@ -132,7 +132,8 @@ function getDetail() {
             $("#point_upper_edit").val(data.data.pointUpper);
             $("#discount_edit").val(data.data.discount);
             $("#comment_edit").val(data.data.comment);
-
+            /*20171214*/
+            $("#point_cumulative_edit").val(data.data.pointCumulative);
         } else {
             $("#mmbLevelRuleEditArea").modal('hide');
             showAlert('取得失败,原因:' + data.resultMessage);
@@ -159,6 +160,8 @@ function save() {
         memberLevelCode: $("#member_level_code_edit").val(),
         pointRatio: $("#point_radio_edit").val(),
         pointSingle: $("#point_single_edit").val(),
+        /* 20171214*/
+        pointCumulative: $("#point_cumulative_edit").val(),
         pointLower: $("#point_lower_edit").val(),
         pointUpper: $("#point_upper_edit").val(),
         discount: $("#discount_edit").val(),
