@@ -29,7 +29,7 @@
         <!--远程服务器-->
         <!--<property name="url" value="jdbc:postgresql://114.215.78.85:5432/postgres" />-->
         <!--远程服务器-->
-         <property name="url" value="jdbc:postgresql://localhost:5432/test" />
+         <!--<property name="url" value="jdbc:postgresql://localhost:5432/test" />-->
 
         <!--测试服务器-->
         <!-- <property name="url" value="jdbc:postgresql://127.0.0.1:5432/postgres" />-->
@@ -42,8 +42,18 @@
         <property name="password" value="zaq1ZAQ!" />-->
         <!--远程服务器-->
 
-        <property name="username" value="postgres" />
-        <property name="password" value="root" />
+        <!--<property name="username" value="postgres" />-->
+        <!--<property name="password" value="root" />-->
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="jdbc:postgresql://120.26.230.73:5432/qyds_test" />
+        <!--<property name="url" value="jdbc:postgresql://127.0.0.1:5432/postgres_new" />-->
+        <!--<property name="url" value="jdbc:postgresql://120.26.230.73:5432/qyds_test" />-->
+
+        <property name="username" value="postgres"/>
+        <!--<property name="password" value="zaq1ZAQ!" />-->
+        <property name="password" value="DLYT@dlyt.net20150112" />
+
+
 
         <!--测试服务器-->
         <!-- <property name="username" value="postgres" />
