@@ -39,19 +39,26 @@
     <result column="oldphone" property="oldphone" jdbcType="VARCHAR" />
     <result column="erp_send_cancle_status" property="erpSendCancleStatus" jdbcType="VARCHAR" />
     <result column="un_used_time" property="unUsedTime" jdbcType="VARCHAR" />
+    <!--累计消费-->
+    <result column="point_cumulative" property="pointCumulative" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     member_id, type, open_id, member_name, nick_name, telephone, password, point, all_point, 
     member_level_id, birthdate, member_pic, email, sex, referrer_id, id_card, regist_style, 
     is_valid, deleted, update_user_id, update_time, insert_user_id, insert_time, profession, 
     income, post_code, address, province_code, province_name, city_code, city_name, district_code, 
-    district_name, erp_send_status, oldphone, erp_send_cancle_status, un_used_time
+    district_name, erp_send_status, oldphone, erp_send_cancle_status, un_used_time ，point_cumulative
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from public.mmb_master
     where member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllMaster" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM public.mmb_master
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from public.mmb_master
