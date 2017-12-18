@@ -3,6 +3,8 @@ package net.dlyt.qyds.dao;
 import net.dlyt.qyds.common.dto.MmbMaster;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MmbMasterMapper {
     int deleteByPrimaryKey(String memberId);
@@ -16,4 +18,6 @@ public interface MmbMasterMapper {
     int updateByPrimaryKeySelective(MmbMaster record);
 
     int updateByPrimaryKey(MmbMaster record);
+
+    List<MmbMaster> selectAllMaster();
 }

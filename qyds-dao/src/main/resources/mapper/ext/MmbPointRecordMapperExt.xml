@@ -96,7 +96,7 @@
             where mpr.deleted = '0'
             and mpr.point_surplus &gt; 0
             and mpr.member_id = #{memberId}
-            and to_char(mpr.point_time , 'yyyyMM') &gt; to_char(now() -  interval '36 month' , 'yyyyMM')
+            and to_char(mpr.point_time , 'yyyyMM') &gt; to_char(now() -  interval '24 month' , 'yyyyMM')
             order by mpr.point_time, mpr.record_no
     </select>
 
@@ -124,7 +124,7 @@
         and (m.telephone is not null or trim(m.telephone) != '')
         where p.deleted = '0'
         and p.point_surplus > 0
-        and to_char(p.point_time , 'yyyyMM') &lt;= to_char(now() -  interval '37 month' , 'yyyyMM')
+        and to_char(p.point_time , 'yyyyMM') &lt;= to_char(now() -  interval '25 month' , 'yyyyMM')
         GROUP by p.member_id,telephone
     </select>
 
@@ -135,7 +135,7 @@
        mpr.update_time = now()
         where mpr.deleted = '0'
         and mpr.point_surplus &gt; 0
-        and to_char(mpr.point_time , 'yyyyMM') = to_char(#{pointTime,jdbcType=TIMESTAMP} -  interval '36 month' , 'yyyyMM')
+        and to_char(mpr.point_time , 'yyyyMM') = to_char(#{pointTime,jdbcType=TIMESTAMP} -  interval '24 month' , 'yyyyMM')
     </update>
 
     <select id="selectErpPointByMemberd" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -193,7 +193,7 @@
         where mpr.deleted = '0'
         and mpr.point_surplus = 0
         and (mpr.type = '11' or mpr.type = '91' or mpr.type = '21')
-        and (mpr.point_time &lt; (current_date - 30) and mpr.insert_user_id = 'ERP')
+        and (mpr.point_time &lt; (current_date - 15) and mpr.insert_user_id = 'ERP')
         union
         select mpr.*
         from PUBLIC.mmb_point_record mpr
@@ -201,7 +201,7 @@
         where mpr.deleted = '0'
         and mpr.point_surplus = 0
         and (mpr.type = '11' or mpr.type = '91' or mpr.type = '21')
-        and (mpr.point_time &lt; (current_date - 30) and mpr.insert_user_id != 'ERP')
+        and (mpr.point_time &lt; (current_date - 15) and mpr.insert_user_id != 'ERP')
         --and ord.trade_status = '20'
     </select>
 

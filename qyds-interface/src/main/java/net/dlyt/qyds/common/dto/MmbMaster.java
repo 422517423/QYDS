@@ -43,6 +43,17 @@ public class MmbMaster implements Serializable {
     private String erpSendCancleStatus;
     private String unUsedTime;
 
+    public Integer getPointCumulative() {
+        return pointCumulative;
+    }
+
+    public void setPointCumulative(Integer pointCumulative) {
+        this.pointCumulative = pointCumulative;
+    }
+
+    //累计消费
+    private Integer pointCumulative;
+
     public String getMemberId() {
         return memberId;
     }
