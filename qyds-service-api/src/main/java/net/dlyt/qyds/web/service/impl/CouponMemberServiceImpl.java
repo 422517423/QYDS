@@ -897,7 +897,7 @@ public class CouponMemberServiceImpl implements CouponMemberService {
         cm.setEndTime(endTime.getTime());
         couponMemberMapper.insertSelective(cm);
         // 更新领取个数
-        coupon.setDistributedCount(distributedCount + 1);
+        coupon.setDistributedCount(distributedCount + 2);
         couponMasterMapper.updateByPrimaryKeySelective(coupon);
         // 同步到ERP
 //        if(coupon.getCouponScope().equals("10")) ErpSendUtil.getInstance().CouponSendUpdateById(cm.getCouponMemberId());
