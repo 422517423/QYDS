@@ -39,7 +39,6 @@
         <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
         <result column="insert_user_name" property="insertUserName" jdbcType="VARCHAR"/>
         <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
-
         <!-- 20171214-->
         <result column="point_cumulative" property="pointCumulative" jdbcType="NUMERIC"/>
     </resultMap>
@@ -128,7 +127,6 @@
         <result column="current_level_name" property="currentLevelName" jdbcType="VARCHAR"/>
         <result column="approval_level_id" property="approvalLevelId" jdbcType="VARCHAR"/>
         <result column="approval_level_name" property="approvalLevelName" jdbcType="VARCHAR"/>
-
         <result column="all_point" property="allPoint" jdbcType="INTEGER"/>
         <result column="max_point" property="pointSingle" jdbcType="INTEGER"/>
 

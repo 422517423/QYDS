@@ -78,6 +78,8 @@
     <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
     <result column="district_name" property="districtName" jdbcType="VARCHAR" />
     <result column="oldphone" property="oldphone" jdbcType="VARCHAR" />
+    <!--累计消费-->
+    <result column="point_cumulative" property="pointCumulative" jdbcType="INTEGER" />
   </resultMap>
 
   <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
@@ -97,7 +99,7 @@
     birthdate, member_pic, email, sex, referrer_id, id_card, regist_style, is_valid,
     deleted, update_user_id, update_time, insert_user_id, insert_time,profession,
     income, post_code, address, province_code, province_name, city_code, city_name, district_code,
-    district_name,oldphone
+    district_name,oldphone,point_cumulative
   </sql>
 
   <select id="selectAll" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.ext.MmbMasterExt" >

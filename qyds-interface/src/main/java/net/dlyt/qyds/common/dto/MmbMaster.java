@@ -1,7 +1,6 @@
 package net.dlyt.qyds.common.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class MmbMaster implements Serializable {
@@ -42,20 +41,18 @@ public class MmbMaster implements Serializable {
     private String erpSendStatus;
     private String oldphone;
     private String erpSendCancleStatus;
-
     private String unUsedTime;
 
-    // TODO: 2017/12/15 添加会员累计消费
-    private BigDecimal allPrice;
-
-
-    public BigDecimal getAllPrice() {
-        return allPrice;
+    public Integer getPointCumulative() {
+        return pointCumulative;
     }
 
-    public void setAllPrice(BigDecimal allPrice) {
-        this.allPrice = allPrice;
+    public void setPointCumulative(Integer pointCumulative) {
+        this.pointCumulative = pointCumulative;
     }
+
+    //累计消费
+    private Integer pointCumulative;
 
     public String getMemberId() {
         return memberId;

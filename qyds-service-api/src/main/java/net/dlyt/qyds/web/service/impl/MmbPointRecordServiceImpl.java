@@ -589,6 +589,9 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
             master.setAllPoint(master.getAllPoint() + point_add - point_sub - point_exc - point_return + point_present);
             master.setUpdateTime(date);
             master.setUpdateUserId(userid);
+            //添加会员购物后将积分加入累计消费
+//            master.setPointCumulative(master.getAllPoint());
+            master.setPointCumulative(master.getPointCumulative()+ point_add - point_sub - point_exc - point_return + point_present);
 
             // 更新会员主表信息
             mmbMasterMapper.updateByPrimaryKeySelective(master);

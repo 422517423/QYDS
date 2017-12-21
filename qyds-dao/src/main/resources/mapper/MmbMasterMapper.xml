@@ -39,22 +39,26 @@
     <result column="oldphone" property="oldphone" jdbcType="VARCHAR" />
     <result column="erp_send_cancle_status" property="erpSendCancleStatus" jdbcType="VARCHAR" />
     <result column="un_used_time" property="unUsedTime" jdbcType="VARCHAR" />
-
-    <!--20171215添加累计消费字段-->
-    <result column="all_price" property="allPrice" jdbcType="NUMERIC" />
+    <!--累计消费-->
+    <result column="point_cumulative" property="pointCumulative" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     member_id, type, open_id, member_name, nick_name, telephone, password, point, all_point, 
     member_level_id, birthdate, member_pic, email, sex, referrer_id, id_card, regist_style, 
     is_valid, deleted, update_user_id, update_time, insert_user_id, insert_time, profession, 
     income, post_code, address, province_code, province_name, city_code, city_name, district_code, 
-    district_name, erp_send_status, oldphone, erp_send_cancle_status, un_used_time, all_price
+    district_name, erp_send_status, oldphone, erp_send_cancle_status, un_used_time ，point_cumulative
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from public.mmb_master
     where member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllMaster" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM public.mmb_master
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from public.mmb_master
@@ -73,7 +77,7 @@
       province_code, province_name, city_code, 
       city_name, district_code, district_name, 
       erp_send_status, oldphone, erp_send_cancle_status, 
-      un_used_time, all_price)
+      un_used_time)
     values (#{memberId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
       #{memberName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{allPoint,jdbcType=INTEGER}, 
@@ -86,7 +90,7 @@
       #{provinceCode,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
       #{cityName,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, #{districtName,jdbcType=VARCHAR}, 
       #{erpSendStatus,jdbcType=VARCHAR}, #{oldphone,jdbcType=VARCHAR}, #{erpSendCancleStatus,jdbcType=VARCHAR}, 
-      #{unUsedTime,jdbcType=VARCHAR}, #{allPrice,jdbcType=VARCHAR})
+      #{unUsedTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.MmbMaster" >
     insert into public.mmb_master
@@ -202,9 +206,6 @@
       <if test="unUsedTime != null" >
         un_used_time,
       </if>
-      <if test="allPrice != null" >
-        all_price,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="memberId != null" >
@@ -317,9 +318,6 @@
       </if>
       <if test="unUsedTime != null" >
         #{unUsedTime,jdbcType=VARCHAR},
-      </if>
-      <if test="allPrice != null" >
-        #{allPrice,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -434,9 +432,6 @@
       <if test="unUsedTime != null" >
         un_used_time = #{unUsedTime,jdbcType=VARCHAR},
       </if>
-      <if test="allPrice != null" >
-        all_price = #{allPrice,jdbcType=VARCHAR},
-      </if>
     </set>
     where member_id = #{memberId,jdbcType=VARCHAR}
   </update>
@@ -477,8 +472,7 @@
       erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
       oldphone = #{oldphone,jdbcType=VARCHAR},
       erp_send_cancle_status = #{erpSendCancleStatus,jdbcType=VARCHAR},
-      un_used_time = #{unUsedTime,jdbcType=VARCHAR},
-      all_price = #{allPrice,jdbcType=VARCHAR}
+      un_used_time = #{unUsedTime,jdbcType=VARCHAR}
     where member_id = #{memberId,jdbcType=VARCHAR}
   </update>
 </mapper>

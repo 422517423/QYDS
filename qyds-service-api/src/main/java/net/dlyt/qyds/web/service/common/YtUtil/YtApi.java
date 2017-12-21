@@ -195,6 +195,31 @@ public class YtApi {
         return result;
     }
 
+    public static String cancelYto(OrdSubListExt subOrder) throws Exception{
+        subOrderId = subOrder.getSubOrderId();
+        String requestData= /*"<?xml version=\"1.0\" encoding=\"utf-8\" ?>"+*/
+                "<UpdateInfo>" +
+                        // 物流公司ID（YTO）
+                        "<logisticProviderID>YTO</logisticProviderID>" +
+                        // 客户编码（电商标识，由圆通人员给出）
+                        "<clientID>"+AppKey+"</clientID>" +
+                        // 物流号(现在先默认子订单表中的子订单id
+                       /* "<txLogisticID>"+subOrder.getSubOrderId()+"</txLogisticID>" +*/
+                        "<txLogisticID>"+ YtApi.subOrderId +"</txLogisticID>" +
+                        "<infoType>INSTRUCTION</infoType>" +
+                        "<infoContent>WITHDRAW</infoContent>" +
+                        "<remark>商品没了</remark>"+
+                        "</UpdateInfo>";
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
+        params.put("data_digest",urlEncoder(encrypt(requestData, AppKey, "UTF-8"),"UTF-8"));
+        params.put("clientId", "TEST");
+        params.put("type", "online");
+        String result=sendPost(ReqURL, params);
+        //根据公司业务处理返回的信息
+        return result;
+    }
+
 
     /**
      * @param str

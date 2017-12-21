@@ -94,7 +94,7 @@ public interface MmbPointRecordMapperExt {
      * 满足条件:
      * 1-消费积分及生日积分(积分不生效状态)
      * 2.1-购物订单为完成状态
-     * 2.2-ERP数据为积分时间超过三十天
+     * 2.2-ERP数据为积分时间超过15天
      *
      * @return
      */
