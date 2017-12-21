@@ -76,6 +76,9 @@ public class MmbMasterServiceImpl implements MmbMasterService {
     private WxMpService wxMpService;
     @Autowired
     private PrizeDrawService prizeDrawService;
+    // TODO: 2017/12/15 临时
+    @Autowired
+    private OrdMasterMapperExt ordMasterMapperExt;
 
     public List<MmbMasterExt> selectAll(MmbMasterExt ext) {
         return mmbMasterMapperExt.selectAll(ext);
@@ -178,7 +181,7 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             int retInsert = mmbMasterMapper.insertSelective(user);
             json.put("data", user);
             if (retInsert == 1) {
-                try{
+                try {
                     // TODO @崔 注册券发送调用在此处
                     // 获取注册劵
                     CouponMaster regCoupon = couponMasterMapperExt.selectRegisterCoupon();
@@ -194,7 +197,7 @@ public class MmbMasterServiceImpl implements MmbMasterService {
 
                     if (null != user.getBirthdate() && checkBirthdate(user.getBirthdate())) {
                         // 获取生日劵
-                        if(StringUtil.isEmpty(user.getMemberLevelId())){
+                        if (StringUtil.isEmpty(user.getMemberLevelId())) {
                             throw new ExceptionErrorData("会员级别不存在，无法取得生日劵!");
                         }
                         CouponMaster coupon = couponMasterMapperExt.selectBirthdayCoupon(user.getMemberLevelId());
@@ -213,21 +216,21 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                         form.setStartTime(c.getTime());
                         couponMemberService.addBirthdayCouponsForUser(form, coupon);
                     }
-                }catch (Exception e){
-                    System.out.println("发放注册劵或生日劵失败,原因:"+e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("发放注册劵或生日劵失败,原因:" + e.getMessage());
                 }
 
                 // 发放注册抽奖活动
-                try{
+                try {
                     prizeDrawService.addPrizeDrawOppo(user.getMemberId(), null, ComCode.PrizeDrawOppoType.REGISTER, null);
-                }catch (Exception e){
-                    System.out.println("发放注册抽奖活动失败,原因:"+e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("发放注册抽奖活动失败,原因:" + e.getMessage());
                 }
 
                 // 写入ERP
 //                json = updateMasterToERP(user.getMemberId());
 //                json = ErpSendUtil.getInstance().VIPUpdateById(user.getMemberId());
-                ErpSendUtil.VIPUpdate(user,mmbMasterMapperExt,mmbMasterMapper);
+                ErpSendUtil.VIPUpdate(user, mmbMasterMapperExt, mmbMasterMapper);
             } else {
                 json.put("resultCode", Constants.FAIL);
                 json.put("resultMessage", "注册失败,服务器异常");
@@ -335,10 +338,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
         if (user != null && !StringUtils.isEmpty(user.getMemberId())) {
 
             MmbMaster master = mmbMasterMapper.selectByPrimaryKey(user.getMemberId());
-            if(master == null){
+            if (master == null) {
                 MmbSaler mmbSaler = mmbSalerMapper.selectByPrimaryKey(user.getMemberId());
                 master = new MmbMaster();
-                BeanUtils.copyProperties(mmbSaler,master);
+                BeanUtils.copyProperties(mmbSaler, master);
             }
 
             if (master == null || !"0".equals(master.getDeleted())) {
@@ -350,7 +353,7 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                     // 生日是今天
                     try {
                         // 获取生日劵
-                        if(StringUtil.isEmpty(user.getMemberLevelId())){
+                        if (StringUtil.isEmpty(user.getMemberLevelId())) {
                             throw new ExceptionErrorData("会员级别不存在，无法取得生日劵!");
                         }
                         CouponMaster coupon = couponMasterMapperExt.selectBirthdayCoupon(user.getMemberLevelId());
@@ -377,12 +380,12 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             user = getAddressInfo(user);
             //修改电话号码
             //修改电话重复检查
-            if(!StringUtil.isEmpty(user.getTelephone()) && !StringUtil.isEmpty(master.getTelephone())
-                    && !master.getTelephone().equals(user.getTelephone())){
+            if (!StringUtil.isEmpty(user.getTelephone()) && !StringUtil.isEmpty(master.getTelephone())
+                    && !master.getTelephone().equals(user.getTelephone())) {
                 MmbMaster mmbMasterCheck = new MmbMaster();
                 mmbMasterCheck.setTelephone(user.getTelephone());
                 int hvCount = mmbMasterMapperExt.getCountBySelective(mmbMasterCheck);
-                if (hvCount>0) {
+                if (hvCount > 0) {
 //                    throw new ExceptionErrorParam("该号码已注册");
                     json.put("resultCode", Constants.FAIL);
                     json.put("resultMessage", "该号码已注册");
@@ -393,9 +396,9 @@ public class MmbMasterServiceImpl implements MmbMasterService {
 
             int ret = mmbMasterMapper.updateByPrimaryKeySelective(user);
             boolean isSendErp = true;
-            if(ret == 0){
+            if (ret == 0) {
                 MmbSaler record = new MmbSaler();
-                BeanUtils.copyProperties(user,record);
+                BeanUtils.copyProperties(user, record);
                 ret = mmbSalerMapper.updateByPrimaryKeySelective(record);
                 isSendErp = false;
             }
@@ -406,10 +409,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
 //                ErpSendUtil.VIPUpdateById(user.getMemberId(),mmbMasterMapperExt,mmbMasterMapper);
                 String memberId = user.getMemberId();
                 user = mmbMasterMapper.selectByPrimaryKey(memberId);
-                if(user == null){
+                if (user == null) {
                     MmbSaler mmbSaler = mmbSalerMapper.selectByPrimaryKey(memberId);
                     user = new MmbMaster();
-                    BeanUtils.copyProperties(mmbSaler,user);
+                    BeanUtils.copyProperties(mmbSaler, user);
                 }
                 if (user == null) {
                     json.put("resultCode", Constants.FAIL);
@@ -417,16 +420,16 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                 } else {
 
                     MmbMasterExt rMmbMaster = new MmbMasterExt();
-                    BeanUtils.copyProperties(user,rMmbMaster);
+                    BeanUtils.copyProperties(user, rMmbMaster);
                     //内购组获取
                     rMmbMaster.setIsSaller("0");
                     MmbGroupMember mmbGroupMember = new MmbGroupMember();
                     mmbGroupMember.setMemberId(rMmbMaster.getMemberId());
                     List<MmbGroupMemberExt> list = mmbGroupMemberMapper.select(mmbGroupMember);
-                    for(MmbGroupMemberExt mmbGroupMemberExt : list){
+                    for (MmbGroupMemberExt mmbGroupMemberExt : list) {
                         String groupId = mmbGroupMemberExt.getGroupId();
-                        if("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
-                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)){
+                        if ("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
+                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)) {
                             rMmbMaster.setIsSaller("1");
                             break;
                         }
@@ -436,8 +439,8 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                     json.put("resultCode", Constants.NORMAL);
 //                json = updateMasterToERP(user.getMemberId());
 //                json = ErpSendUtil.getInstance().VIPUpdateById(user.getMemberId());
-                    if(isSendErp){
-                        ErpSendUtil.VIPUpdate(user,mmbMasterMapperExt,mmbMasterMapper);
+                    if (isSendErp) {
+                        ErpSendUtil.VIPUpdate(user, mmbMasterMapperExt, mmbMasterMapper);
                     }
                     //ErpSendUtil.VIPUpdate(user,mmbMasterMapperExt,mmbMasterMapper);
                 }
@@ -500,8 +503,8 @@ public class MmbMasterServiceImpl implements MmbMasterService {
 
             user.setIsValid("1");
             Date date = new Date();
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            String str=sdf.format(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String str = sdf.format(date);
             user.setUnUsedTime(str);
             int ret = mmbMasterMapper.updateByPrimaryKeySelective(user);
             MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(user.getMemberId());
@@ -527,8 +530,8 @@ public class MmbMasterServiceImpl implements MmbMasterService {
 
             user.setIsValid("0");
             Date date = new Date();
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-            String str=sdf.format(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String str = sdf.format(date);
             user.setUnUsedTime(str);
             int ret = mmbMasterMapper.updateByPrimaryKeySelective(user);
             MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(user.getMemberId());
@@ -550,12 +553,12 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                 // 获取信息
                 MmbMasterExt rMmbMaster = mmbMasterMapperExt.selectBySelective(user);
                 // 如果获取不到去店员表中去获取
-                if(rMmbMaster == null){
+                if (rMmbMaster == null) {
                     MmbSaler mmbSaler = new MmbSaler();
                     mmbSaler.setMemberId(user.getMemberId());
                     MmbSalerExt ext = mmbSalerMapperExt.selectBySelective(mmbSaler);
                     rMmbMaster = new MmbMasterExt();
-                    BeanUtils.copyProperties(ext,rMmbMaster);
+                    BeanUtils.copyProperties(ext, rMmbMaster);
 
                     //获取用户的组织信息
                     MmbSalerExt mmbSalerExt = mmbSalerMapperExt.getUserOrgInfo(ext.getTelephone());
@@ -598,10 +601,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                 MmbGroupMember mmbGroupMember = new MmbGroupMember();
                 mmbGroupMember.setMemberId(rMmbMaster.getMemberId());
                 List<MmbGroupMemberExt> list = mmbGroupMemberMapper.select(mmbGroupMember);
-                for(MmbGroupMemberExt mmbGroupMemberExt : list){
+                for (MmbGroupMemberExt mmbGroupMemberExt : list) {
                     String groupId = mmbGroupMemberExt.getGroupId();
-                    if("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
-                            || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)){
+                    if ("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
+                            || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)) {
                         rMmbMaster.setIsSaller("1");
                         break;
                     }
@@ -638,10 +641,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                     MmbGroupMember mmbGroupMember = new MmbGroupMember();
                     mmbGroupMember.setMemberId(rMmbMaster.getMemberId());
                     List<MmbGroupMemberExt> list = mmbGroupMemberMapper.select(mmbGroupMember);
-                    for(MmbGroupMemberExt mmbGroupMemberExt : list){
+                    for (MmbGroupMemberExt mmbGroupMemberExt : list) {
                         String groupId = mmbGroupMemberExt.getGroupId();
-                        if("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
-                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)){
+                        if ("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
+                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)) {
                             rMmbMaster.setIsSaller("1");
                             break;
                         }
@@ -664,10 +667,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                     MmbGroupMember mmbGroupMember = new MmbGroupMember();
                     mmbGroupMember.setMemberId(rMmbMaster.getMemberId());
                     List<MmbGroupMemberExt> list = mmbGroupMemberMapper.select(mmbGroupMember);
-                    for(MmbGroupMemberExt mmbGroupMemberExt : list){
+                    for (MmbGroupMemberExt mmbGroupMemberExt : list) {
                         String groupId = mmbGroupMemberExt.getGroupId();
-                        if("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
-                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)){
+                        if ("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
+                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)) {
                             rMmbMaster.setIsSaller("1");
                             break;
                         }
@@ -722,10 +725,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                     MmbGroupMember mmbGroupMember = new MmbGroupMember();
                     mmbGroupMember.setMemberId(rMmbMaster.getMemberId());
                     List<MmbGroupMemberExt> list = mmbGroupMemberMapper.select(mmbGroupMember);
-                    for(MmbGroupMemberExt mmbGroupMemberExt : list){
+                    for (MmbGroupMemberExt mmbGroupMemberExt : list) {
                         String groupId = mmbGroupMemberExt.getGroupId();
-                        if("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
-                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)){
+                        if ("0b2df2d0-af2c-49e0-ad24-6c0447f634f3".equals(groupId)
+                                || "8822a72b-3e37-43cb-8413-0f5c41a77b63".equals(groupId)) {
                             rMmbMaster.setIsSaller("1");
                             break;
                         }
@@ -858,15 +861,15 @@ public class MmbMasterServiceImpl implements MmbMasterService {
         JSONObject json = new JSONObject();
         try {
             //参数检查
-            if(user == null) {
+            if (user == null) {
                 throw new ExceptionErrorParam("参数错误");
             }
             String memberId = user.getMemberId();
-            if(StringUtil.isEmpty(memberId)) {
+            if (StringUtil.isEmpty(memberId)) {
                 throw new ExceptionErrorParam("未传会员ID");
             }
             String newphone = user.getTelephone();
-            if(StringUtil.isEmpty(newphone)) {
+            if (StringUtil.isEmpty(newphone)) {
                 throw new ExceptionErrorParam("未传新手机号码");
             }
             MmbMaster master = mmbMasterMapper.selectByPrimaryKey(user.getMemberId());
@@ -881,7 +884,7 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             MmbMaster mmbMasterCheck = new MmbMaster();
             mmbMasterCheck.setTelephone(newphone);
             int hvCount = mmbMasterMapperExt.getCountBySelective(mmbMasterCheck);
-            if (hvCount>0) {
+            if (hvCount > 0) {
                 throw new ExceptionErrorParam("该号码已注册");
             }
             //号码更新
@@ -894,7 +897,7 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             master.setOldphone(master.getTelephone());
             master.setTelephone(newphone);
 //            ErpSendUtil.getInstance().VIPUpdate(master);
-            json = ErpSendUtil.VIPUpdate(master,mmbMasterMapperExt,mmbMasterMapper);
+            json = ErpSendUtil.VIPUpdate(master, mmbMasterMapperExt, mmbMasterMapper);
             json.put("resultCode", Constants.NORMAL);
         } catch (Exception e) {
             json.put("resultCode", Constants.FAIL);
@@ -972,11 +975,11 @@ public class MmbMasterServiceImpl implements MmbMasterService {
         JSONObject json = new JSONObject();
         try {
             //参数检查
-            if(user == null) {
+            if (user == null) {
                 throw new ExceptionErrorParam("参数错误");
             }
             String memberId = user.getMemberId();
-            if(StringUtil.isEmpty(memberId)) {
+            if (StringUtil.isEmpty(memberId)) {
                 throw new ExceptionErrorParam("未传会员ID");
             }
             if (StringUtils.isEmpty(user.getMemberLevelId())) {
@@ -999,7 +1002,7 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             master.setUpdateTime(new Date());
 //            updateLevelToERP(master);
 //            ErpSendUtil.getInstance().VIPUpdate(master);
-            ErpSendUtil.VIPUpdate(master,mmbMasterMapperExt,mmbMasterMapper);
+            ErpSendUtil.VIPUpdate(master, mmbMasterMapperExt, mmbMasterMapper);
             json.put("resultCode", Constants.NORMAL);
         } catch (Exception e) {
             json.put("resultCode", Constants.FAIL);
@@ -1013,10 +1016,10 @@ public class MmbMasterServiceImpl implements MmbMasterService {
         JSONObject json = new JSONObject();
         try {
             //参数检查
-            if(StringUtil.isEmpty(mmbMaster.getMemberId())){
+            if (StringUtil.isEmpty(mmbMaster.getMemberId())) {
                 throw new ExceptionErrorParam("缺少参数");
             }
-            if(StringUtil.isEmpty(mmbMaster.getServerId())){
+            if (StringUtil.isEmpty(mmbMaster.getServerId())) {
                 throw new ExceptionErrorParam("缺少参数");
             }
             //从微信服务器下载文件,下载后的件为targetFile
@@ -1024,15 +1027,15 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             String suffix = ".jpg";
             String savedPath = fileServerConfig.getStoragePath() + "/orignal";
             String subPath = "/" + "CMS_MASTER" + "/" + id.substring(0, 2) + "/";
-            String fileName =  id  + suffix;
+            String fileName = id + suffix;
 
             File parentFile = new File(savedPath + subPath);
             if (!parentFile.exists()
-                    && !parentFile.isDirectory()){
+                    && !parentFile.isDirectory()) {
                 parentFile.mkdir();
             }
 
-            String targetFile =  savedPath + subPath + fileName;
+            String targetFile = savedPath + subPath + fileName;
             File file = wxMpService.mediaDownload(mmbMaster.getServerId());
             FileOperator.copyFile(file.getAbsolutePath(), targetFile);
 
@@ -1041,8 +1044,8 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             master.setMemberId(mmbMaster.getMemberId());
             master.setMemberPic(subPath + fileName);
             mmbMasterMapper.updateByPrimaryKeySelective(master);
-            json.put("url",subPath + fileName);
-            json.put("imageId",id);
+            json.put("url", subPath + fileName);
+            json.put("imageId", id);
             json.put("data", subPath + fileName);
 
             json.put("resultCode", Constants.NORMAL);
@@ -1057,9 +1060,9 @@ public class MmbMasterServiceImpl implements MmbMasterService {
     public JSONObject selectReport() {
         JSONObject json = new JSONObject();
         try {
-                List<MmbMasterExt> list = mmbMasterMapperExt.selectReport();
-                json.put("data", list);
-                json.put("resultCode", Constants.NORMAL);
+            List<MmbMasterExt> list = mmbMasterMapperExt.selectReport();
+            json.put("data", list);
+            json.put("resultCode", Constants.NORMAL);
         } catch (Exception e) {
             json.put("resultCode", Constants.FAIL);
             json.put("resultMessage", e.getMessage());
@@ -1135,5 +1138,26 @@ public class MmbMasterServiceImpl implements MmbMasterService {
     @Override
     public List<MmbMasterExt> export(MmbMasterExt ext) {
         return mmbMasterMapperExt.export(ext);
+    }
+
+
+    // TODO: 2017/12/15 临时方法 获取客户总消费金额
+    @Override
+    public void searchMasterAllPrice() {
+        // 获取客户总金额
+        List<OrdMasterExt> ordMasterExtList = ordMasterMapperExt.searchMasterAllPrice();
+        if(ordMasterExtList != null && ordMasterExtList.size() > 0){
+            for(int i=0;i<ordMasterExtList.size();i++){
+                // 根据客户id，查询客户主表
+                MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(ordMasterExtList.get(i).getMemberId());
+                if(mmbMaster != null ){
+                    // 更新客户主表中的客户总消费金额
+                    mmbMaster.setAllPrice(ordMasterExtList.get(i).getAllPrice());
+                    mmbMasterMapper.updateByPrimaryKeySelective(mmbMaster);
+
+                    // 根据客户注册年限和当前年限对比，判断是否大于等于2年，如果符合，则改变客户的等于为普通客户
+                }
+            }
+        }
     }
 }

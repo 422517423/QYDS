@@ -89,6 +89,8 @@
     <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
     <result column="insert_time1" property="insertTimeString" jdbcType="VARCHAR" />
 
+    <!-- 20171215 临时字段 客户总消费金额-->
+    <result column="all_price" property="allPrice" jdbcType="NUMERIC" />
   </resultMap>
 
   <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
@@ -1010,6 +1012,13 @@
     <if test="orderId == null or orderId.isEmpty()" >
       order by om.update_time DESC
     </if>
+  </select>
+
+  <!--20171215 临时方法 获取客户总消费金额-->
+  <select id="searchMasterAllPrice" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select sum(pay_infact) as all_price ,member_id
+    from public.ord_master
+    group by member_id
   </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package net.dlyt.qyds.web.service;
 
 import com.alibaba.fastjson.JSONObject;
 import net.dlyt.qyds.common.dto.MmbMaster;
+import net.dlyt.qyds.common.dto.OrdMasterExt;
 import net.dlyt.qyds.common.dto.ext.MmbMasterExt;
 import net.dlyt.qyds.common.form.MmbMasterForm;
 
@@ -52,4 +53,7 @@ public interface MmbMasterService {
     JSONObject selectReport();
 
     List<MmbMasterExt> export(MmbMasterExt ext);
+
+    // TODO: 2017/12/15 临时方法 获取客户总消费金额
+    void searchMasterAllPrice();
 }

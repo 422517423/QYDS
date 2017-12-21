@@ -17,25 +17,27 @@ public class OrdTransferListExt extends OrdTransferList {
     //调货状态名称
     private String transferStatusName;
 
-    //收货人姓名
+    // TODO: 2017/12/18 添加了圆通字段
+    //商品名称
     private String goodsName;
     //收货人姓名
     private String applyContactor;
-    //收货人姓名
+    //收货人省份
     private String applyPname;
-    //收货人
+    //收货城市
     private String applyCname;
-    //调货状态名称
+    //收货人区域
     private String applyDname;
-    //调货状态名称
+    //收货人地址
     private String applyAddress1;
-    //调货状态名称
+    //发货人省份
     private String dispatchPname;
-    //调货状态名称
+    //发货人城市
     private String dispatchCname;
-    //调货状态名称
+    //发货人区域
     private String dispatchDname;
-    //调货状态名称
+    //发货人地址
+    private String dispatchAddress1;
 
     @Override
     public String getGoodsName() {
@@ -120,8 +122,6 @@ public class OrdTransferListExt extends OrdTransferList {
     public void setDispatchAddress1(String dispatchAddress1) {
         this.dispatchAddress1 = dispatchAddress1;
     }
-
-    private String dispatchAddress1;
 
     public int getsEcho() {
         return sEcho;

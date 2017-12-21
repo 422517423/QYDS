@@ -230,5 +230,6 @@ public interface OrdMasterMapperExt {
      */
     List<OrdMasterExt> excelExport(OrdMasterExt ordMasterExt);
 
-
+    // TODO: 2017/12/15 临时方法 获取客户总消费金额
+    List<OrdMasterExt> searchMasterAllPrice();
 }

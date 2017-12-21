@@ -2,6 +2,7 @@ package net.dlyt.qyds.common.dto;
 
 import net.dlyt.qyds.common.form.ActMasterForm;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -129,6 +130,17 @@ public class OrdMasterExt extends OrdMaster {
     //excel子订单
     private List<OrdSubListExt> OrdSubListExtList;
     private String insertTimeString;
+
+    // TODO: 2017/12/15 总消费金额 临时字段
+    private BigDecimal allPrice;
+
+    public BigDecimal getAllPrice() {
+        return allPrice;
+    }
+
+    public void setAllPrice(BigDecimal allPrice) {
+        this.allPrice = allPrice;
+    }
 
     public List<OrdSubListExt> getOrdSubListExtList() {
         return OrdSubListExtList;

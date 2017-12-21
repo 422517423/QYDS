@@ -2,6 +2,7 @@ package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.ErpStoreExt;
 import net.dlyt.qyds.common.form.OrdDispatchForm;
@@ -1006,14 +1007,17 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
             }
             bnkRecordsMapper.insertSelective(bnkRecords);
 
-            json.put("resultCode", Constants.NORMAL);
-            // 创建订单
-            String result = YtApi.getOrderTracesByXml(ordMaster,subOrder, sysUser ,0);
-            // 创建失败回滚
-            if(!result.contains("<success>true</success>")){
-               TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-               json.put("resultCode", Constants.FAIL);
+            // 判断如果是物流发货则创建圆通订单，如果是门店id，则不用创建圆通订单
+            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType())){
+                // 创建圆通订单
+                String result = YtApi.getOrderTracesByXml(ordMaster,subOrder, sysUser ,0);
+                // 创建失败回滚
+                if(!result.contains("<success>true</success>")){
+                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                    json.put("resultCode", Constants.FAIL);
+                }
             }
+            json.put("resultCode", Constants.NORMAL);
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             json.put("resultCode", Constants.FAIL);

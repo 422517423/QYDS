@@ -3,6 +3,8 @@ package net.dlyt.qyds.web.controller.mmb_master;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import net.dlyt.qyds.common.dto.MmbMaster;
+import net.dlyt.qyds.common.dto.OrdMaster;
+import net.dlyt.qyds.common.dto.OrdMasterExt;
 import net.dlyt.qyds.common.dto.ext.MmbMasterExt;
 import net.dlyt.qyds.common.form.MmbMasterForm;
 import net.dlyt.qyds.web.common.Constants;
@@ -469,5 +471,14 @@ public class MmbMasterController {
 
         return style;
 
+    }
+
+    @RequestMapping("searchMasterAllPrice")
+    public void searchMasterAllPrice() {
+        try {
+            mmbMasterService.searchMasterAllPrice();
+        } catch (Exception e) {
+
+        }
     }
 }
