@@ -648,10 +648,10 @@ public class CouponMasterServiceImpl implements CouponMasterService {
                 throw new ExceptionErrorData("审批状态不正确");
             }
             // 如果是生日劵,要顶掉之前的生日劵
-            // 如果是注册劵,要顶掉之前的注册劵
+            // 放开：如果是注册劵,要顶掉之前的注册劵
             // 将所有的生日劵变成deleted
-            if (ComCode.CouponType.BIRTHDAY_SEND.equals(coupon.getCouponType())
-                    || ComCode.CouponType.REGIST_SEND.equals(coupon.getCouponType())) {
+            if (ComCode.CouponType.BIRTHDAY_SEND.equals(coupon.getCouponType())){
+//                    || ComCode.CouponType.REGIST_SEND.equals(coupon.getCouponType())) {
                 couponMasterMapperExt.setOnlyCoupon(coupon);
             }
             coupon.setApproveContent(form.getApproveContent());
