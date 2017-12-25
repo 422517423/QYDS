@@ -209,9 +209,10 @@ public class CouponMasterServiceImpl implements CouponMasterService {
                 }
             }
 
-            // 生日劵或注册劵必须限制使用天数
+            // 生日劵必须限制使用天数
             if (ComCode.CouponType.BIRTHDAY_SEND.equals(form.getCouponType())
-                    || ComCode.CouponType.REGIST_SEND.equals(form.getCouponType())) {
+                    //放开注册劵的使用天数限制:2017.12.22
+                    /*|| ComCode.CouponType.REGIST_SEND.equals(form.getCouponType())*/) {
 //                if (StringUtil.isEmpty(form.getStartTimeStr())) {
 //                    throw new ExceptionErrorParam("缺少参数：开始时间");
 //                }
@@ -647,10 +648,10 @@ public class CouponMasterServiceImpl implements CouponMasterService {
                 throw new ExceptionErrorData("审批状态不正确");
             }
             // 如果是生日劵,要顶掉之前的生日劵
-            // 如果是注册劵,要顶掉之前的注册劵
+            // 放开：如果是注册劵,要顶掉之前的注册劵
             // 将所有的生日劵变成deleted
-            if (ComCode.CouponType.BIRTHDAY_SEND.equals(coupon.getCouponType())
-                    || ComCode.CouponType.REGIST_SEND.equals(coupon.getCouponType())) {
+            if (ComCode.CouponType.BIRTHDAY_SEND.equals(coupon.getCouponType())){
+//                    || ComCode.CouponType.REGIST_SEND.equals(coupon.getCouponType())) {
                 couponMasterMapperExt.setOnlyCoupon(coupon);
             }
             coupon.setApproveContent(form.getApproveContent());
