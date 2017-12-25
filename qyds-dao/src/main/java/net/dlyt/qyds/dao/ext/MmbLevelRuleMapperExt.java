@@ -32,7 +32,11 @@ public interface MmbLevelRuleMapperExt {
      */
     List<MmbLevelManagerForm> selectApprovalUpMemberList(MmbLevelManagerForm form);
 
+    List<MmbLevelManagerForm> selectApprovalUpMemberListInTwo(MmbLevelManagerForm form);
+
     int countApprovalUpMemberList(MmbLevelManagerForm form);
+
+    int countApprovalUpMemberListInTwo(MmbLevelManagerForm form);
 
     /**
      * 查询去年度累计积分不足等级下限80%的降级会员

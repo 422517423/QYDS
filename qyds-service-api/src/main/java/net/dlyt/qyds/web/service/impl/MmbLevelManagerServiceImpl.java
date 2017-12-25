@@ -45,6 +45,10 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
 
     protected final Logger log = LoggerFactory.getLogger(MmbLevelManagerServiceImpl.class);
 
+
+    public static void main(String[] args) {
+
+    }
     /**
      * 待升级审批会员一览
      *
@@ -55,8 +59,10 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
         JSONObject json = new JSONObject();
         try {
 
-            List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectApprovalUpMemberList(form);
-            int allCount = mmbLevelRuleMapperExt.countApprovalUpMemberList(form);
+//            List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectApprovalUpMemberList(form);
+            List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+//            int allCount = mmbLevelRuleMapperExt.countApprovalUpMemberList(form);
+            int allCount = mmbLevelRuleMapperExt.countApprovalUpMemberListInTwo(form);
 
             json.put("sEcho", form.getsEcho());
             json.put("iTotalRecords", allCount);

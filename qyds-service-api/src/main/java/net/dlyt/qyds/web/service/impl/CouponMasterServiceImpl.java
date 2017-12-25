@@ -209,9 +209,10 @@ public class CouponMasterServiceImpl implements CouponMasterService {
                 }
             }
 
-            // 生日劵或注册劵必须限制使用天数
+            // 生日劵必须限制使用天数
             if (ComCode.CouponType.BIRTHDAY_SEND.equals(form.getCouponType())
-                    || ComCode.CouponType.REGIST_SEND.equals(form.getCouponType())) {
+                    //放开注册劵的使用天数限制:2017.12.22
+                    /*|| ComCode.CouponType.REGIST_SEND.equals(form.getCouponType())*/) {
 //                if (StringUtil.isEmpty(form.getStartTimeStr())) {
 //                    throw new ExceptionErrorParam("缺少参数：开始时间");
 //                }
