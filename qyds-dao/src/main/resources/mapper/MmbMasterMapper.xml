@@ -432,6 +432,9 @@
       <if test="unUsedTime != null" >
         un_used_time = #{unUsedTime,jdbcType=VARCHAR},
       </if>
+      <if test="pointCumulative != null" >
+        point_cumulative = #{pointCumulative,jdbcType=INTEGER},
+      </if>
     </set>
     where member_id = #{memberId,jdbcType=VARCHAR}
   </update>

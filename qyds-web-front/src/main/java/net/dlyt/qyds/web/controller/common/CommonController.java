@@ -47,9 +47,9 @@ public class CommonController {
             }
 
             json.put("resultCode", Constants.NORMAL);
-        }catch(Exception e){
-            json.put("resultCode", Constants.FAIL);
-        }
+    }catch(Exception e){
+        json.put("resultCode", Constants.FAIL);
+    }
         return json;
     }
 

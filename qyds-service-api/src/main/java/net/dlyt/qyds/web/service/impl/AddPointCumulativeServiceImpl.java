@@ -18,11 +18,14 @@ public class AddPointCumulativeServiceImpl implements AddPointCumulativeService 
     public void addToPoint() {
         //将所有会员的积分放入到累计消费中
         List<MmbMaster> mmbMasters = mmbMasterMapper.selectAllMaster();
+        System.out.println("-----------------------START-------------------------");
         for (MmbMaster mmbMaster:mmbMasters) {
             if (mmbMaster!=null){
                 mmbMaster.setPointCumulative(mmbMaster.getAllPoint());
                 mmbMasterMapper.updateByPrimaryKeySelective(mmbMaster);
+                System.out.println("累计积分："+mmbMaster.getPointCumulative());
             }
         }
+        System.out.println("-------------------------END--------------------------");
     }
 }

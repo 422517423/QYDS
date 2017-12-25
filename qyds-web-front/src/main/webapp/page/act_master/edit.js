@@ -1105,6 +1105,7 @@ function getGoodsTypeOptionCode() {
     axse(url, param, success, error);
 }
 
+//获取会员组的下拉列表
 function getMemberTypeOptionCode() {
     var url = "/common/getCodeList.json";
     var param = {"data": "ACTITION_MEMBER_TYPE"};

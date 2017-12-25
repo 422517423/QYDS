@@ -29,6 +29,7 @@ function initTable() {
         },
         "aoColumns": [
             {"mData": "memberName"},
+            {"mData": "telephone"},
             {"mData": "allPoint"},
             {"mData": "pointSingle"},
             {"mData": "currentLevelName"},

@@ -110,7 +110,7 @@
         limit 1
 
     </select>
-
+    <!--更改为对累计消费的操作-->
     <select id="selectMemberLevelByYearPoint" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select mlr.*
         from public.mmb_level_rule mlr
@@ -129,7 +129,18 @@
         <result column="approval_level_name" property="approvalLevelName" jdbcType="VARCHAR"/>
         <result column="all_point" property="allPoint" jdbcType="INTEGER"/>
         <result column="max_point" property="pointSingle" jdbcType="INTEGER"/>
+    </resultMap>
 
+    <resultMap id="MmbLevelManagerResultMapInTwo" type="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="member_name" property="memberName" jdbcType="VARCHAR"/>
+        <result column="current_level_id" property="currentLevelId" jdbcType="VARCHAR"/>
+        <result column="current_level_name" property="currentLevelName" jdbcType="VARCHAR"/>
+        <result column="approval_level_id" property="approvalLevelId" jdbcType="VARCHAR"/>
+        <result column="approval_level_name" property="approvalLevelName" jdbcType="VARCHAR"/>
+        <result column="all_point" property="allPoint" jdbcType="INTEGER"/>
+        <result column="max_point" property="pointSingle" jdbcType="INTEGER"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="selectApprovalUpMemberList" resultMap="MmbLevelManagerResultMap"
@@ -148,7 +159,26 @@
         <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
             AND member.current_level_id = #{currentLevelId}
         </if>
+        order by member.approval_level_id DESC, member.current_level_id DESC, member.member_name
+        limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
 
+    <select id="selectApprovalUpMemberListInTwo"  resultMap="MmbLevelManagerResultMapInTwo"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select member.*, cc.display_cn current_level_name, cc1.display_cn approval_level_name
+        from view_approval_up_memberintwo member
+        inner join (select
+        member_id,
+        max(approval_level_id) max_approval_level_id
+        from view_approval_up_memberintwo group by member_id) ma
+        on ma.member_id = member.member_id and member.approval_level_id = ma.max_approval_level_id
+        left join com_code cc on cc.code = 'MEMBER_LEVEL' and cc.value = member.current_level_id
+        left join com_code cc1 on cc1.code = 'MEMBER_LEVEL' and cc1.value = member.approval_level_id
+
+        where member.approval_level_id > member.current_level_id
+        <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
+            AND member.current_level_id = #{currentLevelId}
+        </if>
         order by member.approval_level_id DESC, member.current_level_id DESC, member.member_name
         limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
     </select>
@@ -166,6 +196,11 @@
         <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
             AND member.current_level_id = #{currentLevelId}
         </if>
+    </select>
+
+    <select id="countApprovalUpMemberListInTwo" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        SELECT count(*) FROM view_approval_up_memberInTwo
     </select>
     
     <select id="selectRelegationMemberList" resultMap="MmbLevelManagerResultMap"
