@@ -7,22 +7,18 @@ import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.ErpStoreExt;
 import net.dlyt.qyds.common.form.OrdDispatchForm;
 import net.dlyt.qyds.common.form.OrdMasterForm;
-import net.dlyt.qyds.dao.BnkRecordsMapper;
-import net.dlyt.qyds.dao.ErpStoreMapper;
-import net.dlyt.qyds.dao.OrdDispatchMapper;
-import net.dlyt.qyds.dao.OrdMasterMapper;
-import net.dlyt.qyds.dao.OrdSubListMapper;
-import net.dlyt.qyds.dao.ext.*;
+import net.dlyt.qyds.dao.*;
+import net.dlyt.qyds.dao.ext.BnkMasterMapperExt;
+import net.dlyt.qyds.dao.ext.OrdDispatchMapperExt;
+import net.dlyt.qyds.dao.ext.OrdMasterMapperExt;
+import net.dlyt.qyds.dao.ext.OrdSubListMapperExt;
 import net.dlyt.qyds.web.service.OrdDispatchService;
 import net.dlyt.qyds.web.service.common.Constants;
 import net.dlyt.qyds.web.service.common.ErpSendUtil;
 import net.dlyt.qyds.web.service.common.StringUtil;
 import net.dlyt.qyds.web.service.common.YtUtil.YtApi;
-import net.dlyt.qyds.web.service.erp.*;
-import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorData;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
-import net.dlyt.qyds.web.service.exception.ExceptionNoPower;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +30,6 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static net.dlyt.qyds.web.service.common.DataUtils.formatTimeStampToYMDHMS;
-import static net.dlyt.qyds.web.service.common.ErpKeyUtil.getKeyOrderInput;
 
 /**
  * Created by YiLian on 2016/10/10.
@@ -806,16 +799,6 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
     @Transactional(rollbackFor = Exception.class)
     public JSONObject deliverSubOrderItem(OrdSubList ordSubItem, SysUser sysUser) {
         JSONObject json = new JSONObject();
-
-        /**
-         * 创建圆通订单
-         * 判断返回值状态
-         * 成功：
-         *      再去操作其他信息，判断其他信息是否操作成功，操作失败，则取消圆通订单
-         * 失败：
-         *     方法不操作，返回错误信息
-         */
-
         try {
 
             // 根据主键获取订单信息
@@ -897,9 +880,10 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
 
             boolean lastSubItem = true;
             List<OrdSubListExt> subListExts = ordSubListMapperExt.selectOrderSubInfo(ordSubItem.getOrderId());
-            for (OrdSubListExt item : subListExts) {
+            for (OrdSubListExt item : subListExts) { // StringUtil.isEmpty(item.getExpressNo()
+                // TODO: 2017/12/19 根据子订单的发货状态判断
                 if (!item.getSubOrderId().equals(ordSubItem.getSubOrderId()) &&
-                        StringUtil.isEmpty(item.getExpressNo())) {
+                        ("未发货").equals(item.getDeliverStatus())) {
                     lastSubItem = false;
                     break;
                 }

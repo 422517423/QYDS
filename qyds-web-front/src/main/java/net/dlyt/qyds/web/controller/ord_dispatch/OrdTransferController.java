@@ -1,7 +1,8 @@
 package net.dlyt.qyds.web.controller.ord_dispatch;
 
 import com.alibaba.fastjson.JSONObject;
-import net.dlyt.qyds.common.dto.*;
+import net.dlyt.qyds.common.dto.BnkMasterExt;
+import net.dlyt.qyds.common.dto.OrdTransferList;
 import net.dlyt.qyds.common.dto.ext.OrdTransferListExt;
 import net.dlyt.qyds.web.common.Constants;
 import net.dlyt.qyds.web.context.PamsDataContext;
@@ -260,7 +261,7 @@ public class OrdTransferController {
             form.setDeliveryUser(userMap.get("loginId").toString());
             form.setUpdateUserId(userMap.get("userId").toString());
             // 发货人姓名
-            form.setDeliveryContactor(userMap.get("userName").toString());
+           // form.setDeliveryContactor(userMap.get("userName").toString());
             json = ordTransferService.delivery(form);
         } catch (Exception e) {
             json = new JSONObject();

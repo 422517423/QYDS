@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdLogisticStatusMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdLogisticStatus" >
+    <id column="ord_logistic_id" property="ordLogisticId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="logistic_provider_id" property="logisticProviderId" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="mail_no" property="mailNo" jdbcType="VARCHAR" />
+    <result column="tx_logistic_id" property="txLogisticId" jdbcType="VARCHAR" />
+    <result column="info_type" property="infoType" jdbcType="VARCHAR" />
+    <result column="info_content" property="infoContent" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="signed_name" property="signedName" jdbcType="VARCHAR" />
+    <result column="delivery_name" property="deliveryName" jdbcType="VARCHAR" />
+    <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+    <result column="contact_info" property="contactInfo" jdbcType="VARCHAR" />
+    <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ord_logistic_id, order_id, logistic_provider_id, client_id, mail_no, tx_logistic_id, info_type, info_content,
+    remark, weight, signed_name, delivery_name, accept_time, contact_info, erp_send_status, update_time
+  </sql>
+
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdLogisticStatus" >
+    insert into public.ord_logistic_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordLogisticId != null" >
+        ord_logistic_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="logisticProviderId != null" >
+        logistic_provider_id,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="mailNo != null" >
+        mail_no,
+      </if>
+      <if test="txLogisticId != null" >
+        tx_logistic_id,
+      </if>
+      <if test="infoType != null" >
+        info_type,
+      </if>
+      <if test="infoContent != null" >
+        info_content,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="signedName != null" >
+        signed_name,
+      </if>
+      <if test="deliveryName != null" >
+        delivery_name,
+      </if>
+      <if test="acceptTime != null" >
+        accept_time,
+      </if>
+      <if test="contactInfo != null" >
+        contact_info,
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordLogisticId != null" >
+        #{ordLogisticId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticProviderId != null" >
+        #{logisticProviderId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNo != null" >
+        #{mailNo,jdbcType=VARCHAR},
+      </if>
+      <if test="txLogisticId != null" >
+        #{txLogisticId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoType != null" >
+        #{infoType,jdbcType=VARCHAR},
+      </if>
+      <if test="infoContent != null" >
+        #{infoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="signedName != null" >
+        #{signedName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryName != null" >
+        #{deliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptTime != null" >
+        #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contactInfo != null" >
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendStatus != null" >
+        #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdLogisticStatus" >
+    update public.ord_logistic_status
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticProviderId != null" >
+        logistic_provider_id = #{logisticProviderId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNo != null" >
+        mail_no = #{mailNo,jdbcType=VARCHAR},
+      </if>
+      <if test="txLogisticId != null" >
+        tx_logistic_id = #{txLogisticId,jdbcType=VARCHAR},
+      </if>
+      <if test="infoType != null" >
+        info_type = #{infoType,jdbcType=VARCHAR},
+      </if>
+      <if test="infoContent != null" >
+        info_content = #{infoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="signedName != null" >
+        signed_name = #{signedName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryName != null" >
+        delivery_name = #{deliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptTime != null" >
+        accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contactInfo != null" >
+        contact_info = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ord_logistic_id = #{ordLogisticId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdLogisticStatus" >
+    update public.ord_logistic_status
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      logistic_provider_id = #{logisticProviderId,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      mail_no = #{mailNo,jdbcType=VARCHAR},
+      tx_logistic_id = #{txLogisticId,jdbcType=VARCHAR},
+      info_type = #{infoType,jdbcType=VARCHAR},
+      info_content = #{infoContent,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      signed_name = #{signedName,jdbcType=VARCHAR},
+      delivery_name = #{deliveryName,jdbcType=VARCHAR},
+      accept_time = #{acceptTime,jdbcType=TIMESTAMP},
+      contact_info = #{contactInfo,jdbcType=VARCHAR}，
+      erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR}
+    where ord_logistic_id = #{ordLogisticId,jdbcType=VARCHAR}
+  </update>
+</mapper>

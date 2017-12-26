@@ -1,6 +1,8 @@
 package net.dlyt.qyds.dao.ext;
 
-import net.dlyt.qyds.common.dto.*;
+import net.dlyt.qyds.common.dto.OrdMasterExt;
+import net.dlyt.qyds.common.dto.OrdSubList;
+import net.dlyt.qyds.common.dto.OrdSubListExt;
 import net.dlyt.qyds.common.dto.ext.MmbShoppingSKuExt;
 import org.springframework.stereotype.Repository;
 

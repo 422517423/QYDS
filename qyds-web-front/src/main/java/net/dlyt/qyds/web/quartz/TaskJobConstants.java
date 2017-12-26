@@ -47,4 +47,7 @@ public class TaskJobConstants {
     public static final  boolean RUNJOB_SWITCH_ERP_SEND_BANK_UPDATE = true;
     //sendFailMemberUsed
     public static final  boolean RUNJOB_SWITCH_ERP_SEND_MEMBER_USED = true;
+    // TODO: 2017/12/25
+    //sendExpress
+    public static final  boolean RUNJOB_SWITCH_ERP_SEND_EXPRESS = true;
 }

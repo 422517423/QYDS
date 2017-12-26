@@ -1,6 +1,5 @@
 package net.dlyt.qyds.web.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.MmbPointRecordExt;
@@ -8,27 +7,17 @@ import net.dlyt.qyds.dao.*;
 import net.dlyt.qyds.dao.ext.*;
 import net.dlyt.qyds.web.service.ErpSendService;
 import net.dlyt.qyds.web.service.common.Constants;
-import net.dlyt.qyds.web.service.common.DataUtils;
 import net.dlyt.qyds.web.service.common.ErpSendUtil;
 import net.dlyt.qyds.web.service.common.StringUtil;
-import net.dlyt.qyds.web.service.erp.*;
-import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorData;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
-import net.dlyt.qyds.web.service.exception.ExceptionNoPower;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static net.dlyt.qyds.web.service.common.DataUtils.formatTimeStampToYMDHMS;
-import static net.dlyt.qyds.web.service.common.ErpKeyUtil.*;
 
 /**
  * Created by zlh on 2016/9/4.
@@ -96,6 +85,10 @@ public class ErpSendServiceImpl implements ErpSendService {
 
     @Autowired
     private GdsTypeMapper gdsTypeMapper;
+    @Autowired
+    private OrdLogisticStatusMapperExt ordLogisticStatusMapperExt;
+    @Autowired
+    private OrdLogisticStatusMapper ordLogisticStatusMapper;
 
     protected final Logger log = LoggerFactory.getLogger(ErpSendServiceImpl.class);
 
@@ -531,5 +524,33 @@ public class ErpSendServiceImpl implements ErpSendService {
             result.put("resultMessage", e.getMessage());
         }
         return result;
+    }
+
+
+    /**
+     * 20171225
+     * 发送未成功的物流状态通知
+     */
+    public JSONObject sendFailExpress() {
+        JSONObject map = new JSONObject();
+        try {
+            // 取得发送失败订单记录
+            List<OrdLogisticStatus> ordLogisticStatusList = ordLogisticStatusMapperExt.selectSendFail();
+            ErpSendUtil.initYTOUpdate(ordLogisticStatusMapper);
+           /* if(ordLogisticStatusList != null && ordLogisticStatusList.size() > 0){
+                for( int i =0;i < ordLogisticStatusList.size(); i++ ){
+                    ErpSendUtil.YTOUpdate(ordLogisticStatusList.get(i));
+                }
+            }*/
+            for (OrdLogisticStatus ordLogisticStatus : ordLogisticStatusList) {
+                ErpSendUtil.YTOUpdate(ordLogisticStatus);
+            }
+            map.put("data", ordLogisticStatusList);
+            map.put("resultCode", Constants.NORMAL);
+        }catch(Exception e){
+            map.put("resultCode", Constants.FAIL);
+            map.put("message", e.getMessage());
+        }
+        return map;
     }
 }

@@ -69,6 +69,8 @@
     <result column="apply_pname" property="applyPname" jdbcType="VARCHAR" />
     <result column="apply_cname" property="applyCname" jdbcType="VARCHAR" />
     <result column="apply_dname" property="applyDname" jdbcType="VARCHAR" />
+
+    <result column="dispatch_uname" property="dispatchUname" jdbcType="VARCHAR" />
     <result column="apply_address1" property="applyAddress1" jdbcType="VARCHAR" />
     <result column="dispatch_pname" property="dispatchPname" jdbcType="VARCHAR" />
     <result column="dispatch_cname" property="dispatchCname" jdbcType="VARCHAR" />
@@ -198,7 +200,7 @@
   <!--获取调货订单信息(包括发货/收货门店信息)-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
-    apply_store.sub_order_id,
+    apply_store.order_transfer_id,
     apply_store.goods_name,
     apply_store.quantity,
     apply_store.apply_contactor,
@@ -207,6 +209,7 @@
     apply_store.apply_cname,
     apply_store.apply_dname,
     apply_store.apply_address1,
+    dispatch_store.dispatch_uname,
     dispatch_store.dispatch_pname,
     dispatch_store.dispatch_cname,
     dispatch_store.dispatch_dname,
@@ -224,8 +227,9 @@
     )as apply_store,
 
     (select
-  	ep.pname as dispatch_pname,ec.cname as dispatch_cname,ed.dname as dispatch_dname,es.address as dispatch_address1
+  	su.user_name as dispatch_uname,ep.pname as dispatch_pname,ec.cname as dispatch_cname,ed.dname as dispatch_dname,es.address as dispatch_address1
     from public.ord_transfer_list ot
+    join sys_user su on ot.delivery_user = su.login_id
     join erp_store es on ot.dispatch_store = es.store_code
     left join erp_province ep on es.province_code = ep.pcode
     left join erp_city ec on es.city_code = ec.ccode

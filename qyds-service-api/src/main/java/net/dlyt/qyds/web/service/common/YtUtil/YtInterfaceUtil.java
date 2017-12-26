@@ -24,7 +24,7 @@ public final class YtInterfaceUtil {
     private static ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
     // PartnerID
-    private static final String PARTNER_ID = "123456";
+    private static final String PARTNER_ID = "1Bi478";
 
     private YtInterfaceUtil() {
     }
@@ -32,7 +32,7 @@ public final class YtInterfaceUtil {
     public static void main(String[] args) {
         SortedMap<Object,Object> parameters = new TreeMap<Object,Object>();
         // 客户编码（电商标识，由圆通人员给出）
-        parameters.put("clientID", "TEST");
+        parameters.put("clientID", "1Bi478");
         // 物流公司ID（YTO）
         parameters.put("logisticProviderID", "YTO");
         parameters.put("customerId", "");
@@ -83,14 +83,14 @@ public final class YtInterfaceUtil {
 
         // md5 加密 base64编码
         String data_digest="";
-        byte[] b=MD5Util.getDigest((requestXML + PARTNER_ID).getBytes());
+        byte[] b= MD5Util.getDigest((requestXML + PARTNER_ID).getBytes());
         Base64 b64= new Base64();
         data_digest=new String(b64.encode(b));
         System.out.println("md5加密后再base64:"+data_digest);
 
         String requestDate = "logistics_interface="+logistics_interface+"&data_digest="+data_digest+"&type=online&clientId=TEST";
 
-        String result =CommonUtil.httpsRequest("http://jingangtest.yto56.com.cn/ordws/Vip16Servlet", "POST", requestDate);
+        String result = CommonUtil.httpsRequest("http://jingangtest.yto56.com.cn/ordws/Vip16Servlet", "POST", requestDate);
         System.out.println(result.toString());
         Map<String, String> map=new HashMap<String, String>();
         try {
@@ -114,7 +114,7 @@ public final class YtInterfaceUtil {
     public static  String createYtOrder() {
         SortedMap<Object,Object> parameters = new TreeMap<Object,Object>();
         // 客户编码（电商标识，由圆通人员给出）
-        parameters.put("clientID", "TEST");
+        parameters.put("clientID", "1Bi478");
         // 物流公司ID（YTO）
         parameters.put("logisticProviderID", "YTO");
         // 物流号
@@ -170,7 +170,7 @@ public final class YtInterfaceUtil {
 
         String requestDate = "logistics_interface="+logistics_interface+"&data_digest="+data_digest+"&type=online&clientId=TEST";
 
-        String result =CommonUtil.httpsRequest("http://jingangtest.yto56.com.cn/ordws/Vip16Servlet", "POST", requestDate);
+        String result = CommonUtil.httpsRequest("http://jingangtest.yto56.com.cn/ordws/Vip16Servlet", "POST", requestDate);
         System.out.println(result.toString());
         Map<String, String> map=new HashMap<String, String>();
         try {

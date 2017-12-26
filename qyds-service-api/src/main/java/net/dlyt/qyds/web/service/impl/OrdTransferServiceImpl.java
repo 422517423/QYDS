@@ -1,8 +1,6 @@
 package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sun.tools.javac.comp.Todo;
-import com.sun.xml.internal.bind.v2.TODO;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.OrdTransferListExt;
 import net.dlyt.qyds.dao.*;
@@ -15,7 +13,6 @@ import net.dlyt.qyds.web.service.common.Constants;
 import net.dlyt.qyds.web.service.common.ErpSendUtil;
 import net.dlyt.qyds.web.service.common.StringUtil;
 import net.dlyt.qyds.web.service.common.YtUtil.YtApi;
-import net.dlyt.qyds.web.service.context.PamsDataContext;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by ZLH on 2016/12/22.
@@ -406,7 +406,7 @@ public class OrdTransferServiceImpl implements OrdTransferService {
             // 创建订单
             // 根据调货id查询收货发货人信息
             OrdTransferListExt ordTransferListExt= ordTransferListMapperExt.selectByPrimaryKey(form.getOrderTransferId());
-            ordTransferListExt.setDeliveryContactor(form.getDeliveryContactor());
+            //ordTransferListExt.setDeliveryContactor(form.getDeliveryContactor());
             ordTransferListExt.setDeliveryPostcode(form.getDeliveryPostcode());
             String result = YtApi.getOrderTracesByXml1(ordTransferListExt);
             // 创建失败回滚

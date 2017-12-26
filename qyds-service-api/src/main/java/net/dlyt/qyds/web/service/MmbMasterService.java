@@ -53,7 +53,4 @@ public interface MmbMasterService {
     JSONObject selectReport();
 
     List<MmbMasterExt> export(MmbMasterExt ext);
-
-    // TODO: 2017/12/15 临时方法 获取客户总消费金额
-    void searchMasterAllPrice();
 }

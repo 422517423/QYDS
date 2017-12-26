@@ -2,7 +2,6 @@ package net.dlyt.qyds.web.service.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.sun.tools.internal.xjc.model.Model;
 import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.MmbPointRecordExt;
@@ -13,7 +12,6 @@ import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorData;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
 import net.dlyt.qyds.web.service.exception.ExceptionNoPower;
-import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -37,7 +34,7 @@ import static net.dlyt.qyds.web.service.common.ErpKeyUtil.*;
 public class ErpSendUtil {
     //成功
     // 正式
-    //static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:27676/Service.asmx?wsdl";
+   /* static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:27676/Service.asmx?wsdl";*/
     // 测试
     static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:24444/Service.asmx?wsdl";
     static private final Logger log = LoggerFactory.getLogger(ErpSendUtil.class);
@@ -108,6 +105,9 @@ public class ErpSendUtil {
 
     @Autowired
     static private OrdTransferListMapper ordTransferListMapper;
+
+    @Autowired
+    static private OrdLogisticStatusMapper ordLogisticStatusMapper;
 
     static private void init() throws Exception {
         try {
@@ -1439,37 +1439,34 @@ public class ErpSendUtil {
         return result;
     }
 
-   /* public static void main(String[] args) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义格式，不显示毫秒
-       // Timestamp now = new Timestamp(System.currentTimeMillis());//获取系统当前时间
-       // String str = df.format(now);
-        map.put("txLogisticID", "fe0e2d76-6f43-4a61-877a-4584b7a73aed");
-        map.put("infoContent", "GOT");
-        map.put("acceptTime", "2017-12-08 13:31:05");
-        map.put("mailNo", "348038430483043");
-        map.put("Remark", "备注");
-        map.put("signedName", "张张");
-        map.put("deliveryName", "李李");
-        map.put("contactInfo", "13644270287");
-        YTOUpdate(map);
-    }*/
+    static public void initYTOUpdate(OrdLogisticStatusMapper ordLogisticStatusMapperIns) {
+        if (ordLogisticStatusMapper == null && ordLogisticStatusMapperIns != null) {
+            ordLogisticStatusMapper = ordLogisticStatusMapperIns;
+        }
+    }
+
+    static public JSONObject YTOUpdate(OrdLogisticStatus ordLogisticStatus, OrdLogisticStatusMapper ordLogisticStatusMapperIns) {
+        initYTOUpdate(ordLogisticStatusMapperIns);
+        return YTOUpdate(ordLogisticStatus);
+    }
 
     /**
      * 圆通快递状态更新接口
      *
-     * @param map
+     * @param ordLogisticStatus
      * @return
      */
-    static public JSONObject YTOUpdate(Map<String, Object> map) {
+    static public JSONObject YTOUpdate(OrdLogisticStatus ordLogisticStatus) {
+        ordLogisticStatus.setErpSendStatus("10");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         JSONObject result = new JSONObject();
         result.put("resultCode", Constants.NORMAL);
         // 物流号
-        String txLogisticID = (String) map.get("txLogisticID");
+        String txLogisticID = ordLogisticStatus.getTxLogisticId();
         // 物流状态
-        String infoContent = (String) map.get("infoContent");
+        String infoContent = ordLogisticStatus.getInfoContent();
         // 事件发生时间
-        String acceptTime = (String) map.get("acceptTime");
+        String acceptTime =  sdf.format(ordLogisticStatus.getAcceptTime());
 
         if (StringUtil.isEmpty(txLogisticID)) throw new ExceptionErrorParam("参数物流号未指定");
         if (StringUtil.isEmpty(infoContent)) throw new ExceptionErrorParam("参数物流状态未指定");
@@ -1480,36 +1477,36 @@ public class ErpSendUtil {
             // 物流号
             ytoPushInfo.setTxLogisticID(txLogisticID);
             // 运单号
-            if (StringUtils.isNotBlank((String) map.get("mailNo"))) {
-                ytoPushInfo.setMailNo((String) map.get("mailNo"));
+            if (StringUtils.isNotBlank(ordLogisticStatus.getMailNo())) {
+                ytoPushInfo.setMailNo(ordLogisticStatus.getMailNo());
             } else {
                 ytoPushInfo.setMailNo("");
             }
             // 物流状态
-            ytoPushInfo.setInfoContent((String) map.get("infoContent"));
+            ytoPushInfo.setInfoContent(ordLogisticStatus.getInfoContent());
             // 事件发生时间
-            ytoPushInfo.setAcceptTime((String) map.get("acceptTime"));
+            ytoPushInfo.setAcceptTime(acceptTime);
             // 备注
-            if (StringUtils.isNotBlank((String) map.get("Remark"))) {
-                ytoPushInfo.setRemark((String) map.get("Remark"));
+            if (StringUtils.isNotBlank(ordLogisticStatus.getRemark())) {
+                ytoPushInfo.setRemark(ordLogisticStatus.getRemark());
             } else {
                 ytoPushInfo.setRemark("");
             }
             // 签收人
-            if (StringUtils.isNotBlank((String) map.get("signedName"))) {
-                ytoPushInfo.setSignedName((String) map.get("signedName"));
+            if (StringUtils.isNotBlank(ordLogisticStatus.getSignedName())) {
+                ytoPushInfo.setSignedName(ordLogisticStatus.getSignedName());
             } else {
                 ytoPushInfo.setSignedName("");
             }
             // 操作人员
-            if (StringUtils.isNotBlank((String) map.get("deliveryName"))) {
-                ytoPushInfo.setDeliveryName((String) map.get("deliveryName"));
+            if (StringUtils.isNotBlank(ordLogisticStatus.getDeliveryName())) {
+                ytoPushInfo.setDeliveryName(ordLogisticStatus.getDeliveryName());
             } else {
                 ytoPushInfo.setDeliveryName("");
             }
             // 联系方式
-            if (StringUtils.isNotBlank((String) map.get("contactInfo"))) {
-                ytoPushInfo.setContactInfo((String) map.get("contactInfo"));
+            if (StringUtils.isNotBlank(ordLogisticStatus.getContactInfo())) {
+                ytoPushInfo.setContactInfo(ordLogisticStatus.getContactInfo());
             } else {
                 ytoPushInfo.setContactInfo("");
             }
@@ -1542,9 +1539,21 @@ public class ErpSendUtil {
                 throw new ExceptionBusiness("ERP未知错误");
             }
         } catch (MalformedURLException e) {
+            // 若通讯失败,记录失败原因及通讯信息
+            ordLogisticStatus.setErpSendStatus("20");
             result.put("resultCode", Constants.FAIL);
             result.put("resultMessage", "ERP接口连接失败:" + e.getMessage());
         } catch (Exception e) {
+            // 若通讯失败,记录失败原因及通讯信息
+            ordLogisticStatus.setErpSendStatus("20");
+            result.put("resultCode", Constants.FAIL);
+            result.put("resultMessage", e.getMessage());
+        }
+        try {
+            ordLogisticStatus.setUpdateTime(new Date());
+            ordLogisticStatusMapper.updateByPrimaryKeySelective(ordLogisticStatus);
+        } catch (Exception e) {
+            // 若通讯失败,记录失败原因及通讯信息
             result.put("resultCode", Constants.FAIL);
             result.put("resultMessage", e.getMessage());
         }

@@ -2,17 +2,12 @@ package net.dlyt.qyds.web.service.common.YtUtil;
 
 import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.OrdMasterExt;
-import net.dlyt.qyds.common.dto.OrdSubList;
 import net.dlyt.qyds.common.dto.OrdSubListExt;
 import net.dlyt.qyds.common.dto.SysUser;
 import net.dlyt.qyds.common.dto.ext.OrdTransferListExt;
 import sun.misc.BASE64Encoder;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -22,10 +17,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class YtApi {
-    //电商加密私钥
+   /* //电商加密私钥-测试
     private final static String AppKey="123456";
-    //请求url
-    private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";
+    //请求url-测试
+    private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";*/
+
+    //电商加密私钥-正式
+    private final static String AppKey="1Bi478P";
+    //请求url-正式
+    private  final static String ReqURL="http://jingang.yto56.com.cn/ordws/Vip16Servlet";
 
     // 发货人信息
     private static String senderName = "9999";
@@ -62,13 +62,13 @@ public class YtApi {
             // 收货人城市,区域
             receiverCity = ordTransferListExt.getApplyCname()+","+ordTransferListExt.getApplyDname();
             // 收货人地址
-            receiverAddress = ordTransferListExt.getApplyAddress();
+            receiverAddress = ordTransferListExt.getApplyAddress1();
             // 收件人邮编
             receiverPostCode = ordTransferListExt.getDeliveryPostcode();
 
             // 发货人信息
             // 发货人姓名
-            senderName =ordTransferListExt.getDeliveryContactor();
+            senderName =ordTransferListExt.getDispatchUname();
             // 发货人省份
             senderProv = ordTransferListExt.getDispatchPname();
             // 发货人城市,区域
@@ -80,7 +80,7 @@ public class YtApi {
             // 发货人地址
             senderAddress = ordTransferListExt.getDispatchAddress1();
             // 发件人邮编
-            senderPostCode = ordTransferListExt.getDeliveryPostcode();
+            senderPostCode = "";
 
             // 物流号
             subOrderId = ordTransferListExt.getOrderTransferId();
@@ -188,32 +188,7 @@ public class YtApi {
         Map<String, String> params = new HashMap<String, String>();
         params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
         params.put("data_digest",urlEncoder(encrypt(requestData, AppKey, "UTF-8"),"UTF-8"));
-        params.put("clientId", "TEST");
-        params.put("type", "online");
-        String result=sendPost(ReqURL, params);
-        //根据公司业务处理返回的信息
-        return result;
-    }
-
-    public static String cancelYto(OrdSubListExt subOrder) throws Exception{
-        subOrderId = subOrder.getSubOrderId();
-        String requestData= /*"<?xml version=\"1.0\" encoding=\"utf-8\" ?>"+*/
-                "<UpdateInfo>" +
-                        // 物流公司ID（YTO）
-                        "<logisticProviderID>YTO</logisticProviderID>" +
-                        // 客户编码（电商标识，由圆通人员给出）
-                        "<clientID>"+AppKey+"</clientID>" +
-                        // 物流号(现在先默认子订单表中的子订单id
-                       /* "<txLogisticID>"+subOrder.getSubOrderId()+"</txLogisticID>" +*/
-                        "<txLogisticID>"+ YtApi.subOrderId +"</txLogisticID>" +
-                        "<infoType>INSTRUCTION</infoType>" +
-                        "<infoContent>WITHDRAW</infoContent>" +
-                        "<remark>商品没了</remark>"+
-                        "</UpdateInfo>";
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
-        params.put("data_digest",urlEncoder(encrypt(requestData, AppKey, "UTF-8"),"UTF-8"));
-        params.put("clientId", "TEST");
+        params.put("clientId", AppKey);
         params.put("type", "online");
         String result=sendPost(ReqURL, params);
         //根据公司业务处理返回的信息
@@ -318,4 +293,30 @@ public class YtApi {
         }
         return result.toString();
     }
+
+    public static String cancelYto(String orderId) throws Exception{
+        String requestData= /*"<?xml version=\"1.0\" encoding=\"utf-8\" ?>"+*/
+                "<UpdateInfo>" +
+                        // 物流公司ID（YTO）
+                        "<logisticProviderID>YTO</logisticProviderID>" +
+                        // 客户编码（电商标识，由圆通人员给出）
+                        "<clientID>"+AppKey+"</clientID>" +
+                        // 物流号(现在先默认子订单表中的子订单id
+                       /* "<txLogisticID>"+subOrder.getSubOrderId()+"<LogisticID>" +*/
+                        "<txLogisticID>"+ orderId +"<LogisticID>" +
+                        "<infoType>INSTRUCTION</infoType>" +
+                        "<infoContent>WITHDRAW</infoContent>" +
+                        "<remark>商品没了</remark>"+
+                        "</UpdateInfo>";
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
+        params.put("data_digest",urlEncoder(encrypt(requestData, AppKey, "UTF-8"),"UTF-8"));
+        params.put("clientId", AppKey);
+        params.put("type", "online");
+        String result=sendPost(ReqURL, params);
+        //根据公司业务处理返回的信息
+        return result;
+    }
+
+
 }

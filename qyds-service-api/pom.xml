@@ -122,6 +122,11 @@
             <artifactId>jdom2</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>tools</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.taobao</groupId>-->
             <!--<artifactId>taobao-sdk-java-auto</artifactId>-->

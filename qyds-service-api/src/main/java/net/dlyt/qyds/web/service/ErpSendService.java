@@ -150,4 +150,10 @@ public interface ErpSendService {
      *
      */
     JSONObject sendFailMemberUsed();
+
+    /**
+     * 20171225
+     * 发送未成功的物流状态通知
+     */
+    JSONObject sendFailExpress();
 }

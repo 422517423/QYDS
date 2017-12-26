@@ -473,12 +473,4 @@ public class MmbMasterController {
 
     }
 
-    @RequestMapping("searchMasterAllPrice")
-    public void searchMasterAllPrice() {
-        try {
-            mmbMasterService.searchMasterAllPrice();
-        } catch (Exception e) {
-
-        }
-    }
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.OrdLogisticStatusMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdLogisticStatus">
+        <id column="ord_logistic_id" property="ordLogisticId" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="logistic_provider_id" property="logisticProviderId" jdbcType="VARCHAR" />
+        <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+        <result column="mail_no" property="mailNo" jdbcType="VARCHAR" />
+        <result column="tx_logistic_id" property="txLogisticId" jdbcType="VARCHAR" />
+        <result column="info_type" property="infoType" jdbcType="VARCHAR" />
+        <result column="info_content" property="infoContent" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="weight" property="weight" jdbcType="VARCHAR" />
+        <result column="signed_name" property="signedName" jdbcType="VARCHAR" />
+        <result column="delivery_name" property="deliveryName" jdbcType="VARCHAR" />
+        <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+        <result column="contact_info" property="contactInfo" jdbcType="VARCHAR" />
+        <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List">
+         ord_logistic_id, order_id, logistic_provider_id, client_id, mail_no, tx_logistic_id, info_type, info_content,
+         remark, weight, signed_name, delivery_name, accept_time, contact_info, erp_send_status, update_time
+    </sql>
+
+    <select id="selectSendFail" resultMap="BaseResultMap" >
+        select o.ord_logistic_id, o.order_id, o.logistic_provider_id, o.client_id, o.mail_no, o.tx_logistic_id, o.info_type, o.info_content,
+        o.remark, o.weight,o.signed_name,o.delivery_name,o.accept_time,o.contact_info, o.erp_send_status, o.update_time
+        from ord_logistic_status o
+        where o.erp_send_status = '20'
+    </select>
+
+</mapper>

@@ -3,15 +3,12 @@ package net.dlyt.qyds.web.controller.ord_dispatch;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import net.dlyt.qyds.common.dto.*;
-import net.dlyt.qyds.common.form.DispatchStoreForm;
 import net.dlyt.qyds.common.form.OrdDispatchForm;
 import net.dlyt.qyds.common.form.OrdMasterForm;
-import net.dlyt.qyds.common.form.OrdSubmitForm;
 import net.dlyt.qyds.web.common.Constants;
 import net.dlyt.qyds.web.context.PamsDataContext;
 import net.dlyt.qyds.web.service.BnkMasterService;
 import net.dlyt.qyds.web.service.OrdDispatchService;
-import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -374,9 +371,6 @@ public class OrdDispatchController {
                   /*  || StringUtils.isEmpty(ordSubItem.getExpressNo())*/) {
                 throw new ExceptionErrorParam("缺少发货参数");
             }
-            /*OrdSubList ordSubItem = new OrdSubList();
-            ordSubItem.setOrderId("eb52dc57-e491-4a3a-b677-18dec493f9b9");
-            ordSubItem.setSubOrderId("3ac56400-c567-4334-9a15-6dc48988a099");*/
 
             SysUser sysUser = (SysUser) PamsDataContext.getSysUser();
             json = ordDispatchService.deliverSubOrderItem(ordSubItem, sysUser);

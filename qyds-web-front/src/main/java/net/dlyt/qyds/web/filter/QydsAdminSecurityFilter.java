@@ -45,10 +45,22 @@ public class QydsAdminSecurityFilter implements Filter {
                 return;
             }
 
+            // TODO: 2017/12/15 圆通调用该url 返回运单号接口
             if(servletPath.equals("/resultFromYTO.json")) {
                 chain.doFilter(req, resp);
                 return;
             }
+
+            // TODO: 2017/12/15 取消圆通订单
+            if(servletPath.equals("/cancelYto.json")) {
+                chain.doFilter(req, resp);
+                return;
+            }
+
+           /* if(servletPath.equals("/sendFailExpress.json")) {
+                chain.doFilter(req, resp);
+                return;
+            }*/
 
             Cookie[] cookies = request.getCookies();
             if(cookies != null && cookies.length > 0) {

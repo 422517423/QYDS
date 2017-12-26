@@ -40,6 +40,8 @@ public class ErpSendTaskJob extends QuartzJobBean{
 		if (TaskJobConstants.RUNJOB_SWITCH_ERP_SEND_COUPON_USED)service.sendFailBankUpdate();
 		//发送未成功的禁用会员
 		if (TaskJobConstants.RUNJOB_SWITCH_ERP_SEND_MEMBER_USED)service.sendFailMemberUsed();
+		// TODO: 2017/12/25 发送物流信息
+		if (TaskJobConstants.RUNJOB_SWITCH_ERP_SEND_EXPRESS)service.sendFailExpress();
 	}
 
 	@Override

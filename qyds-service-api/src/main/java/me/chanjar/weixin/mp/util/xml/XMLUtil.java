@@ -1,12 +1,10 @@
 package me.chanjar.weixin.mp.util.xml;
 
-import java.util.*;
-
 import org.dom4j.Document;
-
 import org.dom4j.DocumentHelper;
-
 import org.dom4j.Element;
+
+import java.util.*;
 
 public class XMLUtil {
 

@@ -1139,25 +1139,4 @@ public class MmbMasterServiceImpl implements MmbMasterService {
     public List<MmbMasterExt> export(MmbMasterExt ext) {
         return mmbMasterMapperExt.export(ext);
     }
-
-
-    // TODO: 2017/12/15 临时方法 获取客户总消费金额
-    @Override
-    public void searchMasterAllPrice() {
-        // 获取客户总金额
-        List<OrdMasterExt> ordMasterExtList = ordMasterMapperExt.searchMasterAllPrice();
-        if(ordMasterExtList != null && ordMasterExtList.size() > 0){
-            for(int i=0;i<ordMasterExtList.size();i++){
-                // 根据客户id，查询客户主表
-                MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(ordMasterExtList.get(i).getMemberId());
-                if(mmbMaster != null ){
-                    // 更新客户主表中的客户总消费金额
-                    mmbMaster.setAllPrice(ordMasterExtList.get(i).getAllPrice());
-                    mmbMasterMapper.updateByPrimaryKeySelective(mmbMaster);
-
-                    // 根据客户注册年限和当前年限对比，判断是否大于等于2年，如果符合，则改变客户的等于为普通客户
-                }
-            }
-        }
-    }
 }
