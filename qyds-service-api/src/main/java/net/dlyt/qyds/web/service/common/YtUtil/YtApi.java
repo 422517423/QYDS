@@ -17,15 +17,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class YtApi {
-   /* //电商加密私钥-测试
-    private final static String AppKey="123456";
+    //电商加密私钥-测试
+    private final static String AppKey="TEST";
+    private final static String PARINET_ID ="123456";
     //请求url-测试
-    private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";*/
+    private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";
 
-    //电商加密私钥-正式
-    private final static String AppKey="1Bi478P";
+    // clientID
+    //private final static String AppKey="QYSM";
+    // PartnerID
+    //private static final String PARTNER_ID = "1Bi478";
     //请求url-正式
-    private  final static String ReqURL="http://jingang.yto56.com.cn/ordws/Vip16Servlet";
+   // private  final static String ReqURL="http://jingang.yto56.com.cn/ordws/Vip16Servlet";
 
     // 发货人信息
     private static String senderName = "9999";
@@ -187,7 +190,7 @@ public class YtApi {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
-        params.put("data_digest",urlEncoder(encrypt(requestData, AppKey, "UTF-8"),"UTF-8"));
+        params.put("data_digest",urlEncoder(encrypt(requestData, PARINET_ID, "UTF-8"),"UTF-8"));
         params.put("clientId", AppKey);
         params.put("type", "online");
         String result=sendPost(ReqURL, params);
@@ -310,7 +313,7 @@ public class YtApi {
                         "</UpdateInfo>";
         Map<String, String> params = new HashMap<String, String>();
         params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
-        params.put("data_digest",urlEncoder(encrypt(requestData, AppKey, "UTF-8"),"UTF-8"));
+        params.put("data_digest",urlEncoder(encrypt(requestData, PARINET_ID, "UTF-8"),"UTF-8"));
         params.put("clientId", AppKey);
         params.put("type", "online");
         String result=sendPost(ReqURL, params);

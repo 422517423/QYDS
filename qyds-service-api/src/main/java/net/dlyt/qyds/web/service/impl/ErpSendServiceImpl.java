@@ -537,11 +537,6 @@ public class ErpSendServiceImpl implements ErpSendService {
             // 取得发送失败订单记录
             List<OrdLogisticStatus> ordLogisticStatusList = ordLogisticStatusMapperExt.selectSendFail();
             ErpSendUtil.initYTOUpdate(ordLogisticStatusMapper);
-           /* if(ordLogisticStatusList != null && ordLogisticStatusList.size() > 0){
-                for( int i =0;i < ordLogisticStatusList.size(); i++ ){
-                    ErpSendUtil.YTOUpdate(ordLogisticStatusList.get(i));
-                }
-            }*/
             for (OrdLogisticStatus ordLogisticStatus : ordLogisticStatusList) {
                 ErpSendUtil.YTOUpdate(ordLogisticStatus);
             }
