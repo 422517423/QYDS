@@ -6760,6 +6760,7 @@ console.log(sku);
             });
         };
 
+        var b = true;
         $scope.setGoodsTotalPrice = function(){
             var goodsTotal = 0;
             var exchangePointCount = 0;
@@ -6775,7 +6776,9 @@ console.log(sku);
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
-                    console.log(goodsPrice);
+                    if(goods.activity.tempId == '4cecaf45-b443-474f-a90c-6eebdd670e87'){
+                        b=false;
+                    }
                     console.log(parseFloat(goodsPrice)*goods.quantity);
                 }else{
                     // 套装
@@ -6837,6 +6840,11 @@ console.log(sku);
                         }
                     }
                 });
+            }
+
+            // 高级会员打88折
+            if(userInfo.memberLevelId =='30' && b == true){
+                orderFinal = orderFinal*0.88;
             }
 
             if(orderFinal < $scope.goodsCount ){
