@@ -6776,6 +6776,7 @@ console.log(sku);
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
+                    // 判断该活动是否是五折活动
                     if(goods.activity.tempId == '4cecaf45-b443-474f-a90c-6eebdd670e87'){
                         b=false;
                     }
@@ -6842,7 +6843,7 @@ console.log(sku);
                 });
             }
 
-            // 高级会员打88折
+            // 高级会员除了5折活动都打88折
             if(userInfo.memberLevelId =='30' && b == true){
                 orderFinal = orderFinal*0.88;
             }
