@@ -5864,7 +5864,7 @@ console.log(sku);
         $scope.goShopping = function (){
             $state.go("homepage");
         };
-
+        // 全选计算总价格
         $scope.setTotalPrice = function () {
             var totalPrice = 0;
             var totalCount = 0;
@@ -5877,12 +5877,23 @@ console.log(sku);
                         // 没有活动
                         var singlePrice = 0;
                         angular.forEach(goods.skuList, function (sku, index2) {
-                            singlePrice += sku.price;
+                            // todo没有活动的商品高级会员打88折
+                            if(userInfo.memberLevelId == '30'){
+                                singlePrice+=sku.price*0.88
+                            }else{
+                                singlePrice += sku.price;
+                            }
                         });
                         totalPrice += singlePrice * parseInt(goods.quantity);
                     } else {
                         //有活动按照活动价
-                        totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
+                     //   totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
+                        // todo有活动的如果不是5折活动高级会员都打88折
+                        if(goods.activity.tempId != '4cecaf45-b443-474f-a90c-6eebdd670e87'){
+                            totalPrice += goods.activity.newPrice*0.88 * parseInt(goods.quantity);
+                        }else{
+                            totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
+                        }
                     }
                 }
             });
@@ -6766,6 +6777,8 @@ console.log(sku);
             var exchangePointCount = 0;
             var goodsCount = 0
             angular.forEach($scope.confirmData.goodsInfo, function (goods) {
+
+                alert(3333);
                 if(goods.type!="30"){
                     var goodsPrice =  goods.ordConfirmOrderUnitExtList[0].price;
                     var goodsPoint = 0;
@@ -6776,7 +6789,7 @@ console.log(sku);
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
-                    // 判断该活动是否是五折活动
+                    // todo判断该活动是否是五折活动
                     if(goods.activity.tempId == '4cecaf45-b443-474f-a90c-6eebdd670e87'){
                         b=false;
                     }
@@ -6847,7 +6860,6 @@ console.log(sku);
             if(userInfo.memberLevelId =='30' && b == true){
                 orderFinal = orderFinal*0.88;
             }
-
             if(orderFinal < $scope.goodsCount ){
                 orderFinal = parseFloat($scope.goodsCount);
             }
