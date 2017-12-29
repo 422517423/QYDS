@@ -6804,6 +6804,7 @@ console.log(sku);
             $scope.goodsExchangePointCount = exchangePointCount;
         };
 
+        //2017.12.27获取订单总价
         $scope.setOrderFinalPrice = function(){
 
             // 在商品总价的基础上减去订单优惠和优惠券抵值
@@ -6813,6 +6814,7 @@ console.log(sku);
             // 订单活动
             if($scope.confirmData.actMasterList!=null&&$scope.confirmData.actMasterList.length>0){
                 angular.forEach($scope.confirmData.actMasterList, function (activity) {
+                    //判断是否是活动，若果是
                     if($scope.selectedOrderActivity.id == activity.activityId){
                         // 选中的活动
                         orderDiscount = orderDiscount - activity.cutPrice;

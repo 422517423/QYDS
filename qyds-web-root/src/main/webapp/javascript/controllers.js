@@ -6996,7 +6996,7 @@ console.log(sku);
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
         };
-        // 注册
+        // 注册(12.26)
         $scope.register = function (isValid) {
 
             $scope.submitted_register = true;
@@ -7069,6 +7069,14 @@ console.log(sku);
                 '男': "1",
                 '女': "2"
             };
+
+            $.ajax({
+                url:"/auth/getProvinceList.json",
+                data:{},
+                success:function(result){
+                    $scope.provinceList = result;
+                }
+            });
 
             $scope.registerInfo = {tel: '', captcha: '', password: '', rePassword: '', name: '', agree: false, sex:'0', birthdate:''};
 

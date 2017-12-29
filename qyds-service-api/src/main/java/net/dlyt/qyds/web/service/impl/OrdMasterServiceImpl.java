@@ -1398,8 +1398,9 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         int goodsCount = 0;
         //------------数据集合end------
         //商品信息
+        //看ordmaster中的ordlistextlist中的元素的pricediscount
         List<OrdListExt> ordListExtList = ordMasterExt.getOrdListExtList();
-
+        //套装内各商品信息
         List<OrdConfirmGoodsExt> ordConfirmGoodsExtList = new ArrayList<OrdConfirmGoodsExt>();
         for (OrdListExt ole : ordListExtList) {
             OrdConfirmGoodsExt ordConfirmGoodsExt = new OrdConfirmGoodsExt();
@@ -1407,23 +1408,38 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             ordConfirmGoodsExt.setQuantity(ole.getQuantity());
             ordConfirmGoodsExt.setActGoodsId(ole.getActionId());
             ordConfirmGoodsExt.setSkuInfo(ole.getSkuInfo());
+            //商品信息中如果有优惠后价格
+            /////看ole中priceDiscount,ordconfirmgoodExt
             if (ole.getPriceDiscount() != null) {
+                //设置套装中优惠后价格为优惠后价格
+                //看ordconfirmgoodExt 中的 pricediscount
                 ordConfirmGoodsExt.setPriceDiscount(ole.getPriceDiscount().setScale(2, BigDecimal.ROUND_HALF_UP).floatValue());
             }
+            //套装内各商品信息集合
             List<OrdConfirmOrderUnitExt> ordConfirmOrderUnitExtList = new ArrayList<OrdConfirmOrderUnitExt>();
             for (int i = 0; i < ole.getSkuInfo().size(); i++) {
                 OrdConfirmOrderUnitExt ordConfirmOrderUnitExt = new OrdConfirmOrderUnitExt();
                 ordConfirmOrderUnitExt.setSkuId(ole.getSkuInfo().get(i).getSkuId());
+                //套装内各商品信息集合添加套装内各商品信息
+                //看ordConfirmOrderUnitExtList结构，什么是null
                 ordConfirmOrderUnitExtList.add(ordConfirmOrderUnitExt);
             }
             ordConfirmGoodsExt.setOrdConfirmOrderUnitExtList(ordConfirmOrderUnitExtList);
+            //看ordconfirmgoodsextlist，照下来
             ordConfirmGoodsExtList.add(ordConfirmGoodsExt);
         }
         //调用获取优惠信息
+        //看ordConfirmGoodsExtList，比较
+        //从ordMasterExt中取memberid传入方法
         ordConfirmGoodsExtList = actMasterService.bindActivityForOrderConfirm(ordConfirmGoodsExtList, ordMasterExt.getMemberId(), true);
+
+//        //添加判断是否是参加活动商品的标志位
+//        boolean flag = true;
+//        BigDecimal memberDiscount = new BigDecimal(0.88);
 
         //商品级优惠校验
         for (OrdConfirmGoodsExt ole : ordConfirmGoodsExtList) {
+            //如果没有活动商品，也没有参加活动，算出的是没有优惠的总价
             if (ole.getActGoodsId() == null || "".equals(ole.getActGoodsId()) || ole.getActivity() == null) {
                 if (ole.getSkuInfo().size() == 1) {
                     //单品
@@ -1436,7 +1452,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     price = price.setScale(2,RoundingMode.HALF_UP);
                     // 获取数量
                     BigDecimal quantity = new BigDecimal(ole.getQuantity());
-
+//                    // 获取订单商品总价
                     goodsSum = goodsSum.add(price.multiply(quantity));
                     goodsCount += ole.getQuantity();
                 } else {
@@ -1460,18 +1476,24 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     goodsSum = goodsSum.add(suitPrice.multiply(quantity));
                     goodsCount += ole.getQuantity();
                 }
-            } else {
+            }
+            //订单中有参加活动的商品，享受优惠
+            else {
                 // 获取单价
                 BigDecimal newPrice = new BigDecimal(String.valueOf(ole.getActivity().getNewPrice()));
                 // 单价四舍五入
                 newPrice = newPrice.setScale(2,RoundingMode.HALF_UP);
                 // 获取数量
                 BigDecimal quantity = new BigDecimal(ole.getQuantity());
-
+                //goodsSum中已经有newprice了
                 goodsSum = goodsSum.add(newPrice.multiply(quantity));
+                //积分换购所需要的积分个数加上活动所需积分数
                 exchangePointCount += ole.getActivity().getPoint() * ole.getQuantity();
                 goodsCount += ole.getQuantity();
             }
+            //设置小数点，并设置四舍五入
+            //获得总价
+            if (ordMasterExt.getMemberId().equals(""))
             goodsSum =  goodsSum.setScale(2,RoundingMode.HALF_UP);
         }
 
@@ -1479,20 +1501,54 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             throw new ExceptionBusiness("商品金额计算有误，请重试!");
         }
 
-        //商家级优惠校验
+        //代金券场合
+        if (ordMasterExt.getCouponMemberId() == null || "".equals(ordMasterExt.getCouponMemberId())) {
+            // couponDiscount += 0;
+        } else {
+            String memberId = ordMasterExt.getMemberId();
+            if (!StringUtil.isEmpty(newMemberId)) {
+                memberId = newMemberId;
+            }
+            CouponMasterExt couponMasterExt = couponMemberService.getOrderCouponById(memberId, ordMasterExt.getCouponMemberId(), goodsSum.subtract(actionDiscount).floatValue());
+            if (couponMasterExt == null) {
+                throw new ExceptionBusiness("所选择的优惠券已失效,请重新选择优惠券!");
+            } else {
+                if (net.dlyt.qyds.web.service.common.ComCode.CouponStyle.WORTH.equals(couponMasterExt.getCouponStyle())) {
+                    // 抵值
+                    couponDiscount = new BigDecimal(couponMasterExt.getWorth());
+                } else {
+                    // 折扣
+                    BigDecimal noCouponPrice = goodsSum.subtract(actionDiscount);
+                    BigDecimal couponedPrice = noCouponPrice.multiply(couponMasterExt.getDiscount()).divide(new BigDecimal(10),2,RoundingMode.HALF_UP);
+                    couponDiscount = noCouponPrice.subtract(couponedPrice);
+                }
+            }
+            couponDiscount = couponDiscount.setScale(2,RoundingMode.HALF_UP);
+            if (ordMasterExt.getAmountCoupon().compareTo(couponDiscount) != 0) {
+                throw new ExceptionBusiness("所选择的优惠券价格有变动,请重新选择优惠券");
+            }
+        }
+
+        //整单优惠校验
+        //如果没有参与活动的商品
         if (ordMasterExt.getActionId() == null || "".equals(ordMasterExt.getActionId())) {
             //shopDiscount += goodsSum;
-        } else {
+        }
+        //有参与活动的商品
+        else {
+            //获取可参与活动列表
             ActMasterForm actMasterForm = actMasterService.getOrderActivityById(ordMasterExt.getMemberId(), ordMasterExt.getActionId(), ordConfirmGoodsExtList);
             if (actMasterForm == null) {
                 throw new ExceptionBusiness("该优惠不存在,请重新选择优惠!");
             } else {
+                //给活动优惠金额赋值：actMasterForm的优惠金额字段
                 actionDiscount = new BigDecimal(actMasterForm.getCutPrice());
                 actionDiscount = actionDiscount.setScale(2,RoundingMode.HALF_UP);
                 if (actMasterForm.getNeedFee() != null) {
                     //activityNeedFee = actMasterForm.getNeedFee().floatValue();
                 }
                 if (actMasterForm.getNeedPoint() != null) {
+                    //换购所需要的积分个数
                     exchangePointCount += actMasterForm.getNeedPoint();
                 }
 
@@ -1515,34 +1571,6 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         }
         if (actionDiscount.compareTo(ordMasterExt.getAmountDiscount()) != 0) {
             throw new ExceptionBusiness("促销活动有变动,请重新选择活动!");
-        }
-        //代金券场合
-        if (ordMasterExt.getCouponMemberId() == null || "".equals(ordMasterExt.getCouponMemberId())) {
-            // couponDiscount += 0;
-        } else {
-            String memberId = ordMasterExt.getMemberId();
-            if (!StringUtil.isEmpty(newMemberId)) {
-                memberId = newMemberId;
-            }
-            CouponMasterExt couponMasterExt = couponMemberService.getOrderCouponById(memberId, ordMasterExt.getCouponMemberId(), goodsSum.subtract(actionDiscount).floatValue());
-            if (couponMasterExt == null) {
-                throw new ExceptionBusiness("所选择的优惠券已失效,请重新选择优惠券!");
-            } else {
-                if (net.dlyt.qyds.web.service.common.ComCode.CouponStyle.WORTH.equals(couponMasterExt.getCouponStyle())) {
-                    // 抵值
-                    couponDiscount = new BigDecimal(couponMasterExt.getWorth());
-                } else {
-                    //折扣
-                    BigDecimal noCouponPrice = goodsSum.subtract(actionDiscount);
-                    BigDecimal couponedPrice = noCouponPrice.multiply(couponMasterExt.getDiscount()).divide(new BigDecimal(10),2,RoundingMode.HALF_UP);
-
-                    couponDiscount = noCouponPrice.subtract(couponedPrice);
-                }
-            }
-            couponDiscount = couponDiscount.setScale(2,RoundingMode.HALF_UP);
-            if (ordMasterExt.getAmountCoupon().compareTo(couponDiscount) != 0) {
-                throw new ExceptionBusiness("所选择的优惠券价格有变动,请重新选择优惠券");
-            }
         }
 
         //订单总价校验 商品总价-商家级优惠价格+商家及优惠所需额外加钱-代金券金额+邮费
