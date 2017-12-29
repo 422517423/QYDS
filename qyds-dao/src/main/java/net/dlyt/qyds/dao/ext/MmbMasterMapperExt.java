@@ -6,6 +6,7 @@ import net.dlyt.qyds.common.dto.MmbMaster;
 import net.dlyt.qyds.common.dto.ext.MmbMasterExt;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Repository
 public interface MmbMasterMapperExt {
+    BigDecimal selectMemberDiscount(String memberId);
 
     // 获取会员列表
     List<MmbMasterExt> selectAll(MmbMasterExt ext);

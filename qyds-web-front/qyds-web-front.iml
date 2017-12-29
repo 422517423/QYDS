@@ -19,7 +19,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -63,7 +63,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:jconsole:1.8.0">
         <CLASSES>
-          <root url="jar://D:/Program Files/Java/jdk1.7.0_25/lib/jconsole.jar!/" />
+          <root url="jar://C:/Program Files/Java/jdk1.7.0_25/lib/jconsole.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -72,7 +72,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.alibaba:tools:1.8.0">
         <CLASSES>
-          <root url="jar://D:/Program Files/Java/jdk1.7.0_25/lib/tools.jar!/" />
+          <root url="jar://C:/Program Files/Java/jdk1.7.0_25/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -80,7 +80,6 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:3.2.16.RELEASE" level="project" />
     <orderEntry type="module" module-name="qyds-service-api" />
-    <orderEntry type="library" name="Maven: org.terracotta:terracotta-toolkit-runtime:4.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpmime:4.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" level="project" />
@@ -92,6 +91,9 @@
     <orderEntry type="module" module-name="qyds-interface" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:3.2.16.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.3" level="project" />
+    <orderEntry type="library" name="Maven: org.terracotta:terracotta-toolkit-runtime:4.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.terracotta.toolkit:terracotta-toolkit-api-internal:1.17" level="project" />
+    <orderEntry type="library" name="Maven: org.terracotta.toolkit:terracotta-toolkit-api:2.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:3.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:3.13" level="project" />

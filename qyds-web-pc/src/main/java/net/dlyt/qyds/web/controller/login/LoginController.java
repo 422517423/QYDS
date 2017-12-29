@@ -43,6 +43,12 @@ public class LoginController {
     @Resource
     private SysSmsCaptchaService sysSmsCaptchaService;
 
+    @RequestMapping("/getProvinceList")
+    public JSONObject getProvinceList(){
+        JSONObject jsonObject = new JSONObject();
+        return jsonObject;
+    }
+
     @RequestMapping("register")
     public
     @ResponseBody
@@ -56,6 +62,8 @@ public class LoginController {
             String memberName = inJson.getString("memberName");
             String sex = inJson.getString("sex");
             String birthdate = inJson.getString("birthdate");
+            // TODO: 2017/12/26 加上省份城市的key
+
             if (StringUtils.isEmpty(telephone)
                     || StringUtils.isEmpty(password)
                     || StringUtils.isEmpty(captcha)

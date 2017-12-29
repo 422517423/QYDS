@@ -179,6 +179,23 @@
 
                     <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
                         <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">省份</label>
+                        <div class="col-xs-12 col-sm-9 input-group" style="padding:0;margin:0">
+                            <select class="form-control" ng-model="registerInfo.province"
+                                    id="regProvince" name="regProvince" required
+                                    ng-options="x for (x, y) in provinceList">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="(registerValidForm.regProvince.$error.required || registerInfo.provinceCode==0) && submitted_register">
+                        请选择性别
+                    </div>
+
+
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
                                style="text-indent:5px;padding:0;margin:0;line-height:230%">密码</label>
                         <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
                             <input type="password" class="form-control" ng-model="registerInfo.password"
