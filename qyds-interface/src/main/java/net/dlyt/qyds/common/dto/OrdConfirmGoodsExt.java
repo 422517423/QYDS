@@ -10,6 +10,16 @@ import java.util.List;
  */
 public class OrdConfirmGoodsExt implements Serializable {
 
+    private boolean flag;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
     //商品ID
     private String goodsId;
     //商品名称

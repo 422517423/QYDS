@@ -67,7 +67,8 @@
 	<!-- 每月日最后一日23点59分59秒执行一次 -->
 	<bean id="mmbBonusPointCleanCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="mmbBonusPointCleanTaskJob" />
-		<property name="cronExpression" value="59 59 23 L * ?" />
+		<!--<property name="cronExpression" value="59 59 23 L * ?" />-->
+		<property name="cronExpression" value="0 0 2 1 1 ?" />
 	</bean>
 
 	<!-- 每年一月一日2点执行一次 -->
@@ -129,14 +130,14 @@
 
 		<property name="triggers">
 			<list>
-				<ref bean="mmbMasterDownGradeCronTrigger" />
+				<!--<ref bean="mmbMasterDownGradeCronTrigger" />
 				<ref bean="mmbBonusPointCleanCronTrigger" />
 				<ref bean="mmbAddPointCronTrigger" />
 				<ref bean="distributeBirthdayCouponCronTrigger" />
 				<ref bean="erpSendCronTrigger" />
 				<ref bean="receiptOrderCronTrigger" />
 				<ref bean="thirtyDayOrderCronTrigger" />
-				<ref bean="fifteenDayOrderCronTrigger" />
+				<ref bean="fifteenDayOrderCronTrigger" />-->
 			</list>
 		</property>
 

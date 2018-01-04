@@ -215,7 +215,7 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
         try {
 
 
-            String ratio = "0.8";
+            String ratio = "1";
 
             ComConfigKey key = new ComConfigKey();
             key.setCode(MEMBER_LEVEL_RATIO_CODE);

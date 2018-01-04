@@ -2426,6 +2426,7 @@ public class ActMasterServiceImpl implements ActMasterService {
         }
     }
 
+
     @Override
     public void checkBindActivityForOrder(List<OrdConfirmGoodsExt> goodsList, String memberId) {
         Map<String, List<OrdConfirmGoodsExt>> groupMap = getGoodsGroupMap(goodsList);
@@ -2466,7 +2467,11 @@ public class ActMasterServiceImpl implements ActMasterService {
         }
     }
 
+    //来自购物车判断
+    //看goodslist,memberid
     private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId) {
+        //添加memberDiscount
+        float memberDiscount = mmbMasterMapperExt.selectMemberDiscount(memberId).floatValue();
         Map<String, List<OrdConfirmGoodsExt>> groupMap = getGoodsGroupMap(goodsList);
         List<OrdConfirmGoodsExt> newGoodsList = new ArrayList<OrdConfirmGoodsExt>();
         for (String key : groupMap.keySet()) {
@@ -2478,7 +2483,18 @@ public class ActMasterServiceImpl implements ActMasterService {
                 }
             } else {
                 // 有活动,根据Id取出活动信息
+                // 看activity中newprice,并看是否有模板id
                 ActMasterForm activity = actMasterMapperExt.selectByPrimaryKey(key);
+                //获取会员活动类型
+                String tempId = activity.getTempId();
+                ActTemplateForm actTemplateForm = new ActTemplateForm();
+                actTemplateForm.setTempId(tempId);
+                ActTemplateForm actTemplateForm1 = actTemplateMapperExt.selectById(actTemplateForm);
+                ActTempParam actTempParam1 = new ActTempParam();
+                actTempParam1.setTempId(tempId);
+                List<ActTempParam> actTempParams = actTempParamMapperExt.selectByTempId(actTempParam1);
+                String actitionType = actTemplateForm1.getActitionType();
+
                 if (activity == null || !isContainsMember(activity, memberId)
                         || activity.getStartTime().compareTo(new Date()) > 0
                         || activity.getEndTime().compareTo(new Date()) < 0) {
@@ -2498,14 +2514,28 @@ public class ActMasterServiceImpl implements ActMasterService {
                             goodsCount += goods.get(i).getQuantity();
                         }
                         // 获取最终折扣
+                        //看activty
                         float discount = getActivityDiscount(activity, goodsCount);
                         for (int i = 0; i < goods.size(); i++) {
                             // 计算每个商品的价格
                             float orginPrice = getOrginPrice(goods.get(i));
+                            //看newprice，discount
                             float newPrice = getDiscountPrice(orginPrice, discount);
                             ActMasterForm activity1 = new ActMasterForm();
                             BeanUtils.copyProperties(activity, activity1);
                             activity1.setOriginPrice(orginPrice);
+
+                            if (actitionType.equals("20")&&actTempParams.size()!=0){
+                                String paramValue = actTempParams.get(0).getParamValue();
+                                double b = Double.parseDouble(paramValue);
+                                //添加判断值
+//                              if (!(activity.getTempId()).equals("13970196-c36d-4b49-88ba-824d98b0a0dc")){
+                                if (b>5.7){
+                                    newPrice = newPrice*memberDiscount;
+                                    goods.get(i).setFlag(true);
+                                }
+                            }
+                            //看newprice
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
                             newGoodsList.add(goods.get(i));
@@ -2520,11 +2550,13 @@ public class ActMasterServiceImpl implements ActMasterService {
                         // 获取模板参数template = actTemplateMapperExt.selectById(template);
                         ActTempParam actTempParam = new ActTempParam();
                         actTempParam.setTempId(template.getTempId());
+                        //看paramlist
                         List<ActTempParam> paramList = actTempParamMapperExt.selectByTempId(actTempParam);
                         float discount1 = 10;
                         float discount2 = 10;
                         if (paramList != null) {
                             if (paramList.size() > 0) {
+                                //看discount,折扣的值
                                 discount1 = Float.parseFloat(paramList.get(0).getParamValue());
                             }
                             if (paramList.size() > 1) {
@@ -2563,13 +2595,25 @@ public class ActMasterServiceImpl implements ActMasterService {
                             BeanUtils.copyProperties(activity, activity2);
                             float orginPrice1 = Float.valueOf(goods2.get(i).getPrice());
                             float orginPrice2 = Float.valueOf(goods2.get(goods2.size() - i - 1).getPrice());
+                            //看discount是什么
+                            //discount
                             float newPrice1 = orginPrice1 * (discount1 * 10) / 100;
                             float newPrice2 = orginPrice2 * (discount2 * 10) / 100;
                             activity1.setOriginPrice(orginPrice1);
                             activity2.setOriginPrice(orginPrice2);
+                            //乘会员折扣
+                            if (((discount1 * 10) / 100)>0.57){
+                                newPrice1 = newPrice1*memberDiscount;
+                                goods2.get(i).setFlag(true);
+                            }
                             activity1.setNewPrice(newPrice1);
                             if(newPrice2 == 0.0){
                                 newPrice2 = 1.0f;
+                            }
+                            //乘会员折扣
+                            if (((discount2 * 10) / 100)>0.57){
+                                newPrice2 = newPrice2*memberDiscount;
+                                goods2.get(i).setFlag(true);
                             }
                             activity2.setNewPrice(newPrice2);
                             goods2.get(i).setActivity(activity1);
@@ -2584,6 +2628,8 @@ public class ActMasterServiceImpl implements ActMasterService {
                             float orginPrice3 = Float.valueOf(goods2.get(middleIndex).getPrice());
                             float newPrice3 = orginPrice3 * (discount1 * 10) / 100;
                             activity3.setOriginPrice(orginPrice3);
+                            //乘会员折扣
+                            newPrice3 = newPrice3*memberDiscount;
                             activity3.setNewPrice(newPrice3);
                             goods2.get(middleIndex).setActivity(activity3);
                             newGoodsList.add(goods2.get(middleIndex));
@@ -2597,6 +2643,10 @@ public class ActMasterServiceImpl implements ActMasterService {
                             ActMasterForm activity1 = new ActMasterForm();
                             BeanUtils.copyProperties(activity, activity1);
                             activity1.setOriginPrice(orginPrice);
+                            // 乘会员折扣
+                            if (newPrice/orginPrice>0.57){
+                                newPrice = newPrice*memberDiscount;
+                            }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
                             newGoodsList.add(goods.get(i));
@@ -2611,6 +2661,10 @@ public class ActMasterServiceImpl implements ActMasterService {
                             ActMasterForm activity1 = new ActMasterForm();
                             BeanUtils.copyProperties(activity, activity1);
                             activity1.setOriginPrice(orginPrice);
+                            //乘会员折扣
+                            if (newPrice/orginPrice>0.57){
+                                newPrice = newPrice*memberDiscount;
+                            }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
 
@@ -2618,14 +2672,13 @@ public class ActMasterServiceImpl implements ActMasterService {
                             checkSecKillDateTime(activity1);
 
                             if (goods.get(i).getOrdConfirmOrderUnitExtList() != null && goods.get(i).getOrdConfirmOrderUnitExtList().size() > 0) {
-                                // 检查秒杀库存及秒杀订单数量
+                             // 检查秒杀库存及秒杀订单数量
                                 checkActGoodsInfo(activity1.getActivityId(),
                                         goods.get(i).getGoodsId(),
                                         goods.get(i).getOrdConfirmOrderUnitExtList().get(0).getSkuId(),
                                         memberId,
                                         goods.get(i).getQuantity());
                             }
-
                             newGoodsList.add(goods.get(i));
                         }
                     } else if (ComCode.ActivityType.INTEGRAL_EXCHANGE.equals(activity.getActivityType())) {

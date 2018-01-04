@@ -21,7 +21,7 @@
         <module name="qyds-wx-front" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.7">
       <module name="net.dlyt.qyds" target="1.7" />
       <module name="qyds-config" target="1.7" />
       <module name="qyds-dao" target="1.7" />
