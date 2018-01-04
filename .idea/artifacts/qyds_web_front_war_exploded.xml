@@ -41,7 +41,6 @@
           <element id="archive" name="qyds-service-api-1.0.jar">
             <element id="module-output" name="qyds-service-api" />
           </element>
-          <element id="library" level="project" name="Maven: org.terracotta:terracotta-toolkit-runtime:4.3.0" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" />
@@ -55,6 +54,9 @@
           </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:3.2.16.RELEASE" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache:2.10.3" />
+          <element id="library" level="project" name="Maven: org.terracotta:terracotta-toolkit-runtime:4.3.0" />
+          <element id="library" level="project" name="Maven: org.terracotta.toolkit:terracotta-toolkit-api-internal:1.17" />
+          <element id="library" level="project" name="Maven: org.terracotta.toolkit:terracotta-toolkit-api:2.7" />
           <element id="library" level="project" name="Maven: org.apache.poi:poi:3.13" />
           <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:3.13" />
           <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.13" />
