@@ -686,7 +686,6 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
     public JSONObject clearSurplusPoint() {
         JSONObject json = new JSONObject();
         try {
-
             Date now = new Date();
             List<MmbPointRecordExt> list = mmbPointRecordMapperExt.countSubPoint(now);
             for (MmbPointRecordExt item : list) {
@@ -696,11 +695,11 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
                     if (master != null && "0".equals(master.getDeleted())) {
                         master.setPoint(master.getPoint() - item.getPointSurplus());
                         master.setUpdateTime(new Date());
+                        master.setPointCumulative(0);
                         mmbMasterMapper.updateByPrimaryKeySelective(master);
                     }
                 }
             }
-
             // 清空所有会员的到期积分
             mmbPointRecordMapperExt.clearSubPoint(now);
             //2016.11.23,确认ERP自己处理清除过期积分
