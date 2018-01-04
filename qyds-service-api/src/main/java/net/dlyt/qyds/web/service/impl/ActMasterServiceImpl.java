@@ -2479,6 +2479,14 @@ public class ActMasterServiceImpl implements ActMasterService {
             if (goods.get(0).getActGoodsId() == null) {
                 // 没有活动直接循环添加到新列表中
                 for (int i = 0; i < goods.size(); i++) {
+                    ActMasterForm actMasterForm = new ActMasterForm();
+                    actMasterForm.setActivityName("会员折扣");
+                    float orginPrice = getOrginPrice(goods.get(i));
+                    actMasterForm.setNewPrice(orginPrice*memberDiscount);
+                    goods.get(i).setActivity(actMasterForm);
+                    if (memberDiscount<1){
+                        goods.get(i).setFlag(true);
+                    }
                     newGoodsList.add(goods.get(i));
                 }
             } else {
