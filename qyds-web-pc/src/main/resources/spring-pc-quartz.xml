@@ -19,7 +19,7 @@
 	<bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="jobDetails">
 			<list>
-				<ref bean="unpayOrderTaskJob" />
+				<!--<ref bean="unpayOrderTaskJob" />-->
 			</list>
 		</property>
 

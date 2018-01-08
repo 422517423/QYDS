@@ -39,7 +39,7 @@ public class AliPayNotfyController {
     @Autowired
     private CouponOrderService couponOrderService;
 
-    /*测试*/
+     /*测试*/
     /**
      * 阿里支付(异步回调)
      * @param request
@@ -53,7 +53,8 @@ public class AliPayNotfyController {
 
         try{
             Map<String, String> mParam = new HashMap<String, String>();
-            mParam.put("orderCode", "20171219091321024616");
+            String orderCode = request.getParameter("orderCode");
+            mParam.put("orderCode", orderCode);
             mParam.put("total_fee","0.01");//单位‘元’ 0.00
             try{
                 ordAliPayService.paySuccess(mParam);
@@ -66,7 +67,6 @@ public class AliPayNotfyController {
             Log.info(e.getMessage());
         }
     }
- /*测试*/
 
 
     /**

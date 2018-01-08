@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.springframework.org/schema/beans"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         					http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<import resource="classpath:spring-dao.xml"/>
@@ -10,8 +10,8 @@
 
 	<!-- For times when you need more complex processing, passing data to the scheduled job -->
 	<!--<bean name="mmbMasterUpgradeTaskJob" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
-		<!--<property name="jobClass" value="net.dlyt.qyds.web.quartz.MmbMasterUpgradeTaskJob" />-->
-		<!--<property name="durability" value="true" />-->
+	<!--<property name="jobClass" value="net.dlyt.qyds.web.quartz.MmbMasterUpgradeTaskJob" />-->
+	<!--<property name="durability" value="true" />-->
 	<!--</bean>-->
 
 	<bean name="mmbBonusPointCleanTaskJob" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
@@ -54,33 +54,36 @@
 	</bean>
 
 	<!--<bean name="" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
-		<!--<property name="jobClass" value="net.dlyt.qyds.web.quartz.ThirtyDayOrderTaskJob" />-->
-		<!--<property name="durability" value="true" />-->
+	<!--<property name="jobClass" value="net.dlyt.qyds.web.quartz.ThirtyDayOrderTaskJob" />-->
+	<!--<property name="durability" value="true" />-->
 	<!--</bean>-->
 
 	<!--&lt;!&ndash; 每日11点12分13秒执行一次 &ndash;&gt;-->
 	<!--<bean id="mmbMasterUpgradeCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-		<!--<property name="jobDetail" ref="mmbMasterUpgradeTaskJob" />-->
-		<!--<property name="cronExpression" value="13 12 11 * * ?" />-->
+	<!--<property name="jobDetail" ref="mmbMasterUpgradeTaskJob" />-->
+	<!--<property name="cronExpression" value="13 12 11 * * ?" />-->
 	<!--</bean>-->
 
 	<!-- 每月日最后一日23点59分59秒执行一次 -->
+	<!-- 新：每年12月31日2点执行一次 -->
 	<bean id="mmbBonusPointCleanCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="mmbBonusPointCleanTaskJob" />
 		<!--<property name="cronExpression" value="59 59 23 L * ?" />-->
-		<property name="cronExpression" value="0 0 2 1 1 ?" />
+		<property name="cronExpression" value="0 0 3 31 12 ?" />
 	</bean>
 
 	<!-- 每年一月一日2点执行一次 -->
+	<!-- 新：每年12月31日2点执行一次 -->
 	<bean id="mmbMasterDownGradeCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="mmbMasterDownGradeTaskJob" />
-		<property name="cronExpression" value="0 0 2 1 1 ?" />
+		<!--<property name="cronExpression" value="0 0 2 1 1 ?" />-->
+		<property name="cronExpression" value="0 0 2 31 12 ?" />
 	</bean>
 
 	<!-- 每日0点0分1秒执行一次 -->
 	<bean id="mmbAddPointCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-	<property name="jobDetail" ref="mmbAddPointTaskJob" />
-	<property name="cronExpression" value="1 4 18 * * ?" />
+		<property name="jobDetail" ref="mmbAddPointTaskJob" />
+		<property name="cronExpression" value="1 4 18 * * ?" />
 	</bean>
 
 	<!-- 每日0点0分2秒执行一次 -->
@@ -117,14 +120,14 @@
 	<bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="jobDetails">
 			<list>
-				<ref bean="mmbMasterDownGradeTaskJob" />
+				<!--<ref bean="mmbMasterDownGradeTaskJob" />
 				<ref bean="mmbBonusPointCleanTaskJob" />
 				<ref bean="mmbAddPointTaskJob" />
 				<ref bean="distributeBirthdayCouponTaskJob" />
 				<ref bean="erpSendTaskJob" />
 				<ref bean="receiptOrderTaskJob" />
 				<ref bean="thirtyDayOrderTaskJob" />
-				<ref bean="fifteenDayOrderTaskJob" />
+				<ref bean="fifteenDayOrderTaskJob" />-->
 			</list>
 		</property>
 
@@ -156,5 +159,4 @@
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="overwriteExistingJobs" value="true" />
 	</bean>
-
 </beans>

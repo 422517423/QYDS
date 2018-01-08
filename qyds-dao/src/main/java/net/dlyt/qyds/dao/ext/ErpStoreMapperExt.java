@@ -4,6 +4,7 @@ import net.dlyt.qyds.common.dto.ErpCity;
 import net.dlyt.qyds.common.dto.ErpDistrict;
 import net.dlyt.qyds.common.dto.ErpProvince;
 import net.dlyt.qyds.common.dto.ErpStore;
+import net.dlyt.qyds.common.dto.ext.ErpStoreExt;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface ErpStoreMapperExt {
     List<ErpCity> queryCityOfProvince(String provinceCode);
 
     List<ErpDistrict> queryDistrictOfCity(String cityCode);
+
+    ErpStoreExt selectByPrimaryKeyExt(String storeCode);
+
 }

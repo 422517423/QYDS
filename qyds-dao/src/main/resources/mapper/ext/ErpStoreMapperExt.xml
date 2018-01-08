@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="net.dlyt.qyds.dao.ext.ErpStoreMapperExt" >
-  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpStore" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.ErpStoreExt" >
     <id column="store_code" property="storeCode" jdbcType="VARCHAR" />
     <result column="store_name_en" property="storeNameEn" jdbcType="VARCHAR" />
     <result column="store_name_cn" property="storeNameCn" jdbcType="VARCHAR" />
@@ -20,6 +20,11 @@
     <result column="city_name" property="cityName" jdbcType="VARCHAR" />
     <result column="district_name" property="districtName" jdbcType="VARCHAR" />
     <result column="bank_only" property="bankOnly" jdbcType="VARCHAR" />
+
+    <result column="shop_province" property="shopProvince" jdbcType="VARCHAR" />
+    <result column="shop_city" property="shopCity" jdbcType="VARCHAR" />
+    <result column="shop_district" property="shopDistrict" jdbcType="VARCHAR" />
+    <result column="shop_address" property="shopAddress" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     store_code, store_name_en, store_name_cn, address, phone, comment, deleted, update_user_id, 
@@ -95,4 +100,14 @@
     ORDER BY dcode
   </select>
 
+  <select id="selectByPrimaryKeyExt" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,ep.pname as shop_province ,ec.cname as shop_city ,ed.dname as shop_district,es.address as shop_address
+    from public.erp_store es
+    left join public.erp_province ep on es.province_code=ep.pcode
+    left join public.erp_city ec on es.city_code=ec.ccode
+    left join public.erp_district ed on es.district_name=ed.dcode
+    where store_code = #{storeCode,jdbcType=VARCHAR}
+  </select>
 </mapper>

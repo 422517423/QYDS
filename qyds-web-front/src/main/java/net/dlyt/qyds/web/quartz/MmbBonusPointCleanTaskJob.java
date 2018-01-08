@@ -58,7 +58,7 @@ public class MmbBonusPointCleanTaskJob extends QuartzJobBean{
 		try {
 			bonusPointClean();
 			//提前一个月通知
-			bonusPointNotify();
+			//bonusPointNotify();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

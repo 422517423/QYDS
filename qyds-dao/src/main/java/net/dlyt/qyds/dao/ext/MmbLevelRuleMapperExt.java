@@ -45,5 +45,13 @@ public interface MmbLevelRuleMapperExt {
      *
      * @return
      */
-    List<MmbLevelManagerForm> selectRelegationMemberList(float ratio);
+   // List<MmbLevelManagerForm> selectRelegationMemberList(float ratio);
+
+    /**
+     * 查询去年度累计积分不足等级下限80%的降级会员
+     *
+     *
+     * @return
+     */
+    List<MmbLevelManagerForm> selectRelegationMemberList();
 }

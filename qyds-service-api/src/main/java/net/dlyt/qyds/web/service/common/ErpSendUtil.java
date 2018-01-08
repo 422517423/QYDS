@@ -22,7 +22,9 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static net.dlyt.qyds.web.service.common.DataUtils.formatTimeStampToYMDHMS;
 import static net.dlyt.qyds.web.service.common.ErpKeyUtil.*;
@@ -34,9 +36,9 @@ import static net.dlyt.qyds.web.service.common.ErpKeyUtil.*;
 public class ErpSendUtil {
     //成功
     // 正式
-   /* static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:27676/Service.asmx?wsdl";*/
+    //static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:27676/Service.asmx?wsdl";
     // 测试
-    static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:24444/Service.asmx?wsdl";
+   static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:24444/Service.asmx?wsdl";
     static private final Logger log = LoggerFactory.getLogger(ErpSendUtil.class);
     static private Service service;
     static private ServiceSoap soap;
@@ -1458,7 +1460,7 @@ public class ErpSendUtil {
      */
     static public JSONObject YTOUpdate(OrdLogisticStatus ordLogisticStatus) {
         ordLogisticStatus.setErpSendStatus("10");
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         JSONObject result = new JSONObject();
         result.put("resultCode", Constants.NORMAL);
         // 物流号

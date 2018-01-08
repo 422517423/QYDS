@@ -111,9 +111,8 @@
         select mpr.member_id, sum(mpr.point_surplus) point_surplus
         from PUBLIC.mmb_point_record mpr
         where mpr.deleted = '0'
-        and mpr.point_surplus &gt; 0
-        and date_part('year', mmb_point_record.point_time) = (date_part('year', now()) - 1)
--- and to_char(mpr.point_time , 'yyyyMM') = to_char(#{pointTime,jdbcType=TIMESTAMP} -  interval '24 month' , 'yyyyMM')
+        and mpr.point_surplus &gt; '0'
+        and date_part('year', mpr.point_time) = (date_part('year', now()) - 1)
         GROUP by mpr.member_id
     </select>
     <select id="selectNotifyPoint" resultMap="CountSubPointResultMap">
@@ -132,12 +131,12 @@
 
     <update id="clearSubPoint"
             parameterType="java.util.Date">
-       update public.mmb_point_record mpr
-       set mpr.point_cuml ,mpr.point_surplus = 0,
-        mpr.update_time = now()
-        where mpr.deleted = '0'
-        and mpr.point_surplus &gt; 0
-        and date_part('year', mmb_point_record.point_time) = (date_part('year', now()) - 1)
+       update public.mmb_point_record
+       set point_surplus = 0,
+       update_time = now()
+        where deleted = '0'
+        and point_surplus >'0'
+        and date_part('year', point_time) = (date_part('year', now()) - 1)
     </update>
 
     <!--<update id="clearSubPoint"-->

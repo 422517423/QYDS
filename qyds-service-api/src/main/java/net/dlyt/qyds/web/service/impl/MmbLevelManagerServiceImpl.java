@@ -215,7 +215,7 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
         try {
 
 
-            String ratio = "1";
+          /*  String ratio = "0.8";
 
             ComConfigKey key = new ComConfigKey();
             key.setCode(MEMBER_LEVEL_RATIO_CODE);
@@ -247,7 +247,22 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
                     ErpSendUtil.VIPUpdateById(master.getMemberId(),mmbMasterMapperExt,mmbMasterMapper);
                 }
             }
+*/
+            List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectRelegationMemberList();
+            for (MmbLevelManagerForm item : list) {
+                MmbMaster master = mmbMasterMapper.selectByPrimaryKey(item.getMemberId());
+                if (null != master || "0".equals(master.getDeleted())) {
+                    master.setMemberLevelId("10");
+                    master.setUpdateTime(new Date());
+                    mmbMasterMapper.updateByPrimaryKeySelective(master);
 
+                    // erp接口调用会员降级
+//                    updateMasterToERP(master.getMemberId());
+//                    ErpSendUtil.getInstance().VIPUpdateById(master.getMemberId());
+                    // 我注释掉的2018
+                    // ErpSendUtil.VIPUpdateById(master.getMemberId(),mmbMasterMapperExt,mmbMasterMapper);
+                }
+            }
             json.put("resultCode", Constants.NORMAL);
         } catch (ExceptionBusiness e) {
             json.put("resultCode", Constants.FAIL);

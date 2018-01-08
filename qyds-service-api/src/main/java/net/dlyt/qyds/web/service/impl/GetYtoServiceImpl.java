@@ -9,7 +9,6 @@ import net.dlyt.qyds.dao.OrdSubListMapper;
 import net.dlyt.qyds.dao.OrdTransferListMapper;
 import net.dlyt.qyds.dao.ext.OrdSubListMapperExt;
 import net.dlyt.qyds.web.service.GetYtoService;
-import net.dlyt.qyds.web.service.common.Constants;
 import net.dlyt.qyds.web.service.common.ErpSendUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,27 +61,34 @@ public class GetYtoServiceImpl implements GetYtoService {
                     String txLogisticID = (String) map.get("txLogisticID");
                     String infoContent = (String) map.get("infoContent");
                     // TODO: 2017/12/5 根据txLogisticID获取单个订单
-                    if (StringUtils.isNotBlank(mailNo) && StringUtils.isNotBlank(txLogisticID)){
+                    if (StringUtils.isNotBlank(txLogisticID)){
                         // 根据物流号先查询子订单信息
                         OrdSubListExt ordSubListExt = ordSubListMapperExt.selectByTxLogisticID(txLogisticID);
                         if(ordSubListExt != null){
                             // 物流号
-                            ordSubListExt.setExpressNo(mailNo);
-                            OrdSubList OrdSubList = new OrdSubList();
-                            BeanUtils.copyProperties(ordSubListExt,OrdSubList);
-                            // TODO: 2017/12/5 将mailno放进数据库
-                            ordSubListMapper.updateByPrimaryKeySelective(OrdSubList);
+                            if(StringUtils.isNotBlank(mailNo)){
+                                ordSubListExt.setExpressNo(mailNo);
+                                OrdSubList OrdSubList = new OrdSubList();
+                                BeanUtils.copyProperties(ordSubListExt,OrdSubList);
+                                // TODO: 2017/12/5 将mailno放进数据库
+                                ordSubListMapper.updateByPrimaryKeySelective(OrdSubList);
+                            }
                             // 保存物流信息
                             ordLogisticStatus = saveOrdLogisticStatus(map,ordSubListExt.getSubOrderId());
                         }else{
                             // 根据物流号再查询调货订单信息
                             OrdTransferList ordTransferList = ordTransferListMapper.selectByPrimaryKey(txLogisticID);
                             if(ordTransferList != null){
-                                ordTransferList.setExpressNo(mailNo);
-                                // TODO: 2017/12/5 将mailno放进数据库
-                                ordTransferListMapper.updateByPrimaryKeySelective(ordTransferList);
+                                if(StringUtils.isNotBlank(mailNo)){
+                                    ordTransferList.setExpressNo(mailNo);
+                                    // TODO: 2017/12/5 将mailno放进数据库
+                                    ordTransferListMapper.updateByPrimaryKeySelective(ordTransferList);
+                                }
                                 // 保存物流信息
                                 ordLogisticStatus = saveOrdLogisticStatus(map,ordTransferList.getOrderTransferId());
+                            }else{
+                                // TODO: 2018/1/4 是给erp那边传的数据
+                                ordLogisticStatus = saveOrdLogisticStatus(map,"");
                             }
                         }
                         try {
@@ -107,13 +112,15 @@ public class GetYtoServiceImpl implements GetYtoService {
      * 保存物流信息
      * @return
      */
-    public OrdLogisticStatus saveOrdLogisticStatus(Map<String, Object> map,String orderId){
-        java.text.SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss");
+    public OrdLogisticStatus saveOrdLogisticStatus(Map<String, Object> map, String orderId){
+        SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         OrdLogisticStatus ordLogisticStatus = new OrdLogisticStatus();
         String randomUUID = UUID.randomUUID().toString();
         ordLogisticStatus.setOrdLogisticId(randomUUID);
-        ordLogisticStatus.setOrderId(orderId);
+        if(StringUtils.isNotBlank(orderId)){
+            ordLogisticStatus.setOrderId(orderId);
+        }
         ordLogisticStatus.setLogisticProviderId((String) map.get("logisticProviderID"));
         ordLogisticStatus.setClientId((String) map.get("clientID"));
         ordLogisticStatus.setMailNo((String) map.get("mailNo"));

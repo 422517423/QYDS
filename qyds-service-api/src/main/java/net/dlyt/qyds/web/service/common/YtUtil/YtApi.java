@@ -17,21 +17,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class YtApi {
-    //电商加密私钥-测试
+/*   // clientID
     private final static String AppKey="TEST";
-    private final static String PARINET_ID ="123456";
+   //电商加密私钥-测试
+    private final static String PARTNER_ID="123456";
     //请求url-测试
-    private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";
+    private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";*/
 
-    // clientID
-    //private final static String AppKey="QYSM";
-    // PartnerID
-    //private static final String PARTNER_ID = "1Bi478";
+   // clientID
+    private final static String AppKey="QYSM";
+    //电商加密私钥-正式
+    private final static String PARTNER_ID="1Bi478P";
     //请求url-正式
-   // private  final static String ReqURL="http://jingang.yto56.com.cn/ordws/Vip16Servlet";
+    private  final static String ReqURL="http://jingang.yto56.com.cn/ordws/Vip16Servlet";
 
     // 发货人信息
     private static String senderName = "9999";
+    private static String senderPhone = "";
     private static String senderPostCode = "0";
     private static String senderProv = "";
     private static String senderCity = "";
@@ -72,6 +74,8 @@ public class YtApi {
             // 发货人信息
             // 发货人姓名
             senderName =ordTransferListExt.getDispatchUname();
+            // 发货人手机号
+            senderPhone = ordTransferListExt.getDispatchPhone();
             // 发货人省份
             senderProv = ordTransferListExt.getDispatchPname();
             // 发货人城市,区域
@@ -83,7 +87,7 @@ public class YtApi {
             // 发货人地址
             senderAddress = ordTransferListExt.getDispatchAddress1();
             // 发件人邮编
-            senderPostCode = "";
+            senderPostCode = "0";
 
             // 物流号
             subOrderId = ordTransferListExt.getOrderTransferId();
@@ -109,13 +113,15 @@ public class YtApi {
         // 收货人省份
         receiverProv = ordMaster.getDistrictidProvince();
         // 收货人城市,区域
-        senderCity = ordMaster.getDistrictidCity()+","+ordMaster.getDistrictidDistrict();
+        receiverCity = ordMaster.getDistrictidCity()+","+ordMaster.getDistrictidDistrict();
         // 收货人地址
-        senderAddress = ordMaster.getDeliveryAddress();
+        receiverAddress = ordMaster.getDeliveryAddress();
 
         // 发货人信息
         // 发货人姓名
         senderName = sysUser.getUserName();
+        // 发货人手机号
+        senderPhone = subOrder.getStorePhone();
         // 发货邮编
         senderPostCode = "0";
         // 发货人省份
@@ -150,19 +156,18 @@ public class YtApi {
                         // 客户标识（COD业务，且有多个仓发货则不能为空，请填写分仓号）
                         "<customerId></customerId>" +
                         // 物流号(现在先默认子订单表中的子订单id
-                       /* "<txLogisticID>"+subOrder.getSubOrderId()+"</txLogisticID>" +*/
                         "<txLogisticID>"+subOrderId+"</txLogisticID>" +
 
                         // 订单类型(0-COD,1-普通订单,3-退货单)
                         "<orderType>1</orderType>" +
                         // 服务类型(1-上门揽收, 2-次日达 4-次晨达 8-当日达,0-自己联系)。（数据库未使用）（目前暂未使用默认为0）
                         "<serviceType>0</serviceType>" +
-
                         // 发货人信息
                         "<sender>" +
                         // 门店发货人
                         "<name>"+senderName+"</name>" +
                         "<postCode>"+senderPostCode+"</postCode>" +
+                        "<phone>"+senderPhone+"</phone>" +
                         "<prov>"+senderProv+"</prov>" +
                         "<city>"+senderCity+"</city>" +
                         "<address>"+senderAddress+"</address>" +
@@ -186,11 +191,12 @@ public class YtApi {
                         "</item>" +
                         "</items>" +
                         "<special>0</special>" +
+                        "<remark>迪洛纳项目，总部月结，不收费、不到付。</remark>" +
                         "</RequestOrder>";
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
-        params.put("data_digest",urlEncoder(encrypt(requestData, PARINET_ID, "UTF-8"),"UTF-8"));
+        params.put("data_digest",urlEncoder(encrypt(requestData, PARTNER_ID, "UTF-8"),"UTF-8"));
         params.put("clientId", AppKey);
         params.put("type", "online");
         String result=sendPost(ReqURL, params);
@@ -313,7 +319,7 @@ public class YtApi {
                         "</UpdateInfo>";
         Map<String, String> params = new HashMap<String, String>();
         params.put("logistics_interface", urlEncoder(requestData, "UTF-8"));
-        params.put("data_digest",urlEncoder(encrypt(requestData, PARINET_ID, "UTF-8"),"UTF-8"));
+        params.put("data_digest",urlEncoder(encrypt(requestData, PARTNER_ID, "UTF-8"),"UTF-8"));
         params.put("clientId", AppKey);
         params.put("type", "online");
         String result=sendPost(ReqURL, params);

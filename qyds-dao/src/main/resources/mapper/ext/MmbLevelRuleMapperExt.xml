@@ -204,21 +204,33 @@
     </select>
     
     <select id="selectRelegationMemberList" resultMap="MmbLevelManagerResultMap"
-            parameterType="java.lang.Float">
-        select v.member_id, v.member_level_id current_level_id, v.new_level approval_level_id From
-        (select p.member_id,p.all_point,m.member_level_id,
-        (select max(member_level_code) from mmb_level_rule r
-          where p.all_point >= r.point_lower * #{ratio}) new_level
-          from
-          ( SELECT mmb_point_record.member_id,
-            sum(mmb_point_record.point) AS all_point
-            FROM mmb_point_record
-            WHERE mmb_point_record.rule_id = '10'
-              AND date_part('year', mmb_point_record.point_time) = (date_part('year', now()) - 1)
-            GROUP BY mmb_point_record.member_id) p
-        left join mmb_master m
-        on m.member_id = p.member_id) v
-        where v.member_level_id > v.new_level
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select p.telephone,  p.member_id from (
+        select sum(p.pay_infact) as point_surplus,p.member_id,m.telephone
+        from ord_master p
+        inner join mmb_master m
+        on m.member_id = p.member_id
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+        where p.deleted = '0'
+        and m.member_level_id ='30'
+        and date_part('year', p.pay_time) = (date_part('year', now()) - 1)
+        GROUP by p.member_id,m.telephone
+        )p  where p.point_surplus &lt; '3000'
+
+        UNION
+        select m.telephone,  p.member_id
+        from ord_master p
+        inner join mmb_master m
+        on m.member_id = p.member_id
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+        where p.deleted = '0'
+        and m.member_level_id ='30'
+        and date_part('year', p.pay_time) = (date_part('year', now()) - 1)
+        and p.pay_infact &lt; '1500' and (select count(*) from  ord_master p1 where p1.member_id=m.member_id and  p.pay_infact >1500) =0
+        GROUP by p.member_id,m.telephone
+
     </select>
 
 </mapper>

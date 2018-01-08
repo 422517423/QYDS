@@ -17,7 +17,7 @@ public interface OrdTransferService {
      * @param userMap
      * @return
      */
-    JSONObject getApplyAddress(Map<String, Object> userMap,String subOrderId);
+    JSONObject getApplyAddress(Map<String, Object> userMap, String subOrderId);
 
     /**
      * 取得发货地址

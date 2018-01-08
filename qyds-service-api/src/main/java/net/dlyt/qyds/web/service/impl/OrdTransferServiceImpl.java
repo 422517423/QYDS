@@ -63,7 +63,7 @@ public class OrdTransferServiceImpl implements OrdTransferService {
      * @return
      */
     @Override
-    public JSONObject getApplyAddress(Map<String, Object> userMap,String subOrderId) {
+    public JSONObject getApplyAddress(Map<String, Object> userMap, String subOrderId) {
         JSONObject json = new JSONObject();
         try {
             if (StringUtil.isEmpty(subOrderId)) {

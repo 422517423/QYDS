@@ -23,6 +23,7 @@ public class GetResultFromYTOController {
      * @return
      * @throws Exception
      */
+
     @RequestMapping(value = "/resultFromYTO")
     @ResponseBody
     public String getYtoInfo(YtoForm ytoForm) throws Exception {
@@ -54,6 +55,43 @@ public class GetResultFromYTOController {
 
         builders.append("</Response>");
 
+        return builders.toString();
+    }
+
+
+
+    /**
+     * 物流状态通知接口
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/resultFromYTO")
+    @ResponseBody
+    public String getYtoInfo1(String logistics_interface, String data_digest, String clientId, String type) throws Exception {
+        YtoForm ytoForm = new YtoForm();
+        ytoForm.setLogistics_interface(logistics_interface);
+        ytoForm.setData_digest(data_digest);
+        ytoForm.setClientId(clientId);
+        ytoForm.setType(type);
+        System.out.println("圆通调用");
+        //service 中加一个解析后获取物流号的方法
+        String txLogisticID = getYtoService.getTxLogisticID(ytoForm);
+        //response.setTxLogisticID(txLogisticID);
+        //判断请求内容中是否有运单号，返回boolean值
+        boolean flag = getYtoService.getYtoInfo(ytoForm);
+
+        // 返回成功/失败数据
+        StringBuilder builders = new StringBuilder();
+        builders.append ("<Response>");
+        builders.append("<logisticProviderID>YTO</logisticProviderID>");
+        builders.append("<txLogisticID> " + txLogisticID + "</txLogisticID>");
+        builders.append("<success>" + flag + "</success>");
+
+        if (!flag){
+            builders.append("<reason>S01</reason>");
+        }else{
+        }
+        builders.append("</Response>");
         return builders.toString();
     }
 

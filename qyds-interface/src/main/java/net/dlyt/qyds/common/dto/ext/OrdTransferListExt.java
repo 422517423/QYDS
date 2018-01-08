@@ -33,6 +33,8 @@ public class OrdTransferListExt extends OrdTransferList {
 
     // 发货人姓名
     private String dispatchUname;
+    // 发货人手机号
+    private String dispatchPhone;
     //发货人省份
     private String dispatchPname;
     //发货人城市
@@ -42,6 +44,13 @@ public class OrdTransferListExt extends OrdTransferList {
     //发货人地址
     private String dispatchAddress1;
 
+    public String getDispatchPhone() {
+        return dispatchPhone;
+    }
+
+    public void setDispatchPhone(String dispatchPhone) {
+        this.dispatchPhone = dispatchPhone;
+    }
     public String getDispatchUname() {
         return dispatchUname;
     }

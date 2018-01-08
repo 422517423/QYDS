@@ -5012,7 +5012,6 @@ console.log($scope.orderList);
             //        isExist = true;
             //    }
             //}
-
             userInfo = localStorageService.get(KEY_USERINFO);
             if(!userInfo){
                 $scope.goLogin();
@@ -5864,7 +5863,7 @@ console.log(sku);
         $scope.goShopping = function (){
             $state.go("homepage");
         };
-        // 全选计算总价格
+        // 结算
         $scope.setTotalPrice = function () {
             var totalPrice = 0;
             var totalCount = 0;
@@ -5877,23 +5876,24 @@ console.log(sku);
                         // 没有活动
                         var singlePrice = 0;
                         angular.forEach(goods.skuList, function (sku, index2) {
-                            // todo没有活动的商品高级会员打88折
+                            singlePrice += sku.price;
+                            /*// todo没有活动的商品高级会员打88折
                             if(userInfo.memberLevelId == '30'){
                                 singlePrice+=sku.price*0.88
                             }else{
                                 singlePrice += sku.price;
-                            }
+                            }*/
                         });
                         totalPrice += singlePrice * parseInt(goods.quantity);
                     } else {
                         //有活动按照活动价
-                     //   totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
+                        totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
                         // todo有活动的如果不是5折活动高级会员都打88折
-                        if(goods.activity.tempId != '4cecaf45-b443-474f-a90c-6eebdd670e87'){
+                       /* if(goods.activity.tempId != '4cecaf45-b443-474f-a90c-6eebdd670e87'){
                             totalPrice += goods.activity.newPrice*0.88 * parseInt(goods.quantity);
                         }else{
                             totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
-                        }
+                        }*/
                     }
                 }
             });
@@ -5966,6 +5966,7 @@ console.log(sku);
             })
         };
 
+        // 点击结算
         $scope.confirmOrder = function () {
             var submitGoodsList = [];
             angular.forEach($scope.goodsList, function (goods, index) {
@@ -5977,7 +5978,6 @@ console.log(sku);
                 popupService.showToast("请选择要结算的商品.");
                 return;
             }
-
             $scope.checkOrderConfirm(submitGoodsList);
 
         };
@@ -6770,29 +6770,37 @@ console.log(sku);
                 popupService.showToast(commonMessage.networkErrorMsg);
             });
         };
-
-        var b = true;
+        //计算总金额
         $scope.setGoodsTotalPrice = function(){
             var goodsTotal = 0;
             var exchangePointCount = 0;
             var goodsCount = 0
             angular.forEach($scope.confirmData.goodsInfo, function (goods) {
-
-                alert(3333);
                 if(goods.type!="30"){
                     var goodsPrice =  goods.ordConfirmOrderUnitExtList[0].price;
                     var goodsPoint = 0;
                     if(goods.activity){
+                        // 是后台传来的活动优惠后价格
                         goodsPrice = goods.activity.newPrice;
                         goodsPoint = goods.activity.point==null?0:goods.activity.point;
                     }
+                    /*// 判断会员等级(如果是高级会员，则根据折扣后金额判断是否打88折)
+                    if(userInfo.memberLevelId =='30'){
+                        // 如果有活动，判断是否是折扣活动，如果是折扣活动，则判断活动折扣除以0.88是否大于5.7，如果大于，则打88折
+                        if(goods.activity.activityType != null && goods.activity.activityType =="20"){
+                            // 折扣除以0.88是否大于5.7
+                            if(goods.activity.paramValue !=null ){
+                                if(goods.activity.paramValue/0.88 > 5.7){
+                                    goodsPrice = goodsPrice*0.88;
+                                }
+                            }
+                        }else{
+                            goodsPrice = goodsPrice*0.88;
+                        }
+                    }*/
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
-                    // todo判断该活动是否是五折活动
-                    if(goods.activity.tempId == '4cecaf45-b443-474f-a90c-6eebdd670e87'){
-                        b=false;
-                    }
                     console.log(parseFloat(goodsPrice)*goods.quantity);
                 }else{
                     // 套装
@@ -6805,6 +6813,13 @@ console.log(sku);
                         goodsPrice = goods.activity.newPrice;
                         goodsPoint = goods.activity.point==null?0:goods.activity.point;
                     }
+                   /* // todo判断该活动不是五折活动
+                    if(goods.activity == null || (goods.activity != null && goods.activity.tempId != '4cecaf45-b443-474f-a90c-6eebdd670e87')){
+                        // 高级会员除了5折活动都打88折
+                        if(userInfo.memberLevelId =='30'){
+                            goodsPrice = goodsPrice*0.88;
+                        }
+                    }*/
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
@@ -6817,20 +6832,52 @@ console.log(sku);
             $scope.goodsExchangePointCount = exchangePointCount;
         };
 
-        //2017.12.27获取订单总价
         $scope.setOrderFinalPrice = function(){
-
-            // 在商品总价的基础上减去订单优惠和优惠券抵值
+            // 在商品总价的基础上减去订单优惠和优惠券抵值（先算优惠券，再算整单活动）
             var orderDiscount = parseFloat($scope.goodsTotalPrice);
             $scope.discountPrice = 0;
             $scope.activityPointCount = 0;
-            // 订单活动
+            // todo
+            // 先算优惠券
+            if($scope.couponList!=null&&$scope.couponList.length>0){
+                angular.forEach($scope.couponList, function (coupon) {
+                    coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
+                    if($scope.selectedCoupon.id == coupon.couponMemberId){
+                        // 判断选中优惠券类型，如果是生日券，则高级会员不打88
+                        // coupon.couponType=="20" 是生日券
+                        /*if(coupon.couponType=="20"){
+                            // b==false:是指打了88折了
+                            if(b==false){
+                                // 还原88折前金额
+                                orderDiscount = orderDiscount/0.88;
+                                // 还原商品合计价格
+                                $scope.goodsTotalPrice = orderDiscount.toFixed(2);
+                                console.log("goodsTotalPrice");
+                                console.log($scope.goodsTotalPrice);
+                                b=true;
+                            }
+                        }*/
+                        // 选中的优惠券
+                        if(coupon.couponStyle =="0") {
+                            // 抵值
+                            orderDiscount = orderDiscount - coupon.worth;
+                        }else if(coupon.couponStyle =="1"){
+                            // 打折
+                            orderDiscount = orderDiscount - parseFloat(coupon.discountPrice);
+                        }
+                    }
+                });
+            }
+
+            $scope.orderDiscountPrice = orderDiscount.toFixed(2);
+            var orderFinal = orderDiscount;
+            // todo
+            // 再算订单整单活动
             if($scope.confirmData.actMasterList!=null&&$scope.confirmData.actMasterList.length>0){
                 angular.forEach($scope.confirmData.actMasterList, function (activity) {
-                    //判断是否是活动，若果是
                     if($scope.selectedOrderActivity.id == activity.activityId){
                         // 选中的活动
-                        orderDiscount = orderDiscount - activity.cutPrice;
+                        orderFinal = orderFinal - activity.cutPrice;
                         // if(activity.needFee){
                         //     orderDiscount = orderDiscount + activity.needFee;
                         // }
@@ -6839,29 +6886,7 @@ console.log(sku);
                     }
                 });
             }
-            $scope.orderDiscountPrice = orderDiscount.toFixed(2);
-            var orderFinal = orderDiscount;
-            // 优惠券
-            if($scope.couponList!=null&&$scope.couponList.length>0){
-                angular.forEach($scope.couponList, function (coupon) {
-                    coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
-                    if($scope.selectedCoupon.id == coupon.couponMemberId){
-                        // 选中的优惠券
-                        if(coupon.couponStyle =="0") {
-                            // 抵值
-                            orderFinal = orderFinal - coupon.worth;
-                        }else if(coupon.couponStyle =="1"){
-                            // 打折
-                            orderFinal = orderFinal - parseFloat(coupon.discountPrice);
-                        }
-                    }
-                });
-            }
 
-            // 高级会员除了5折活动都打88折
-            if(userInfo.memberLevelId =='30' && b == true){
-                orderFinal = orderFinal*0.88;
-            }
             if(orderFinal < $scope.goodsCount ){
                 orderFinal = parseFloat($scope.goodsCount);
             }

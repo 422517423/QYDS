@@ -38,7 +38,7 @@ public interface OrdDispatchService {
      * @param orderId
      * @return
      */
-    JSONObject getDispatchOrdSubInfo(String orderId,String orgId);
+    JSONObject getDispatchOrdSubInfo(String orderId, String orgId);
 
     /**
      * 分派订单到门店

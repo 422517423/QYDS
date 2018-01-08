@@ -2471,7 +2471,10 @@ public class ActMasterServiceImpl implements ActMasterService {
     //看goodslist,memberid
     private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId) {
         //添加memberDiscount
-        float memberDiscount = mmbMasterMapperExt.selectMemberDiscount(memberId).floatValue();
+        float memberDiscount = 1;
+        if(mmbMasterMapperExt.selectMemberDiscount(memberId)!=null){
+            memberDiscount = mmbMasterMapperExt.selectMemberDiscount(memberId).floatValue();
+        }
         Map<String, List<OrdConfirmGoodsExt>> groupMap = getGoodsGroupMap(goodsList);
         List<OrdConfirmGoodsExt> newGoodsList = new ArrayList<OrdConfirmGoodsExt>();
         for (String key : groupMap.keySet()) {
@@ -2480,10 +2483,10 @@ public class ActMasterServiceImpl implements ActMasterService {
                 // 没有活动直接循环添加到新列表中
                 for (int i = 0; i < goods.size(); i++) {
                     ActMasterForm actMasterForm = new ActMasterForm();
-                    actMasterForm.setActivityName("会员折扣");
                     float orginPrice = getOrginPrice(goods.get(i));
                     actMasterForm.setNewPrice(orginPrice*memberDiscount);
                     goods.get(i).setActivity(actMasterForm);
+                    goods.get(i).setFlag(false);
                     if (memberDiscount<1){
                         goods.get(i).setFlag(true);
                     }
@@ -2540,7 +2543,9 @@ public class ActMasterServiceImpl implements ActMasterService {
 //                              if (!(activity.getTempId()).equals("13970196-c36d-4b49-88ba-824d98b0a0dc")){
                                 if (b>5.7){
                                     newPrice = newPrice*memberDiscount;
-                                    goods.get(i).setFlag(true);
+                                    if (memberDiscount<1){
+                                        goods.get(i).setFlag(true);
+                                    }
                                 }
                             }
                             //看newprice
@@ -2612,7 +2617,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             //乘会员折扣
                             if (((discount1 * 10) / 100)>0.57){
                                 newPrice1 = newPrice1*memberDiscount;
-                                goods2.get(i).setFlag(true);
+                                if (memberDiscount<1){
+                                    goods.get(i).setFlag(true);
+                                }
                             }
                             activity1.setNewPrice(newPrice1);
                             if(newPrice2 == 0.0){
@@ -2621,7 +2628,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             //乘会员折扣
                             if (((discount2 * 10) / 100)>0.57){
                                 newPrice2 = newPrice2*memberDiscount;
-                                goods2.get(i).setFlag(true);
+                                if (memberDiscount<1){
+                                    goods.get(i).setFlag(true);
+                                }
                             }
                             activity2.setNewPrice(newPrice2);
                             goods2.get(i).setActivity(activity1);
@@ -2653,7 +2662,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             activity1.setOriginPrice(orginPrice);
                             // 乘会员折扣
                             if (newPrice/orginPrice>0.57){
-                                newPrice = newPrice*memberDiscount;
+                                if (memberDiscount<1){
+                                    goods.get(i).setFlag(true);
+                                }
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
@@ -2671,7 +2682,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             activity1.setOriginPrice(orginPrice);
                             //乘会员折扣
                             if (newPrice/orginPrice>0.57){
-                                newPrice = newPrice*memberDiscount;
+                                if (memberDiscount<1){
+                                    goods.get(i).setFlag(true);
+                                }
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);

@@ -64,6 +64,16 @@ public class ActMasterForm extends ActMaster {
 
     private String activityGoodsLineCode;
 
+    // 20180103
+    private  String paramValue;
+
+    public String getParamValue() {
+        return paramValue;
+    }
+
+    public void setParamValue(String paramValue) {
+        this.paramValue = paramValue;
+    }
     public int getiDisplayLength() {
         return iDisplayLength;
     }

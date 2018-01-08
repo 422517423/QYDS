@@ -57,6 +57,12 @@ public class QydsAdminSecurityFilter implements Filter {
                 return;
             }
 
+            // TODO: 2018/1/4  批量计算累计消费金额到会员表中
+            if(servletPath.equals("/testPointAll/test.json")) {
+                chain.doFilter(req, resp);
+                return;
+            }
+
            /* if(servletPath.equals("/sendFailExpress.json")) {
                 chain.doFilter(req, resp);
                 return;

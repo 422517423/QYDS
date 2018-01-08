@@ -8,10 +8,7 @@ import net.dlyt.qyds.common.dto.ext.ErpStoreExt;
 import net.dlyt.qyds.common.form.OrdDispatchForm;
 import net.dlyt.qyds.common.form.OrdMasterForm;
 import net.dlyt.qyds.dao.*;
-import net.dlyt.qyds.dao.ext.BnkMasterMapperExt;
-import net.dlyt.qyds.dao.ext.OrdDispatchMapperExt;
-import net.dlyt.qyds.dao.ext.OrdMasterMapperExt;
-import net.dlyt.qyds.dao.ext.OrdSubListMapperExt;
+import net.dlyt.qyds.dao.ext.*;
 import net.dlyt.qyds.web.service.OrdDispatchService;
 import net.dlyt.qyds.web.service.common.Constants;
 import net.dlyt.qyds.web.service.common.ErpSendUtil;
@@ -57,6 +54,8 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
     private BnkRecordsMapper bnkRecordsMapper;
     @Autowired
     private ErpStoreMapper erpStoreMapper;
+    @Autowired
+    private ErpStoreMapperExt erpStoreMapperExt;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
@@ -151,7 +150,7 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
      * @return
      */
     @Override
-    public JSONObject getDispatchOrdSubInfo(String orderId,String orgId) {
+    public JSONObject getDispatchOrdSubInfo(String orderId, String orgId) {
         JSONObject json = new JSONObject();
 
         try {
@@ -889,14 +888,17 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
                 }
             }
 
-            ErpStore erpStore1 = erpStoreMapper.selectByPrimaryKey(sysUser.getOrgId());
+            ErpStoreExt erpStore1 = erpStoreMapperExt.selectByPrimaryKeyExt(sysUser.getOrgId());
             if (erpStore1 == null) {
                 throw new ExceptionErrorData("门店信息不存在");
             }
 
             subOrder.setDispatchStatus("3");
-            subOrder.setExpressId("YTO");
-            subOrder.setExpressName("圆通快递公司");
+            // 门店自提是不发快递的
+            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType())){
+                subOrder.setExpressId("YTO");
+                subOrder.setExpressName("圆通快递公司");
+            }
             subOrder.setDeliverStatus("20");
             subOrder.setDeliverTime(new Date());
             subOrder.setExpressNo(ordSubItem.getExpressNo());
@@ -905,6 +907,10 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
             subOrder.setStorePhone(erpStore1.getPhone());
             subOrder.setStoreDeliveryId(sysUser.getLoginId().toString());
             subOrder.setStoreDeliveryName(sysUser.getUserName());
+            subOrder.setShopProvince(erpStore1.getShopProvince());
+            subOrder.setShopCity(erpStore1.getShopCity());
+            subOrder.setShopDistrict(erpStore1.getShopDistrict());
+            subOrder.setShopAddress(erpStore1.getShopAddress());
 
             int count = ordSubListMapper.updateByPrimaryKeySelective(subOrder);
             if (count != 1) {

@@ -30,7 +30,7 @@ public class Service
         URL url = null;
         WebServiceException e = null;
         try {
-           // url = new URL("http://dsweb.dealuna.cn:27676/Service.asmx?wsdl");
+            //url = new URL("http://dsweb.dealuna.cn:27676/Service.asmx?wsdl");
             url = new URL("http://dsweb.dealuna.cn:24444/Service.asmx?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);

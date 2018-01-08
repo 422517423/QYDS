@@ -8255,23 +8255,8 @@ console.log(userInfo);
             var orderDiscount = parseFloat($scope.goodsTotalPrice);
             $scope.discountPrice = 0;
             $scope.activityPointCount = 0;
-            // 订单活动
-            if($scope.confirmData.actMasterList!=null&&$scope.confirmData.actMasterList.length>0){
-                angular.forEach($scope.confirmData.actMasterList, function (activity) {
-                    if($scope.selectedOrderActivity.id == activity.activityId){
-                        // 选中的活动
-                        orderDiscount = orderDiscount - activity.cutPrice;
-                        // if(activity.needFee){
-                        //     orderDiscount = orderDiscount + activity.needFee;
-                        // }
-                        $scope.discountPrice = activity.cutPrice;
-                        $scope.activityPointCount = activity.needPoint;
-                    }
-                });
-            }
-            $scope.orderDiscountPrice = orderDiscount.toFixed(2);
-            var orderFinal = orderDiscount;
-            // 优惠券
+            // todo
+            // 先算优惠券
             if($scope.couponList!=null&&$scope.couponList.length>0){
                 angular.forEach($scope.couponList, function (coupon) {
                     coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
@@ -8279,11 +8264,29 @@ console.log(userInfo);
                         // 选中的优惠券
                         if(coupon.couponStyle =="0") {
                             // 抵值
-                            orderFinal = orderFinal - coupon.worth;
+                            orderDiscount = orderDiscount - coupon.worth;
                         }else if(coupon.couponStyle =="1"){
                             // 打折
-                            orderFinal = orderFinal - parseFloat(coupon.discountPrice);
+                            orderDiscount = orderDiscount - parseFloat(coupon.discountPrice);
                         }
+                    }
+                });
+            }
+
+            $scope.orderDiscountPrice = orderDiscount.toFixed(2);
+            var orderFinal = orderDiscount;
+            // todo
+            // 订单活动
+            if($scope.confirmData.actMasterList!=null&&$scope.confirmData.actMasterList.length>0){
+                angular.forEach($scope.confirmData.actMasterList, function (activity) {
+                    if($scope.selectedOrderActivity.id == activity.activityId){
+                        // 选中的活动
+                        orderFinal = orderFinal - activity.cutPrice;
+                        // if(activity.needFee){
+                        //     orderDiscount = orderDiscount + activity.needFee;
+                        // }
+                        $scope.discountPrice = activity.cutPrice;
+                        $scope.activityPointCount = activity.needPoint;
                     }
                 });
             }
