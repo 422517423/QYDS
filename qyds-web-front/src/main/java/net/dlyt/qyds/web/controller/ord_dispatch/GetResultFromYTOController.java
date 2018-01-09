@@ -60,11 +60,11 @@ public class GetResultFromYTOController {
 
 
 
-    /**
+   /* *//**
      * 物流状态通知接口
      * @return
      * @throws Exception
-     */
+     *//*
     @RequestMapping(value = "/resultFromYTO")
     @ResponseBody
     public String getYtoInfo1(String logistics_interface, String data_digest, String clientId, String type) throws Exception {
@@ -93,7 +93,7 @@ public class GetResultFromYTOController {
         }
         builders.append("</Response>");
         return builders.toString();
-    }
+    }*/
 
 
     /**

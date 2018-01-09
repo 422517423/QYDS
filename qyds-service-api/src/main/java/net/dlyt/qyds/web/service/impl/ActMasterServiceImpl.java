@@ -2333,13 +2333,13 @@ public class ActMasterServiceImpl implements ActMasterService {
      * @param goodsList
      * @return
      */
-    public List<OrdConfirmGoodsExt> bindActivityForOrderConfirm(List<OrdConfirmGoodsExt> goodsList, String memberId, boolean isShopFromShoppingBag) {
+    public List<OrdConfirmGoodsExt> bindActivityForOrderConfirm(List<OrdConfirmGoodsExt> goodsList, String memberId,String memberPhone, boolean isShopFromShoppingBag) {
         // isShopFromShoppingBag:
         // true 来自购物车,可能有多种商品;
         // false:来自立即购买,只可能有一种sku
         if (isShopFromShoppingBag) {
             // 按照活动分组
-            return bindActivityForGoodsList(goodsList, memberId);
+            return bindActivityForGoodsList(goodsList, memberId, memberPhone);
         } else {
             //只可能有一种sku,并且没有选择活动,需要计算一种最便宜的活动
             for (int i = 0; i < goodsList.size(); i++) {
@@ -2422,7 +2422,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                     goodsList.get(i).setActGoodsId(null);
                 }
             }
-            return bindActivityForGoodsList(goodsList, memberId);
+            return bindActivityForGoodsList(goodsList, memberId, memberPhone);
         }
     }
 
@@ -2469,7 +2469,7 @@ public class ActMasterServiceImpl implements ActMasterService {
 
     //来自购物车判断
     //看goodslist,memberid
-    private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId) {
+    private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId,String memberPhone) {
         //添加memberDiscount
         float memberDiscount = 1;
         if(mmbMasterMapperExt.selectMemberDiscount(memberId)!=null){
@@ -2659,11 +2659,11 @@ public class ActMasterServiceImpl implements ActMasterService {
                             ActMasterForm activity1 = new ActMasterForm();
                             BeanUtils.copyProperties(activity, activity1);
                             activity1.setOriginPrice(orginPrice);
-                            newGoodsList.get(i).setFlag(false);
+                            goods.get(i).setFlag(false);
                             // 乘会员折扣
                             if (newPrice/orginPrice>0.57){
                                 newPrice = newPrice*memberDiscount;
-                                newGoodsList.get(i).setFlag(true);
+                                goods.get(i).setFlag(true);
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);

@@ -881,7 +881,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 ordConfirmGoodsExt.setOrdConfirmOrderUnitExtList(ordConfirmOrderUnitExtList);
                 goodsInfo.add(ordConfirmGoodsExt);
                 // 获取商品级别优惠
-                goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(), false);
+                goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(), ordMasterExt.getTelephone(),false);
                 ordConfirmExt.setGoodsInfo(goodsInfo);
                 ordConfirmExt.setGoodsTotalPrice(getGoodsToatalPrice(goodsInfo));
                 // 调用接口获取该笔订单能用的优惠
@@ -967,7 +967,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         ordConfirmGoodsExt.setOrdConfirmOrderUnitExtList(ordConfirmOrderUnitExtList);
         goodsInfo.add(ordConfirmGoodsExt);
         // 获取商品级别优惠
-        goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(), false);
+        goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), false);
         ordConfirmExt.setGoodsInfo(goodsInfo);
         ordConfirmExt.setGoodsTotalPrice(getGoodsToatalPrice(goodsInfo));
         // 调用接口获取该笔订单能用的优惠
@@ -1289,7 +1289,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             }
 
             // 获取商品级别优惠
-            list = actMasterService.bindActivityForOrderConfirm(list, ordMasterExt.getMemberId(), true);
+            list = actMasterService.bindActivityForOrderConfirm(list, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), true);
 
             ordConfirmExt.setGoodsInfo(list);
             ordConfirmExt.setGoodsTotalPrice(getGoodsToatalPrice(list));
@@ -1420,7 +1420,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             ordConfirmGoodsExtList.add(ordConfirmGoodsExt);
         }
         //调用获取优惠信息
-        ordConfirmGoodsExtList = actMasterService.bindActivityForOrderConfirm(ordConfirmGoodsExtList, ordMasterExt.getMemberId(), true);
+        ordConfirmGoodsExtList = actMasterService.bindActivityForOrderConfirm(ordConfirmGoodsExtList, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), true);
 
         //商品级优惠校验
         for (OrdConfirmGoodsExt ole : ordConfirmGoodsExtList) {

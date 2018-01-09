@@ -760,6 +760,8 @@ public class OrderPcController {
             ordMasterExt.setGoodsSkuId(form.getGoodsSkuId());
             //获取商品购买数量
             ordMasterExt.setQuantity(form.getQuantity());
+            // 20180109 会员手机号
+            ordMasterExt.setTelephone(form.getMemberPhone());
             //获取订单详情信息
             OrdConfirmExt ordConfirmExt = ordMasterService.confirmOrderFromGoods(ordMasterExt);
             //数据不存在场合,业务异常

@@ -38,7 +38,7 @@ public class ErpSendUtil {
     // 正式
     //static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:27676/Service.asmx?wsdl";
     // 测试
-   static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:24444/Service.asmx?wsdl";
+    static public final String WSDL_LOCATION = "http://dsweb.dealuna.cn:24444/Service.asmx?wsdl";
     static private final Logger log = LoggerFactory.getLogger(ErpSendUtil.class);
     static private Service service;
     static private ServiceSoap soap;

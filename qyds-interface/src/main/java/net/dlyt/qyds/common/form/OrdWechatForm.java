@@ -36,6 +36,17 @@ public class OrdWechatForm extends OrdMaster {
     //会员购物车编号
     private String[] bagNoArray;
 
+    // 20180109会员手机号(被代买会员手机号)
+    private String memberPhone;
+
+    public String getMemberPhone() {
+        return memberPhone;
+    }
+
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
+    }
+
     public String getIDisplayStart() {
         return iDisplayStart;
     }

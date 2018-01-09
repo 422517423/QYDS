@@ -46,7 +46,7 @@ public interface ActMasterService {
 
     JSONObject bindActivityForShopingBag(List<MmbShoppingBagExt> goodsList, String memberId);
 
-    List<OrdConfirmGoodsExt> bindActivityForOrderConfirm(List<OrdConfirmGoodsExt> goodsList, String memberId,boolean isFromShoppingBag);
+    List<OrdConfirmGoodsExt> bindActivityForOrderConfirm(List<OrdConfirmGoodsExt> goodsList, String memberId,String memberPhone,boolean isFromShoppingBag);
 
     List<ActMasterForm> getOrderActivity(String memberId,List<OrdConfirmGoodsExt> goodsInfo);
 

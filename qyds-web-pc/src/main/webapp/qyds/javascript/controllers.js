@@ -5033,7 +5033,6 @@ console.log($scope.orderList);
                         //popupService.showToast("库存不足.");
                         return;
                     }
-
                     var goodsInfo = {};
                     goodsInfo.goodsId = $scope.productDetailData.goodsId;
                     goodsInfo.type = $scope.productDetailData.type;
@@ -5108,7 +5107,6 @@ console.log($scope.orderList);
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
 
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
-
                     $state.go("personalCenter.confirmOrder", {singleGoodsInfo:'#'});
 
                 }else{
@@ -6725,7 +6723,40 @@ console.log(sku);
             $scope.setGoodsTotalPrice();
             $scope.setOrderFinalPrice();
             $scope.getCouponList();
+            // 获取
+            $scope.getMasterD();
         };
+
+        // 20180108根据手机号查询会员等级
+        $scope.getMasterD = function () {
+            if($scope.conInfo.tel){
+                var param = {
+                    memberId: userInfo.memberId,
+                    goodsId: $scope.confirmData.goodsInfo[0].goodsId,
+                    type: $scope.confirmData.goodsInfo[0].type,
+                    goodsSkuId: $scope.confirmData.goodsInfo[0].ordConfirmOrderUnitExtList[0].skuId,
+                    quantity: $scope.confirmData.goodsInfo[0].quantity,
+                    memberPhone:$scope.conInfo.tel
+                };
+                new confirmOrderService(param).getDataBySingleGoods().then(function (res) {
+                    if(res.resultCode == "00"){
+
+                        $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                        $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                        $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+
+                        localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
+                        $state.go("personalCenter.confirmOrder", {singleGoodsInfo:'#'});
+
+                    }else{
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (error) {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+            }
+        };
+
 
         $scope.getCouponList = function (isNeedPhone) {
             if($scope.agentFlag !=0){
