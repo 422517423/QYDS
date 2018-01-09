@@ -2479,7 +2479,7 @@ public class ActMasterServiceImpl implements ActMasterService {
         List<OrdConfirmGoodsExt> newGoodsList = new ArrayList<OrdConfirmGoodsExt>();
         for (String key : groupMap.keySet()) {
             List<OrdConfirmGoodsExt> goods = groupMap.get(key);
-            if (goods.get(0).getActGoodsId() == null) {
+            if (goods.get(0).getActGoodsId() == null||goods.get(0).getActGoodsId().equals("")) {
                 // 没有活动直接循环添加到新列表中
                 for (int i = 0; i < goods.size(); i++) {
                     ActMasterForm actMasterForm = new ActMasterForm();
