@@ -2480,7 +2480,6 @@ public class ActMasterServiceImpl implements ActMasterService {
         if (StringUtils.isNotBlank(memberPhone)){
             //根据memberphone获取会员的等级id
             memberDiscount = mmbMasterMapperExt.selectMemberDiscountByPhone(memberPhone).floatValue();
-
         }
 
         if(mmbMasterMapperExt.selectMemberDiscount(memberId)!=null){
@@ -2693,6 +2692,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                             //乘会员折扣
                             if (newPrice/orginPrice>0.57){
                                 newPrice = newPrice*memberDiscount;
+                                goods.get(i).setFlag(true);
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);

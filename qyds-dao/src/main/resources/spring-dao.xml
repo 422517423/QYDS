@@ -43,7 +43,7 @@
         <!--远程服务器-->
 
         <property name="username" value="postgres" />
-        <property name="password" value="root" />
+        <property name="password" value="111111" />
 
         <!--测试服务器-->
         <!-- <property name="username" value="postgres" />
