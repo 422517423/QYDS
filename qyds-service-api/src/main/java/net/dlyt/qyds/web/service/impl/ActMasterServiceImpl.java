@@ -2334,6 +2334,8 @@ public class ActMasterServiceImpl implements ActMasterService {
      * @return
      */
     public List<OrdConfirmGoodsExt> bindActivityForOrderConfirm(List<OrdConfirmGoodsExt> goodsList, String memberId,String memberPhone, boolean isShopFromShoppingBag) {
+
+
         // isShopFromShoppingBag:
         // true 来自购物车,可能有多种商品;
         // false:来自立即购买,只可能有一种sku
@@ -2472,6 +2474,14 @@ public class ActMasterServiceImpl implements ActMasterService {
     private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId,String memberPhone) {
         //添加memberDiscount
         float memberDiscount = 1;
+
+        //根据传递的memberDiscount获取到
+        if (memberPhone!=null||!memberPhone.equals("")){
+            //根据memberphone获取会员的等级id
+            memberDiscount = mmbMasterMapperExt.selectMemberDiscountByPhone(memberPhone).floatValue();
+
+        }
+
         if(mmbMasterMapperExt.selectMemberDiscount(memberId)!=null){
             memberDiscount = mmbMasterMapperExt.selectMemberDiscount(memberId).floatValue();
         }
@@ -2483,7 +2493,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                 // 没有活动直接循环添加到新列表中
                 for (int i = 0; i < goods.size(); i++) {
                     ActMasterForm actMasterForm = new ActMasterForm();
-                    actMasterForm.setActivityName("会员折扣");
+//                    actMasterForm.setActivityName("会员折扣");
                     float orginPrice = getOrginPrice(goods.get(i));
                     actMasterForm.setNewPrice(orginPrice*memberDiscount);
                     goods.get(i).setActivity(actMasterForm);

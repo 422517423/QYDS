@@ -15,7 +15,11 @@ import java.util.List;
  */
 @Repository
 public interface MmbMasterMapperExt {
+    // 根据memberid获取会员折扣
     BigDecimal selectMemberDiscount(String memberId);
+
+    //根据memberPhone获取会员折扣
+    BigDecimal selectMemberDiscountByPhone(String memberPhone);
 
     // 获取会员列表
     List<MmbMasterExt> selectAll(MmbMasterExt ext);

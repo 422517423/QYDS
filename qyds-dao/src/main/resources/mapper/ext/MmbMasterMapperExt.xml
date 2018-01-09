@@ -161,7 +161,12 @@
 
   <select id="selectMemberDiscount" resultType="BigDecimal">
     SELECT discount FROM mmb_level_rule WHERE member_level_code
-=(SELECT member_level_id FROM mmb_master WHERE member_id = #{memberId,jdbcType=VARCHAR})
+    =(SELECT member_level_id FROM mmb_master WHERE member_id = #{memberId,jdbcType=VARCHAR})
+  </select>
+
+  <select id="selectMemberDiscountByPhone" resultType="BigDecimal">
+    SELECT mmb_level_rule.discount FROM mmb_level_rule WHERE member_level_code
+    =(SELECT member_level_id FROM mmb_master WHERE telephone = #{memberPhone,jdbcType=VARCHAR});
   </select>
 
   <select id="getAllDataCount" resultMap="BaseResultMapCount" >
