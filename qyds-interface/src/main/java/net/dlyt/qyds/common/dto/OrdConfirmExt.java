@@ -25,6 +25,17 @@ public class OrdConfirmExt implements Serializable {
     //商品信息
     private List<OrdConfirmGoodsExt> goodsInfo;
 
+    // 20180109 购物车编号
+    private String[] bagNoArray;
+
+    public String[] getBagNoArray() {
+        return bagNoArray;
+    }
+
+    public void setBagNoArray(String[] bagNoArray) {
+        this.bagNoArray = bagNoArray;
+    }
+
     public MmbAddressExt getMmbAddressExt() {
         return mmbAddressExt;
     }

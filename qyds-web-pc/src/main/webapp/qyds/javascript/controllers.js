@@ -5996,7 +5996,6 @@ console.log(sku);
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
 
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, submitGoodsList);
-
                     $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
                 }else{
                     popupService.showToast(res.resultMessage);
@@ -6727,9 +6726,104 @@ console.log(sku);
             $scope.getMasterD();
         };
 
+        $scope.checkOrderConfirm1 = function (submitGoodsList) {
+
+            // 购物车编码
+            var bagNoArray = [];
+            bagNoArray=$scope.confirmData.bagNoArray;
+            var param = {
+                memberId: userInfo.memberId,
+                memberPhone:$scope.conInfo.tel,
+                bagNoArray: bagNoArray
+            };
+            new confirmOrderService(param).getDataByBag().then(function (res) {
+                if(res.resultCode == "00"){
+                    $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                    $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                    $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+                    //alert(res.results.goodsInfo[0].activity.newPrice);
+                    localStorageService.set(KEY_PARAM_COMFIRM_ORDER, submitGoodsList);
+                    $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
+                }else{
+                    popupService.showToast(res.resultMessage);
+                }
+            }, function (error) {
+                popupService.showToast(commonMessage.networkErrorMsg);
+            });
+        };
+        // 立即购买提交
+      /*  $scope.checkOrderConfirm2 = function (submitGoodsList) {
+            var param = {
+                memberId: userInfo.memberId,
+                goodsId: $scope.confirmData.goodsInfo[0].goodsId,
+                type: $scope.confirmData.goodsInfo[0].type,
+                goodsSkuId: $scope.confirmData.goodsInfo[0].ordConfirmOrderUnitExtList[0].skuId,
+                quantity: $scope.confirmData.goodsInfo[0].quantity,
+                memberPhone:$scope.conInfo.tel
+            };
+            new confirmOrderService(param).checkDataByBag().then(function (res) {
+                if(res.resultCode == "00"){
+                    $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                    $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                    $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+
+                    localStorageService.set(KEY_PARAM_COMFIRM_ORDER, submitGoodsList);
+
+                    $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
+                }else{
+                    popupService.showToast(res.resultMessage);
+                }
+            }, function (error) {
+                popupService.showToast(commonMessage.networkErrorMsg);
+            });
+        }*/
+
+
+
         // 20180108根据手机号查询会员等级
         $scope.getMasterD = function () {
             if($scope.conInfo.tel){
+                var n =1;//0.立即购买 1.购物车
+                var submitGoodsList = [];
+                angular.forEach($scope.confirmData.goodsInfo, function (goods, index) {
+                    submitGoodsList.push(goods);
+                });
+                if(n == 0){
+                    $scope.checkOrderConfirm2(submitGoodsList);
+                }else{
+                    $scope.checkOrderConfirm1(submitGoodsList);
+                }
+            }
+
+
+
+               /* var param = {
+                    memberId: userInfo.memberId,
+                    goodsId: $scope.confirmData.goodsInfo[0].goodsId,
+                    type: $scope.confirmData.goodsInfo[0].type,
+                    goodsSkuId: $scope.confirmData.goodsInfo[0].ordConfirmOrderUnitExtList[0].skuId,
+                    quantity: $scope.confirmData.goodsInfo[0].quantity,
+                    memberPhone:$scope.conInfo.tel
+                };
+                new confirmOrderService(param).getDataBySingleGoods().then(function (res) {
+                    if(res.resultCode == "00"){
+
+                        $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                        $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                        $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+
+                        localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
+                        $state.go("personalCenter.confirmOrder", {singleGoodsInfo:'#'});
+
+                    }else{
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (error) {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });*/
+
+
+           /* if($scope.conInfo.tel){
                 var param = {
                     memberId: userInfo.memberId,
                     goodsId: $scope.confirmData.goodsInfo[0].goodsId,
@@ -6754,7 +6848,7 @@ console.log(sku);
                 }, function (error) {
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
-            }
+            }*/
         };
 
 

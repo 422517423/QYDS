@@ -1290,7 +1290,8 @@ public class OrdMasterServiceImpl implements OrdMasterService {
 
             // 获取商品级别优惠
             list = actMasterService.bindActivityForOrderConfirm(list, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), true);
-
+            // 20180109返回购物车编号
+            ordConfirmExt.setBagNoArray(ordMasterExt.getBagNoArray());
             ordConfirmExt.setGoodsInfo(list);
             ordConfirmExt.setGoodsTotalPrice(getGoodsToatalPrice(list));
             //会员地址信息参数构造

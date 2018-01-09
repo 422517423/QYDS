@@ -993,6 +993,8 @@ public class OrderPcController {
             ordMasterExt.setMemberId(form.getMemberId());
             //购物车编号
             ordMasterExt.setBagNoArray(form.getBagNoArray());
+            // 20180109 会员手机号
+            ordMasterExt.setTelephone(form.getMemberPhone());
             //获取订单详情信息
             OrdConfirmExt ordConfirmExt = ordMasterService.confirmOrderFromBag(ordMasterExt);
             if(ordConfirmExt == null){

@@ -2,6 +2,7 @@ package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.CouponMasterExt;
 import net.dlyt.qyds.common.dto.ext.MmbGroupMemberExt;
@@ -2476,7 +2477,7 @@ public class ActMasterServiceImpl implements ActMasterService {
         float memberDiscount = 1;
 
         //根据传递的memberDiscount获取到
-        if (memberPhone!=null||!memberPhone.equals("")){
+        if (StringUtils.isNotBlank(memberPhone)){
             //根据memberphone获取会员的等级id
             memberDiscount = mmbMasterMapperExt.selectMemberDiscountByPhone(memberPhone).floatValue();
 
