@@ -2639,7 +2639,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             //乘会员折扣
                             if (((discount2 * 10) / 100)>0.57){
                                 newPrice2 = newPrice2*memberDiscount;
-                                goods2.get(i).setFlag(true);
+                                if (memberDiscount<1){
+                                    goods2.get(i).setFlag(true);
+                                }
                             }
                             activity2.setNewPrice(newPrice2);
                             goods2.get(i).setActivity(activity1);
@@ -2673,7 +2675,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             // 乘会员折扣
                             if (newPrice/orginPrice>0.57){
                                 newPrice = newPrice*memberDiscount;
-                                goods.get(i).setFlag(true);
+                                if (memberDiscount<1){
+                                    goods.get(i).setFlag(true);
+                                }
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
@@ -2692,7 +2696,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             //乘会员折扣
                             if (newPrice/orginPrice>0.57){
                                 newPrice = newPrice*memberDiscount;
-                                goods.get(i).setFlag(true);
+                                if (memberDiscount<1){
+                                    goods.get(i).setFlag(true);
+                                }
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
