@@ -1,5 +1,6 @@
 //var commonMessage = new Object();
 //commonMessage.networkErrorMsg = "网络异常";
+var resultPath;
 angular.module('dealuna.controllers', [])
     // header
     .controller('headerCtrl', ["$scope", "$state", "headerService", "$modal", "localStorageService","indexGdsBrandTypeService",'popupService','$rootScope','favoriteService','alertService',
@@ -6495,7 +6496,7 @@ console.log($scope.orderList);
                     $rootScope.shoppingBagsOfConfirmOrder = undefined;
                     $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
-
+                    resultPath=0;
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
 
                     $state.go("personalCenter.confirmOrder", {singleGoodsInfo:'#'});
@@ -7382,7 +7383,7 @@ console.log(sku);
                     $rootScope.shoppingBagsOfConfirmOrder = undefined;
                     $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
-
+                    resultPath=1;
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, submitGoodsList);
 
                     $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
@@ -8163,7 +8164,96 @@ console.log(userInfo);
             $scope.setGoodsTotalPrice();
             $scope.setOrderFinalPrice();
             $scope.getCouponList();
+            // 获取
+            $scope.getMasterD();
         };
+
+        $scope.checkOrderConfirm2 = function (submitGoodsList) {
+            // 购物车编码
+            var bagNoArray = [];
+            bagNoArray=$scope.confirmData.bagNoArray;
+            var param = {
+                memberId: userInfo.memberId,
+                memberPhone:$scope.conInfo.tel,
+                bagNoArray: bagNoArray
+            };
+            new confirmOrderService(param).getDataByBag().then(function (res) {
+                if(res.resultCode == "00"){
+                    /* var submitGoodsList1 = [];
+                     angular.forEach(res.results.goodsInfo, function (goods, index) {
+                         submitGoodsList1.push(goods);
+                     });*/
+                    $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                    $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                    $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+                    // $scope.confirmData.goodsInfo=submitGoodsList1;
+                    // 将后台传过来的数据赋给页面的全局变量
+                    $scope.confirmData.goodsInfo=res.results.goodsInfo;
+                    // 合计
+                    $scope.goodsTotalPrice = res.results.goodsTotalPrice;
+                    $scope.exchangePointCount = res.results.exchangePointCount;
+                    // 重新计算页面的价格
+                    $scope.setOrderFinalPrice();
+                    // 修改本地的数据值(这个可以不要)
+                    localStorageService.set(KEY_PARAM_COMFIRM_ORDER, $scope.confirmData.goodsInfo);
+                    // $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
+                }else{
+                    popupService.showToast(res.resultMessage);
+                }
+            }, function (error) {
+                popupService.showToast(commonMessage.networkErrorMsg);
+            });
+        };
+
+        // 立即购买提交
+        $scope.checkOrderConfirm1 = function (submitGoodsList) {
+            var param = {
+                memberId: userInfo.memberId,
+                goodsId: submitGoodsList[0].goodsId,
+                type: submitGoodsList[0].type,
+                goodsSkuId: submitGoodsList[0].ordConfirmOrderUnitExtList[0].skuId,
+                quantity: submitGoodsList[0].quantity,
+                memberPhone:$scope.conInfo.tel
+            };
+            new confirmOrderService(param).getDataBySingleGoods().then(function (res) {
+                if(res.resultCode == "00"){
+                    $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                    $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                    $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+                    // 将后台传过来的数据赋给页面的全局变量
+                    $scope.confirmData.goodsInfo=res.results.goodsInfo;
+                    // 合计
+                    $scope.goodsTotalPrice = res.results.goodsTotalPrice;
+                    $scope.exchangePointCount = res.results.exchangePointCount;
+                    // 重新计算页面的价格
+                    $scope.setOrderFinalPrice();
+                    localStorageService.set(KEY_PARAM_COMFIRM_ORDER, res.results.goodsInfo);
+                    //$state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
+                }else{
+                    popupService.showToast(res.resultMessage);
+                }
+            }, function (error) {
+                popupService.showToast(commonMessage.networkErrorMsg);
+            });
+        };
+
+        // 20180108根据手机号查询会员等级
+        $scope.getMasterD = function () {
+            if($scope.conInfo.tel){
+                var submitGoodsList = [];
+                // 遍历页面的商品信息
+                angular.forEach($scope.confirmData.goodsInfo, function (goods, index) {
+                    submitGoodsList.push(goods);
+                });
+                //0.立即购买 1.购物车
+                if(resultPath == 0){
+                    $scope.checkOrderConfirm1(submitGoodsList);
+                }else{
+                    $scope.checkOrderConfirm2(submitGoodsList);
+                }
+            }
+        };
+
 
         $scope.getCouponList = function (isNeedPhone) {
             if($scope.agentFlag !=0){

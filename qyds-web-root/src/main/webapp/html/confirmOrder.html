@@ -22,7 +22,7 @@
                                id="tel" name="tel"
                                maxlength="11" ng-pattern="/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}$/"
                                required
-                               ng-model="conInfo.tel" placeholder="请输入手机号">
+                               ng-model="conInfo.tel" placeholder="请输入手机号" ng-blur="getMasterD()">
                         <div class="col-xs-12 error_msg"
                              ng-show="confirmForm.tel.$error.required && (submitted_captcha || submitted)">
                             手机号不能为空
