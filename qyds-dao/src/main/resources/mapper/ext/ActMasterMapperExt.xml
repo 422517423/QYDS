@@ -304,7 +304,7 @@
         <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
         <result column="sort" property="sort" jdbcType="INTEGER" />
         <!-- 20180103-->
-        <result column="param_value" property="paramValue" jdbcType="VARCHAR"/>
+        <!--<result column="param_value" property="paramValue" jdbcType="VARCHAR"/>-->
     </resultMap>
 
     <select id="selectActivitiesBySkuInfo" resultMap="BaseResultMap2" parameterType="net.dlyt.qyds.common.form.SkuForm">
@@ -416,9 +416,8 @@
         am.is_member_activity,
         am.member_type,
         am.start_time,
-        am.end_time,
-        atp.param_value
-        from act_master am left join act_template at on am.temp_id = at.temp_id left join act_temp_param atp on at.temp_id = atp.temp_id
+        am.end_time
+        from act_master am left join act_template at on am.temp_id = at.temp_id
         where am.activity_id = #{activityId}
     </select>
 
