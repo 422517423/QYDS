@@ -7,6 +7,7 @@ import net.dlyt.qyds.web.service.AddPointCumulativeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service("addToPoint")
@@ -21,7 +22,13 @@ public class AddPointCumulativeServiceImpl implements AddPointCumulativeService 
         System.out.println("-----------------------START-------------------------");
         for (MmbMaster mmbMaster:mmbMasters) {
             if (mmbMaster!=null){
-                mmbMaster.setPointCumulative(mmbMaster.getAllPoint());
+                //获取这个会员的两年内的累计消费
+                BigDecimal allPoint = mmbMasterMapper.selectAllPoint(mmbMaster.getMemberId());
+                if (allPoint!=null){
+                    mmbMaster.setPointCumulative(allPoint.intValue());
+                }else {
+                    mmbMaster.setPointCumulative(0);
+                }
                 mmbMasterMapper.updateByPrimaryKeySelective(mmbMaster);
                 System.out.println("累计积分："+mmbMaster.getPointCumulative());
             }
