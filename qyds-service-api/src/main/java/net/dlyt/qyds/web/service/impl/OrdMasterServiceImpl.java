@@ -1348,6 +1348,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 throw new ExceptionBusiness("请输入验证码");
             }
             String tel = ordMasterExt.getNewmemberId();
+            ordMasterExt.setTelephone(tel);
             // 判断会员是否存在
             MmbMasterExt ext = new MmbMasterExt();
             ext.setTelephone(tel);
