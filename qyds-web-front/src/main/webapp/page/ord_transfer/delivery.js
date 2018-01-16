@@ -4,6 +4,13 @@
 
 var orderTransferId = sessionStorage.getItem("orderTransferId");
 $(document).ready(function () {
+    var obj_select = document.getElementById("expressChoose1");
+    var obj_div = document.getElementById("mailNoDiv1");
+    obj_select.onchange = function(){
+        obj_div.style.display = this.value==1? "block" : "none";
+    };
+
+
     $("#deliverArea").modal('show');
     $("#btn_delivery").click(function () {
         delivery();

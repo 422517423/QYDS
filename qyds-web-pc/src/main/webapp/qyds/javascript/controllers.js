@@ -7947,6 +7947,8 @@ console.log(sku);
             });
         };
 
+
+
         $scope.dochangePage = function () {
             //分页样式初始化
             $(".pager").ucPager({

@@ -1,6 +1,7 @@
 package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.OrdTransferListExt;
 import net.dlyt.qyds.dao.*;
@@ -402,19 +403,20 @@ public class OrdTransferServiceImpl implements OrdTransferService {
             form.setUpdateTime(upDate);
             ordTransferListMapper.updateByPrimaryKeySelective(form);
 
-            // TODO: 2017/12/6 调货创建圆通订单
-            // 创建订单
-            // 根据调货id查询收货发货人信息
-            OrdTransferListExt ordTransferListExt= ordTransferListMapperExt.selectByPrimaryKey(form.getOrderTransferId());
-            //ordTransferListExt.setDeliveryContactor(form.getDeliveryContactor());
-            ordTransferListExt.setDeliveryPostcode(form.getDeliveryPostcode());
-            String result = YtApi.getOrderTracesByXml1(ordTransferListExt);
-            // 创建失败回滚
-            if(!result.contains("<success>true</success>")){
-                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                json.put("resultCode", Constants.FAIL);
+            if(StringUtils.isEmpty(form.getExpressNo())){
+                // TODO: 2017/12/6 调货创建圆通订单
+                // 创建订单
+                // 根据调货id查询收货发货人信息
+                OrdTransferListExt ordTransferListExt= ordTransferListMapperExt.selectByPrimaryKey(form.getOrderTransferId());
+                //ordTransferListExt.setDeliveryContactor(form.getDeliveryContactor());
+                ordTransferListExt.setDeliveryPostcode(form.getDeliveryPostcode());
+                String result = YtApi.getOrderTracesByXml1(ordTransferListExt);
+                // 创建失败回滚
+                if(!result.contains("<success>true</success>")){
+                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                    json.put("resultCode", Constants.FAIL);
+                }
             }
-
             //ERP发送发货信息
             ErpSendUtil.BankUpdateById(form.getOrderTransferId(),ordTransferListMapper);
             //设置返回数据

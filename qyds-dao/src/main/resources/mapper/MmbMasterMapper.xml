@@ -60,6 +60,16 @@
     <include refid="Base_Column_List"/>
     FROM public.mmb_master
   </select>
+  <select id="selectAllPoint"  resultMap="BaseResultMap">
+    SELECT
+    coalesce(sum(erp_order_master.amount) ,0)+
+    COALESCE( (SELECT sum(ord_master.pay_infact) FROM ord_master WHERE member_id = #{memberId,jdbcType=VARCHAR}
+    AND date_part('year', ord_master.pay_time) = (date_part('year', now()))),0)
+    FROM mmb_master JOIN ord_master ON mmb_master.member_id = ord_master.member_id
+    JOIN erp_order_master ON mmb_master.telephone = member_code
+    WHERE date_part('year', erp_order_master.order_time) = (date_part('year', now()))
+    AND mmb_master.member_id = #{memberId,jdbcType=VARCHAR};
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from public.mmb_master
     where member_id = #{memberId,jdbcType=VARCHAR}
