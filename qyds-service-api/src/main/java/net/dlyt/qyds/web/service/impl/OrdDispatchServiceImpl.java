@@ -895,7 +895,7 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
 
             subOrder.setDispatchStatus("3");
             // 门店自提是不发快递的
-            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType())){
+            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType()) && StringUtils.isEmpty(ordSubItem.getExpressNo())){
                 subOrder.setExpressId("YTO");
                 subOrder.setExpressName("圆通快递公司");
             }
@@ -998,7 +998,7 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
             bnkRecordsMapper.insertSelective(bnkRecords);
 
             // 判断如果是物流发货则创建圆通订单，如果是门店id，则不用创建圆通订单
-            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType())){
+            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType())&& StringUtils.isEmpty(ordSubItem.getExpressNo())){
                 // 创建圆通订单
                 String result = YtApi.getOrderTracesByXml(ordMaster,subOrder, sysUser ,0);
                 // 创建失败回滚

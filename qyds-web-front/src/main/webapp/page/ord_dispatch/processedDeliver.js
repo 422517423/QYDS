@@ -6,6 +6,12 @@ var orderId = sessionStorage.getItem("orderId");
 var orderSubId = sessionStorage.getItem("orderSubId");
 
 $(document).ready(function () {
+    var obj_select = document.getElementById("expressChoose");
+    var obj_div = document.getElementById("mailNoDiv");
+    obj_select.onchange = function(){
+        console.log("12312312313");
+        obj_div.style.display = this.value==1? "block" : "none";
+    };
 
     $("#subOrderDeliverArea").modal('show');
 
@@ -83,7 +89,6 @@ function getDetail() {
         showAlert('网络异常.');
     };
     axse(url, {"data": JSON.stringify(param)}, successCallback, errorCallback);
-
 }
 
 function save() {
