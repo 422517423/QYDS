@@ -9,7 +9,6 @@ $(document).ready(function () {
     var obj_select = document.getElementById("expressChoose");
     var obj_div = document.getElementById("mailNoDiv");
     obj_select.onchange = function(){
-        console.log("12312312313");
         obj_div.style.display = this.value==1? "block" : "none";
     };
 
@@ -77,7 +76,9 @@ function getDetail() {
             $("#goods_name_processed").val(subItem.goodsName);
             $("#sku_processed").val(subItem.sku);
             $("#delivery_contactor_processed").val(item.deliveryContactor);
-            $("#district_name_processed").val(item.deliveryAddress);
+            $("#district_name_processed").val(item.districtidProvince+item.districtidCity
+                +item.districtidDistrict
+                +item.deliveryAddress);
 
         } else {
             $("#subOrderDeliverArea").modal('hide');
