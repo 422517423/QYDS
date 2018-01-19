@@ -9,6 +9,7 @@
             <div class="modal-body">
                 <!--<div class="scroller" id="proofContent" style="height:300px;overflow-y: scroll;" data-always-visible="1"-->
                      <!--data-rail-visible1="1">-->
+                <form id="deliverForm1" class="form-horizontal validator">
                     <div class="form-body">
                         <div class="form-group row">
                             <label  class="col-md-2 control-label">联系人</label>
@@ -47,21 +48,22 @@
                             </div>
                         </div>
                         <div class="form-group row" style="display: none" id="mailNoDiv1">
-                            <label  class="col-md-2 control-label">快递单号</label>
+                            <label  class="col-md-2 control-label" style="width: 95px;margin-left: -4px;">快递单号<span class="required">*</span></label>
                             <div class="col-md-8">
-                                <input type="text" id="express_no" class="form-control">
+                                <input type="text" id="express_no" name="express_no" class="form-control" data-required="1">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 control-label">选择快递</label>
                             <div class="col-md-8">
-                                <select id="expressChoose1"  class="form-control">
+                                <select id="expressChoose1" class="form-control" name="express_type">
                                     <option value="0" selected="selected">圆通快递</option>
                                     <option value="1">其他快递</option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                </form>
                <!--</div>-->
             </div>
             <div class="modal-footer">

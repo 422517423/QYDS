@@ -179,6 +179,16 @@
         <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
             AND member.current_level_id = #{currentLevelId}
         </if>
+        /*添加了年份标识判断*/
+        /*当yearNum=0时，查询当年消费*/
+        <if test="yearNum == 0">
+          and y_time = to_char((SELECT now()::timestamp),'yyyy')
+        </if>
+        /*当yearNum=1时，查询当年和前一年的消费*/
+        <if test="yearNum == 1">
+          and y_time &gt;= to_char((SELECT now()::timestamp+ '-1 year'),'yyyy')
+          and y_time &lt;= to_char((SELECT now()::timestamp),'yyyy')
+        </if>
         order by member.approval_level_id DESC, member.current_level_id DESC, member.member_name
         limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
     </select>
@@ -201,35 +211,48 @@
     <select id="countApprovalUpMemberListInTwo" resultType="java.lang.Integer"
             parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
         SELECT count(*) FROM view_approval_up_memberInTwo
+        /*添加了年份标识判断*/
+        /*当yearNum=0时，查询当年消费*/
+        <if test="yearNum == 0">
+            where y_time = to_char((SELECT now()::timestamp),'yyyy')
+        </if>
+        /*当yearNum=1时，查询当年和前一年的消费*/
+        <if test="yearNum == 1">
+            where y_time &gt;= to_char((SELECT now()::timestamp+ '-1 year'),'yyyy')
+            and y_time &lt;= to_char((SELECT now()::timestamp),'yyyy')
+        </if>
     </select>
     
     <select id="selectRelegationMemberList" resultMap="MmbLevelManagerResultMap"
             parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
-        select p.telephone,  p.member_id from (
-        select sum(p.pay_infact) as point_surplus,p.member_id,m.telephone
-        from ord_master p
-        inner join mmb_master m
-        on m.member_id = p.member_id
+        select a.member_id, (case when max(a.a_total) is not null then max(a.a_total) else 0 end) as max_amout,
+        (
+        case when sum(a.a_total) is not null then sum(a.a_total) else 0 end
+        ) as total_amount
+        from(
+        select m.member_id,om.pay_infact as a_total,to_char((SELECT om.pay_time::timestamp),'yyyy') as y_time
+        from public.mmb_master m
+        left join public.ord_master om on om.member_id = m.member_id
+        and to_char((SELECT om.pay_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy')
+        and om.pay_status='20'
+        and om.deleted = '0'
+        where m.member_level_id='30'
         and m.deleted = '0'
         and (m.telephone is not null or trim(m.telephone) != '')
-        where p.deleted = '0'
-        and m.member_level_id ='30'
-        and date_part('year', p.pay_time) = (date_part('year', now()) - 1)
-        GROUP by p.member_id,m.telephone
-        )p  where p.point_surplus &lt; '3000'
 
-        UNION
-        select m.telephone,  p.member_id
-        from ord_master p
-        inner join mmb_master m
-        on m.member_id = p.member_id
+
+        UNION ALL
+        select m.member_id,eo.amount as a_total,to_char((SELECT eo.order_time::timestamp),'yyyy') as y_time
+        from public.mmb_master m
+        left join public.erp_order_master eo on eo.member_code = m.telephone
+        and to_char((SELECT eo.order_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy')
+        and eo.deleted = '0'
+        where m.member_level_id='30'
         and m.deleted = '0'
         and (m.telephone is not null or trim(m.telephone) != '')
-        where p.deleted = '0'
-        and m.member_level_id ='30'
-        and date_part('year', p.pay_time) = (date_part('year', now()) - 1)
-        and p.pay_infact &lt; '1500' and (select count(*) from  ord_master p1 where p1.member_id=m.member_id and  p.pay_infact >1500) =0
-        GROUP by p.member_id,m.telephone
+
+        )a
+        group by a.member_id having ((case when sum(a.a_total) is not null then sum(a.a_total) else 0 end)  &lt; '3000' and (case when max(a.a_total) is not null then max(a.a_total) else 0 end)  &lt;  '1500')
 
     </select>
 

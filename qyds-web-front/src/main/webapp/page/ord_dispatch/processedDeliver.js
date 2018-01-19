@@ -4,12 +4,19 @@
 
 var orderId = sessionStorage.getItem("orderId");
 var orderSubId = sessionStorage.getItem("orderSubId");
-
+var type = sessionStorage.getItem("type");
 $(document).ready(function () {
+    // 当type=1时，门店发货隐藏选择快递
+    if(type==1){
+        $("#expressSelect").hide();
+    }
     var obj_select = document.getElementById("expressChoose");
     var obj_div = document.getElementById("mailNoDiv");
     obj_select.onchange = function(){
         obj_div.style.display = this.value==1? "block" : "none";
+        if(this.value==0){
+            $("#express_no").val("");
+        }
     };
 
     $("#subOrderDeliverArea").modal('show');
@@ -93,12 +100,14 @@ function getDetail() {
 }
 
 function save() {
+
     var url = "/ord_dispatch/deliverSubOrderItem.json";
 
     var param = {
         orderId: orderId,
         subOrderId:orderSubId,
-        expressNo: $("#express_no").val()
+        expressNo: $("#express_no").val(),
+        expressType:$("#expressChoose").val()
     };
 
     $('#btn_save').attr("disabled", true);

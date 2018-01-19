@@ -38,6 +38,7 @@ public class KdniaoTrackQueryAPIImpl implements KdniaoTrackQueryAPI {
      * @throws Exception
      */
     public String getOrderTracesByJson(String expCode, String expNo) throws Exception{
+       // if (expCode==null||expCode.equals("")){expCode="SF";}
         String requestData= "{'OrderCode':'','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";
 
         Map<String, String> params = new HashMap<String, String>();

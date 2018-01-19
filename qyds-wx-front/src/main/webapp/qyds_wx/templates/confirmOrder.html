@@ -127,7 +127,10 @@
                                     <span ng-if="goodItem.activity.newPrice!=goodItem.ordConfirmOrderUnitExtList[0].price"
                                           style="font-size: 10px;text-decoration: line-through">¥{{goodItem.ordConfirmOrderUnitExtList[0].price}}</span>
                                     <span style="font-size: 12px;border-radius: 2px;background: #666666;padding: 2px;color: #ffffff;float: right">{{goodItem.activity.activityName}}</span>
-
+                                    <!--20180110-->
+                                    <div ng-if="goodItem.flag==true">
+                                        <span style="font-size: 12px;border-radius: 2px;background: #666666;padding: 2px;color: #ffffff;float: right">高级会员8.8折</span>
+                                    </div>
                                 </div>
                                 <div ng-if="!goodItem.activity">
                                         <span class="assertive bold"

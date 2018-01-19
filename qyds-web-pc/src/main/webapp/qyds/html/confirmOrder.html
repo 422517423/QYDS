@@ -455,6 +455,9 @@
                         <div style="font-size: 12px; color: red">
                             <span>{{goodItem.activity.activityName}}</span>
                         </div>
+                        <div ng-if="goodItem.flag==true" style="margin-top: 2px;">
+                            <span style="font-size: 12px; color: red">高级会员8.8折</span>
+                        </div>
                     </div>
                     <!--套装情况-->
                     <div style="padding: 0px 10px;overflow: hidden" ng-if="goodItem.type=='30'">

@@ -8,17 +8,61 @@ $(document).ready(function () {
     var obj_div = document.getElementById("mailNoDiv1");
     obj_select.onchange = function(){
         obj_div.style.display = this.value==1? "block" : "none";
+        if(this.value==0){
+            $("#express_id").val("YTO");
+            $("#express_name").val("圆通快递公司");
+            $("#express_no").val("");
+        }else{
+            $("#express_id").val("SF");
+            $("#express_name").val("顺丰快递公司");
+        }
     };
+
+    //表单验证的定义
+    $("#deliverForm1").validate({
+        errorElement: 'span',
+        errorClass: 'help-block',
+        focusInvalid: false,
+        rules: {
+            express_no: {
+                required: true
+            }
+
+        },
+        messages: {
+            express_no: {
+                required: "请输入快递单号"
+            }
+        },
+
+        highlight: function (element) {
+            $(element)
+                .closest('.form-group').addClass('has-error');
+        },
+
+        unhighlight: function (element) {
+            $(element)
+                .closest('.form-group').removeClass('has-error');
+        },
+
+        success: function (label) {
+            label
+                .closest('.form-group').removeClass('has-error');
+        }
+    });
 
 
     $("#deliverArea").modal('show');
     $("#btn_delivery").click(function () {
-        delivery();
+        if ($("#deliverForm1").valid()) {
+            delivery();
+        }
     });
 
     if (orderTransferId && orderTransferId.length > 0) {
         getAddress();
     }
+
 });
 
 function getAddress() {
@@ -56,7 +100,8 @@ function delivery() {
         deliveryAddress: $("#delivery_address").val(),
         expressId: $("#express_id").val(),
         expressName: $("#express_name").val(),
-        expressNo: $("#express_no").val()
+        expressNo: $("#express_no").val(),
+        expressType:$("#expressChoose1").val()
     };
     var successCallback = function (data) {
         if (data.resultCode == '00') {

@@ -905,6 +905,8 @@ public class CouponMemberServiceImpl implements CouponMemberService {
             ErpSendUtil.CouponSendUpdateById(cm.getCouponMemberId(), couponMemberMapper, mmbMasterMapper);
     }
 
+
+
     @Transactional(rollbackFor = Exception.class)
     public void addRegisterCouponsForUser(CouponMemberExt form, CouponMaster coupon) throws Exception {
         if (StringUtil.isEmpty(form.getMemberId())) {

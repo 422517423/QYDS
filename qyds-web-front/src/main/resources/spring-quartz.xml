@@ -65,19 +65,19 @@
 	<!--</bean>-->
 
 	<!-- 每月日最后一日23点59分59秒执行一次 -->
-	<!-- 新：每年12月31日2点执行一次 -->
+	<!-- 新：每年12月31日23点55分执行一次：每年年底清除经历的两个自然年的积分履历（也就是清除上一年的积分履历） -->
 	<bean id="mmbBonusPointCleanCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="mmbBonusPointCleanTaskJob" />
 		<!--<property name="cronExpression" value="59 59 23 L * ?" />-->
-		<property name="cronExpression" value="0 0 3 31 12 ?" />
+		<property name="cronExpression" value="0 55 23 31 12 ?" />
 	</bean>
 
 	<!-- 每年一月一日2点执行一次 -->
-	<!-- 新：每年12月31日2点执行一次 -->
+	<!-- 新：每年12月31日23点57分执行一次 查询高级会员当年的累积消费和单笔最大消费不满足条件的会员，做降级操作 -->
 	<bean id="mmbMasterDownGradeCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="mmbMasterDownGradeTaskJob" />
 		<!--<property name="cronExpression" value="0 0 2 1 1 ?" />-->
-		<property name="cronExpression" value="0 0 2 31 12 ?" />
+		<property name="cronExpression" value="0 57 23 31 12 ?" />
 	</bean>
 
 	<!-- 每日0点0分1秒执行一次 -->

@@ -17,14 +17,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class YtApi {
-  // clientID
+   // clientID
     private final static String AppKey="TEST";
    //电商加密私钥-测试
     private final static String PARTNER_ID="123456";
     //请求url-测试
     private  final static String ReqURL="http://jingangtest.yto56.com.cn/ordws/Vip16Servlet";
 
-   /*// clientID
+  /* // clientID
     private final static String AppKey="QYSM";
     //电商加密私钥-正式
     private final static String PARTNER_ID="1Bi478P";

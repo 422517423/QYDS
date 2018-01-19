@@ -1,6 +1,7 @@
 package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.ComConfig;
 import net.dlyt.qyds.common.dto.ComConfigKey;
 import net.dlyt.qyds.common.dto.MmbMaster;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,9 +48,7 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
     protected final Logger log = LoggerFactory.getLogger(MmbLevelManagerServiceImpl.class);
 
 
-    public static void main(String[] args) {
 
-    }
     /**
      * 待升级审批会员一览
      *
@@ -59,9 +59,26 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
         JSONObject json = new JSONObject();
         try {
 
-//            List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectApprovalUpMemberList(form);
+            // List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectApprovalUpMemberList(form);
+            // int allCount = mmbLevelRuleMapperExt.countApprovalUpMemberList(form);
+            // TODO: 2018/1/15 判断当前月日是否小于1月15，如果小于，则查询普通会员当年和前一年的累积消费和单笔消费；如果大于等于，则查询普通会员当年的累积消费和单笔消费
+            SimpleDateFormat formatter   =   new   SimpleDateFormat   ("yyyy-MM-dd   HH:mm:ss     ");
+            String dDate = "01-15";
+            Date   curDate   =   new   Date(System.currentTimeMillis());//获取当前时间
+            String   str   =   formatter.format(curDate);
+            if(StringUtils.isNotBlank(str) && StringUtils.isNotBlank(str.substring(5,10))){
+                int result= str.substring(5,10).compareTo(dDate);
+                if (result < 0 ) {
+                    System.out.println("小于");
+                    // 查询当年和前一年的数据
+                    form.setYearNum("1");
+                }else {
+                    System.out.println("大于等于");
+                    // 查询当年的数据
+                    form.setYearNum("0");
+                };
+            }
             List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
-//            int allCount = mmbLevelRuleMapperExt.countApprovalUpMemberList(form);
             int allCount = mmbLevelRuleMapperExt.countApprovalUpMemberListInTwo(form);
 
             json.put("sEcho", form.getsEcho());
@@ -205,7 +222,9 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
     /**
      * 会员等级降级
      * <p/>
-     * 计算上一自然年度会员消费累计积分是否达到对应级别的80%
+     * ###计算上一自然年度会员消费累计积分是否达到对应级别的80%
+     * 修改为
+     * 计算上一自然年度会员累计消费金额是否大于等于3000或单笔最大消费是否大于等于1500
      *
      * @return
      */
@@ -215,7 +234,7 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
         try {
 
 
-          /*  String ratio = "0.8";
+           /* String ratio = "0.8";
 
             ComConfigKey key = new ComConfigKey();
             key.setCode(MEMBER_LEVEL_RATIO_CODE);
@@ -246,8 +265,8 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
 //                    ErpSendUtil.getInstance().VIPUpdateById(master.getMemberId());
                     ErpSendUtil.VIPUpdateById(master.getMemberId(),mmbMasterMapperExt,mmbMasterMapper);
                 }
-            }
-*/
+            }*/
+
             List<MmbLevelManagerForm> list = mmbLevelRuleMapperExt.selectRelegationMemberList();
             for (MmbLevelManagerForm item : list) {
                 MmbMaster master = mmbMasterMapper.selectByPrimaryKey(item.getMemberId());
@@ -259,8 +278,7 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
                     // erp接口调用会员降级
 //                    updateMasterToERP(master.getMemberId());
 //                    ErpSendUtil.getInstance().VIPUpdateById(master.getMemberId());
-                    // 我注释掉的2018
-                    // ErpSendUtil.VIPUpdateById(master.getMemberId(),mmbMasterMapperExt,mmbMasterMapper);
+                    ErpSendUtil.VIPUpdateById(master.getMemberId(),mmbMasterMapperExt,mmbMasterMapper);
                 }
             }
             json.put("resultCode", Constants.NORMAL);

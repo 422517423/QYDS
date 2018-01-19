@@ -105,17 +105,17 @@ var SubTableEditableD = function () {
                             if(oObj.aData.dispatchStatus == '1'){
                                 if(oObj.aData.erpStoreId == null || oObj.aData.erpStoreId.length == 0){
                                     return '<a onclick=rejectDispatch("' + oObj.aData.subOrderId + '")>拒绝接单</a>'
-                                        + '&nbsp;&nbsp;' + '<a onclick=subOrderDispatch("' + oObj.aData.subOrderId + '")>发货</a>';
+                                        + '&nbsp;&nbsp;' + '<a onclick=subOrderDispatch("' + oObj.aData.subOrderId + '",0)>发货</a>';
                                 }else{
                                     if(oObj.aData.upSeasoning == null || oObj.aData.upSeasoning.length == 0){
                                         //return '<a onclick=seasoningDispatch("' + oObj.aData.subOrderId + '")>申请调货</a>'
                                         return '<a onclick=applyTransfer("' + oObj.aData.subOrderId + '")>申请调货</a>'
-                                            + '&nbsp;&nbsp;' + '<a onclick=subOrderDispatch("' + oObj.aData.subOrderId + '")>发货</a>';
+                                            + '&nbsp;&nbsp;' + '<a onclick=subOrderDispatch("' + oObj.aData.subOrderId + '",1)>发货</a>';
                                     }else if(oObj.aData.upSeasoning == '1'){
                                         return '已经申请';
                                     }else{
                                         return '已经调货'
-                                            + '&nbsp;&nbsp;' + '<a onclick=subOrderDispatch("' + oObj.aData.subOrderId + '")>发货</a>';
+                                            + '&nbsp;&nbsp;' + '<a onclick=subOrderDispatch("' + oObj.aData.subOrderId + '",1)>发货</a>';
                                     }
                                 }
                             } else {
@@ -178,11 +178,11 @@ function seasoningDispatch(obj) {
     axse(url, {"data": JSON.stringify(param)}, success, error);
 }
 
-function subOrderDispatch(obj) {
-
+function subOrderDispatch(obj,type) {
     showConfirmD('确定已经检查过门店有该货品,并且没有损坏吗？如果不检查而发货后果自负!',function () {
         sessionStorage.setItem("orderId", orderId);
         sessionStorage.setItem("orderSubId", obj);
+        sessionStorage.setItem("type" ,type);
         $('#customDialog').load('ord_dispatch/processedDeliver.html');
     });
 }

@@ -895,10 +895,16 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
 
             subOrder.setDispatchStatus("3");
             // 门店自提是不发快递的
-            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType()) && StringUtils.isEmpty(ordSubItem.getExpressNo())){
-                subOrder.setExpressId("YTO");
-                subOrder.setExpressName("圆通快递公司");
+            if(StringUtils.isNotBlank(ordMaster.getDeliverType()) && ("10").equals(ordMaster.getDeliverType())){
+                if(ordSubItem.getExpressType()==0){
+                    subOrder.setExpressId("YTO");
+                    subOrder.setExpressName("圆通快递公司");
+                }else{
+                    subOrder.setExpressId("SF");
+                    subOrder.setExpressName("顺丰快递公司");
+                }
             }
+
             subOrder.setDeliverStatus("20");
             subOrder.setDeliverTime(new Date());
             subOrder.setExpressNo(ordSubItem.getExpressNo());

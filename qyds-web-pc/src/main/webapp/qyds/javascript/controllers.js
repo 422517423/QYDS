@@ -3207,7 +3207,6 @@ console.log($scope.orderList);
             };
 
             $scope.changeActivity = function(activityId){
-
                 $scope.goodListTitle={selectSize:''};
                 $scope.goodsListInfo = {"from": "", "to": ""};
                 $scope.sortByTimeValue = 0;
@@ -3466,6 +3465,7 @@ console.log($scope.orderList);
                     return;
                 }
                 $scope.isPhoneLoading = true;
+
                 //初始化调用
                 new goodsListService({
                     "actId": actId,
@@ -6758,6 +6758,7 @@ console.log(sku);
                     $scope.confirmData.goodsInfo=res.results.goodsInfo;
                     // 合计
                     $scope.goodsTotalPrice = res.results.goodsTotalPrice;
+                    alert($scope.goodsTotalPrice);
                     $scope.exchangePointCount = res.results.exchangePointCount;
                     // 重新计算页面的价格
                     $scope.setOrderFinalPrice();
@@ -6791,6 +6792,7 @@ console.log(sku);
                     $scope.confirmData.goodsInfo=res.results.goodsInfo;
                     // 合计
                     $scope.goodsTotalPrice = res.results.goodsTotalPrice;
+                    alert($scope.goodsTotalPrice);
                     $scope.exchangePointCount = res.results.exchangePointCount;
                     // 重新计算页面的价格
                     $scope.setOrderFinalPrice();

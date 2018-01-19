@@ -2495,7 +2495,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                     ActMasterForm actMasterForm = new ActMasterForm();
 //                    actMasterForm.setActivityName("会员折扣");
                     float orginPrice = getOrginPrice(goods.get(i));
-                    actMasterForm.setNewPrice(orginPrice*memberDiscount);
+                    actMasterForm.setNewPrice(getDiscountPrice(orginPrice,memberDiscount*10));
                     goods.get(i).setActivity(actMasterForm);
                     goods.get(i).setFlag(false);
                     if (memberDiscount<1){
@@ -2553,7 +2553,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                                 //添加判断值
 //                              if (!(activity.getTempId()).equals("13970196-c36d-4b49-88ba-824d98b0a0dc")){
                                 if (b>5.7){
-                                    newPrice = newPrice*memberDiscount;
+                                    newPrice = getDiscountPrice(newPrice,memberDiscount*10);
                                     if (memberDiscount<1){
                                         goods.get(i).setFlag(true);
                                     }
@@ -2627,9 +2627,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             activity2.setOriginPrice(orginPrice2);
                             //乘会员折扣
                             if (((discount1 * 10) / 100)>0.57){
-                                newPrice1 = newPrice1*memberDiscount;
+                                newPrice1 = getDiscountPrice(newPrice1,memberDiscount*10);
                                 if (memberDiscount<1){
-                                    goods.get(i).setFlag(true);
+                                    goods2.get(i).setFlag(true);
                                 }
                             }
                             activity1.setNewPrice(newPrice1);
@@ -2638,9 +2638,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                             }
                             //乘会员折扣
                             if (((discount2 * 10) / 100)>0.57){
-                                newPrice2 = newPrice2*memberDiscount;
+                                newPrice2 = getDiscountPrice(newPrice2,memberDiscount*10);
                                 if (memberDiscount<1){
-                                    goods2.get(i).setFlag(true);
+                                    goods2.get(goods2.size() - i - 1).setFlag(true);
                                 }
                             }
                             activity2.setNewPrice(newPrice2);
@@ -2657,7 +2657,10 @@ public class ActMasterServiceImpl implements ActMasterService {
                             float newPrice3 = orginPrice3 * (discount1 * 10) / 100;
                             activity3.setOriginPrice(orginPrice3);
                             //乘会员折扣
-                            newPrice3 = newPrice3*memberDiscount;
+                            newPrice3 = getDiscountPrice(newPrice3,memberDiscount*10);
+                            if (memberDiscount<1){
+                                goods2.get(middleIndex).setFlag(true);
+                            }
                             activity3.setNewPrice(newPrice3);
                             goods2.get(middleIndex).setActivity(activity3);
                             newGoodsList.add(goods2.get(middleIndex));
@@ -2674,7 +2677,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                             goods.get(i).setFlag(false);
                             // 乘会员折扣
                             if (newPrice/orginPrice>0.57){
-                                newPrice = newPrice*memberDiscount;
+                                newPrice = getDiscountPrice(newPrice,memberDiscount*10);
                                 if (memberDiscount<1){
                                     goods.get(i).setFlag(true);
                                 }
@@ -2695,7 +2698,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                             activity1.setOriginPrice(orginPrice);
                             //乘会员折扣
                             if (newPrice/orginPrice>0.57){
-                                newPrice = newPrice*memberDiscount;
+                                newPrice = getDiscountPrice(newPrice,memberDiscount*10);
                                 if (memberDiscount<1){
                                     goods.get(i).setFlag(true);
                                 }
@@ -2954,7 +2957,7 @@ public class ActMasterServiceImpl implements ActMasterService {
             // 打折 x件y折
             for (int i = 0; i < template.getParamList().size(); i++) {
                 // goodsCount是否大于所有优惠条件中的件数
-                if (goodsCount == Integer.valueOf(template.getParamList().get(i).getParamCondition())) {
+                if (goodsCount >= Integer.valueOf(template.getParamList().get(i).getParamCondition())) {
                     newPrice = oldPrice.multiply(new BigDecimal(template.getParamList().get(i).getParamValue())).divide(new BigDecimal("10"), 2, RoundingMode.HALF_UP);
                     break;
                 }

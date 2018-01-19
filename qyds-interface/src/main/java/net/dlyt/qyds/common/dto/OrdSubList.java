@@ -99,6 +99,17 @@ public class OrdSubList implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // TODO: 2018/1/18 选择快递类型
+    private int expressType;
+
+    public int getExpressType() {
+        return expressType;
+    }
+
+    public void setExpressType(int expressType) {
+        this.expressType = expressType;
+    }
+
     public String getSubOrderId() {
         return subOrderId;
     }

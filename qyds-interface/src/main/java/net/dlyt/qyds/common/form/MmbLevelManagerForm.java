@@ -23,6 +23,18 @@ public class MmbLevelManagerForm {
 
     private String telephone;
 
+    // TODO: 2018/1/15 查询年份标识(0.当年1.当年和前一年)
+
+    private String yearNum;
+
+    public String getYearNum() {
+        return yearNum;
+    }
+
+    public void setYearNum(String yearNum) {
+        this.yearNum = yearNum;
+    }
+
     public String getTelephone() {
         return telephone;
     }
