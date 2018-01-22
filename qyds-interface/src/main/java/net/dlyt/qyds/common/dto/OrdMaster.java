@@ -149,6 +149,16 @@ public class OrdMaster implements Serializable {
 
     private String tradeStatus;
 
+    private String helpBuy;
+
+    public String getHelpBuy() {
+        return helpBuy;
+    }
+
+    public void setHelpBuy(String helpBuy) {
+        this.helpBuy = helpBuy == null ? null : helpBuy.trim();
+    }
+
     private static final long serialVersionUID = 1L;
 
     public String getOrderId() {

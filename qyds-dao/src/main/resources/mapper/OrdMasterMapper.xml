@@ -154,6 +154,9 @@
   <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdMaster" >
     insert into public.ord_master
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="helpBuy != null" >
+        help_buy,
+      </if>
       <if test="orderId != null" >
         order_id,
       </if>
@@ -372,6 +375,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="helpBuy != null" >
+        #{helpBuy,jdbcType=VARCHAR},
+      </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
       </if>

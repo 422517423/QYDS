@@ -1344,6 +1344,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         // ]
         // 代买的情况，需要验证验证码
         String newMemberId = null;
+        String helpBuyId = null;
         if (!StringUtil.isEmpty(ordMasterExt.getNewmemberId())) {
             if (StringUtil.isEmpty(ordMasterExt.getCaptcha())) {
                 throw new ExceptionBusiness("请输入验证码");
@@ -1531,6 +1532,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         } else {
             String memberId = ordMasterExt.getMemberId();
             if (!StringUtil.isEmpty(newMemberId)) {
+                helpBuyId = memberId;
                 memberId = newMemberId;
             }
             CouponMasterExt couponMasterExt = couponMemberService.getOrderCouponById(memberId, ordMasterExt.getCouponMemberId(), goodsSum.subtract(actionDiscount).floatValue());
@@ -1694,7 +1696,11 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         //更新人
         if (!StringUtil.isEmpty(newMemberId)) {
             ordMaster.setUpdateUserId(newMemberId);
+//            ordMaster.setHelpBuy(helpBuyId);
+            //1是dai
+            ordMaster.setHelpBuy("1");
         } else {
+            ordMaster.setHelpBuy("0");
             ordMaster.setUpdateUserId(oldMemberId);
         }
         //创建人

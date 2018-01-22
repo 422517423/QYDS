@@ -91,6 +91,10 @@
 
     <!-- 20171215 临时字段 客户总消费金额-->
     <result column="all_price" property="allPrice" jdbcType="NUMERIC" />
+
+    <!--2018.1.22 代买-->
+    <result column="help_buy" property="helpBuy" jdbcType="VARCHAR" />
+
   </resultMap>
 
   <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
@@ -133,6 +137,7 @@
     om.evaluate_status,
     om.deliver_type,
     om.cancel_type,
+    om.help_buy,
     cc.display_cn as order_type_cn,
     cc1.display_cn as order_status_cn,
     cc2.display_cn as pay_type_cn,
@@ -213,6 +218,9 @@
     </if>
     <if test="orderTimeEnd != null and !orderTimeEnd.isEmpty()" >
       AND to_char(om.order_time,'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </if>
+    <if test="helpBuy != null and !helpBuy.isEmpty()" >
+      and om.help_buy = #{helpBuy,jdbcType=VARCHAR}
     </if>
     <if test="orderId == null or orderId.isEmpty()" >
       order by om.update_time DESC

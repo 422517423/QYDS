@@ -134,6 +134,7 @@ public class OrdMasterExt extends OrdMaster {
     // TODO: 2017/12/15 总消费金额 临时字段
     private BigDecimal allPrice;
 
+
     public BigDecimal getAllPrice() {
         return allPrice;
     }

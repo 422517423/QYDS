@@ -32,6 +32,7 @@ public class OrdMasterForm extends OrdMaster{
     //下单结束时间
     private String orderTimeEnd;
 
+
     public String getMemberName() {
         return memberName;
     }

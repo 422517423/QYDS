@@ -156,6 +156,7 @@ function initTable(){
             aoData.push({"name": "memberName", "value": $("#memberName").val()});
             aoData.push({"name": "actionId", "value": $("#activity").val()});
             aoData.push({"name": "couponId", "value": $("#couppon").val()});
+            aoData.push({"name": "helpBuy", "value": $("#helpBuy").val()});
         },
         "aoColumns": [
             {"mData": "orderCode"},
@@ -179,6 +180,17 @@ function initTable(){
                 }
             },
             //{"mData": "comment"},
+            {
+                "mData": null,
+                "fnRender": function (rowData) {
+                    console.log(rowData);
+                    if (rowData.aData.helpBuy == "1") {
+                        return "是";
+                    } else {
+                        return "否";
+                    }
+                }
+            },
             {
                 "mData": null,
                 "fnRender": function (rowData) {
@@ -211,6 +223,7 @@ function setSessionValue(){
     sessionStorage.setItem("orderIdForOrderList",$('#orderId').val());
     sessionStorage.setItem("telephone",$('#telephone').val());
     sessionStorage.setItem("memberName",$('#memberName').val());
+    sessionStorage.setItem("helpBuy",$('#helpBuy').val());
 //
 //     sessionStorage.setItem("sEcho",oTable.fnSettings()._iDisplayStart);
 //     sessionStorage.setItem("iDisplayLength",oTable.fnSettings()._iDisplayLength);
@@ -224,9 +237,10 @@ function setQuery(){
         $('#orderCode').val(orderCode);
     }
 
-
-
-
+    // var helpBuy = sessionStorage.getItem("helpBuy");
+    // if(helpBuy){
+    //     $('#helpBuy').val(helpBuy)
+    // }
 
     var orderTimeStart = sessionStorage.getItem("orderTimeStart");
     if(orderTimeStart){
