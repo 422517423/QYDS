@@ -75,8 +75,6 @@
             from PUBLIC.mmb_point_record mpr
             where mpr.deleted = '0'
             and mpr.member_id = #{memberId}
-            and (date_part('year', mpr.point_time) = (date_part('year', now()) - 1)
-            OR date_part('year', mpr.point_time) = (date_part('year', now())))
             order by mpr.point_time desc, mpr.record_no desc
             limit 10 offset #{currentPage,jdbcType=INTEGER}
     </select>
@@ -241,6 +239,8 @@
         on c.value = r.rule_id
         and c.code='POINT_RULE'
         where member_id = #{memberId,jdbcType=VARCHAR}
+        and (date_part('year', r.point_time) = (date_part('year', now()) - 1)
+        OR date_part('year', r.point_time) = (date_part('year', now())))
         ORDER BY point_time
         <if test="iDisplayLength != null" >
             limit #{iDisplayLength,jdbcType=INTEGER}
