@@ -95,6 +95,8 @@
     <!--2018.1.22 代买-->
     <result column="help_buy" property="helpBuy" jdbcType="VARCHAR" />
 
+
+
   </resultMap>
 
   <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
