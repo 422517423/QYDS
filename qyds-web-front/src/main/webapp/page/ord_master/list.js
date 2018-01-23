@@ -184,10 +184,10 @@ function initTable(){
                 "mData": null,
                 "fnRender": function (rowData) {
                     console.log(rowData);
-                    if (rowData.aData.helpBuy == "1") {
-                        return "是";
+                    if (rowData.aData.helpBuy == "0") {
+                        return "自主下单";
                     } else {
-                        return "否";
+                        return "代买";
                     }
                 }
             },
