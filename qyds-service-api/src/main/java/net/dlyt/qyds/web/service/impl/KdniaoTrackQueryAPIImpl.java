@@ -37,6 +37,7 @@ public class KdniaoTrackQueryAPIImpl implements KdniaoTrackQueryAPI {
      * Json方式 查询订单物流轨迹
      * @throws Exception
      */
+    
     public String getOrderTracesByJson(String expCode, String expNo) throws Exception{
        // if (expCode==null||expCode.equals("")){expCode="SF";}
         String requestData= "{'OrderCode':'','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";

@@ -527,18 +527,19 @@
     select m.member_id member_id,m.birthdate birthdate
     from mmb_master m
     left join
-      (select cm.member_id member_id
-        from coupon_master c,coupon_member cm
-        where cm.coupon_id = c.coupon_id
-        and to_char(cm.send_time,'yyyymmdd') between to_char(now() + '-5 day','yyyymmdd')
-        and to_char(now(),'yyyymmdd')
-        and c.coupon_type = '20'
-        group by member_id) mm
+    (select cm.member_id member_id
+    from coupon_master c,coupon_member cm
+    where cm.coupon_id = c.coupon_id
+    and to_char(cm.send_time,'yyyymmdd') between to_char(now() + '-5 day','yyyymmdd')
+    and to_char(now(),'yyyymmdd')
+    and c.coupon_type = '20'
+    group by member_id) mm
     on m.member_id = mm.member_id
     where  mm.member_id is null
     and m.member_level_id = #{memberLevelId}
     and m.type = '10'
-    and (extract(year from now()) + case when to_char(m.birthdate,'mmdd') &lt; to_char(now(),'mmdd') then 1 else 0 end) || to_char(m.birthdate,'mmdd')
+    and
+    (extract(year from now()) + case when to_char(m.birthdate,'mmdd') &lt; to_char(now(),'mmdd') then 1 else 0 end) || to_char(m.birthdate,'mmdd')
     between to_char(now(),'yyyymmdd') and to_char(now() + '5 day','yyyymmdd')
   </select>
 

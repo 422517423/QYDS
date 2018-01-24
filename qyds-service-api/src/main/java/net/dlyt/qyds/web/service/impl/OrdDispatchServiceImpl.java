@@ -18,6 +18,7 @@ import net.dlyt.qyds.web.service.exception.ExceptionErrorData;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +57,25 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
     private ErpStoreMapper erpStoreMapper;
     @Autowired
     private ErpStoreMapperExt erpStoreMapperExt;
+    //添加ordhistorymapper  01.18
+    @Autowired
+    private OrdHistoryMapperExt ordHistoryMapperExt;
+
+    /**
+     * 类型转换
+     *
+     * @param ordMaster
+     * @return
+     * @工具类 OrdMaster转换OrdHistory
+     */
+    public OrdHistory masterToHistory(OrdMaster ordMaster) {
+        OrdHistory ordHistory = new OrdHistory();
+        BeanUtils.copyProperties(ordMaster, ordHistory);
+        return ordHistory;
+    }
+
+
+
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
@@ -1077,7 +1097,7 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
                 throw new ExceptionErrorData("子订单派单状态已更新");
             }
 
-            if (!sysUser.getOrgId().equals(subOrder.getDispatchStore())) {
+            if (!sysUser.getOrgId().equals(subOrder.getDispatchStore())){
                 throw new ExceptionErrorData("子订单派单已更新");
             }
 
@@ -1133,6 +1153,15 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
             ordMaster.setDispatchStatus(dispatchStatus);
             ordMaster.setDeliverStatus(deliverStatus);
             ordMasterMapper.updateByPrimaryKeySelective(ordMaster);
+
+            //插入订单历史记录表
+            OrdHistory ordHistory = new OrdHistory();
+            ordHistory = this.masterToHistory(ordMaster);
+            ordHistory.setSeqOrderId(UUID.randomUUID().toString());
+            ordHistory.setInsertUserId(ordMasterExt.getMemberId());
+            //主订单操作历史信息插入
+            int insertHistoryCount = ordHistoryMapperExt.insertSelective(ordHistory);
+
 
             json.put("resultCode", Constants.NORMAL);
 

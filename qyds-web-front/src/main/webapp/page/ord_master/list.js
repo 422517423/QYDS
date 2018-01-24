@@ -187,7 +187,7 @@ function initTable(){
                     if (rowData.aData.helpBuy == "0") {
                         return "自主下单";
                     } else {
-                        return "代买";
+                        return "代买下单";
                     }
                 }
             },

@@ -249,6 +249,9 @@
     <if test="orderCode != null and !orderCode.isEmpty()" >
       and om.order_code LIKE CONCAT('%', #{orderCode,jdbcType=VARCHAR},'%')
     </if>
+    <if test="helpBuy != null and !helpBuy.isEmpty()" >
+      and om.help_buy = #{helpBuy,jdbcType=VARCHAR}
+    </if>
     <if test="orderStatus != null and !orderStatus.isEmpty()" >
       and om.order_status = #{orderStatus,jdbcType=VARCHAR}
     </if>
