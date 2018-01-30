@@ -33,6 +33,8 @@ function getDetail() {
             store_addr.innerHTML = data.store.address;
             store_tel.innerHTML = data.store.phone;
             print_time.innerHTML = new Date().Format("yyyy-MM-dd  hh:mm");
+            // 20180124 添加总申请退款金额
+            rex_price.innerHTML=data.rexPrice;
         } else {
             $("#proofArea").modal('hide');
             showAlert('取得失败,原因:' + data.resultMessage);

@@ -440,14 +440,16 @@ public class CouponMemberServiceImpl implements CouponMemberService {
                         continue;
                     }
                 }
-                validCouponList.add(list.get(i));
+                if(validGoods2!=null && validGoods2.size()>0){
+                    validCouponList.add(list.get(i));
+                }
             }
-
-            // 判断是否满minOrderPrice元
             json.put("results", validCouponList);
             json.put("resultCode", Constants.NORMAL);
         } catch (ExceptionBusiness e) {
             json.put("resultCode", e.resultCd);
+
+            // 判断是否满minOrderPrice元
             json.put("resultMessage", e.getMessage());
         } catch (Exception e) {
             json.put("resultCode", Constants.FAIL);
@@ -1041,7 +1043,8 @@ public class CouponMemberServiceImpl implements CouponMemberService {
             //ERP发送
 //            sendCouponMember(form);
 //            if(coupon.getCouponScope().equals("10"))ErpSendUtil.getInstance().CouponSendUpdateById(form.getCouponMemberId());
-            if (coupon.getCouponScope().equals("10"))
+
+           if (coupon.getCouponScope().equals("10"))
                 ErpSendUtil.CouponSendUpdateById(form.getCouponMemberId(), couponMemberMapper, mmbMasterMapper);
 
             json.put("resultCode", Constants.NORMAL);

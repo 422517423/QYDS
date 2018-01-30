@@ -28,6 +28,7 @@ function initTable() {
             {"mData": "orderStatusName"},
             {"mData": "deliverStatusCn"},
             {"mData": "amountTotle"},
+            {"mData": "rexPrice"},
             {
                 "mData": "orderTime",
                 "fnRender": function (rowData) {

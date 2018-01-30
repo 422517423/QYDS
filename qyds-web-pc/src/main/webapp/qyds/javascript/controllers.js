@@ -6758,7 +6758,6 @@ console.log(sku);
                     $scope.confirmData.goodsInfo=res.results.goodsInfo;
                     // 合计
                     $scope.goodsTotalPrice = res.results.goodsTotalPrice;
-                    alert($scope.goodsTotalPrice);
                     $scope.exchangePointCount = res.results.exchangePointCount;
                     // 重新计算页面的价格
                     $scope.setOrderFinalPrice();
@@ -6792,7 +6791,6 @@ console.log(sku);
                     $scope.confirmData.goodsInfo=res.results.goodsInfo;
                     // 合计
                     $scope.goodsTotalPrice = res.results.goodsTotalPrice;
-                    alert($scope.goodsTotalPrice);
                     $scope.exchangePointCount = res.results.exchangePointCount;
                     // 重新计算页面的价格
                     $scope.setOrderFinalPrice();

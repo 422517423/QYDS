@@ -178,7 +178,7 @@ function seasoningDispatch(obj) {
     axse(url, {"data": JSON.stringify(param)}, success, error);
 }
 
-function subOrderDispatch(obj,type) {
+    function subOrderDispatch(obj,type) {
     showConfirmD('确定已经检查过门店有该货品,并且没有损坏吗？如果不检查而发货后果自负!',function () {
         sessionStorage.setItem("orderId", orderId);
         sessionStorage.setItem("orderSubId", obj);

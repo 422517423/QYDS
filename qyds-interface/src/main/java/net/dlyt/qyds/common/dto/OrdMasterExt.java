@@ -12,7 +12,6 @@ import java.util.StringTokenizer;
  */
 public class OrdMasterExt extends OrdMaster {
 
-
     //登录用户的名字
     private String loginUserName;
 
@@ -134,6 +133,27 @@ public class OrdMasterExt extends OrdMaster {
     // TODO: 2017/12/15 总消费金额 临时字段
     private BigDecimal allPrice;
 
+    // TODO: 2018/1/22 客户申请退款总金额
+    private BigDecimal rexPrice;
+
+    // TODO: 2018/1/24 客户实际退款总金额
+    private BigDecimal rexInfactPrice;
+
+    public BigDecimal getRexInfactPrice() {
+        return rexInfactPrice;
+    }
+
+    public void setRexInfactPrice(BigDecimal rexInfactPrice) {
+        this.rexInfactPrice = rexInfactPrice;
+    }
+
+    public BigDecimal getRexPrice() {
+        return rexPrice;
+    }
+
+    public void setRexPrice(BigDecimal rexPrice) {
+        this.rexPrice = rexPrice;
+    }
 
     public BigDecimal getAllPrice() {
         return allPrice;

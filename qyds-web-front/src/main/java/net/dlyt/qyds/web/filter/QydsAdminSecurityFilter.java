@@ -63,6 +63,12 @@ public class QydsAdminSecurityFilter implements Filter {
                 return;
             }
 
+            // TODO: 2018/01/30 erp发送订单退货
+            if(servletPath.equals("/erp_send/sendReturnOrderByOrderId.json")) {
+                chain.doFilter(req, resp);
+                return;
+            }
+
            /* if(servletPath.equals("/sendFailExpress.json")) {
                 chain.doFilter(req, resp);
                 return;

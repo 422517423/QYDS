@@ -669,7 +669,8 @@
   </select>
 
   <select id="selectProof" resultMap="BaseResultMap"  parameterType="net.dlyt.qyds.common.dto.OrdSubList">
-  select s.sub_order_id, s.sku_id, s.price, r.refund_infact as price_discount,
+  /*20180124添加了退款金额price_share*/
+  select s.sub_order_id, s.sku_id, s.price,s.price_share,r.refund_infact as price_discount,
   r.return_accept_time deliver_time,
   r.rex_store_id erp_store_id,
   r.return_accept_user_id store_delivery_id,

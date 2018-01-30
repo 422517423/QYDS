@@ -3979,6 +3979,8 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 throw new ExceptionErrorData("没有本店收货数据");
             BigDecimal amountTotle = new BigDecimal(0);
             BigDecimal amountDiscount = new BigDecimal(0);
+            // TODO: 2018/1/24 总申请退款金额
+            BigDecimal rexPrice = new BigDecimal(0);
             String subDetail = "";
             for (OrdSubList sub : subList) {
                 BigDecimal priceDiscount = sub.getPriceDiscount();
@@ -3990,10 +3992,14 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 subDetail += "收货人: " + sub.getStoreDeliveryName() + "<BR><BR>";
                 amountTotle = amountTotle.add(sub.getPrice());
                 amountDiscount = amountDiscount.add(priceDiscount);
+                // TODO: 2018/1/24 总申请退款金额
+                rexPrice = rexPrice.add(sub.getPriceShare());
             }
             //合计金额
             master.setAmount(amountTotle);
             master.setAmountDiscount(amountDiscount);
+            // TODO: 2018/1/24 总申请退款金额
+            result.put("rexPrice",rexPrice);
             result.put("store", erpStore);
             result.put("master", master);
             result.put("sublist", subDetail);

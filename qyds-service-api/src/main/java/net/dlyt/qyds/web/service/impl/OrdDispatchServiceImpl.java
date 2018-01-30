@@ -58,8 +58,8 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
     @Autowired
     private ErpStoreMapperExt erpStoreMapperExt;
     //添加ordhistorymapper  01.18
-    @Autowired
-    private OrdHistoryMapperExt ordHistoryMapperExt;
+  /*  @Autowired
+    private OrdHistoryMapperExt ordHistoryMapperExt;*/
 
     /**
      * 类型转换
@@ -68,11 +68,11 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
      * @return
      * @工具类 OrdMaster转换OrdHistory
      */
-    public OrdHistory masterToHistory(OrdMaster ordMaster) {
+   /* public OrdHistory masterToHistory(OrdMaster ordMaster) {
         OrdHistory ordHistory = new OrdHistory();
         BeanUtils.copyProperties(ordMaster, ordHistory);
         return ordHistory;
-    }
+    }*/
 
 
 
@@ -1154,13 +1154,13 @@ public class OrdDispatchServiceImpl implements OrdDispatchService {
             ordMaster.setDeliverStatus(deliverStatus);
             ordMasterMapper.updateByPrimaryKeySelective(ordMaster);
 
-            //插入订单历史记录表
+          /*  //插入订单历史记录表
             OrdHistory ordHistory = new OrdHistory();
             ordHistory = this.masterToHistory(ordMaster);
             ordHistory.setSeqOrderId(UUID.randomUUID().toString());
             ordHistory.setInsertUserId(ordMasterExt.getMemberId());
             //主订单操作历史信息插入
-            int insertHistoryCount = ordHistoryMapperExt.insertSelective(ordHistory);
+            int insertHistoryCount = ordHistoryMapperExt.insertSelective(ordHistory);*/
 
 
             json.put("resultCode", Constants.NORMAL);

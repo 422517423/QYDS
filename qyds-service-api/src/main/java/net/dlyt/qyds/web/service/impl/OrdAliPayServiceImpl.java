@@ -142,9 +142,9 @@ public class OrdAliPayServiceImpl implements OrdAliPayService {
 
         }
         //金额校验
-       /* if(ordMaster.getPayInfact().doubleValue() > Double.valueOf(payTotal)){
+       if(ordMaster.getPayInfact().doubleValue() > Double.valueOf(payTotal)){
             return;
-        }*/
+        }
 
         //更新订单付款状态为付款成功 20
         ordMaster.setPayStatus("20");

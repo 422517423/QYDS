@@ -91,11 +91,13 @@
 
     <!-- 20171215 临时字段 客户总消费金额-->
     <result column="all_price" property="allPrice" jdbcType="NUMERIC" />
+    <!-- 20180122 客户申请退款总金额-->
+    <result column="rex_price" property="rexPrice" jdbcType="NUMERIC" />
+    <!-- 20180124 客户实际退款总金额-->
+    <result column="rex_infact_price" property="rexInfactPrice" jdbcType="NUMERIC" />
 
     <!--2018.1.22 代买-->
     <result column="help_buy" property="helpBuy" jdbcType="VARCHAR" />
-
-
 
   </resultMap>
 
@@ -159,7 +161,35 @@
     om.comment, om.deleted, om.update_user_id, om.update_time, om.insert_user_id, om.insert_time,
     mm.telephone,mm.member_name,
     (select ore.rex_mode from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_mode,ore.rex_status limit 1) as rex_mode,
-    (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status
+    (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status,
+    /*20180122添加：查询总订单下退款子订单的总退款金额*/
+    (
+    select sum(osl.price_share)
+    from ord_sub_list osl
+    join ord_return_exchange ore on osl.sub_order_id = ore.sub_order_id
+    left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = osl.type
+    left join com_code cc1 on cc1.code = 'DELIVER_TYPE' and cc1.value = osl.deliver_type
+    left join com_code cc2 on cc2.code = 'DELIVER_STATUS' and cc2.value = osl.deliver_status
+    left join com_code cc3 on cc3.code = 'REX_STATUS' and cc3.value = ore.rex_status
+    left join erp_store st on st.store_code = osl.dispatch_store
+    where om.order_id = osl.order_id
+    and ore.rex_status in ('10','11','20','22','40','41')
+    ) as rex_price,
+    /*20180122添加：查询总订单下退款子订单的总退款金额（查询申请中）*/
+    /*20180124添加：查询总订单下退款子订单的总实际退款金额（查询申请中）*/
+    (
+    select sum(ore.refund_infact)
+    from ord_sub_list osl
+    join ord_return_exchange ore on osl.sub_order_id = ore.sub_order_id
+    left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = osl.type
+    left join com_code cc1 on cc1.code = 'DELIVER_TYPE' and cc1.value = osl.deliver_type
+    left join com_code cc2 on cc2.code = 'DELIVER_STATUS' and cc2.value = osl.deliver_status
+    left join com_code cc3 on cc3.code = 'REX_STATUS' and cc3.value = ore.rex_status
+    left join erp_store st on st.store_code = osl.dispatch_store
+    where om.order_id = osl.order_id
+    and ore.rex_status ='41'
+    ) as rex_infact_price
+    /*20180124添加：查询总订单下退款子订单的总实际退款金额（查询申请中）*/
     from public.ord_master om
     left join coupon_member coumem on om.coupon_id = coumem.coupon_member_id
     left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type

@@ -229,6 +229,7 @@
         (
         case when sum(a.a_total) is not null then sum(a.a_total) else 0 end
         ) as total_amount
+
         from(
         select m.member_id,om.pay_infact as a_total,to_char((SELECT om.pay_time::timestamp),'yyyy') as y_time
         from public.mmb_master m
@@ -242,18 +243,19 @@
 
 
         UNION ALL
-        select m.member_id,eo.amount as a_total,to_char((SELECT eo.order_time::timestamp),'yyyy') as y_time
-        from public.mmb_master m
-        left join public.erp_order_master eo on eo.member_code = m.telephone
-        and to_char((SELECT eo.order_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy')
-        and eo.deleted = '0'
+
+        select m.member_id,eos.amount as a_total,to_char((SELECT eos.order_time::timestamp),'yyyy') as y_time
+        from mmb_master m
+        left join erp_order_statistics eos on eos.member_code::text = m.telephone::text
+        and to_char((SELECT eos.order_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy')
+        and eos.deleted = '0'
         where m.member_level_id='30'
         and m.deleted = '0'
         and (m.telephone is not null or trim(m.telephone) != '')
 
         )a
-        group by a.member_id having ((case when sum(a.a_total) is not null then sum(a.a_total) else 0 end)  &lt; '3000' and (case when max(a.a_total) is not null then max(a.a_total) else 0 end)  &lt;  '1500')
-
+        group by a.member_id having ((case when sum(a.a_total) is not null then sum(a.a_total) else 0 end)  &lt; '3000'
+        and (case when max(a.a_total) is not null then max(a.a_total) else 0 end)  &lt; '1500')
     </select>
 
 </mapper>

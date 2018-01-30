@@ -167,6 +167,10 @@ function initTable(){
             {"mData": "deliverTypeCn"},
             {"mData": "amountTotle"},
             {"mData": "payInfact"},
+            // 20180124添加申请退款金额
+            {"mData": "rexPrice"},
+            // 20180124添加实际退款金额
+            {"mData": "rexInfactPrice"},
             {"mData": "activityName"},
             {"mData": "couponName"},
             {

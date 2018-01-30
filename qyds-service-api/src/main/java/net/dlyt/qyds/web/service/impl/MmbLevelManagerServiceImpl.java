@@ -224,7 +224,7 @@ public class MmbLevelManagerServiceImpl implements MmbLevelManagerService {
      * <p/>
      * ###计算上一自然年度会员消费累计积分是否达到对应级别的80%
      * 修改为
-     * 计算上一自然年度会员累计消费金额是否大于等于3000或单笔最大消费是否大于等于1500
+     * 计算上一自然年度高级会员累计消费金额是否大于等于3000或单笔最大消费是否大于等于1500
      *
      * @return
      */

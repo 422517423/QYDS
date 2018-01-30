@@ -54,8 +54,9 @@ public class AliPayNotfyController {
         try{
             Map<String, String> mParam = new HashMap<String, String>();
             String orderCode = request.getParameter("orderCode");
+            String totalFee = request.getParameter("totalFee");
             mParam.put("orderCode", orderCode);
-            mParam.put("total_fee","0.01");//单位‘元’ 0.00
+            mParam.put("total_fee", totalFee);//单位‘元’ 0.00
             try{
                 ordAliPayService.paySuccess(mParam);
             }catch (Exception e){

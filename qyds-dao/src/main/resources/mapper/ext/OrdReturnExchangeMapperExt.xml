@@ -943,6 +943,9 @@
     <result column="cancel_type_cn" property="cancelTypeCn" jdbcType="VARCHAR" />
     <result column="dispatch_status" jdbcType="VARCHAR" property="dispatchStatus" />
     <result column="trade_status" property="tradeStatus" jdbcType="CHAR" />
+
+    <!-- 20180122 客户退款总金额-->
+    <result column="rex_price" property="rexPrice" jdbcType="NUMERIC" />
   </resultMap>
 
   <select id="selectReceiveGoodsList" resultMap="BaseResultMapOrder" parameterType="net.dlyt.qyds.common.dto.OrdReturnExchangeExt" >
@@ -977,7 +980,21 @@
     om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide,
     om.comment, om.deleted, om.update_user_id, om.update_time, om.insert_user_id, om.insert_time,
     (select ore.rex_mode from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_mode,ore.rex_status limit 1) as rex_mode,
-    (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status
+    (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status,
+    /*20180122添加：查询总订单下退款子订单的总退款金额（查询退货待收和退货已收）*/
+    (
+    select sum(osl.price_share)
+    from ord_sub_list osl
+    left join ord_return_exchange ore on osl.sub_order_id = ore.sub_order_id
+    left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = osl.type
+    left join com_code cc1 on cc1.code = 'DELIVER_TYPE' and cc1.value = osl.deliver_type
+    left join com_code cc2 on cc2.code = 'DELIVER_STATUS' and cc2.value = osl.deliver_status
+    left join com_code cc3 on cc3.code = 'REX_STATUS' and cc3.value = ore.rex_status
+    left join erp_store st on st.store_code = osl.dispatch_store
+    where om.order_id = osl.order_id
+    and ore.rex_status in ( '11','20','22','40','41' )
+    ) as rex_price
+    /*20180122添加：查询总订单下退款子订单的总退款金额*/
     from public.ord_master om
     inner join
     (select order_id from ord_return_exchange

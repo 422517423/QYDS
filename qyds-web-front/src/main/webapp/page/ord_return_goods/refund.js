@@ -17,7 +17,20 @@ $(document).ready(function () {
         back();
     });
     $("#refund_dialog_btn").click(function () {
-        refundSubmit();
+        //refundSubmit();
+        //20180124 当输入完退款金额后，点击确定按钮，弹出确认框
+        if ($("#refund_dialog_content").val() == "") {
+            showRefundTip("请输入退款金额");
+            return;
+        }else{
+            $("#priceSpan").text($("#refund_dialog_content").val());
+            $("#qu_dialog").modal('show');
+        }
+    });
+
+    // 20180124 确认框点击是
+    $("#qu_dialog_btn").click(function () {
+       refundSubmit();
     });
 });
 
@@ -293,6 +306,8 @@ function refundSubmit() {
     var success = function (data) {
         if (data.resultCode == '00') {
             $("#refund_dialog").modal('hide');
+            // 关闭确认框
+            $("#qu_dialog").modal('hide');
             showAlert("提交成功!");
             refreshData()
         } else {
