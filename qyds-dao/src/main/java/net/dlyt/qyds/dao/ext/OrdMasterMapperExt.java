@@ -5,6 +5,7 @@ import net.dlyt.qyds.common.dto.OrdMasterExt;
 import net.dlyt.qyds.common.form.OrdDispatchForm;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -230,4 +231,17 @@ public interface OrdMasterMapperExt {
      */
     List<OrdMasterExt> excelExport(OrdMasterExt ordMasterExt);
 
+    /**
+     * todo 返回子订单下的申请退款金额
+     * @param orderId
+     * @return
+     */
+    BigDecimal getRexPrice(String orderId);
+
+    /**
+     * todo 返回子订单下的实际退款金额
+     * @param orderId
+     * @return
+     */
+    BigDecimal getRexInfactPrice(String orderId);
 }

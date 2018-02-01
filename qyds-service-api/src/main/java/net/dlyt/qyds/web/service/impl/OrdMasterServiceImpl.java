@@ -142,7 +142,9 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     ome.setCouponName(couponMaster.getCouponName());
                 }
             }
-
+            // TODO: 2018/2/1 根据订单id,查询该订单子订单下 申请退款金额 和实际退款金额
+            ome.setRexPrice(ordMasterMapperExt.getRexPrice(ome.getOrderId()));
+            ome.setRexInfactPrice(ordMasterMapperExt.getRexInfactPrice(ome.getOrderId()));
         }
         return list;
     }
