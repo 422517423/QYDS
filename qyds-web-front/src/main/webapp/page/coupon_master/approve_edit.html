@@ -1,0 +1,453 @@
+<!-- 优惠券编辑画面 start-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            优惠券审批详细画面
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">优惠券管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#" onclick="back();">优惠券审批</a><i class="icon-angle-right"></i></li>
+            <li><a href="#">优惠券详细</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">优惠券详细</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form id="coupon_master_form" class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">优惠券名称<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="coupon_name" name="coupon_name" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="coupon_type">优惠劵类型<span
+                                        class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="coupon_type" name="coupon_type" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="coupon_scope">优惠劵范围<span
+                                        class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="coupon_scope" name="coupon_scope" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="distribute_type">下发方式<span
+                                        class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="distribute_type" name="distribute_type" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_exchange_point">
+                                <label class="col-md-2 control-label">兑换所需积分<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="exchange_point" name="exchange_point" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_price">
+                                <label class="col-md-2 control-label">购买价<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="number" maxlength="9" id="price" name="price"
+                                           data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">优惠方式<span
+                                        class="required">*</span></label>
+                                <div class="col-md-8">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="coupon_style" value="0" checked>
+                                        抵值
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="coupon_style" value="1">
+                                        打折
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_discount">
+                                <label class="col-md-2 control-label">折扣值<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="number" maxlength="3" id="discount" name="discount" data-required="1"
+                                           class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">0.1-9.9</label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_worth">
+                                <label class="col-md-2 control-label">优惠劵价值<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="worth" name="worth" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">优惠商品<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="goods_type" name="goods_type"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <a class="btn btn-info" id="btn_select_goods">选择</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none;" id="sell_year_area">
+                                <label class="col-md-2 control-label">年份<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_sell_year" name="activity_goods_sell_year"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none;" id="season_area">
+                                <label class="col-md-2 control-label">季节</label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_season_code" name="activity_goods_season_code"
+                                            class="form-control">
+                                        <option value="">请选择...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none;" id="erp_brand_area">
+                                <label class="col-md-2 control-label">ERP品牌<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_erp_brand" name="activity_goods_erp_brand"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none;" id="line_code_area">
+                                <label class="col-md-2 control-label">ERP生产线<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_line_code" name="activity_goods_line_code"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_selected_goods_type" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>分类名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="goodsTypeList">
+                                        <tr class="template goods-type-item">
+                                            <td class="goods-type-item-index">1</td>
+                                            <td class="goods-type-item-name"></td>
+                                            <td>
+                                                <a class="goods-type-item-delete">删除</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_goods_brand" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>品牌名称</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="goodsBrandList">
+                                        <tr class="template goods-brand-item">
+                                            <td class="goods-brand-item-index">1</td>
+                                            <td class="goods-brand-item-name"></td>
+                                            <td>
+                                                <a class="goods-brand-item-delete">删除</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_goods" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>商品名称</th>
+                                            <th>商品款号</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="goodsList">
+                                        <tr class="template goods-item">
+                                            <td class="goods-item-index">1</td>
+                                            <td class="goods-item-code"></td>
+                                            <td class="goods-item-name"></td>
+                                            <td>
+                                                <a class="goods-item-delete">删除</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_skus" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="10%">序号</th>
+                                            <th width="40%">商品款号</th>
+                                            <!--<th width="70%">商品名称</th>-->
+                                            <th width="20%">颜色</th>
+                                            <th width="20%">尺码</th>
+                                            <th width="10%">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="skuList">
+                                        <tr class="template sku-item">
+                                            <td class="sku-item-index"></td>
+                                            <td class="sku-item-name"></td>
+                                            <td class="sku-item-color"></td>
+                                            <td class="sku-item-size"></td>
+                                            <td>
+                                                <a class="sku-item-delete">删除</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_member_level">
+                                <label class="col-md-2 control-label">限制会员级别<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="member_level" name="member_level" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label class="col-md-2 control-label">优惠码</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="coupon_code" name="coupon_code" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">优惠券图片</label>
+                                <div class="col-sm-4">
+                                    <img id="coupon_image" alt="" src="" style="width: 200px;height: 80px;border: 1px #cccccc solid">
+                                    <input type="file" id="coupon_image_input" style="display: none">
+                                    <div style="padding: 10px">(建议大小: 400*160)</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">每人最大领取数量<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="number" maxlength="9" id="per_max_count" name="per_max_count" data-required="1"
+                                           class="form-control" placeholder="必填">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">最大发放数量</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="max_count" name="max_count" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">最小订单金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="min_order_price" name="min_order_price" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">限制正价/折扣<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="is_origin_price" name="is_origin_price" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">最小商品件数<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="min_goods_count" name="min_goods_count" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">有效期按</label>
+                                <div class="col-md-4">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="validDate" value="10" checked> 固定期间
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="validDate" value="20"> 领取之日起有效天数
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_start_time">
+                                <label class="col-md-2 control-label">生效时间<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-medium date date-picker" data-date="2016-07-22"
+                                         data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control" id="start_time" name="start_time"
+                                               readonly>
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i
+                                                    class="icon-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_end_time">
+                                <label class="col-md-2 control-label">失效时间<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-medium date date-picker" data-date="2016-07-22"
+                                         data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control" id="end_time" name="end_time" readonly>
+                                    <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_valid_days">
+                                <label class="col-md-2 control-label">限制使用天数<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="number" maxlength="9" id="valid_days" name="valid_days"
+                                           data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">开始发放时间<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-medium date date-picker" data-date="2016-07-22"
+                                         data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control" id="send_start_time" name="send_start_time"
+                                               readonly>
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i
+                                                    class="icon-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">停止发放时间<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-medium date date-picker" data-date="2016-07-22"
+                                         data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control" id="send_end_time" name="send_end_time" readonly>
+                                    <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none">
+                                <label class="col-md-2 control-label">是否启用<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="is_valid" name="is_valid" class="form-control">
+                                        <option value="1">启用</option>
+                                        <option value="0">停用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="comment" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请人</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="apply_user_name" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请时间</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="apply_time" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="apply_content" rows="4" class="form-control" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_status" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批人</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_user_name" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_time" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="approve_content" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-right">
+    <button type="button" id="btn_cancel" class="btn default" data-dismiss="modal">取消</button>
+    <button type="button" id="btn_approve" class="btn blue" style="display: none">通过</button>
+    <button type="button" id="btn_reject" class="btn blue" style="display: none">驳回</button>
+</div>
+<!-- 优惠券编辑画面 end -->
+<script src="../page/coupon_master/approve_edit.js"></script>

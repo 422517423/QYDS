@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpMemberMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpMember" >
+    <id column="member_code" property="memberCode" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="sex_code" property="sexCode" jdbcType="VARCHAR" />
+    <result column="sex_name" property="sexName" jdbcType="VARCHAR" />
+    <result column="mobil" property="mobil" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="store_code" property="storeCode" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="seller_name" property="sellerName" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="checked" property="checked" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="VARCHAR" />
+    <result column="regist_time" property="registTime" jdbcType="TIMESTAMP" />
+    <result column="member_grade" property="memberGrade" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="ticket" property="ticket" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    member_code, member_name, sex_code, sex_name, mobil, birthday, province_code, province_name, 
+    city_code, city_name, district_code, district_name, email, store_code, store_name, 
+    seller_name, profession, address, post_code, checked, income, regist_time, member_grade, 
+    amount, point, ticket, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time
+  </sql>
+  <sql id="Base_Where_Bypage" >
+    WHERE deleted = '0'
+    <if test="memberCode != null and !memberCode.isEmpty()" >
+      AND member_code LIKE '%' || #{memberCode,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      AND member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="mobil != null and !mobil.isEmpty()" >
+      AND mobil LIKE '%' || #{mobil,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="address != null and !address.isEmpty()" >
+      AND address LIKE '%' || #{address,jdbcType=VARCHAR} || '%'
+    </if>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from public.erp_member
+    ORDER BY member_code
+  </select>
+  <select id="selectSaler" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from public.erp_member
+    where length(member_code)=6
+    ORDER BY member_code
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpMemberForm" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_member
+    <include refid="Base_Where_Bypage" />
+    ORDER by member_code
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpMemberForm" >
+    select count(*)
+    from public.erp_member
+    <include refid="Base_Where_Bypage" />
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_member
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpMember" >
+    update public.erp_member
+    set member_name = #{memberName,jdbcType=VARCHAR},
+      sex_code = #{sexCode,jdbcType=VARCHAR},
+      sex_name = #{sexName,jdbcType=VARCHAR},
+      mobil = #{mobil,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=VARCHAR},
+      district_name = #{districtName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      store_code = #{storeCode,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      seller_name = #{sellerName,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      checked = #{checked,jdbcType=VARCHAR},
+      income = #{income,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=TIMESTAMP},
+      member_grade = #{memberGrade,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      ticket = #{ticket,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = now()
+    where member_code = #{memberCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

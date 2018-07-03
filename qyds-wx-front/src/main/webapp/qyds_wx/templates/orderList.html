@@ -1,0 +1,141 @@
+<ion-view cache-view="false">
+    <!--tab区域-->
+    <div style="position: fixed;top: 0px;z-index: 9;width: 100%;height: 45px;line-height: 45px">
+        <div class="grid light-bg border-bottom">
+            <div class="row row-no-padding text-center" style="font-size: 14px">
+                <div class="col-20" style="height: 45px" ng-click="refreshByTab(1)" ng-style="getSelectedTabStyle(1)">全部</div>
+                <div class="col-20" style="height: 45px" ng-click="refreshByTab(2)" ng-style="getSelectedTabStyle(2)">待付款</div>
+                <div class="col-20" style="height: 45px" ng-click="refreshByTab(3)" ng-style="getSelectedTabStyle(3)">待发货</div>
+                <div class="col-20" style="height: 45px" ng-click="refreshByTab(4)" ng-style="getSelectedTabStyle(4)">待收货</div>
+                <div class="col-20" style="height: 45px" ng-click="refreshByTab(5)" ng-style="getSelectedTabStyle(5)">已完成</div>
+            </div>
+        </div>
+    </div>
+    <ion-content style="padding-top: 0;margin-top: 45px" class="bg-gray" delegate-handle="orderListScroll" on-scroll="onScroll()">
+        <div ng-if="!isLoading&&allOrderList.length==0" class="text-center" style="color: #999999;margin-top: 100px">
+            没有符合条件的订单
+        </div>
+        <div ng-repeat="orderItem in allOrderList" ng-click="" class="item" style="padding: 0;margin-top: 10px">
+            <div style="font-size:13px;padding: 10px;overflow: hidden;">
+                <span>订单号：{{orderItem.orderCode}}</span>
+                <span ng-if="orderItem.orderStatus=='90'||orderItem.orderStatus=='92'" style="color:green;float:right;">{{orderItem.orderStatusName}}</span>
+                <span ng-if="orderItem.orderStatus!='90'&&orderItem.orderStatus!='92'"
+                          style="color:red;float:right;">{{orderItem.orderStatusName}}</span>
+            </div>
+            <div class="divider_gray"></div>
+            <div ng-repeat="goodsItem in orderItem.ordList" class="padding border-bottom">
+                <div ng-click="goGoodsDetail('{{goodsItem.goodsId}}')" style="overflow: hidden;">
+                    <img ng-src="{{goodsItem.imageUrlJson | imgPathJson:'480'}}"
+                         style="width:80px;float:left;margin-right: 10px;"
+                         class='bordered'>
+                    <div>
+                        <div style="font-size: 13px;margin-top: 10px" class="max-line-1">{{goodsItem.goodsName}}</div>
+                        <div style="font-size: 12px;color: #666666;margin-top: 10px" ng-if="goodsItem.type!=30">
+                            <span>颜色:</span>
+                            <span ng-if="goodsItem.type==20">{{goodsItem.sku | orderSkuFilter20:"color"}}</span>
+                            <span ng-if="goodsItem.type==10">{{goodsItem.sku | orderSkuFilter10:"color"}}</span>
+                            <span style="margin-left: 10px">尺码:</span>
+                            <span ng-if="goodsItem.type==20">{{goodsItem.sku | orderSkuFilter20:"size"}}</span>
+                            <span ng-if="goodsItem.type==10">{{goodsItem.sku | orderSkuFilter10:"size"}}</span>
+                        </div>
+                        <div style="font-size: 12px;color: #999999;margin-top: 10px">
+                            <span>数量: </span>
+                            <span>×{{goodsItem.quantity}}</span>
+                        </div>
+                        <!--价钱-->
+                        <div style="text-align:right;font-size:13px;margin-top: 10px">
+                            <div ng-if="goodsItem.priceDiscount == null" style="font-weight:bold;">{{goodsItem.price |
+                                currency : '￥'}}
+                            </div>
+                            <div ng-if="goodsItem.priceDiscount != null" style="font-weight:bold;">
+                                {{goodsItem.priceDiscount
+                                | currency : '￥'}}
+                            </div>
+                            <div ng-if="goodsItem.priceDiscount != null"
+                                 style="color:#999999;text-decoration:line-through">
+                                {{goodsItem.price | currency : '￥'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="orderItem.actionName!=null&&orderItem.actionName.length>0" class="padding border-bottom" style="font-size:13px;">
+               <span>促销活动:</span>
+                <span>{{orderItem.actionName}}</span>
+            </div>
+            <div ng-if="orderItem.couponId!=null&&orderItem.couponId.length>0" class="padding border-bottom" style="font-size:13px;overflow: hidden;">
+                <span>优惠券:</span>
+                <span>{{orderItem.coupon.couponName}}</span>
+                <span style="float: right">-¥{{orderItem.amountCoupon}}</span>
+            </div>
+            <div class="padding" style="overflow: hidden">
+                <span style="font-size: 12px;color:#999999">{{orderItem.insertTime|date:"yyyy-MM-dd HH:mm:ss"}}</span>
+                <div style="float:right;font-size:13px;">
+                    <span style="color:#999999;">共</span>{{orderItem.ordList.length}}<span
+                        style="color:#999999;">件商品合计</span>
+                    <span style="font-weight:bold;">{{orderItem.payInfact | currency : '￥'}}</span>
+                </div>
+            </div>
+
+            <div class="clearfix" style="padding:0px 10px 10px 10px">
+                <div style="float:right">
+                    <!-- 90.订单完成 -->
+                    <button ng-if="orderItem.orderStatusCode == 90" class="button button-stable button-small"
+                            style="font-size:12px;width: 60px;" ng-click="refunds(orderItem);">
+                        退货
+                    </button>
+                    <!-- 90.订单完成 or 11.订单取消-->
+                    <button ng-if="orderItem.orderStatusCode == 90 || orderItem.orderStatusCode == 11"
+                            class="button button-stable button-small" style="font-size:12px;width: 60px;"
+                            ng-click="deleteOrder(orderItem.orderId);">
+                        删除订单
+                    </button>
+
+                    <!-- 10.订单未完成 and (10.未付款 or 21.付款失败) -->
+                    <button ng-if="orderItem.orderStatusCode == 10 && (orderItem.payStatusCode == 10 || orderItem.payStatusCode == 21)"
+                            class="button button-stable button-small" style="font-size:12px;width: 60px;"
+                            ng-click="cancelOrder(orderItem.orderId);">
+                        取消订单
+                    </button>
+                    <button ng-if="orderItem.orderStatusCode == 10 && (orderItem.payStatusCode == 10 || orderItem.payStatusCode == 21)"
+                            class="button button-stable button-small" style="font-size:12px;width: 60px;"
+                            ng-click="getWXPayInfo(orderItem.orderCode,orderItem.payInfact)">
+                        付款
+                    </button>
+
+                    <!-- 10.订单未完成 and 20.付款成功 and 20.全部发货 -->
+                    <button ng-if="orderItem.orderStatusCode == 10 && orderItem.payStatusCode == 20 && orderItem.deliverStatusCode == 20"
+                            class="button button-stable button-small" style="font-size:12px;width: 60px;"
+                            ng-click="confirmReceiptInMaster(orderItem.orderId);">
+                        确认收货
+                    </button>
+
+                    <!-- 全部 -->
+                    <button class="button button-dark button-small" style="font-size:12px;width: 60px;"
+                            ng-click="showOrderDetail(orderItem.orderId);">
+                        查看详细
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="padding: 0 10px">
+            <button  class="button button-block button-dark button-small" style="font-size:16px;border-radius: 0;"
+                    ng-click="doGetMore()" ng-if="!isLoading&&hasMore">加载更多
+            </button>
+        </div>
+
+    </ion-content>
+    <div style="position: fixed;bottom: 70px;right: 15px;z-index: 9" ng-click="scroll2Top()">
+        <div style="width: 40px;height: 40px;line-height: 40px;text-align: center;background: rgba(0,0,0,0.3);border-radius:20px">
+            <i class="ion-chevron-up light"></i>
+        </div>
+    </div>
+    <div style="position: fixed;bottom: 20px;right: 15px;z-index: 9" ng-click="goHome()">
+        <div style="width: 40px;height: 40px;line-height: 40px;text-align: center;background: rgba(0,0,0,0.3);border-radius:20px">
+            <i class="ion-android-home light"></i>
+        </div>
+    </div>
+</ion-view>

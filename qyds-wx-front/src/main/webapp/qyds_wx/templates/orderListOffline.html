@@ -1,0 +1,70 @@
+<ion-view cache-view="false">
+    <ion-content style="padding-top: 0;" class="bg-gray" delegate-handle="orderListScroll">
+        <div ng-if="!isLoading&&allOrderList.length==0" class="text-center" style="color: #999999;margin-top: 100px">
+            没有符合条件的订单
+        </div>
+        <div ng-repeat="orderItem in allOrderList" ng-click="" class="item" style="padding: 0;margin-top: 10px">
+            <div style="font-size:13px;padding: 10px;overflow: hidden;">
+                <span>订单号：{{orderItem.orderCode}}</span>
+            </div>
+            <div class="divider_gray"></div>
+            <div style="font-size:13px;padding: 10px;overflow: hidden;">
+                <span>消费门店：{{orderItem.storeName}}</span>
+            </div>
+            <div class="divider_gray"></div>
+            <div ng-repeat="goodsItem in orderItem.subList" class="padding border-bottom">
+                <div style="overflow: hidden;">
+                    <div>
+                        <div style="font-size: 13px;white-space: normal;line-height: 1.2">{{goodsItem.goodsName}}</div>
+                        <div style="font-size: 12px;color: #666666;margin-top: 10px" ng-if="goodsItem.type!=30">
+                            <span>颜色:</span>
+                            <span>{{goodsItem.color}}</span>
+                            <span style="margin-left: 10px">尺码:</span>
+                            <span>{{goodsItem.size}}</span>
+                            <span style="margin-left: 10px">数量:</span>
+                            <span>×{{goodsItem.count}}</span>
+                        </div>
+                        <!--价钱-->
+                        <div style="text-align:right;font-size:13px;margin-top: 10px">
+                            <div ng-if="goodsItem.priceDiscount == null" style="font-weight:bold;">{{goodsItem.price |
+                                currency : '￥'}}
+                            </div>
+                            <div ng-if="goodsItem.priceDiscount != null" style="font-weight:bold;">
+                                {{goodsItem.priceDiscount
+                                | currency : '￥'}}
+                            </div>
+                            <div ng-if="goodsItem.priceDiscount != null"
+                                 style="color:#999999;text-decoration:line-through">
+                                {{goodsItem.price | currency : '￥'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding" style="overflow: hidden">
+                <span style="font-size: 12px;color:#999999">{{orderItem.orderTime|date:"yyyy-MM-dd HH:mm:ss"}}</span>
+                <div style="float:right;font-size:13px;">
+                    <span style="color:#999999;">商品合计:</span>
+                    <span style="font-weight:bold;">{{orderItem.amount | currency : '￥'}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 0 10px">
+            <button class="button button-block button-dark button-small" style="font-size:16px;border-radius: 0;"
+                    ng-click="doGetMore()" ng-if="!isLoading&&hasMore">加载更多
+            </button>
+        </div>
+
+    </ion-content>
+    <div style="position: fixed;bottom: 70px;right: 15px;z-index: 9" ng-click="scroll2Top()">
+        <div style="width: 40px;height: 40px;line-height: 40px;text-align: center;background: rgba(0,0,0,0.3);border-radius:20px">
+            <i class="ion-chevron-up light"></i>
+        </div>
+    </div>
+    <div style="position: fixed;bottom: 20px;right: 15px;z-index: 9" ng-click="goHome()">
+        <div style="width: 40px;height: 40px;line-height: 40px;text-align: center;background: rgba(0,0,0,0.3);border-radius:20px">
+            <i class="ion-android-home light"></i>
+        </div>
+    </div>
+</ion-view>

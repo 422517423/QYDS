@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysCodeMapperExt" >
+  <resultMap id="SysCodeResultMap" type="net.dlyt.qyds.common.dto.SysCode" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="NUMERIC" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    seq, category, code, value, parent_id, description, is_valid, remark
+  </sql>
+
+  <select id="selectSysCodeByCategory" resultMap="SysCodeResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.sys_code
+    where category = #{category,jdbcType=VARCHAR}
+    and is_valid = '0'
+  </select>
+
+</mapper>

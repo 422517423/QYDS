@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.BnkMasterMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.BnkMaster" >
+    <id column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="type_type" property="typeType" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="bank_type" property="bankType" jdbcType="VARCHAR" />
+    <result column="new_count" property="newCount" jdbcType="INTEGER" />
+    <result column="last_count" property="lastCount" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bank_id, shop_id, goods_type, type_type, goods_id, goods_code, erp_goods_code, sku, 
+    erp_sku, erp_store_id, bank_type, new_count, last_count, comment, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.bnk_master
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from public.bnk_master
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.BnkMaster" >
+    insert into public.bnk_master (bank_id, shop_id, goods_type, 
+      type_type, goods_id, goods_code, 
+      erp_goods_code, sku, erp_sku, 
+      erp_store_id, bank_type, new_count, 
+      last_count, comment, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time)
+    values (#{bankId,jdbcType=INTEGER}, #{shopId,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, 
+      #{typeType,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, 
+      #{erpGoodsCode,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{erpSku,jdbcType=VARCHAR}, 
+      #{erpStoreId,jdbcType=VARCHAR}, #{bankType,jdbcType=VARCHAR}, #{newCount,jdbcType=INTEGER}, 
+      #{lastCount,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.BnkMaster" >
+    insert into public.bnk_master
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="typeType != null" >
+        type_type,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id,
+      </if>
+      <if test="bankType != null" >
+        bank_type,
+      </if>
+      <if test="newCount != null" >
+        new_count,
+      </if>
+      <if test="lastCount != null" >
+        last_count,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="typeType != null" >
+        #{typeType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="newCount != null" >
+        #{newCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastCount != null" >
+        #{lastCount,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.BnkMaster" >
+    update public.bnk_master
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="typeType != null" >
+        type_type = #{typeType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        erp_sku = #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        bank_type = #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="newCount != null" >
+        new_count = #{newCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastCount != null" >
+        last_count = #{lastCount,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.BnkMaster" >
+    update public.bnk_master
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      type_type = #{typeType,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      erp_sku = #{erpSku,jdbcType=VARCHAR},
+      erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      bank_type = #{bankType,jdbcType=VARCHAR},
+      new_count = #{newCount,jdbcType=INTEGER},
+      last_count = #{lastCount,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+</mapper>

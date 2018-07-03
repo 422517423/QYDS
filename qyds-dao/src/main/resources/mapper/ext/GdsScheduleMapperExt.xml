@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.GdsScheduleMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.GdsScheduleExt" >
+    <id column="schedule_id" property="scheduleId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s.schedule_id, s.goods_id, s.telephone, s.user_name, s.comment,s.update_time, s.insert_time, m.goods_name
+  </sql>
+  <select id="getGoodsOrderList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.gds_schedule s left join gds_master m on s.goods_id = m.goods_id
+    where
+    s.deleted = '0' and m.deleted = '0'
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and m.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="userName != null and !userName.isEmpty()" >
+      and s.user_name LIKE '%' || #{userName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and s.telephone LIKE '%' || #{telephone,jdbcType=VARCHAR} || '%'
+    </if>
+
+    order by s.insert_time DESC
+    limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
+    select count(*)
+    from public.gds_schedule s left join gds_master m on s.goods_id = m.goods_id
+    where
+    s.deleted = '0' and m.deleted = '0'
+    <if test="goodsName != null and !goodsName.isEmpty()" >
+      and m.goods_name LIKE '%' || #{goodsName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="userName != null and !userName.isEmpty()" >
+      and s.user_name LIKE '%' || #{userName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and s.telephone LIKE '%' || #{telephone,jdbcType=VARCHAR} || '%'
+    </if>
+
+  </select>
+
+</mapper>

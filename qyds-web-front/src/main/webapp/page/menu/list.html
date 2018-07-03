@@ -1,0 +1,184 @@
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    系统菜单
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">系统设置</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">系统菜单</a></li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet grey box">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>系统菜单</div>
+                            <div class="tools" style="margin-top: auto;">
+                                <div id="button-groups">
+                                    <a id="addBtn" href="javascript:;" class="btn btn-xs green">添加 <i class="icon-plus"></i></a>
+                                    <a id="editBtn" href="javascript:;" class="btn btn-xs purple">编辑 <i class="icon-edit"></i></a>
+                                    <a id="upBtn" href="javascript:;" class="btn btn-xs blue">上移 <i class="icon-long-arrow-up"></i></a>
+                                    <a id="downBtn" href="javascript:;" class="btn btn-xs yellow">下移 <i class="icon-long-arrow-down"></i></a>
+                                    <a id="delBtn" href="javascript:;" class="btn btn-xs red">删除 <i class="icon-remove"></i></a>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="menuTree" class="ztree">
+
+                        </div>
+                        <div id="alertMsg" class="alert alert-danger" style="display: none;">
+                            数据取得失败
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 编辑modal start -->
+        <div id="editModal" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">菜单编辑</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                            <div class="row">
+                                <input type="hidden" style="display: none;" id="operationFlag" value="">
+                                <form action="" class="form-horizontal" id="menuForm">
+                                    <input type="hidden" style="display: none;" id="menuId" name="menuId" value="">
+                                    <input type="hidden" style="display: none;" id="parentId" name="parentId" value="">
+                                    <div class="form-body">
+                                        <div class="form-group" id="parentMenuDiv">
+                                            <label  class="col-md-3 control-label">上级菜单</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="parentName" readonly="readonly">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-3 control-label">菜单名称<span class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="menuName" name="menuName" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-3 control-label">菜单URL</label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="menuUrl" name="url" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-3 control-label">菜单类型<span class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <select type="text" id="menuType" name="menuType" class="form-control">
+                                                    <option value=""></option>
+                                                    <option value="0">系统菜单</option>
+                                                    <option value="1">业务菜单</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">生效时间<span class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <div class="input-group date date-picker" data-date="2012-12-02" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                    <input type="text" class="form-control" id="accessStart" name="accessStart" readonly>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">结束时间<span class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <div class="input-group date date-picker" data-date="2012-12-02" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                    <input type="text" class="form-control" id="accessEnd" name="accessEnd" readonly>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-3 control-label">菜单序号<span class="required">*</span></label>-->
+                                            <!--<div class="col-md-8">-->
+                                                <!--<input type="text" id="sort" name="sort" class="form-control">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <div class="form-group" id="logoDiv">
+                                            <label  class="col-md-3 control-label">菜单图标<span class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="logos" class="form-control">
+                                            </div>
+                                            <input type="hidden" id="logoUrl" name="logoUrl" style="display: none" >
+                                        </div>
+                                        <input type="hidden" id="sort" name="sort" style="display: none;">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="saveBtn" class="btn green">保存</button>
+                        <button type="button" data-dismiss="modal" class="btn default">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 编辑modal end -->
+
+
+        <!--TODO 共通modal start -->
+        <div id="confirmModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Would you like to continue with some arbitrary task?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn blue" id="confirmBtn">确定</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 共通modal end -->
+        <!-- END PAGE CONTENT-->
+
+        <!-- START PAGE LEVEL SCRIPTS -->
+        <script src="../page/menu/menu.js"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+
+        <script>
+            jQuery(document).ready(function() {
+
+                App.initScroller();
+                zTree.init();
+
+            });
+        </script>

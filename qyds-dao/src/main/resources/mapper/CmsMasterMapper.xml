@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.CmsMasterMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.CmsMaster" >
+    <id column="cms_id" property="cmsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_type" property="itemType" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="text_comment" property="textComment" jdbcType="VARCHAR" />
+    <result column="list_json" property="listJson" jdbcType="VARCHAR" />
+    <result column="content_html" property="contentHtml" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="item_url" property="itemUrl" jdbcType="VARCHAR" />
+    <result column="goods_id_flag" property="goodsIdFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cms_id, shop_id, item_id, item_type, sort, title, text_comment, list_json, content_html, 
+    comment, deleted, update_user_id, update_time, insert_user_id, insert_time, item_url, 
+    goods_id_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.cms_master
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.cms_master
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.CmsMaster" >
+    insert into public.cms_master (cms_id, shop_id, item_id, 
+      item_type, sort, title, 
+      text_comment, list_json, content_html, 
+      comment, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time, 
+      item_url, goods_id_flag,tops,pants)
+    values (#{cmsId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{itemType,jdbcType=VARCHAR}, #{sort,jdbcType=SMALLINT}, #{title,jdbcType=VARCHAR}, 
+      #{textComment,jdbcType=VARCHAR}, #{listJson,jdbcType=VARCHAR}, #{contentHtml,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{itemUrl,jdbcType=VARCHAR}, #{goodsIdFlag,jdbcType=VARCHAR},
+      #{tops,jdbcType=VARCHAR}, #{pants,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.CmsMaster" >
+    insert into public.cms_master
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmsId != null" >
+        cms_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemType != null" >
+        item_type,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="textComment != null" >
+        text_comment,
+      </if>
+      <if test="listJson != null" >
+        list_json,
+      </if>
+      <if test="contentHtml != null" >
+        content_html,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="itemUrl != null" >
+        item_url,
+      </if>
+      <if test="goodsIdFlag != null" >
+        goods_id_flag,
+      </if>
+      <if test="tops != null" >
+        tops,
+      </if>
+      <if test="pants != null" >
+        pants,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmsId != null" >
+        #{cmsId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="textComment != null" >
+        #{textComment,jdbcType=VARCHAR},
+      </if>
+      <if test="listJson != null" >
+        #{listJson,jdbcType=VARCHAR},
+      </if>
+      <if test="contentHtml != null" >
+        #{contentHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemUrl != null" >
+        #{itemUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIdFlag != null" >
+        #{goodsIdFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="tops != null" >
+        #{tops,jdbcType=VARCHAR},
+      </if>
+      <if test="pants != null" >
+        #{pants,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.CmsMaster" >
+    update public.cms_master
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemType != null" >
+        item_type = #{itemType,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="textComment != null" >
+        text_comment = #{textComment,jdbcType=VARCHAR},
+      </if>
+      <if test="listJson != null" >
+        list_json = #{listJson,jdbcType=VARCHAR},
+      </if>
+      <if test="contentHtml != null" >
+        content_html = #{contentHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemUrl != null" >
+        item_url = #{itemUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsIdFlag != null" >
+        goods_id_flag = #{goodsIdFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="tops != null" >
+        tops = #{tops,jdbcType=VARCHAR},
+      </if>
+      <if test="pants != null" >
+        pants = #{pants,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.CmsMaster" >
+    update public.cms_master
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=VARCHAR},
+      item_type = #{itemType,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=SMALLINT},
+      title = #{title,jdbcType=VARCHAR},
+      text_comment = #{textComment,jdbcType=VARCHAR},
+      list_json = #{listJson,jdbcType=VARCHAR},
+      content_html = #{contentHtml,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      item_url = #{itemUrl,jdbcType=VARCHAR},
+      goods_id_flag = #{goodsIdFlag,jdbcType=VARCHAR}
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

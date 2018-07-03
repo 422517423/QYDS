@@ -1,0 +1,210 @@
+{
+  "code": 0,
+  "results": [
+    {
+      "name": "上装",
+      "child": [
+        {
+          "name": "T恤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "长袖衬衫",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "短袖衬衫",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "POLO衫",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "外套",
+      "child": [
+        {
+          "name": "夹克",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "西服",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "下装",
+      "child": [
+        {
+          "name": "休闲裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "短裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "牛仔裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "慢跑裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "九分裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "新款上市",
+      "child": [
+        {
+          "name": "2016-7月6日",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "2016-6月",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "2016-5月",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "活动区",
+      "child": [
+        {
+          "name": "休闲裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "T恤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "短裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "衬衫",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "POLO衫",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "牛仔裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "慢跑裤",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "夹克",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "西服",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "夏季折扣季",
+      "child": [
+        {
+          "name": "上装",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "下装",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "夏季必备",
+      "child": [
+        {
+          "name": "青年",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "青少年",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "中年",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "直筒",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "修身",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "宽松",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "棉",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "汗布",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "麻",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "亚麻布",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "卡其布",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "牛津纺",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "DEALUNA",
+      "child": [
+        {
+          "name": "Dealuna",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "Uomo by Dealuna",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        },
+        {
+          "name": "DNA By Dealuna",
+          "url": "http://cdn02.ehaier.com/product/56c6f0731a0a2e68738b4c2b_220_220.png"
+        }
+      ]
+    },
+    {
+      "name": "总部内购",
+      "child": [
+      ]
+    }
+  ]
+}

@@ -1,0 +1,370 @@
+<html>
+<body>
+<h2>千业电商调用ERP接口测试</h2>
+<br>
+<form action="erptest/GoodsUpdate.json" method="post" target="result">
+    1.商品更新接口GoodsUpdate
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+    {
+      "goodsCode":"13624083451",
+      "goodstype1":"分类1",
+      "goodstype2":"分类2",
+      "goodstype3":"分类3"
+    }
+    </textarea>
+</form>
+<br>
+<form action="erptest/VIPUpdate.json" method="post" target="result">
+    2.会员更新接口VIPUpdate
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+ {
+      "memberCode":"12345678901",
+      "memberName":"测试一",
+      "sexName":"男",
+      "mobil":"12345678901",
+      "birthday":"1979-11-02",
+      "provinceName":"辽宁省",
+      "cityName":"大连市",
+      "districtName":"中山区",
+      "email":"48947612@qq.com",
+      "storeCode":"121121",
+      "storeName":"总部",
+      "sellerName":"SYSUser",
+      "address":"人民路35号1701",
+      "postCode":"116001",
+      "income":"5K-8K",
+      "registTime":"2016-01-01",
+      "memberGrade":"10",
+      "memberCodeAlter":""
+    }
+    </textarea>
+</form>
+<br>
+<form action="erptest/VIPPointUpdate.json" method="post" target="result">
+    3.会员积分履历接口VIPPointUpdate
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+    {
+      "memberCode":"13624083451",
+      "point":"100",
+      "pointTime":"2016-09-01",
+      "used":"0"
+    }
+    </textarea>
+</form>
+<br>
+<form action="erptest/CouponissueUpdate.json" method="post" target="result">
+    4.ERP代金券发布接口CouponSendUpdate
+    <input type="submit"><br>
+    <textarea name = "master" cols=50 rows=10>
+{
+    "couponId":"9b4c8ef8-2020-4b04-a37e-88370fe45bex",
+    "couponName":"满1000原价商品95折,先抢先得",
+    "couponStyle":"1",
+    "couponType":"10",
+    "goodsType":"50",
+    "distributeType":"10",
+    "isOriginPrice":"1",
+    "minGoodsCount":"",
+    "minOrderPrice":"1000",
+    "worth":"",
+    "discount":"9.5",
+    "sendStartTime":"2016-11-08",
+    "sendEndTime":"2016-12-10",
+    "startTime":"2016-11-10",
+    "endTime":"2016-11-11",
+    "maxCount":"1000",
+    "validDays":"7",
+    "distributedCount":"",
+    "comment":"",
+}
+        </textarea>
+    <textarea name = "list" cols=50 rows=10>
+[
+    {
+      "couponId":"9b4c8ef8-2020-4b04-a37e-88370fe45bex",
+      "goodsType":"50",
+      "goodsId":"",
+      "skuId":"842f4653-7280-4f6c-bc57-75d0a4ba434b",
+    },
+]
+    </textarea>
+</form>
+<br>
+<form action="erptest/CouponSendUpdate.json" method="post" target="result">
+    5.ERP电商通用优惠劵发放接口CouponissueUpdate<br>
+    参数说明:<br>
+    couponMemberId:优惠券会员ID,UUID生成<br>
+    couponId:优惠券ID<br>
+    memberId:会员代码<br>
+    status:10优惠券状态:10未使用,20已使用,此处可以不传,自动处理成10<br>
+    sendTime:发放时间<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+    {
+      "couponMemberId":"222222222222",
+      "couponId":"111111111111",
+      "memberId":"13624083452",
+      "status":"10",
+      "startTime":"2016-10-10",
+      "endTime":"2016-11-11",
+      "sendTime":"2016-09-09",
+    }
+    </textarea>
+</form>
+<br>
+<form action="erptest/CouponUsedUpdate.json" method="post" target="result">
+    6.ERP电商通用优惠劵使用接口CouponUsedUpdate<br>
+    参数说明:<br>
+    couponMemberId:优惠券会员ID,UUID<br>
+    couponId:优惠券ID<br>
+    memberId:会员代码,此处不需要传<br>
+    orderId:订单ID,此处不需要传<br>
+    status:10优惠券状态:10未使用,20已使用,此处可以不传,自动处理成20<br>
+    usedTime:使用时间<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+    {
+      "couponMemberId":"222222222222",
+      "couponId":"111111111111",
+      "memberId":"13624083452",
+      "orderId":"333333",
+      "status":"20",
+      "usedTime":"2016-10-10",
+    }
+    </textarea>
+</form>
+<br>
+<form action="erptest/SaleInput.json" method="post" target="result">
+    7.订单发货接口SaleInput
+    <input type="submit"><br>
+    <textarea name = "master" cols=50 rows=10>
+{
+      "orderId":"13624083451",
+      "memberId":"234234",
+      "memberName":"会员姓名",
+      "amountTotle":"123",
+      "amountDiscount":"100",
+      "payTime":"2016-08-20 20:00:00",
+      "quantity":"1",
+      "message":"会员未留言",
+      "deliveryFree":"1",
+      "deliceryFee":"23",
+      "payDeliveryType":"10",
+      "payType":"10",
+      "deliveryType":"10",
+      "salerID":"123456",
+      "couponMemberId":"eedd9b13-2859-4a11-80b7-231bf52cd7ae",
+      "worth":"120.00"
+}
+    </textarea>
+    <textarea name = "list" cols=50 rows=10>
+[
+    {
+      "orderId":"13624083451",
+      "subOrderId":"13624083451001",
+      "erpSku":"324432",
+      "price":"2222",
+      "priceDiscount":"2000",
+      "deliverTime":"2016-08-20 20:00:00",
+      "expressName":"顺丰快递",
+      "expressNo":"12345678",
+      "erpStoreId":"123123",
+      "storeDeliveryName":"111111",
+    }
+]
+    </textarea>
+</form>
+<br>
+<form action="erptest/ReturnInput.json" method="post" target="result">
+    8.订单退货接口ReturnInput
+    <input type="submit"><br>
+    <textarea name = "master" cols=50 rows=10>
+{
+      "orderId":"13624083451",
+      "memberId":"234234",
+      "memberName":"会员姓名",
+      "amountTotle":"123",
+      "amountDiscount":"100",
+      "payTime":"2016-08-20 20:00:00",
+      "quantity":"1",
+      "message":"会员未留言",
+      "deliveryFree":"1",
+      "deliceryFee":"23",
+      "payDeliveryType":"10",
+      "payType":"10",
+      "deliveryType":"10",
+      "salerID":"123456",
+}
+    </textarea>
+    <textarea name = "list" cols=50 rows=10>
+[
+    {
+      "orderId":"13624083451",
+      "subOrderId":"13624083451001",
+      "erpSku":"324432",
+      "price":"2222",
+      "priceDiscount":"2000",
+      "deliverTime":"2016-08-20 20:00:00",
+      "expressName":"顺丰快递",
+      "expressNo":"12345678",
+      "erpStoreId":"123123",
+      "storeDeliveryName":"111111",
+    }
+]
+    </textarea>
+</form>
+<br>
+<form action="erptest/SaleInputById.json" method="post" target="result">
+    *.发送接口SaleInput(运营用)
+    <input type="submit"><br>
+    <input type="text" name = "id" value="testorderid">
+</form>
+<br>
+<form action="erptest/VIPUsedUpdate.json" method="post" target="result">
+10.停用会员VIPUsedUpdate<br>
+参数说明:<br>
+memberCode:11位会员ID<br>
+unUsed:1为停用，0为正常<br>
+unUsedTime:停用日期XXXX-XX-XX<br>
+结果说明:resultCode:00,正常;99,异常<br>
+<input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+    {
+      "memberCode":"13612345678",
+      "unUsed":1,
+      "unUsedTime":"2016-10-10",
+    }
+    </textarea>
+</form>
+<br>
+===================================================================
+<br>
+<form action="erptest/SaleInputTest.json" method="post" target="result">
+    订单生成接口SaleInput(废弃)
+    <input type="submit"><br>
+    <textarea name = "master" cols=50 rows=10>
+{
+"saleMaster":{
+      "orderId":"13624083451",
+      "memberId":"234234",
+      "memberName":"会员姓名",
+      "amountTotle":"123",
+      "amountDiscount":"100",
+      "deliveryFree":"1",
+      "deliceryFee":"23",
+      "payDeliveryType":"10",
+      "payInfact":"100",
+      "message":"会员未留言",
+      "payType":"10",
+      "payStatus":"10",
+      "payTime":"2016-08-20 20:00:00",
+      "wantInvoice":"1",
+      "invoiceTitle":"公司名称",
+      "invoiceAddress":"公司地址",
+      "invoiceTel":"123456",
+      "invoiceTaxno":"3553452",
+      "invoiceBank":"开户银行",
+      "invoiceAccount":"234324",
+      "deliveryType":"10",
+      "deliveryPostcode":"116000",
+      "districtidProvince":"辽宁省",
+      "districtidCity":"大连市",
+      "districtidDistrict":"高新园区",
+      "deliveryAddress":"宏泰大厦B座411",
+      "deliveryContactor":"丛克研",
+      "deliveryPhone":"123123213",
+      "erpStoreId":"123123",
+      "storeName":"高新园区万达店"
+    },
+"saleList":{
+"saleList":[
+    {
+      "orderId":"13624083451",
+      "subOrderId":"13624083451001",
+      "erpSku":"324432",
+      "price":"2222",
+      "priceDiscount":"2000"
+    }
+    ]
+}
+}
+    </textarea>
+</form>
+<br>
+<form action="erptest/SaleInput2.json" method="post" target="result">
+    订单生成接口SaleInput2(废弃)
+    <input type="submit"><br>
+    <textarea name = "master" cols=50 rows=10>
+{
+      "orderId":"13624083451",
+      "memberId":"234234",
+      "memberName":"会员姓名",
+      "amountTotle":"123",
+      "amountDiscount":"100",
+      "deliveryFree":"1",
+      "deliceryFee":"23",
+      "payDeliveryType":"10",
+      "payInfact":"100",
+      "message":"会员未留言",
+      "payType":"10",
+      "payStatus":"10",
+      "payTime":"2016-08-20 20:00:00",
+      "wantInvoice":"1",
+      "invoiceTitle":"公司名称",
+      "invoiceAddress":"公司地址",
+      "invoiceTel":"123456",
+      "invoiceTaxno":"3553452",
+      "invoiceBank":"开户银行",
+      "invoiceAccount":"234324",
+      "deliveryType":"10",
+      "deliveryPostcode":"116000",
+      "districtidProvince":"辽宁省",
+      "districtidCity":"大连市",
+      "districtidDistrict":"高新园区",
+      "deliveryAddress":"宏泰大厦B座411",
+      "deliveryContactor":"丛克研",
+      "deliveryPhone":"123123213",
+      "erpStoreId":"123123",
+      "storeName":"高新园区万达店"
+}
+    </textarea>
+    <textarea name = "list" cols=50 rows=10>
+[
+    {
+      "orderId":"13624083451",
+      "subOrderId":"13624083451001",
+      "erpSku":"324432",
+      "price":"2222",
+      "priceDiscount":"2000"
+    }
+]
+    </textarea>
+</form>
+<br>
+<form action="erptest/ServerUpdateExe.json" method="post" target="result">
+    服务更新接口ServerUpdateExe(不使用)
+    <input type="submit"><br>
+    <input type="text" name = "exeType" value="10">
+</form>
+<br>
+<form action="erptest/SendSms.json" method="post" target="result">
+    发送短信接口SendSmsResult(不使用)
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+    {
+      "recNum":"13624083451",
+      "code":"01",
+      "product":"产品名?",
+      "smsTime":"2016-09-01 00:00:00",
+      "smsFreeSignName":"123123",
+      "smsTemplateCode":"0011",
+    }
+    </textarea>
+</form>
+</body>
+</html>

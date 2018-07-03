@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbPointRuleMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.MmbPointRuleExt">
+        <id column="rule_id" property="ruleId" jdbcType="VARCHAR"/>
+        <result column="rule_code" property="ruleCode" jdbcType="VARCHAR"/>
+        <result column="rule_name" property="ruleName" jdbcType="VARCHAR"/>
+        <result column="point" property="point" jdbcType="INTEGER"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_user_name" property="insertUserName" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectRuleList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.MmbPointRuleForm">
+        select
+        mpr.rule_id, mpr.rule_code, mpr.point, mpr.comment, mpr.deleted, mpr.update_user_id, mpr.update_time,
+        mpr.insert_user_id, mpr.insert_time,
+        su1.user_name as insert_user_name, su2.user_name as update_user_name,
+        cc.display_cn as rule_name
+        from mmb_point_rule mpr
+        left join sys_user su1 on cast(su1.user_id as varchar) = mpr.insert_user_id
+        left join sys_user su2 on cast(su2.user_id as varchar) = mpr.update_user_id
+        left join com_code cc on cc.code = 'POINT_RULE' and cc.deleted = '0' and cc.value = mpr.rule_code
+        where mpr.deleted = '0'
+        <if test="ruleName!=null and !ruleName.isEmpty() ">
+            and mpr.rule_name LIKE CONCAT(CONCAT('%', #{ruleName}),'%')
+        </if>
+        <if test="ruleCode!=null and !ruleCode.isEmpty() ">
+            AND mpr.rule_code = #{ruleCode}
+        </if>
+        <if test="point!=null">
+            AND mpr.point = #{point}
+        </if>
+        order by rule_code limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="getRuleListCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.MmbPointRuleForm">
+        select count(*)
+        from mmb_point_rule mpr
+        where mpr.deleted = '0'
+        <if test="ruleName!=null and !ruleName.isEmpty() ">
+            and mpr.rule_name LIKE CONCAT(CONCAT('%', #{ruleName}),'%')
+        </if>
+        <if test="ruleCode!=null and !ruleCode.isEmpty() ">
+            AND mpr.rule_code = #{ruleCode}
+        </if>
+        <if test="point!=null">
+            AND mpr.point = #{point}
+        </if>
+    </select>
+
+    <select id="countSameRule" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.MmbPointRuleForm">
+        select count(*)
+        from mmb_point_rule mpr
+        where mpr.deleted = '0'
+        and  ( mpr.rule_name = #{ruleName} or mpr.rule_code = #{ruleCode} )
+        <if test="ruleId!=null and !ruleId.isEmpty() ">
+            and mpr.rule_id != #{ruleId}
+        </if>
+
+    </select>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.MmbPointRuleForm">
+        select mpr.*, su1.user_name as insert_user_name, su2.user_name as update_user_name
+        from mmb_point_rule mpr
+        left join sys_user su1 on cast(su1.user_id as varchar) = mpr.insert_user_id
+        left join sys_user su2 on cast(su2.user_id as varchar) = mpr.update_user_id
+        where mpr.deleted = '0'
+        AND  mpr.rule_id = #{ruleId}
+    </select>
+
+    <select id="selectByRuleCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select mpr.*, su1.user_name as insert_user_name, su2.user_name as update_user_name
+        from mmb_point_rule mpr
+        left join sys_user su1 on cast(su1.user_id as varchar) = mpr.insert_user_id
+        left join sys_user su2 on cast(su2.user_id as varchar) = mpr.update_user_id
+        where mpr.deleted = '0'
+        AND  mpr.rule_code = #{ruleCode}
+    </select>
+
+</mapper>

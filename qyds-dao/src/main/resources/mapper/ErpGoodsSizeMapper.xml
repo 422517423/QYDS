@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpGoodsSizeMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    <id column="size_type_code" property="sizeTypeCode" jdbcType="VARCHAR" />
+    <id column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="size_name_en" property="sizeNameEn" jdbcType="VARCHAR" />
+    <result column="size_name_cn" property="sizeNameCn" jdbcType="VARCHAR" />
+    <result column="size_full_name_en" property="sizeFullNameEn" jdbcType="VARCHAR" />
+    <result column="size_full_name_cn" property="sizeFullNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="bnk_no_limit" property="bnkNoLimit" jdbcType="SMALLINT" />
+    <result column="bnk_less_limit" property="bnkLessLimit" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    size_type_code, size_code, sort, type_name, size_name_en, size_name_cn, size_full_name_en, 
+    size_full_name_cn, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time, bnk_no_limit, bnk_less_limit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSizeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_goods_size
+    where size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and size_code = #{sizeCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSizeKey" >
+    delete from public.erp_goods_size
+    where size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and size_code = #{sizeCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    insert into public.erp_goods_size (size_type_code, size_code, sort, 
+      type_name, size_name_en, size_name_cn, 
+      size_full_name_en, size_full_name_cn, comment, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time, bnk_no_limit, 
+      bnk_less_limit)
+    values (#{sizeTypeCode,jdbcType=VARCHAR}, #{sizeCode,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{typeName,jdbcType=VARCHAR}, #{sizeNameEn,jdbcType=VARCHAR}, #{sizeNameCn,jdbcType=VARCHAR}, 
+      #{sizeFullNameEn,jdbcType=VARCHAR}, #{sizeFullNameCn,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{bnkNoLimit,jdbcType=SMALLINT}, 
+      #{bnkLessLimit,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    insert into public.erp_goods_size
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sizeTypeCode != null" >
+        size_type_code,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="sizeNameEn != null" >
+        size_name_en,
+      </if>
+      <if test="sizeNameCn != null" >
+        size_name_cn,
+      </if>
+      <if test="sizeFullNameEn != null" >
+        size_full_name_en,
+      </if>
+      <if test="sizeFullNameCn != null" >
+        size_full_name_cn,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="bnkNoLimit != null" >
+        bnk_no_limit,
+      </if>
+      <if test="bnkLessLimit != null" >
+        bnk_less_limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sizeTypeCode != null" >
+        #{sizeTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeNameEn != null" >
+        #{sizeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeNameCn != null" >
+        #{sizeNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeFullNameEn != null" >
+        #{sizeFullNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeFullNameCn != null" >
+        #{sizeFullNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bnkNoLimit != null" >
+        #{bnkNoLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="bnkLessLimit != null" >
+        #{bnkLessLimit,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    update public.erp_goods_size
+    <set >
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeNameEn != null" >
+        size_name_en = #{sizeNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeNameCn != null" >
+        size_name_cn = #{sizeNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeFullNameEn != null" >
+        size_full_name_en = #{sizeFullNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeFullNameCn != null" >
+        size_full_name_cn = #{sizeFullNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bnkNoLimit != null" >
+        bnk_no_limit = #{bnkNoLimit,jdbcType=SMALLINT},
+      </if>
+      <if test="bnkLessLimit != null" >
+        bnk_less_limit = #{bnkLessLimit,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and size_code = #{sizeCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    update public.erp_goods_size
+    set sort = #{sort,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      size_name_en = #{sizeNameEn,jdbcType=VARCHAR},
+      size_name_cn = #{sizeNameCn,jdbcType=VARCHAR},
+      size_full_name_en = #{sizeFullNameEn,jdbcType=VARCHAR},
+      size_full_name_cn = #{sizeFullNameCn,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      bnk_no_limit = #{bnkNoLimit,jdbcType=SMALLINT},
+      bnk_less_limit = #{bnkLessLimit,jdbcType=SMALLINT}
+    where size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and size_code = #{sizeCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

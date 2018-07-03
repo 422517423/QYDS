@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.MmbGoodsMapper" >
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.MmbGoods" >
+        <id column="mmb_goods_id" property="mmbGoodsId" jdbcType="VARCHAR" />
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="mmb_level_id" property="mmbLevelId" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        mmb_goods_id,goods_id,mmb_level_id,goods_name
+    </sql>
+    <select id="selectByLevelId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM mmb_goods WHERE mmb_level_id = #{mmbLevelId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from public.mmb_goods
+        where mmb_goods_id = #{mmbGoodsId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.MmbGoods" >
+        insert into public.mmb_goods
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="mmbGoodsId != null" >
+                mmb_goods_id,
+            </if>
+            <if test="goodsId != null" >
+                goods_id,
+            </if>
+            <if test="goodsName != null" >
+                goods_name,
+            </if>
+            <if test="mmbLevelId != null" >
+                mmb_level_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="mmbGoodsId != null" >
+                #{mmbGoodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null" >
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null" >
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="mmbLevelId != null" >
+                #{mmbLevelId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectBrandExistByGoodsId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT count(1) FROM mmb_goods WHERE goods_id = (SELECT gm.brand_id from gds_master gm WHERE goods_id = #{goodsId,jdbcType=VARCHAR})
+    </select>
+</mapper>

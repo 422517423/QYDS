@@ -1,0 +1,42 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<div class="h1 title" style="font-size:24px;">登录</div>-->
+        <!--<button class="button no-animation button-icon icon ion-close-round" ng-click="goBack()"></button>-->
+    <!--</ion-header-bar>-->
+    <ion-content class="">
+        <div class="" style="padding:20px 50px;color:#C0C0C0;">
+            <div class="row" style="">
+                <div class="col col-center">
+                    <label class="item-input" style="border-bottom:1px solid #C0C0C0;">
+                        <i class="icon ion-android-phone-portrait placeholder-icon" style="font-size:28px;"></i>
+                        <input type="text" ng-model='loginInfo.tel' maxlength="11" placeholder="请输入您的手机号" style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                </div>
+            </div>
+            <div class="row" style="">
+                <div class="col col-center">
+                    <label class="item-input" style="border-bottom:1px solid #C0C0C0;">
+                        <i class="icon ion-ios-unlocked-outline placeholder-icon" style="font-size:28px;"></i>
+                        <input type="password" ng-model='loginInfo.pd' placeholder="请输入您的密码" style="color:#C0C0C0;font-size:16px;margin-left:10px;">
+                    </label>
+                </div>
+            </div>
+            <div class="row" style="margin-top:5px">
+                <div class="col col-center" style="text-align:right" ng-click="onResetPd()">忘记密码?</div>
+            </div>
+            <button ng-click="onLogin()" class="button button-block" style="margin-top:20px;color:#ffffff;background-color:#066BA2;">
+                立即登录
+            </button>
+            <div class="row" style="margin-top:15px">
+                <div class="col col-center" style="text-align:center;">
+                    <span>还没有账号</span>
+                    <span style="display:inline-block;margin-left:2px;color:#000000" ng-click="onRegister()">点击注册</span></div>
+            </div>
+
+            <!--<label class="item-input" style="border-bottom:1px solid #C0C0C0;">-->
+                <!--<span class="icon ion-search placeholder-icon" ></span>-->
+                <!--<input type="text" placeholder="Search">-->
+            <!--</label>-->
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.GdsColoreimageMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsColoreimage" >
+    <id column="goods_colore_id" property="goodsColoreId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_colore_id, goods_id, colore_code, colore_name, erp_goods_code, erp_colore_code, 
+    image_url_json, comment, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.gds_coloreimage
+    where goods_colore_id = #{goodsColoreId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.gds_coloreimage
+    where goods_colore_id = #{goodsColoreId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.GdsColoreimage" >
+    insert into public.gds_coloreimage (goods_colore_id, goods_id, colore_code, 
+      colore_name, erp_goods_code, erp_colore_code, 
+      image_url_json, comment, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time)
+    values (#{goodsColoreId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{coloreCode,jdbcType=VARCHAR}, 
+      #{coloreName,jdbcType=VARCHAR}, #{erpGoodsCode,jdbcType=VARCHAR}, #{erpColoreCode,jdbcType=VARCHAR}, 
+      #{imageUrlJson,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.GdsColoreimage" >
+    insert into public.gds_coloreimage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsColoreId != null" >
+        goods_colore_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsColoreId != null" >
+        #{goodsColoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.GdsColoreimage" >
+    update public.gds_coloreimage
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        colore_code = #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        colore_name = #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json = #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goods_colore_id = #{goodsColoreId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.GdsColoreimage" >
+    update public.gds_coloreimage
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      colore_code = #{coloreCode,jdbcType=VARCHAR},
+      colore_name = #{coloreName,jdbcType=VARCHAR},
+      erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      image_url_json = #{imageUrlJson,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where goods_colore_id = #{goodsColoreId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,173 @@
+<div ng-if="type=='login'">
+    <form role="form" name="loginValidForm" ng-class="{'have-error':loginValidForm.$invalid && submitted_login}"
+          class="form-horizontal" novalidate>
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">代购登录</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-horizontal col-xs-10 col-xs-offset-1">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></div>
+                            <!--ng-pattern="/^([0-9]{8}$/"-->
+                            <input type="tel" id="loginTel" name="loginTel" class="form-control"
+                                   required
+                                   maxlength="6"
+                                   ng-model="loginForm.tel" placeholder="请输入员工编码">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginTel.$error.required && submitted_login">员工编码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginTel.$error.pattern && submitted_login">员工编码格式不正确
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></div>
+                            <input ng-if="!showPassword" type="password"
+                                   ng-model="loginForm.password" class="form-control" required
+                                   id="loginPwd" name="loginPwd"
+                                   maxlength="20" ng-pattern=""
+                                   placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginPwd.$error.required && submitted_login">密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginPwd.$error.pattern && submitted_login">密码格式不正确
+                    </div>
+                    <br>
+                    <div class="input-prepend">
+                        <label class="remember" style="float: right"><a ng-click="goRestPassword();"
+                                                                        href="javascript:void(0);"
+                                                                        id="btn_forget_password">忘记密码</a></label>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button type="submit" class="btn btn-default btn-block hvr-outline-out-dark"
+                        ng-click="loginSaler(loginValidForm.$valid);">登录
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div ng-if="type=='restPassword'">
+    <form role="form" name="resetValidForm"
+          ng-class="{'have-error':resetValidForm.$invalid && submitted_reset}"
+          class="form-horizontal" novalidate>
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">重置密码</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row" style="font-size:16px;">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="form-group col-xs-12" style="padding:0;margin:0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">手机号</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0;"
+                             ng-class="{'have-error':resetValidForm.$invalid && submitted_captcha}">
+                            <input type="text" class="form-control"
+                                   id="resetTel" name="resetTel"
+                                   ng-pattern="/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/" required
+                                   maxlength="11"
+                                   ng-model="restForm.tel" placeholder="请输入手机号码">
+                        </div>
+                    </div>
+
+                    <div ng-class="{'have-error':resetValidForm.$invalid && submitted_captcha}">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="resetValidForm.resetTel.$error.required && (submitted_reset || submitted_captcha)">
+                            手机号不能为空
+                        </div>
+                        <div class="col-xs-12 error_msg"
+                             ng-show="resetValidForm.resetTel.$error.pattern && (submitted_reset || submitted_captcha)">
+                            手机号格式不正确
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">验证码</label>
+                        <div class="col-xs-6 col-sm-5" style="padding:0;margin:0;">
+                            <input type="text" class="form-control"
+                                   id="resetCaptcha" name="resetCaptcha"
+                                   maxlength="6" required ng-pattern="/^\d{6}$/"
+                                   ng-model="restForm.captcha"
+                                   placeholder="请输入验证码">
+                        </div>
+                        <div class="col-xs-4 col-sm-4" style="padding:0 0 0 10px;margin:0;">
+                            <button id="captcha_reset_btn" type="submit" class="btn btn-default hvr-outline-out-dark"
+                                    ng-click="getRestVerifyCode(resetValidForm.resetTel.$valid);">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetCaptcha.$error.required && submitted_reset">验证码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetCaptcha.$error.pattern && submitted_reset">验证码格式不正确
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">密码</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <input type="password" class="form-control"
+                                   id="resetPwd" name="resetPwd"
+                                   required maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                                   ng-model="restForm.password"
+                                   placeholder="请输入密码">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetPwd.$error.required && submitted_reset">密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetPwd.$error.pattern && submitted_reset">密码格式不正确(密码为6-20位字母数字混合)
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">确认密码</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0;">
+                            <input type="password" class="form-control"
+                                   id="resetRePwd" name="resetRePwd" pw-check="resetPwd"
+                                   required maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                                   ng-model="restForm.rePassword"
+                                   placeholder="请再次输入密码">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetRePwd.$error.required && submitted_reset">确认密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetRePwd.$error.repeat && submitted_reset">两次输入的密码不一致
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button ng-click="restPassword(resetValidForm.$valid);" type="submit"
+                        class="btn btn-default btn-block hvr-outline-out-dark">
+                    重置密码
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

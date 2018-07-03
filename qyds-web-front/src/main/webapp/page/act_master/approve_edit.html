@@ -1,0 +1,436 @@
+<!-- 活动管理编辑画面 start-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            活动审批详细画面
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">活动管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#" onclick="gotoListPage();">活动审批</a><i class="icon-angle-right"></i></li>
+            <li><a href="#">活动审批详细</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">活动管理详细</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form id="act_master_form" class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">选择模板<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="temp_name" name="temp_name" data-required="1"
+                                           class="form-control" readonly>
+                                </div>
+                                <a class="btn btn-info" id="btn_select_template">选择</a>
+                                <a class="btn btn-info" id="btn_view_template">查看详细</a>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动名称<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_name" name="activity_name" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动单位<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_unit" name="activity_unit" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_need_point">
+                                <label class="col-md-2 control-label">需要加积分<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="need_point" name="need_point" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_need_fee">
+                                <label class="col-md-2 control-label">需要加钱<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <input type="text" id="need_fee" name="need_fee" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动开始时间<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-medium date date-picker" data-date="2016-07-22"
+                                         data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control" id="start_time" name="start_time"
+                                               readonly>
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i
+                                                    class="icon-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_is_origin_price">
+                                <label class="col-md-2 control-label">限制正价/折扣<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="is_origin_price" name="is_origin_price" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动结束时间<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <div class="input-group input-medium date date-picker" data-date="2016-07-22"
+                                         data-date-format="yyyy-mm-dd">
+                                        <input type="text" class="form-control" id="end_time" name="end_time" readonly>
+                                    <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动商品<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_type" name="activity_goods_type"
+                                            class="form-control">
+                                        <option value="">请选择...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <a class="btn btn-info" id="btn_select_goods">选择</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none;" id="sell_year_area">
+                                <label class="col-md-2 control-label">年份<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_sell_year" name="activity_goods_sell_year"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none;" id="season_area">
+                                <label class="col-md-2 control-label">季节</label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_season_code" name="activity_goods_season_code"
+                                            class="form-control">
+                                        <option value="">请选择...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none;" id="erp_brand_area">
+                                <label class="col-md-2 control-label">ERP品牌<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_erp_brand" name="activity_goods_erp_brand"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display: none;" id="line_code_area">
+                                <label class="col-md-2 control-label">ERP生产线<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_goods_line_code" name="activity_goods_line_code"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_selected_goods_type" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>分类名称</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="goodsTypeList">
+                                        <tr class="template goods-type-item">
+                                            <td class="goods-type-item-index">1</td>
+                                            <td class="goods-type-item-name"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_goods_brand" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>品牌名称</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="goodsBrandList">
+                                        <tr class="template goods-brand-item">
+                                            <td class="goods-brand-item-index">1</td>
+                                            <td class="goods-brand-item-name"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_goods" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>商品名称</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="goodsList">
+                                        <tr class="template goods-item">
+                                            <td class="goods-item-index">1</td>
+                                            <td class="goods-item-name"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_skus" style="display: none;">
+                                <div class="col-md-offset-2 col-xs-10">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="10%">序号</th>
+                                            <th width="50%">商品款号</th>
+                                            <th width="20%">颜色</th>
+                                            <th width="20%">尺码</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="skuList">
+                                        <tr class="template sku-item">
+                                            <td class="sku-item-index"></td>
+                                            <td class="sku-item-name"></td>
+                                            <td class="sku-item-color"></td>
+                                            <td class="sku-item-size"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_sec" style="display: none;">
+                                <div class="col-md-offset-2 col-md-10 col-sm-10">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="8%">序号</th>
+                                            <th width="12%">商品款号</th>
+                                            <th width="10%">颜色</th>
+                                            <th width="30%">尺码</th>
+                                            <th width="13%">活动价格</th>
+                                            <th width="14%">活动件数</th>
+                                            <th width="13%">购买限制</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="secKillSkuList">
+                                        <tr class="template sec-item">
+                                            <td class="sec-item-index"></td>
+                                            <td class="sec-item-name"></td>
+                                            <td class="sec-item-color"></td>
+                                            <td class="sec-item-size"></td>
+                                            <td class="sec-item-price"></td>
+                                            <td class="sec-item-sec"></td>
+                                            <td class="sec-item-max"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动会员<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="activity_member_type" name="activity_member_type"
+                                            class="form-control">
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <a class="btn btn-info" id="btn_select_members">选择</a>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_member_group" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>会员组名称</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="memberGroupList">
+                                            <tr class="template member-group-item">
+                                                <td class="member-group-item-index">1</td>
+                                                <td class="member-group-item-name"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_member_level" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <div class="portlet-body">
+                                        <table class="table table-striped table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>会员级别</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="memberLevelList">
+                                            <tr class="template member-level-item">
+                                                <td class="member-level-item-index">1</td>
+                                                <td class="member-level-item-name"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_sub_activity_select">
+                                <label class="col-md-2 control-label">必须的单品活动<span class="required">*</span></label>
+                                <div class="col-md-2">
+                                    <select type="text" id="has_sub_activity" name="has_sub_activity"
+                                            class="form-control">
+                                        <option value="0">不要求</option>
+                                        <option value="1">必须满足所选活动</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <a class="btn btn-info" id="btn_select_sub_activity">选择</a>
+                                </div>
+                            </div>
+                            <div class="form-group" id="div_selected_activity" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-12">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>活动名称</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="subActivityList">
+                                        <tr class="template activity-item">
+                                            <td class="actiivty-item-index">1</td>
+                                            <td class="activity-item-name"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_is_member_activity">
+                                <label class="col-md-2 control-label">是会员固定折扣<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select id="is_member_activity" name="is_member_activity" class="form-control">
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">允许退货<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select type="text" id="can_return" name="can_return" class="form-control">
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label class="col-md-2 control-label">允许换货<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <select type="text" id="can_exchange" name="can_exchange" class="form-control">
+                                        <option value="1">是</option>
+                                        <option value="0">否</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label class="col-md-2 control-label">限购件数</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="limit_count" name="limit_count" data-required="1"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="comment" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="apply_content" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请人</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="apply_user_name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="apply_time" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_status" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批人</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_user_name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_time" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="approve_content" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="btn_cancel" class="btn default" data-dismiss="modal">取消</button>
+    <button type="button" id="btn_approve" class="btn blue" style="display: none">通过</button>
+    <button type="button" id="btn_reject" class="btn blue" style="display: none">驳回</button>
+</div>
+<!-- 活动管理编辑画面 end -->
+<script src="../page/act_master/approve_edit.js"></script>

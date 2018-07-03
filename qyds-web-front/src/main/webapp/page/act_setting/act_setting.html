@@ -1,0 +1,64 @@
+<!-- 业务变量设置 start-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            全局活动设置
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="index.html">活动管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">全局活动设置</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">设置</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form id="act_master_form" class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">新用户第一单满减</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="first_buy_activity_name" name="first_buy_activity_name" data-required="1"
+                                           class="form-control" readonly>
+                                    <input type="hidden" id="first_buy_activity" name="first_buy_activity" data-required="1"
+                                           class="form-control" readonly>
+                                </div>
+                                <a class="btn btn-primary" id="btn_select_first_buy_activity">选择</a>
+                                <a class="btn btn-info" id="btn_select_first_buy_activity_clear">清空</a>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">新用户第一单消费送券</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="first_buy_coupon_name" name="first_buy_coupon_name" data-required="1"
+                                           class="form-control" readonly>
+                                    <input type="hidden" id="first_buy_coupon" name="first_buy_coupon" data-required="1"
+                                           class="form-control" readonly>
+                                </div>
+                                <a class="btn btn-primary" id="btn_select_first_buy_coupon">选择</a>
+                                <a class="btn btn-info" id="btn_select_first_buy_coupon_clear">清空</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" id="save_btn" class="btn blue" style="float: right">保存</button>
+<!-- 商品分类编辑画面 end -->
+<script src="../page/act_setting/act_setting.js"></script>

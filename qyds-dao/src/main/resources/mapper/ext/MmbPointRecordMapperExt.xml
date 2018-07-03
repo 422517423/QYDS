@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbPointRecordMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.MmbPointRecordExt">
+        <id column="record_no" property="recordNo" jdbcType="INTEGER"/>
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="rule_id" property="ruleId" jdbcType="VARCHAR"/>
+        <result column="point" property="point" jdbcType="INTEGER"/>
+        <result column="point_surplus" property="pointSurplus" jdbcType="INTEGER"/>
+        <result column="point_time" property="pointTime" jdbcType="TIMESTAMP"/>
+        <result column="score_source" property="scoreSource" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC" />
+        <result column="point_cash" property="pointCash" jdbcType="INTEGER" />
+    </resultMap>
+
+    <resultMap id="BaseResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbPointRecordExt">
+        <id column="record_no" property="recordNo" jdbcType="INTEGER"/>
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="rule_id" property="ruleId" jdbcType="VARCHAR"/>
+        <result column="rule_name" property="ruleName" jdbcType="VARCHAR"/>
+        <result column="point" property="point" jdbcType="INTEGER"/>
+        <result column="point_surplus" property="pointSurplus" jdbcType="INTEGER"/>
+        <result column="point_time" property="pointTime" jdbcType="TIMESTAMP"/>
+        <result column="score_source" property="scoreSource" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC" />
+        <result column="point_cash" property="pointCash" jdbcType="INTEGER" />
+        <result column="member_code" property="memberCode" jdbcType="VARCHAR" />
+        <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="MmbPointRecordResultMap" type="net.dlyt.qyds.common.dto.ext.MmbPointRecordExt" >
+        <id column="record_no" property="recordNo" jdbcType="INTEGER" />
+        <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+        <result column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+        <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+        <result column="point" property="point" jdbcType="INTEGER" />
+        <result column="point_time" property="pointTime" jdbcType="TIMESTAMP" />
+        <result column="score_source" property="scoreSource" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+        <result column="point_surplus" property="pointSurplus" jdbcType="INTEGER" />
+        <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC" />
+        <result column="point_cash" property="pointCash" jdbcType="INTEGER" />
+    </resultMap>
+
+
+    <select id="selectPointRecordByScoreSource" resultMap="MmbPointRecordResultMap"
+            parameterType="java.lang.String">
+        select mpr.*
+        from PUBLIC.mmb_point_record mpr
+        where mpr.deleted = '0'
+        and mpr.score_source = #{scoreSource}
+    </select>
+
+    <select id="queryRecordList" resultMap="BaseResultMapExt"
+            parameterType="net.dlyt.qyds.common.form.MmbPointRecordForm">
+        select mpr.*
+            from PUBLIC.mmb_point_record mpr
+            where mpr.deleted = '0'
+            and mpr.member_id = #{memberId}
+            order by mpr.point_time desc, mpr.record_no desc
+            limit 10 offset #{currentPage,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPointOfYear" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.form.MmbPointRecordForm">
+        select sum(point)
+        from PUBLIC.mmb_point_record
+        where deleted = '0'
+        and point &gt; 0
+        and member_id = #{memberId}
+        and extract(year from point_time) = extract(year from #{pointTime,jdbcType=TIMESTAMP})
+  </select>
+
+    <select id="selectByMemberIdYear" resultType="net.dlyt.qyds.common.dto.MmbPointRecord" parameterType="java.lang.String">
+        SELECT * FROM PUBLIC.mmb_point_record WHERE member_id = #{memberId}
+    </select>
+
+    <select id="selectSubPointList" resultMap="BaseResultMapExt"
+            parameterType="net.dlyt.qyds.common.form.MmbPointRecordForm">
+        select mpr.*
+            from PUBLIC.mmb_point_record mpr
+            where mpr.deleted = '0'
+            and mpr.point_surplus &gt; 0
+            and mpr.member_id = #{memberId}
+            and to_char(mpr.point_time , 'yyyyMM') &gt; to_char(now() -  interval '24 month' , 'yyyyMM')
+            order by mpr.point_time, mpr.record_no
+    </select>
+
+
+    <resultMap id="CountSubPointResultMap" type="net.dlyt.qyds.common.dto.ext.MmbPointRecordExt">
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="point_surplus" property="pointSurplus" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="countSubPoint" resultMap="CountSubPointResultMap"
+            parameterType="java.util.Date">
+        select mpr.member_id, sum(mpr.point_surplus) point_surplus
+        from PUBLIC.mmb_point_record mpr
+        where mpr.deleted = '0'
+        and mpr.point_surplus &gt; '0'
+        and date_part('year', mpr.point_time) = (date_part('year', now()) - 1)
+        GROUP by mpr.member_id
+    </select>
+    <select id="countSubPointOneTime" resultMap="CountSubPointResultMap"
+            parameterType="java.util.Date">
+        select mpr.member_id, sum(mpr.point_surplus) point_surplus
+        from PUBLIC.mmb_point_record mpr
+        where mpr.deleted = '0'
+        and mpr.point_surplus &gt; '0'
+        and (date_part('year', mpr.point_time) != (date_part('year', now()) - 1) OR date_part('year', mpr.point_time) != (date_part('year', now())) )
+        GROUP by mpr.member_id
+    </select>
+    <select id="selectNotifyPoint" resultMap="CountSubPointResultMap">
+        select p.member_id member_id,m.telephone telephone, sum(p.point_surplus) point_surplus
+        from mmb_point_record p
+        inner join mmb_master m
+        on m.member_id = p.member_id
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+        where p.deleted = '0'
+        and p.point_surplus > 0
+        and date_part('year', mmb_point_record.point_time) = (date_part('year', now()) - 1)
+--         and to_char(p.point_time , 'yyyyMM') &lt;= to_char(now() -  interval '25 month' , 'yyyyMM')
+        GROUP by p.member_id,telephone
+    </select>
+
+    <update id="clearSubPoint"
+            parameterType="java.util.Date">
+       update public.mmb_point_record
+       set point_surplus = 0,
+       update_time = now()
+        where deleted = '0'
+        and point_surplus >'0'
+        and date_part('year', point_time) = (date_part('year', now()) - 1)
+    </update>
+
+    <update id="clearSubPointOneTime"
+            parameterType="java.util.Date">
+        update public.mmb_point_record
+        set point_surplus = 0,
+        update_time = now()
+        where deleted = '0'
+        and point_surplus >'0'
+        and (date_part('year', mpr.point_time) != (date_part('year', now()) - 1) OR date_part('year', mpr.point_time) != (date_part('year', now())) )
+    </update>
+
+    <!--<update id="clearSubPoint"-->
+            <!--parameterType="java.util.Date">-->
+        <!--update public.mmb_point_record mpr-->
+        <!--set mpr.point_cuml ,mpr.point_surplus = 0,-->
+        <!--mpr.update_time = now()-->
+        <!--where mpr.deleted = '0'-->
+        <!--and mpr.point_surplus &gt; 0-->
+        <!--and to_char(mpr.point_time , 'yyyyMM') = to_char(#{pointTime,jdbcType=TIMESTAMP} -  interval '24 month' , 'yyyyMM')-->
+    <!--</update>-->
+
+    <select id="selectErpPointByMemberd" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select record_no,point_surplus
+        from mmb_point_record
+        where deleted = '0'
+        and type = '10'
+        and point_surplus > 0
+        and insert_user_id = 'ERP'
+        and member_id = #{memberId,jdbcType=VARCHAR}
+        order by point_time,record_no
+    </select>
+
+    <update id="updateSurplusPointById" parameterType="net.dlyt.qyds.common.dto.MmbPointRecord" >
+        update mmb_point_record
+        set update_user_id = 'ERP',
+        update_time = now(),
+        point_surplus = #{pointSurplus,jdbcType=INTEGER}
+        where record_no = #{recordNo,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectSendFail" resultMap="BaseResultMapExt">
+        select r.record_no record_no,m.telephone member_code,r.point point,r.point_time point_time,r.type
+        from mmb_point_record r,mmb_master m
+        where r.member_id = m.member_id
+        and m.deleted = '0'
+        and r.deleted = '0'
+        and r.erp_send_status = '20'
+    </select>
+
+    <select id="selectSendFailById" resultMap="BaseResultMapExt" parameterType="java.lang.Integer">
+        select r.record_no record_no,m.telephone member_code,r.point point,r.point_time point_time
+        from mmb_point_record r,mmb_master m
+        where r.member_id = m.member_id
+        and m.deleted = '0'
+        and r.deleted = '0'
+        and r.erp_send_status = '20'
+        and r.record_no = #{recordNo,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSendById" resultMap="BaseResultMapExt" parameterType="java.lang.Integer">
+        select r.record_no record_no,m.telephone member_code,r.point point,r.point_time point_time,r.erp_send_status,
+        r.type
+        from mmb_point_record r,mmb_master m
+        where r.member_id = m.member_id
+        and m.deleted = '0'
+        and r.deleted = '0'
+        and r.record_no = #{recordNo,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="queryRecordOfSuccess" resultMap="MmbPointRecordResultMap">
+        select mpr.*
+        from PUBLIC.mmb_point_record mpr
+        where mpr.deleted = '0'
+        and mpr.point_surplus = 0
+        and (mpr.type = '11' or mpr.type = '91' or mpr.type = '21')
+        and (mpr.point_time &lt; (current_date - 15) and mpr.insert_user_id = 'ERP')
+        union
+        select mpr.*
+        from PUBLIC.mmb_point_record mpr
+        left join ord_master ord on mpr.score_source = ord.order_id
+        where mpr.deleted = '0'
+        and mpr.point_surplus = 0
+        and (mpr.type = '11' or mpr.type = '91' or mpr.type = '21')
+        and (mpr.point_time &lt; (current_date - 15) and mpr.insert_user_id != 'ERP')
+        --and ord.trade_status = '20'
+    </select>
+
+    <update id="clearByOrderId" parameterType="net.dlyt.qyds.common.dto.MmbPointRecord">
+        update mmb_point_record
+        set
+        point = 0,
+        point_cash = 0,
+        point_surplus = 0,
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+        update_time = now()
+        where deleted = '0'
+        and point > 0
+        and score_source = #{scoreSource,jdbcType=VARCHAR}
+    </update>
+    <select id="selectRecordByPage" resultMap="MmbPointRecordResultMap" parameterType="net.dlyt.qyds.common.form.MmbPointRecordForm" >
+        select record_no, member_id,
+        (case when r.insert_user_id='ERP' then 'ERP' else '电商' end) as type_name,
+        rule_id, point, point_time, score_source,
+        point_surplus, point_ratio, point_cash,
+        erp_send_status,c.display_cn rule_name
+        from mmb_point_record r
+        left join com_code c
+        on c.value = r.rule_id
+        and c.code='POINT_RULE'
+        where member_id = #{memberId,jdbcType=VARCHAR}
+        and (date_part('year', r.point_time) = (date_part('year', now()) - 1)
+        OR date_part('year', r.point_time) = (date_part('year', now())))
+        ORDER BY point_time
+        <if test="iDisplayLength != null" >
+            limit #{iDisplayLength,jdbcType=INTEGER}
+        </if>
+        <if test="iDisplayStart != null" >
+            offset #{iDisplayStart,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="getRecordCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.MmbPointRecordForm" >
+        select count(*)
+        from mmb_point_record
+        where member_id = #{memberId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

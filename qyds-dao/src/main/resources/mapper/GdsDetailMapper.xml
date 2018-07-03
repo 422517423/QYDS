@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.GdsDetailMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsDetail" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+    <result column="property_json" property="propertyJson" jdbcType="VARCHAR" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="introduce_html" property="introduceHtml" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="size_description" property="sizeDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, search_key, property_json, image_url_json, comment, introduce_html, deleted, 
+    update_user_id, update_time, insert_user_id, insert_time, description, size_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.gds_detail
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.gds_detail
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.GdsDetail" >
+    insert into public.gds_detail (goods_id, search_key, property_json, 
+      image_url_json, comment, introduce_html, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time, description, 
+      size_description)
+    values (#{goodsId,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR}, #{propertyJson,jdbcType=VARCHAR}, 
+      #{imageUrlJson,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{introduceHtml,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{sizeDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.GdsDetail" >
+    insert into public.gds_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="searchKey != null" >
+        search_key,
+      </if>
+      <if test="propertyJson != null" >
+        property_json,
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="introduceHtml != null" >
+        introduce_html,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="sizeDescription != null" >
+        size_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="searchKey != null" >
+        #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyJson != null" >
+        #{propertyJson,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="introduceHtml != null" >
+        #{introduceHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeDescription != null" >
+        #{sizeDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.GdsDetail" >
+    update public.gds_detail
+    <set >
+      <if test="searchKey != null" >
+        search_key = #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyJson != null" >
+        property_json = #{propertyJson,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json = #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="introduceHtml != null" >
+        introduce_html = #{introduceHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeDescription != null" >
+        size_description = #{sizeDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.GdsDetail" >
+    update public.gds_detail
+    set search_key = #{searchKey,jdbcType=VARCHAR},
+      property_json = #{propertyJson,jdbcType=VARCHAR},
+      image_url_json = #{imageUrlJson,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      introduce_html = #{introduceHtml,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      size_description = #{sizeDescription,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

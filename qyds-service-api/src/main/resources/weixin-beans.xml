@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+        
+	<bean id="wxMpInMemoryConfigStorage"
+		class="me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage">
+		<property name="appId" value="wx38bf661fefcdc9b5" />
+		<property name="secret" value="38e2cb3e134e8d800af431e81a5d73d1" />
+		<property name="token" value="weishanghu_wechat" />
+		<property name="aesKey" value="DD86BvobRjUCiR9Chdm072sEgiknJXtKT38n5G7NBbw" />
+		<property name="tmpDirFile" value="/mnt/tomcat/qyds/qyds_file/temp" />
+		<property name="partnerId" value="1227367902" />
+		<property name="partnerKey" value="qianyeshangmao15941113407songkui" />
+	</bean>
+	<bean id="wxMpService"
+		class="me.chanjar.weixin.mp.api.WxMpServiceImpl">
+		<property name="wxMpConfigStorage" ref="wxMpInMemoryConfigStorage" />
+	</bean>
+	
+</beans>

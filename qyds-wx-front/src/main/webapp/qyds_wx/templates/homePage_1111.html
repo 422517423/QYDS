@@ -1,0 +1,124 @@
+<ion-view hide-nav-bar="true">
+    <div class="bar bar-header item-input-inset">
+        <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input id="search" name="search" type="search" style="font-size:16px;" placeholder="请输入商品关键字" ng-model='homePageInfo.search' required>
+        </label>
+        <button style="font-size:16px;" class="button button-clear" ng-click="goGoodsSearch()">
+            搜索
+        </button>
+    </div>
+    <ion-content style="background: #f2f2f2;color: #333333;font-size: 14px" class="has-header" delegate-handle="homePageScroll">
+        <div class="light-bg">
+            <!--banner区域-->
+            <ion-slide-box does-continue="true" auto-play="true" ng-if="indexFigureData" ng-click="onPagerClick()" show-pager="false"
+                           delegate-handle="home-banner" on-slide-changed="slideHasChanged($index)">
+                <ion-slide ng-repeat="banner in indexFigureData">
+                    <div class="box" ng-click="goOtherPage(banner.itemType, banner.itemTypeVal, banner.cmsId)">
+                        <img ng-src="{{banner.imageUrl | imgPath:''}}" style="width:100%;" ng-style="slideStyle">
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+
+            <!--小喇叭区域-->
+            <div style="height: 40px;line-height: 40px;overflow: hidden;display: none" class="light-bg">
+                <div class="padding-left padding-right" style="float: left">
+                    <i class="icon ion-volume-low" style="font-size: 20px"></i>
+                </div>
+                <div>
+                    <marquee style="{{marqueeStyle}}">{{homepageData.notice}}</marquee>
+                </div>
+            </div>
+            <!--分类区 -->
+            <div style="padding-bottom: 10px;overflow: hidden" class="light-bg">
+                <div ng-repeat="category in indexGdsSortsData"
+                     style="width:33%;float: left;text-align: center;margin-top: 10px" ng-click="goGoodsList(42, category.gdsType.goodsTypeId)">
+                    <img class="circle bordered" ng-src="{{category.gdsType.imageUrl | imgPath:''}}" style="width:60px;height:60px;">
+                    <input type="hidden" value={{category.gdsType.goodsTypeId}}>
+                    <div style="padding: 0px 10px;text-align: center;font-size: 12px">{{category.gdsType.goodsTypeNameCn}}</div>
+                </div>
+
+                <!-- 品牌系列 -->
+                <div style="width:33%;float: left;text-align: center;margin-top: 10px" ng-if="indexGdsBrandTypeData" ng-click="goGoodsList(44, indexGdsBrandTypeData.goodsTypeId)">
+                    <img class="circle bordered" ng-src="{{indexGdsBrandTypeData.imageUrl | imgPath:''}}" style="width:60px;height:60px;">
+                    <input type="hidden" value={{indexGdsBrandTypeData.goodsTypeId}}>
+                    <div style="padding: 0px 10px;text-align: center;font-size: 12px">{{indexGdsBrandTypeData.goodsTypeNameCn}}</div>
+                </div>
+            </div>
+        </div>
+        <!--优惠券区域-->
+        <div style="padding: 10px 5px 5px 5px;overflow: hidden">
+            <div ng-repeat="coupon in couponData"
+                 style="width:50%;padding-left: 5px;padding-right: 5px;float: left" ng-click="goCouponAll()">
+                <img ng-src="{{coupon.couponImage | imgPath:''}}" style="width: 100%;">
+            </div>
+        </div>
+        <!--双十一活动-->
+        <div style="padding: 0px;margin-top: 10px;background: #ffffff;">
+            <img ng-repeat="activity in activity11" ng-click="goGoodsDetail(activity.goodsId)"
+                 ng-src="{{activity.imageUrl}}" class="img-responsive" width="100%" style="margin-top: -4px"/>
+            <!--<img ng-src="image_temp/footer.jpg" class="img-responsive" width="100%" style="margin-top: -2px"/>-->
+            <div class="clearfix" style="margin-top: -3px;padding: 40px 0px 40px 0px;text-align: center;border-left: 1px #999999 solid;border-right: 1px #999999 solid;border-bottom: 1px #999999 solid">
+                <span style="font-size: 14px;border:1px #000000 solid;padding: 8px 10px;text-align: center;margin: 0px 30px;cursor: pointer" data-ng-click="goTop()">返回顶部</span>
+                <span style="font-size: 14px;border:1px #000000 solid;padding: 8px 10px;text-align: center;margin: 0px 30px;cursor: pointer" data-ng-click="goActivityMore('双11')">查看更多</span>
+            </div>
+        </div>
+        <!--广告区域-->
+        <div ng-repeat="guide in indexNewsData" style="width:100%;margin-bottom: 10px;margin-top: 10px;display: none">
+            <img ng-src="{{guide.imageUrl | imgPath:''}}" style="width: 100%" ng-click="goOtherPage(guide.itemType, guide.itemTypeVal,guide.cmsId)">
+        </div>
+
+        <!--活动专区-->
+        <div ng-repeat="discount in indexArrivalsData" style="padding: 5px;overflow: hidden;display: none">
+            <img ng-src="{{discount.imageUrl | imgPath:''}}" style="width: 100%" ng-click="goGoodsList(43, discount.itemTypeVal)">
+            <div ng-repeat="gds in discount.gdsMasterExtList" style="width:50%;padding: 5px;float: left" ng-click="goGoodsDetail(gds.goodsId)">
+                <div class="light-bg">
+                    <div style="position:relative;">
+                        <img ng-src="{{gds.imageUrlJson | imgPath:''}}" style="width: 100%;">
+                        <div class="row row-center" style="position:absolute;bottom:0;padding:0">
+                            <div class="col col-25" ng-repeat="tag in gds.activityTags">
+                                <img src="./image/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                                <img src="./image/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                                <img src="./image/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                                <img src="./image/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size:13px;padding: 0px 10px;margin-top: 5px">{{gds.goodsName}}</div>
+                    <div style="font-size:18px;padding:5px 10px 10px 10px;margin-top: 5px">{{gds.minAndMaxPrice}}</div>
+                </div>
+            </div>
+        </div>
+        <!--新品上市区-->
+
+        <div ng-repeat="newProduct in indexNewGoodsData" style="@padding: 0px 5px;margin-bottom: 10px;overflow: hidden" class="light-bg">
+            <!--<img ng-src="{{newProduct.imageUrl | imgPath:'480'}}" style="width: 100%" ng-click="goGoodsList(41, 0)">-->
+            <img ng-src="{{newProduct.imageUrl | imgPath:''}}" style="width: 100%;display: none" >
+            <div ng-repeat="propter in newProduct.gdsMasterExtList" class="light-bg text-center padding-bottom" ng-click="goGoodsDetail(propter.goodsId)" style="width: 50%;float: left;padding: 5px">
+
+                <div style="position:relative;">
+                    <img ng-src="{{propter.imageUrlJson | imgPath:''}}" style="width: 100%;">
+                    <div class="row row-center" style="position:absolute;bottom:0;padding:0">
+                        <div class="col col-25" ng-repeat="tag in propter.activityTags">
+                            <img src="./image/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                            <img src="./image/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                            <img src="./image/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                            <img src="./image/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                        </div>
+                    </div>
+                </div>
+                <div class="" style="font-size:15px;padding: 0px 10px;margin-top: 5px;line-height: 1.2">{{propter.goodsName}}</div>
+                <div style="padding: 5px 10px 10px 10px;margin-top: 5px">
+                    <span ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null' " style="font-size:23px; color:#ff0000">{{propter.minAndMaxPriceActivity}}</span>
+                    <span ng-if="propter.minAndMaxPriceActivity == null || propter.minAndMaxPriceActivity == '¥null'" style="font-size:23px">{{propter.minAndMaxPrice}}</span>
+                    <span class="font_del"
+                          ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null'"
+                          style="color:#000000;font-size: 12px;margin-left:4px;text-decoration:line-through">{{propter.minAndMaxPrice}}</span>
+                </div>
+                <a style="padding: 4px 4px;line-height: inherit;min-height: 0;background: #cd0100;color: white;font-size: 12px;border:none">立即购买
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

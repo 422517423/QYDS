@@ -1,0 +1,62 @@
+<!-- BEGIN PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    颜色码表
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">ERP管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">颜色码表</a></li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-hover table-bordered" id="color_table">
+                            <thead>
+                            <tr>
+                                <th>代码</th>
+                                <th>助记符</th>
+                                <th>英文名称</th>
+                                <th>中文名称</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+<!-- END CONTAINER -->
+
+<!-- /.modal -->
+
+<script src="../page/erp_color/list.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        TableEditable.init();
+
+    });
+</script>

@@ -1,0 +1,34 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">我的心愿单</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-light'>
+        <div style="padding:0 15px;margin-top:10px;font-size:16px;">
+
+            <div ng-if="!isLoading&&goodsList.length==0" class="text-center" style="color: #999999;margin-top: 100px">
+                心愿单是空的
+            </div>
+
+            <div ng-repeat="goods in goodsList" ng-if="$index%2==0" ng-click="">
+                <div class="row">
+                    <div class="col col-50" style="position:relative;text-align:center;" >
+                        <img ng-src="{{goods.gdsMasterExt.imageUrlJson | imgPathJson:'480'}}" width="95%" class='img-responsive' ng-click="goProdocutDetail(goods.gdsMasterExt.goodsId);">
+                        <i class="icon ion-ios-close-outline" style="position:absolute;top:5px;right:10px;font-size:28px;" ng-click="removeFavorite($index)"></i>
+                        <div class="max-line-1" style="font-size:13px;margin:5px;text-align:left;">{{goods.name}}</div>
+                        <div style="font-size:15px;margin-top:5px;padding:5px;text-align:left;">{{goods.gdsMasterExt.minAndMaxPrice}}</div>
+                    </div>
+                    <div class="col col-50" ng-if="$index<=goodsList.length-2" style="position:relative;text-align:center;">
+                        <img ng-src="{{goodsList[$index+1].gdsMasterExt.imageUrlJson | imgPathJson:'480'}}" width="95%" class='img-responsive' ng-click="goProdocutDetail(goods.gdsMasterExt.goodsId);">
+                        <i class="icon ion-ios-close-outline" style="position:absolute;top:5px;right:10px;font-size:28px;" ng-click="removeFavorite($index + 1)"></i>
+                        <div class="max-line-1" style="font-size:13px;margin:5px;text-align:left;">{{goodsList[$index+1].name}}</div>
+                        <div style="font-size:15px;margin-top:5px;padding:5px;text-align:left;">{{goodsList[$index+1].gdsMasterExt.minAndMaxPrice}}</div>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0 10px">
+                <button ng-if="hasMore==true" class="button button-block button-dark button-small" style="border-radius: 0;" ng-click="doGetMore()">加载更多</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

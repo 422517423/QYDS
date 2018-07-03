@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpGoodsColorMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    <id column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="helpcode" property="helpcode" jdbcType="VARCHAR" />
+    <result column="color_name_en" property="colorNameEn" jdbcType="VARCHAR" />
+    <result column="color_name_cn" property="colorNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    color_code, helpcode, color_name_en, color_name_cn, comment, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_goods_color
+    where color_code = #{colorCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_goods_color
+    where color_code = #{colorCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    insert into public.erp_goods_color (color_code, helpcode, color_name_en, 
+      color_name_cn, comment, deleted, 
+      update_user_id, update_time, insert_user_id, 
+      insert_time)
+    values (#{colorCode,jdbcType=VARCHAR}, #{helpcode,jdbcType=VARCHAR}, #{colorNameEn,jdbcType=VARCHAR}, 
+      #{colorNameCn,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    insert into public.erp_goods_color
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="colorCode != null" >
+        color_code,
+      </if>
+      <if test="helpcode != null" >
+        helpcode,
+      </if>
+      <if test="colorNameEn != null" >
+        color_name_en,
+      </if>
+      <if test="colorNameCn != null" >
+        color_name_cn,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="colorCode != null" >
+        #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="helpcode != null" >
+        #{helpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNameEn != null" >
+        #{colorNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNameCn != null" >
+        #{colorNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    update public.erp_goods_color
+    <set >
+      <if test="helpcode != null" >
+        helpcode = #{helpcode,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNameEn != null" >
+        color_name_en = #{colorNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="colorNameCn != null" >
+        color_name_cn = #{colorNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where color_code = #{colorCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpGoodsColor" >
+    update public.erp_goods_color
+    set helpcode = #{helpcode,jdbcType=VARCHAR},
+      color_name_en = #{colorNameEn,jdbcType=VARCHAR},
+      color_name_cn = #{colorNameCn,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where color_code = #{colorCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

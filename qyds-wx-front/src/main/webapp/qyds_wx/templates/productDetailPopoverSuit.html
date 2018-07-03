@@ -1,0 +1,76 @@
+<!--搜索弹窗-->
+<ion-popover-view style="width: 97%;height: 330px">
+    <ion-content style="color: #333333" overflow-scroll="false">
+        <div style="overflow: hidden">
+            <img src="image/button_close.png"
+                 style="float: right;width: 25px;height: 25px;float: right;margin-left: 10px" ng-click="closePopover()">
+        </div>
+        <div>
+            <div class="padding" ng-repeat="good in productDetailData.goodsList">
+                <div style="overflow: hidden;">
+                    <img ng-src="{{skuImage[$index] | imgPath:'480' }}"
+                         style="height: 80px;float: left;margin-right: 10px;" class="bordered">
+                    <div style="">
+                        <div class="max-line-1" style="font-size:15px;">{{good.goodsName}}</div>
+                        <div style="margin-top: 10px">
+                            <span style="font-size: 14px;" ng-if="skuPriceActivityPrice[$index] != null">¥{{skuPriceActivityPrice[$index]}}</span>
+                            <span style="font-size: 14px;" ng-if="skuPriceActivityPrice[$index] == null">¥{{skuPrice[$index]}}</span>
+                            <span ng-if="skuPriceActivityPrice[$index] != null"
+                                  style="display:inline-block; margin-left:5px;font-size: 12px;text-decoration: line-through">¥{{skuPrice[$index]}}</span>
+                        </div>
+                        <div style="margin-top: 10px">
+                            <span class="storeCount" style="font-size: 14px;"
+                                  ng-if="newCount[$index] == null || newCount[$index] <= 0 ">无货</span>
+                            <span class="storeCount" style="font-size: 14px;" ng-if="newCount[$index] != null && newCount[$index]  > 0 ">有货</span>
+                            <!--<span class="storeCount" style="font-size: 14px;" ng-if="newCount[$index] != null && newCount[$index]  > 0 ">有货{{newCount[$index]}}件</span>-->
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:5px">
+                    <div style="font-size: 14px;">颜色</div>
+                    <div style="overflow: hidden;text-align: center;padding: 5px">
+                        <div ng-repeat="color in good.colorList" style="width: 20%;float: left;padding: 5px">
+                            <div style="padding: 4px 0px;font-size: 12px;"
+                                 class="bordered"
+                                 ng-click="setColor($parent.$index,color.key)"
+                                 ng-class="getColorClass($parent.$index,color.key)">
+                                {{color.value}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 5px">
+                    <div style="font-size: 14px;">尺码</div>
+                    <div style="overflow: hidden;text-align: center;padding: 5px">
+                        <div ng-repeat="size in good.sizeList" style="font-size: 12px;width: 20%;float: left;padding: 5px;">
+                            <div style="padding: 4px 0px"
+                                 ng-click="setSize($parent.$index,size.key)"
+                                 class="bordered"
+                                 ng-class="getSizeClass($parent.$index,size.key)">
+                                {{size.value | sizeFilter2}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div style="padding: 5px;overflow: hidden">
+            <div style="font-size: 14px;float: left;height: 25px;line-height: 25px">数量</div>
+            <div style="float: left;margin-left: 10px">
+                <input type="text" ng-Update-Input ng-model="selectedCount.value" class="bagNumSpinner noCheck" disabled/>
+            </div>
+        </div>
+        <div style="padding: 0 10px">
+            <!--<button ng-if="isHasStore == '0' " class="button button-block button-dark button-small"-->
+                    <!--style="border-radius: 0;" disabled>确定-->
+            <!--</button>-->
+            <!--<button ng-if="isHasStore != '0' " class="button button-block button-dark button-small"-->
+                    <!--style="border-radius: 0;" ng-click="confirmPopover()">确定-->
+            <!--</button>-->
+            <button  class="button button-block button-dark button-small"
+                    style="border-radius: 0;font-size: 16px;" ng-click="confirmPopover()">确定
+            </button>
+        </div>
+    </ion-content>
+</ion-popover-view>

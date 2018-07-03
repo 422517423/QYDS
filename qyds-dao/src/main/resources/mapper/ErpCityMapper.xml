@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpCityMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpCity" >
+    <id column="ccode" property="ccode" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="pcode" property="pcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ccode, cname, pname, pcode
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_city
+    where ccode = #{ccode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_city
+    where ccode = #{ccode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpCity" >
+    insert into public.erp_city (ccode, cname, pname, 
+      pcode)
+    values (#{ccode,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, 
+      #{pcode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpCity" >
+    insert into public.erp_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ccode != null" >
+        ccode,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="pcode != null" >
+        pcode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ccode != null" >
+        #{ccode,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="pcode != null" >
+        #{pcode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpCity" >
+    update public.erp_city
+    <set >
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="pcode != null" >
+        pcode = #{pcode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ccode = #{ccode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpCity" >
+    update public.erp_city
+    set cname = #{cname,jdbcType=VARCHAR},
+      pname = #{pname,jdbcType=VARCHAR},
+      pcode = #{pcode,jdbcType=VARCHAR}
+    where ccode = #{ccode,jdbcType=VARCHAR}
+  </update>
+</mapper>

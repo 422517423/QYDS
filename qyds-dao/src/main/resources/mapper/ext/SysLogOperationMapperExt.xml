@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysLogOperationMapperExt" >
+  <resultMap id="SysLogOperationResultMapExt" type="net.dlyt.qyds.common.dto.SysLogOperation" >
+    <id column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_ip" property="userIp" jdbcType="VARCHAR" />
+    <result column="operate" property="operate" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="module" property="module" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="mac_addr" property="macAddr" jdbcType="VARCHAR" />
+    <result column="time_cost" property="timeCost" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seq, user_id, user_ip, operate, url, start_time, end_time, module, description, mac_addr, 
+    time_cost
+  </sql>
+
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.SysLogOperation" >
+    insert into public.sys_log_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        seq,
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userIp != null" >
+        user_ip,
+      </if>
+      <if test="operate != null" >
+        operate,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="macAddr != null" >
+        mac_addr,
+      </if>
+      <if test="timeCost != null" >
+        time_cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      nextval('sys_log_operation_seq_seq'),
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="operate != null" >
+        #{operate,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddr != null" >
+        #{macAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="timeCost != null" >
+        #{timeCost,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

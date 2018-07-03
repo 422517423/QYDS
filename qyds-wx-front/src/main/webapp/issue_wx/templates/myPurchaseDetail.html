@@ -1,0 +1,238 @@
+<ion-view style="background-color:#efefef">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<div class="h1 title" style="font-size:24px;">登录</div>-->
+    <!--<button class="button no-animation button-icon icon ion-close-round" ng-click="goBack()"></button>-->
+    <!--</ion-header-bar>-->
+    <ion-content class="">
+        <div style="background-color:#ffffff;margin:15px 0px 8px 0px;padding:0px">
+            <div class="row" style="padding:0;font-size:15px;height:30px;padding-top:10px;">
+                <div class="col col-33" ng-click="selectTab(0)" style="padding:5px 0;position:relative;">
+                    <div class="divider_gray" style="width:45%;float:right"></div>
+                    <i class="icon ion-record placeholder-icon" style="top:0px;left:50%;font-size:5px;color:#0668a2;position:absolute;"></i>
+                </div>
+                <div class="col col-33" ng-click="selectTab(1)" style="padding:5px 0;position:relative;">
+                    <div class="divider_gray"></div>
+                    <i class="icon ion-record placeholder-icon" style="top:0px;left:50%;font-size:5px;color:#0668a2;position:absolute;"></i>
+                </div>
+                <div class="col col-33" ng-click="selectTab(3)" style="padding:5px 0;position:relative;">
+                    <div class="divider_gray" style="width:50%;float:left"></div>
+                    <i class="icon ion-record placeholder-icon" style="top:0px;right:50%;font-size:5px;color: #ee771b;position:absolute;"></i>
+                </div>
+            </div>
+            <div class="row" style="padding:0 10px;font-size:16px;">
+                <div class="col col-33" ng-click="selectTab(0)" style="padding:5px 0;text-align:center;">
+                    未审核
+                </div>
+                <div class="col col-34" ng-click="selectTab(1)" style="padding:5px 0 0 15px;text-align:center;">
+                    已审核
+                </div>
+                <div class="col col-33" ng-click="selectTab(3)" style="padding:5px 0;text-align:center;">
+                    执行中
+                </div>
+            </div>
+        </div>
+        <div class="" style="padding:20px 15px;color:#000000;">
+            <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;">
+                <div class="row" style="border-bottom:1px solid #efefef;">
+                    <div class="col col-center" style="position:relative;">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="font-size:20px;"></i>
+                        <span style="display:inline-block;margin-left:5px;position:absolute;top:6px; font-size:20px;">详细信息</span>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:10px;color:#5f8ebd;font-size:20px;">基本信息</div>
+                <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col col-50 col-center" style="padding:5px 0">
+                        <span style="display:inline-block;font-size:16px;margin-top:2px;">分类：{{myPurchaseDetailInfo.name}}</span>
+                    </div>
+                    <div class="col col-50 col-center" style="padding:5px 0">
+                        <span style="display:inline-block;font-size:16px;margin-top:2px;">期望价格：500-600元</span>
+                    </div>
+                </div>
+                <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col col-50 col-center" style="padding:5px 0">
+                        <span style="display:inline-block;font-size:16px;margin-top:2px;">交割地：<span style="color:#f0822f;">大唐</span></span>
+                    </div>
+                    <div class="col col-50 col-center" style="padding:5px 0">
+                        <span style="display:inline-block;font-size:16px;margin-top:2px;">数量：<span style="color:#f0822f;">100，000</span>&nbsp;吨</span>
+                    </div>
+                </div>
+                <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col col-50 col-center" style="padding:5px 0">
+                        <span style="display:inline-block;font-size:16px;margin-top:2px;">截止时间：<span style="color:#f0822f;">2017-02-22</span></span>
+                    </div>
+                    <div class="col col-50 col-center" style="padding:5px 0">
+
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:10px;color:#5f8ebd;font-size:20px;">采购指标</div>
+                <div ng-if="myPurchaseDetailInfo.type==0">
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">发热量</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">全水份</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">灰份</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">全硫份</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">挥发份</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">5800</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">13.00</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">16.00</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">1.00</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">30.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="myPurchaseDetailInfo.type==1">
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">G值</span>
+                        </div>
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">Y值</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">灰份</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">全硫份</span>
+                        </div>
+                        <div class="col col-30 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">低位发热量</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">85</span>
+                        </div>
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">16</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">12.00</span>
+                        </div>
+                        <div class="col col-20 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">2.250</span>
+                        </div>
+                        <div class="col col-30 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">--</span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="myPurchaseDetailInfo.type==2">
+                    <div class="row row-center" style="padding:6px 5px;height:42px;">
+                        <div class="col col-30 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">焦炭反应性</span>
+                        </div>
+                        <div class="col col-30 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">反应后强度</span>
+                        </div>
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">M40</span>
+                        </div>
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">M25</span>
+                        </div>
+                        <div class="col col-10 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">M10</span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                        <div class="col col-30 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">30.00</span>
+                        </div>
+                        <div class="col col-30 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">60.00</span>
+                        </div>
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">1.00</span>
+                        </div>
+                        <div class="col col-15 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">1.00</span>
+                        </div>
+                        <div class="col col-10 col-center" style="text-align:center;">
+                            <span style="display:inline-block;font-size:16px;margin-top:2px;">1.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="myPurchaseDetailInfo.status == 1 || myPurchaseDetailInfo.status == 3 || myPurchaseDetailInfo.status == 4" style="text-align:right;padding:10px 0;font-size:16px;color:#a9a9a9;">2017-02-15 11：16 已有<span style="color:#f0822f;">5</span>家报价</div>
+            </div>
+
+            <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;margin-top:15px;" ng-if="myPurchaseDetailInfo.status == 3 || myPurchaseDetailInfo.status == 4">
+                <div class="row" style="border-bottom:1px solid #efefef;">
+                    <div class="col col-center" style="position:relative;">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="font-size:20px;"></i>
+                        <span style="display:inline-block;margin-left:5px;position:absolute;top:6px; font-size:20px;">供应信息</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;color:#5f8ebd;">
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:18px;">公司名称</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:18px;">供应价格</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:18px;">供应数量</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">山东分公司</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">550</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">20,000</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">广东分公司</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">540</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">60,000</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">天津分公司</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">520</span>
+                    </div>
+                    <div class="col-33 col-center" style="text-align: center;">
+                        <span style="font-size:16px;">20,000</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--<button ng-click="onPublish()" class="button button-block" style="margin-top:20px;color:#ffffff;background-color:#066BA2;">-->
+            <!--返回-->
+            <!--</button>-->
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,73 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">收货地址管理</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-gray'>
+        <div ng-if="addressList.length==0" class="vertical-align">
+            <div class="row" style="margin-top:15%">
+                <div class="col col-10"></div>
+                <div class="col">
+                    <img src="./image/empty.png" width="100%">
+                </div>
+                <div class="col col-10"></div>
+            </div>
+            <div class="row">
+                <div class="col col-10"></div>
+                <div class="col" style="text-align:center;font-size:18px;">
+                    您还没有收货地址哦!
+                </div>
+                <div class="col col-10"></div>
+            </div>
+            <div class="row">
+                <div class="col col-30"></div>
+                <div class="col" style="text-align:center;font-size:18px;">
+                    <button class="button button-block button-dark" ng-click="addAddress()">
+                        新建地址
+                    </button>
+                </div>
+                <div class="col col-30"></div>
+            </div>
+        </div>
+        <div ng-if="addressList && addressList.length!=0">
+        <div ng-repeat="address in addressList" class="item item-text-wrap" style="margin-top:15px;padding:0;">
+            <div class="row padding">
+                <div style="margin-top:5px;">
+                    <span style="font-size:17px;">{{address.contactor}}</span>
+                    <span style="display:inline-block;margin-left:5px;font-size:13px;">({{address.phone}})</span>
+                </div>
+            </div>
+            <div class="row padding">
+                <div style="font-size:13px;margin-top:5px;">{{address.address}}</div>
+            </div>
+
+            <div class="bg-gray" style="height:1px; margin-left: 8px; margin-right: 8px"></div>
+
+            <div class="row " style="margin-top: 5px; margin-left: 8px; margin-right: 8px">
+                <div class="col text-left" ng-if="address.isDefault != 0">
+                    <i class="icon ion-ios-circle-outline placeholder-icon" style="font-size:16px;float: left"
+                       ng-click="changeDefault(address.addressId)"><span style="font-size: 13px">&nbsp;设为默认</span></i>
+                </div>
+                <div class="col text-left" ng-if="address.isDefault == 0">
+                    <i class="icon ion-ios-checkmark-outline placeholder-icon assertive"
+                       style="font-size:16px;float: left"><span style="font-size: 13px">&nbsp;默认地址</span></i>
+                </div>
+                <div class="col text-right">
+                    <i class="icon ion-ios-compose-outline placeholder-icon" style="font-size:16px;float: right"
+                       ng-click="modifyAddress(address.addressId)"><span style="font-size: 13px">&nbsp;编辑</span></i>
+                </div>
+                <div class="col text-right">
+                    <i class="icon ion-ios-trash-outline placeholder-icon" style="font-size:16px;float: right"
+                       ng-click="deleteAddress(address.addressId)"><span style="font-size: 13px">&nbsp;删除</span></i>
+                </div>
+            </div>
+        </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar ng-if="addressList && addressList.length!=0" class="bar-light" style="margin:0;padding:0 10px;">
+        <button style="font-size:17px;margin: 5px 0px" class="button button-block button-dark" ng-click="addAddress()">
+            添加收货地址
+        </button>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.PrizeDrawMapperExt" >
+    <resultMap id="BaseResultMapExt" type="net.dlyt.qyds.common.dto.ext.PrizeDrawExt" >
+        <id column="prize_draw_id" property="prizeDrawId" jdbcType="VARCHAR" />
+        <result column="prize_draw_name" property="prizeDrawName" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="draw_type" property="drawType" jdbcType="VARCHAR" />
+        <result column="can_repeat_win" property="canRepeatWin" jdbcType="VARCHAR" />
+        <result column="comment" property="comment" jdbcType="VARCHAR" />
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.PrizeDraw" >
+        <id column="prize_draw_id" property="prizeDrawId" jdbcType="VARCHAR" />
+        <result column="prize_draw_name" property="prizeDrawName" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="draw_type" property="drawType" jdbcType="VARCHAR" />
+        <result column="can_repeat_win" property="canRepeatWin" jdbcType="VARCHAR" />
+        <result column="comment" property="comment" jdbcType="VARCHAR" />
+        <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        prize_draw_id, prize_draw_name, start_time, end_time, draw_type, can_repeat_win,
+        comment, is_valid, deleted, update_user_id, update_time, insert_user_id, insert_time
+    </sql>
+    <select id="select" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawExt">
+        select
+        <include refid="Base_Column_List" />
+        from prize_draw pd
+        <if test="_parameter != null">
+            <where>
+                <if test="prizeDrawName!=null and prizeDrawName!='' ">
+                    pd.prize_draw_name LIKE CONCAT('%', #{prizeDrawName},'%')
+                </if>
+                <if test="isValid!= null and isValid!= '' ">
+                    AND pd.is_valid = #{isValid}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND pd.deleted = #{deleted}
+                </if>
+            </where>
+        </if>
+        order by pd.is_valid desc,pd.insert_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPrizeList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawExt">
+        select pd.prize_draw_id, pd.prize_draw_name, pd.start_time, pd.end_time, pd.draw_type, pd.can_repeat_win,
+        pd.comment, pd.is_valid, pd.deleted, pd.update_user_id, pd.update_time, pd.insert_user_id, pd.insert_time
+        from prize_draw pd
+        inner join prize_draw_config pdc on pdc.prize_draw_id = pd.prize_draw_id
+        where pd.is_valid = '1' and pd.deleted = '0'
+        <if test="startTime!=null ">
+        and #{startTime,jdbcType=TIMESTAMP} > pd.start_time
+        </if>
+        <if test="endTime!=null ">
+        and pd.end_time > #{endTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="isLogin!=null and isLogin!='' ">
+            and pdc.is_login = #{isLogin}
+        </if>
+        <if test="isOrder!=null and isOrder!='' ">
+            and pdc.is_order = #{isOrder}
+        </if>
+        <if test="orderAmount!=null and orderAmount!='' ">
+            and #{orderAmount} >= pdc.order_amount
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ext.PrizeDrawExt">
+        select count(1)
+        from prize_draw pd
+        <if test="_parameter != null">
+            <where>
+                <if test="prizeDrawName!=null and prizeDrawName!='' ">
+                    pd.prize_draw_name LIKE CONCAT('%', #{prizeDrawName},'%')
+                </if>
+                <if test="isValid!= null and isValid!= '' ">
+                    AND pd.is_valid = #{isValid}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND pd.deleted = #{deleted}
+                </if>
+            </where>
+        </if>
+    </select>
+    <select id="checkExistByPrizeDrawName" resultType="java.lang.Integer"
+            parameterType="java.lang.String">
+        SELECT count(*)
+        FROM prize_draw pd
+        WHERE pd.prize_draw_name = #{prizeDrawName} AND pd.deleted = '0'
+    </select>
+</mapper>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Maven: com.alibaba:tools:RELEASE">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://D:/maven/localware/com/alibaba/tools/RELEASE/tools-RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven/localware/com/alibaba/tools/RELEASE/tools-RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdEvaluateMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdEvaluate" >
+    <id column="evaluate_id" property="evaluateId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="score_json" property="scoreJson" jdbcType="VARCHAR" />
+    <result column="score_all" property="scoreAll" jdbcType="NUMERIC" />
+    <result column="score_service" property="scoreService" jdbcType="NUMERIC" />
+    <result column="score_quality" property="scoreQuality" jdbcType="NUMERIC" />
+    <result column="score_delivery" property="scoreDelivery" jdbcType="NUMERIC" />
+    <result column="score_speed" property="scoreSpeed" jdbcType="NUMERIC" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="TIMESTAMP" />
+    <result column="answer_content" property="answerContent" jdbcType="VARCHAR" />
+    <result column="answer_user_id" property="answerUserId" jdbcType="VARCHAR" />
+    <result column="answer_time" property="answerTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    evaluate_id, type, member_id, order_id, score_json, score_all, score_service, score_quality, 
+    score_delivery, score_speed, content, evaluate_time, answer_content, answer_user_id, 
+    answer_time, deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdEvaluate" >
+    insert into public.ord_evaluate (evaluate_id, type, member_id, 
+      order_id, score_json, score_all, 
+      score_service, score_quality, score_delivery, 
+      score_speed, content, evaluate_time, 
+      answer_content, answer_user_id, answer_time, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time)
+    values (#{evaluateId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR}, #{scoreJson,jdbcType=VARCHAR}, #{scoreAll,jdbcType=NUMERIC}, 
+      #{scoreService,jdbcType=NUMERIC}, #{scoreQuality,jdbcType=NUMERIC}, #{scoreDelivery,jdbcType=NUMERIC}, 
+      #{scoreSpeed,jdbcType=NUMERIC}, #{content,jdbcType=VARCHAR}, #{evaluateTime,jdbcType=TIMESTAMP}, 
+      #{answerContent,jdbcType=VARCHAR}, #{answerUserId,jdbcType=VARCHAR}, #{answerTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdEvaluate" >
+    insert into public.ord_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        evaluate_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="scoreJson != null" >
+        score_json,
+      </if>
+      <if test="scoreAll != null" >
+        score_all,
+      </if>
+      <if test="scoreService != null" >
+        score_service,
+      </if>
+      <if test="scoreQuality != null" >
+        score_quality,
+      </if>
+      <if test="scoreDelivery != null" >
+        score_delivery,
+      </if>
+      <if test="scoreSpeed != null" >
+        score_speed,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time,
+      </if>
+      <if test="answerContent != null" >
+        answer_content,
+      </if>
+      <if test="answerUserId != null" >
+        answer_user_id,
+      </if>
+      <if test="answerTime != null" >
+        answer_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        #{evaluateId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreJson != null" >
+        #{scoreJson,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreAll != null" >
+        #{scoreAll,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreService != null" >
+        #{scoreService,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreQuality != null" >
+        #{scoreQuality,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreDelivery != null" >
+        #{scoreDelivery,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreSpeed != null" >
+        #{scoreSpeed,jdbcType=NUMERIC},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerContent != null" >
+        #{answerContent,jdbcType=VARCHAR},
+      </if>
+      <if test="answerUserId != null" >
+        #{answerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTime != null" >
+        #{answerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdEvaluate" >
+    update public.ord_evaluate
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreJson != null" >
+        score_json = #{scoreJson,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreAll != null" >
+        score_all = #{scoreAll,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreService != null" >
+        score_service = #{scoreService,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreQuality != null" >
+        score_quality = #{scoreQuality,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreDelivery != null" >
+        score_delivery = #{scoreDelivery,jdbcType=NUMERIC},
+      </if>
+      <if test="scoreSpeed != null" >
+        score_speed = #{scoreSpeed,jdbcType=NUMERIC},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerContent != null" >
+        answer_content = #{answerContent,jdbcType=VARCHAR},
+      </if>
+      <if test="answerUserId != null" >
+        answer_user_id = #{answerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTime != null" >
+        answer_time = #{answerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdEvaluate" >
+    update public.ord_evaluate
+    set type = #{type,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      score_json = #{scoreJson,jdbcType=VARCHAR},
+      score_all = #{scoreAll,jdbcType=NUMERIC},
+      score_service = #{scoreService,jdbcType=NUMERIC},
+      score_quality = #{scoreQuality,jdbcType=NUMERIC},
+      score_delivery = #{scoreDelivery,jdbcType=NUMERIC},
+      score_speed = #{scoreSpeed,jdbcType=NUMERIC},
+      content = #{content,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      answer_content = #{answerContent,jdbcType=VARCHAR},
+      answer_user_id = #{answerUserId,jdbcType=VARCHAR},
+      answer_time = #{answerTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </update>
+</mapper>

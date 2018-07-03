@@ -1,0 +1,141 @@
+<!-- 商品分类编辑画面 start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- 标题 & 面包屑-->
+                    <h3 class="page-title">
+                        商品分类详细画面
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="#">商品分类管理</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#" onclick="gotoListPage();">商品分类</a><i class="icon-angle-right"></i></li>
+                        <li><a href="#">分类详细</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption">分类详细</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <form id="gds_type_form" class="form-horizontal validator">
+                                <input type="hidden" value="" name="goods_type_id" id="goods_type_id" />
+                                <div class="col-md-12">
+                                    <div class="form-body">
+                                        <div class="form-group" id="parent_div">
+                                            <label  class="col-md-2 control-label">上级分类名称</label>
+                                            <div class="col-md-4">
+                                               <input type="text" id="goods_type_id_parent_name" name="goods_type_id_parent_name" data-required="1" class="form-control">
+                                               <input type="text" id="goods_type_id_parent" hidden>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">商品分类类型<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <select type="text" id="type" name="type" disabled class="form-control">
+                                                    <option value="0"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">商品分类代码<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="goods_type_code" name="goods_type_code" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-2 control-label">ERP款号编码<span class="required">*</span></label>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input type="text" id="erp_style_no" name="erp_style_no" data-required="1" class="form-control">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">英文名称<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="goods_type_name_en" name="goods_type_name_en" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">中文名称<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="goods_type_name_cn" name="goods_type_name_cn" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-2 control-label">英文全称<span class="required">*</span></label>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input type="text" id="goods_type_full_name_en" name="goods_type_full_name_en" data-required="1" class="form-control">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-2 control-label">中文全称<span class="required">*</span></label>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input type="text" id="goods_type_full_name_cn" name="goods_type_full_name_cn" data-required="1" class="form-control">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-2 control-label">属性定义</label>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<li class="icon-plus-sign" style="margin-top: 10px;"></li>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!-- 规格型号 克隆用 -->
+                                        <div class="form-group" id="property_group" style="display: none">
+                                            <label  class="col-md-2 control-label">规格参数</label>
+                                            <div class="col-md-3">
+                                                <input type="text" data-required="1" class="form-control specification">
+                                            </div>
+
+                                            <label  class="col-md-2 control-label">规格参数值</label>
+                                            <div class="col-md-3">
+                                                <input type="text" data-required="1" class="form-control specification_value">
+                                            </div>
+
+                                            <li class="col-md-2 icon-remove" onclick="removeSpecification(this);" style="margin-top: 10px;"></li>
+                                        </div>
+                                        <!-- 规格型号 克隆用 -->
+
+                                        <div id="property_define">
+
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">分类LOGO<span class="required">*</span></label>
+                                            <div class="col-md-8">
+                                                <img id="logo_img" style="width:80px;height:80px;border: 1px solid #d4d4d4" src=""/>
+                                                <input type="file" id="logo_img_file" style="display: none">
+                                                <input type="text" id="image_url" hidden>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">分类介绍</label>
+                                            <div class="col-md-8">
+                                                <script id="introduce" type="text/plain"></script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancel_btn" class="btn default" >取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+<!-- 商品分类编辑画面 end -->
+<script src="../page/gds_type/edit.js"></script>

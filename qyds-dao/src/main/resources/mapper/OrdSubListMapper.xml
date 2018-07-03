@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdSubListMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdSubList" >
+    <id column="sub_order_id" property="subOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="detail_id" property="detailId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="deliver_status" property="deliverStatus" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliverTime" jdbcType="TIMESTAMP" />
+    <result column="express_id" property="expressId" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="deliver_type" property="deliverType" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_delivery_id" property="storeDeliveryId" jdbcType="VARCHAR" />
+    <result column="store_delivery_name" property="storeDeliveryName" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR" />
+    <result column="dispatch_status" property="dispatchStatus" jdbcType="VARCHAR" />
+    <result column="dispatch_store" property="dispatchStore" jdbcType="VARCHAR" />
+    <result column="price_share" property="priceShare" jdbcType="NUMERIC" />
+    <result column="up_seasoning" property="upSeasoning" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sub_order_id, order_id, detail_id, type, goods_id, goods_code, goods_name, sku, colore_code, 
+    colore_name, size_code, size_name, erp_sku, erp_style_no, erp_colore_code, erp_colore_name, 
+    erp_size_code, erp_size_name, price, action_id, action_name, price_discount, quantity, 
+    amount, amount_discount, deliver_status, deliver_time, express_id, express_name, 
+    express_no, deliver_type, erp_store_id, store_name, store_phone, store_delivery_id, 
+    store_delivery_name, deleted, update_user_id, update_time, insert_user_id, insert_time, 
+    sku_id, dispatch_status, dispatch_store, price_share, up_seasoning
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_sub_list
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_sub_list
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    insert into public.ord_sub_list (sub_order_id, order_id, detail_id, 
+      type, goods_id, goods_code, 
+      goods_name, sku, colore_code, 
+      colore_name, size_code, size_name, 
+      erp_sku, erp_style_no, erp_colore_code, 
+      erp_colore_name, erp_size_code, erp_size_name, 
+      price, action_id, action_name, 
+      price_discount, quantity, amount, 
+      amount_discount, deliver_status, deliver_time, 
+      express_id, express_name, express_no, 
+      deliver_type, erp_store_id, store_name, 
+      store_phone, store_delivery_id, store_delivery_name, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time, sku_id, 
+      dispatch_status, dispatch_store, price_share, 
+      up_seasoning)
+    values (#{subOrderId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{detailId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, 
+      #{goodsName,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{coloreCode,jdbcType=VARCHAR}, 
+      #{coloreName,jdbcType=VARCHAR}, #{sizeCode,jdbcType=VARCHAR}, #{sizeName,jdbcType=VARCHAR}, 
+      #{erpSku,jdbcType=VARCHAR}, #{erpStyleNo,jdbcType=VARCHAR}, #{erpColoreCode,jdbcType=VARCHAR}, 
+      #{erpColoreName,jdbcType=VARCHAR}, #{erpSizeCode,jdbcType=VARCHAR}, #{erpSizeName,jdbcType=VARCHAR}, 
+      #{price,jdbcType=NUMERIC}, #{actionId,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR}, 
+      #{priceDiscount,jdbcType=NUMERIC}, #{quantity,jdbcType=INTEGER}, #{amount,jdbcType=NUMERIC}, 
+      #{amountDiscount,jdbcType=NUMERIC}, #{deliverStatus,jdbcType=VARCHAR}, #{deliverTime,jdbcType=TIMESTAMP}, 
+      #{expressId,jdbcType=VARCHAR}, #{expressName,jdbcType=VARCHAR}, #{expressNo,jdbcType=VARCHAR}, 
+      #{deliverType,jdbcType=VARCHAR}, #{erpStoreId,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{storePhone,jdbcType=VARCHAR}, #{storeDeliveryId,jdbcType=VARCHAR}, #{storeDeliveryName,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{skuId,jdbcType=VARCHAR}, 
+      #{dispatchStatus,jdbcType=VARCHAR}, #{dispatchStore,jdbcType=VARCHAR}, #{priceShare,jdbcType=NUMERIC}, 
+      #{upSeasoning,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    insert into public.ord_sub_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subOrderId != null" >
+        sub_order_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name,
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code,
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount,
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status,
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time,
+      </if>
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="expressName != null" >
+        express_name,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="deliverType != null" >
+        deliver_type,
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storePhone != null" >
+        store_phone,
+      </if>
+      <if test="storeDeliveryId != null" >
+        store_delivery_id,
+      </if>
+      <if test="storeDeliveryName != null" >
+        store_delivery_name,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="dispatchStatus != null" >
+        dispatch_status,
+      </if>
+      <if test="dispatchStore != null" >
+        dispatch_store,
+      </if>
+      <if test="priceShare != null" >
+        price_share,
+      </if>
+      <if test="upSeasoning != null" >
+        up_seasoning,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subOrderId != null" >
+        #{subOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceDiscount != null" >
+        #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="deliverStatus != null" >
+        #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressId != null" >
+        #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverType != null" >
+        #{deliverType,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryId != null" >
+        #{storeDeliveryId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryName != null" >
+        #{storeDeliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchStatus != null" >
+        #{dispatchStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchStore != null" >
+        #{dispatchStore,jdbcType=VARCHAR},
+      </if>
+      <if test="priceShare != null" >
+        #{priceShare,jdbcType=NUMERIC},
+      </if>
+      <if test="upSeasoning != null" >
+        #{upSeasoning,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    update public.ord_sub_list
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailId != null" >
+        detail_id = #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        sku = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        colore_code = #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        colore_name = #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        size_code = #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        size_name = #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        erp_sku = #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        action_id = #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount = #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressId != null" >
+        express_id = #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        express_name = #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverType != null" >
+        deliver_type = #{deliverType,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        store_phone = #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryId != null" >
+        store_delivery_id = #{storeDeliveryId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryName != null" >
+        store_delivery_name = #{storeDeliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchStatus != null" >
+        dispatch_status = #{dispatchStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchStore != null" >
+        dispatch_store = #{dispatchStore,jdbcType=VARCHAR},
+      </if>
+      <if test="priceShare != null" >
+        price_share = #{priceShare,jdbcType=NUMERIC},
+      </if>
+      <if test="upSeasoning != null" >
+        up_seasoning = #{upSeasoning,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    update public.ord_sub_list
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      detail_id = #{detailId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      sku = #{sku,jdbcType=VARCHAR},
+      colore_code = #{coloreCode,jdbcType=VARCHAR},
+      colore_name = #{coloreName,jdbcType=VARCHAR},
+      size_code = #{sizeCode,jdbcType=VARCHAR},
+      size_name = #{sizeName,jdbcType=VARCHAR},
+      erp_sku = #{erpSku,jdbcType=VARCHAR},
+      erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      erp_colore_code = #{erpColoreCode,jdbcType=VARCHAR},
+      erp_colore_name = #{erpColoreName,jdbcType=VARCHAR},
+      erp_size_code = #{erpSizeCode,jdbcType=VARCHAR},
+      erp_size_name = #{erpSizeName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=NUMERIC},
+      action_id = #{actionId,jdbcType=VARCHAR},
+      action_name = #{actionName,jdbcType=VARCHAR},
+      price_discount = #{priceDiscount,jdbcType=NUMERIC},
+      quantity = #{quantity,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=NUMERIC},
+      amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+      deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+      express_id = #{expressId,jdbcType=VARCHAR},
+      express_name = #{expressName,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      deliver_type = #{deliverType,jdbcType=VARCHAR},
+      erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      store_phone = #{storePhone,jdbcType=VARCHAR},
+      store_delivery_id = #{storeDeliveryId,jdbcType=VARCHAR},
+      store_delivery_name = #{storeDeliveryName,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      sku_id = #{skuId,jdbcType=VARCHAR},
+      dispatch_status = #{dispatchStatus,jdbcType=VARCHAR},
+      dispatch_store = #{dispatchStore,jdbcType=VARCHAR},
+      price_share = #{priceShare,jdbcType=NUMERIC},
+      up_seasoning = #{upSeasoning,jdbcType=VARCHAR}
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

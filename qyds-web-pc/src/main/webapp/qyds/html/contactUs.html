@@ -1,0 +1,131 @@
+<div class="container-fluid contactUs  col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px">
+            <h4>联系我们</h4>
+        </div>
+    </div>
+    <form role="form" name="contactUsForm" ng-class="{'have-error':contactUsForm.$invalid && submitted}"
+          class="form-horizontal" novalidate style="font-size: 12px;">
+
+        <div class="row" style="margin-top: 8px">
+            <div class="col-xs-12">电话:</div>
+            <div class="col-xs-12">400-105-3030</div>
+        </div>
+
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">400电话服务时间:</div>
+            <div class="col-xs-12">周一 至 周日： 09:00-17:30</div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">微信客服:</div>
+            <div class="col-xs-12"><img src="images/weChart.jpg" style="width: 160px;height: 160px;"></div>
+
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">微信客服服务时间:</div>
+            <div class="col-xs-12">周一 至 周日： 09:00-23:00</div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">电子邮件:</div>
+            <div class="col-xs-12">contact-us@dealuna.com</div>
+        </div>
+        <!--<div class="row" style="margin-top:20px;">-->
+        <!--<div class="col-xs-12">说明:</div>-->
+        <!--<div class="col-xs-12">当地的客服团队随时准备为您提供服务！如您对我们的产品或退换货有任何问题，请立即给我们致电或发送电子邮件。</div>-->
+        <!--</div>-->
+        <!--<div class="row" style="margin-top:20px;">-->
+        <!--<div class="col-xs-12">选择办事处:</div>-->
+        <!--<div class="col-xs-12">-->
+        <!--<select class="form-control" style="height:25px;" ng-model="contactUsInfo.area" id="selectArea">-->
+        <!--<option ng-repeat="area in areaList" value="{{area}}"-->
+        <!--ng-selected="contactUsInfo.area == area">{{area}}-->
+        <!--</option>-->
+        <!--</select>-->
+        <!--</div>-->
+
+        <!--</div>-->
+        <div class="row" style="margin-top:15px;">
+            <div class="col-xs-12">选择主题:</div>
+            <div class="col-xs-12 col-sm-5">
+                    <select class="form-control" style="padding:0!important;margin:0!important;"
+                            ng-model="contactUsInfo.topic" id="selectTopic">
+                        <option ng-repeat="topic in topicList" value="{{topic}}"
+                                ng-selected="contactUsInfo.topic == topic">{{topic}}
+                        </option>
+                    </select>
+                </div>
+        </div>
+        <div class="row visible-xs" style="margin-top:15px;">
+            <div class="col-xs-12">添加问题:</div>
+            <div class="col-xs-12 col-sm-5">
+                    <textarea placeholder="请在此描述详细问题(最多300字)" cols=30 rows=10 maxlength="300" name="comment"
+                              style="margin:10px 0px;resize:none;outline: none;border-color: #dddddd;padding: 10px;width: 100%"
+                              ng-Update-Input ng-model="contactUsInfo.comment" required></textarea>
+                </div>
+            <div class="col-xs-12 error_msg" ng-show="contactUsForm.comment.$error.required && submitted">
+                问题描述未填写
+            </div>
+        </div>
+        <div class="row hidden-xs" style="margin-top:15px;">
+            <div class="col-xs-12">添加问题:</div>
+            <div class="col-xs-12 col-sm-5">
+                    <textarea placeholder="请在此描述详细问题(最多300字)" cols=50 rows=6 maxlength="300" id="comment" name="comment"
+                              style="margin:10px 0px;resize:none;outline: none;border-color: #dddddd;padding: 10px;width: 100%"
+                              ng-Update-Input ng-model="contactUsInfo.comment" required></textarea>
+                </div>
+            <div class="col-xs-12 error_msg" ng-show="contactUsForm.comment.$error.required && submitted">
+                问题描述未填写
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:15px;">
+            <div class="col-xs-12">请输入您的姓名:</div>
+            <div class="col-xs-12 col-sm-5">
+                    <input type="text" class="form-control" style="div;" id="name" name="name"
+                           ng-model="contactUsInfo.name"
+                           required
+                           maxlength="20">
+                </div>
+            <div class="col-xs-12 error_msg" ng-show="contactUsForm.name.$error.required && submitted">
+                姓名未填写
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">请输入您的电子邮件地址:</div>
+            <div class="col-xs-12 col-sm-5">
+                    <input type="text" style="div" class="form-control" id="mail" name="mail"
+                           ng-model="contactUsInfo.mail" ng-pattern="/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/"
+                           required
+                           maxlength="100">
+                </div>
+            <div class="col-xs-12 error_msg" ng-show="contactUsForm.mail.$error.required && submitted">
+                电子邮件未填写
+            </div>
+            <div class="col-xs-12 error_msg" ng-show="contactUsForm.mail.$error.pattern && submitted">
+                邮箱格式不正确
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px;">
+            <div class="col-xs-12">请输入您的手机号码:</div>
+            <div class="col-xs-12 col-sm-5">
+                    <input type="text" class="form-control" id="phone" name="phone"
+                           ng-model="contactUsInfo.phone"
+                           ng-pattern="/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/"
+                           required
+                           maxlength="11" >
+                </div>
+            <div class="col-xs-12 error_msg" ng-show="contactUsForm.phone.$error.required && submitted">
+                手机号码未填写
+            </div>
+            <div class="col-xs-12 error_msg"
+                 ng-show="contactUsForm.phone.$error.pattern && submitted">
+                手机号码格式不正确
+            </div>
+        </div>
+        <div class="row" style="margin-top:15px;margin-bottom: 15px;">
+            <button type="submit" class="btn btn-default btn-small hvr-outline-out-dark" style="margin-left:16px;"
+                    ng-click="save(contactUsForm.$valid);">保存
+            </button>
+        </div>
+    </form>
+</div>

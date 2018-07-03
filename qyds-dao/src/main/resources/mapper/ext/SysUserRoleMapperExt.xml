@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysUserRoleMapperExt" >
+  <resultMap id="SysUserRoleResultMap" type="net.dlyt.qyds.common.dto.SysUserRole" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, role_id
+  </sql>
+  <delete id="deleteErpStorer" parameterType="java.lang.Integer" >
+    delete from sys_user_role
+    where user_id = (select user_id from sys_user where create_user='ERP' and is_valid='0')
+  </delete>
+</mapper>

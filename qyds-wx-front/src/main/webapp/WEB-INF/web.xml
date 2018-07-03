@@ -1,0 +1,83 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+          id="qyds-web-front" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+
+
+  <listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-wx-context.xml</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>contextClass</param-name>
+    <param-value>net.dlyt.qyds.web.context.PAMSXmlWebApplicationContext</param-value>
+  </context-param>
+
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+    <!--<filter>-->
+        <!--<filter-name>QYDSSecurityFilter</filter-name>-->
+        <!--<filter-class>net.dlyt.qyds.web.filter.QydsWxSecurityFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>localSessionTimeOut</param-name>&lt;!&ndash; [非必须配置]单位毫秒 ,如果不写则为30分钟 &ndash;&gt;-->
+            <!--<param-value>1800000</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>localSessionName</param-name>-->
+            <!--<param-value>USER_SESSION</param-value>&lt;!&ndash; [非必须配置]本地session存储用户信息的session key,如果不写则默认为USER_SESSION &ndash;&gt;-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>QYDSSecurityFilter</filter-name>-->
+        <!--<url-pattern>*.json</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!-- Declare a Spring MVC DispatcherServlet as usual -->
+    <servlet>
+        <servlet-name>SpringMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+                classpath:spring-wx-mvc.xml
+            </param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SpringMVC</servlet-name>
+        <url-pattern>*.json</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

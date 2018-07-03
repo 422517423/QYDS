@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpStoreMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.ErpStoreExt" >
+    <id column="store_code" property="storeCode" jdbcType="VARCHAR" />
+    <result column="store_name_en" property="storeNameEn" jdbcType="VARCHAR" />
+    <result column="store_name_cn" property="storeNameCn" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="bank_only" property="bankOnly" jdbcType="VARCHAR" />
+
+    <result column="shop_province" property="shopProvince" jdbcType="VARCHAR" />
+    <result column="shop_city" property="shopCity" jdbcType="VARCHAR" />
+    <result column="shop_district" property="shopDistrict" jdbcType="VARCHAR" />
+    <result column="shop_address" property="shopAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    store_code, store_name_en, store_name_cn, address, phone, comment, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time, province_code, city_code, district_code,
+    province_name, city_name, district_name, bank_only
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    store_code, store_name_en, store_name_cn,
+    address, phone, comment,
+    province_code, city_code, district_code,
+    province_name, city_name, district_name,
+    update_time,insert_time, bank_only_display bank_only
+    from view_erp_store
+    order by store_code
+  </select>
+  <delete id="deleteAll" parameterType="java.lang.String" >
+    delete from public.erp_store
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpStore" >
+    update public.erp_store
+    set store_name_en = #{storeNameEn,jdbcType=VARCHAR},
+      store_name_cn = #{storeNameCn,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      bank_only = #{bankOnly,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = now(),
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      storeid = #{storeid,jdbcType=VARCHAR},
+      storesubid = #{storesubid,jdbcType=VARCHAR},
+      mchid = #{mchid,jdbcType=VARCHAR}
+    where store_code = #{storeCode,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="ProvinceResultMap" type="net.dlyt.qyds.common.dto.ErpProvince">
+    <result column="pcode" property="pcode" jdbcType="VARCHAR"/>
+    <result column="pname" property="pname" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="queryAllProvince" resultMap="ProvinceResultMap">
+    select distinct ves.province_code pcode, ves.province_name pname
+    FROM public.view_erp_store ves
+    where ves.province_code is NOT  NULL and ves.bank_only = '0'
+    ORDER BY pcode
+  </select>
+
+  <resultMap id="CityResultMap" type="net.dlyt.qyds.common.dto.ErpCity">
+    <result column="ccode" property="ccode" jdbcType="VARCHAR"/>
+    <result column="cname" property="cname" jdbcType="VARCHAR"/>
+    <result column="pname" property="pname" jdbcType="VARCHAR"/>
+    <result column="pcode" property="pcode" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="queryCityOfProvince" resultMap="CityResultMap" parameterType="java.lang.String">
+    select distinct ves.province_code pcode, ves.province_name pname,
+          ves.city_code ccode, ves.city_name cname
+    FROM public.view_erp_store ves
+    where ves.province_code = #{provinceCode, jdbcType=VARCHAR}
+     and ves.city_code is NOT  NULL and ves.bank_only = '0'
+    ORDER BY ccode
+  </select>
+
+  <resultMap id="DistrictResultMap" type="net.dlyt.qyds.common.dto.ErpDistrict">
+    <result column="dcode" property="dcode" jdbcType="VARCHAR"/>
+    <result column="ccode" property="ccode" jdbcType="VARCHAR"/>
+    <result column="dname" property="dname" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="queryDistrictOfCity" resultMap="DistrictResultMap" parameterType="java.lang.String">
+     select distinct
+      ves.city_code ccode, ves.district_code dcode, ves.district_name dname
+    FROM public.view_erp_store ves
+    where ves.city_code = #{cityCode, jdbcType=VARCHAR}
+    and ves.district_code is NOT  NULL and ves.bank_only = '0'
+    ORDER BY dcode
+  </select>
+
+  <select id="selectByPrimaryKeyExt" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,ep.pname as shop_province ,ec.cname as shop_city ,ed.dname as shop_district,es.address as shop_address
+    from public.erp_store es
+    left join public.erp_province ep on es.province_code=ep.pcode
+    left join public.erp_city ec on es.city_code=ec.ccode
+    left join public.erp_district ed on es.district_name=ed.dcode
+    where store_code = #{storeCode,jdbcType=VARCHAR}
+  </select>
+</mapper>

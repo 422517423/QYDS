@@ -1,0 +1,56 @@
+<div class="modal fade" id="brand_select_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">选择品牌</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0px">
+                <div class="row">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="brand_select_name" class="col-sm-2 control-label">品牌名称</label>
+                            <div class="col-sm-3">
+                                <input id="brand_select_name" class="form-control"/>
+                            </div>
+                            <label for="brand_select_type" class="col-sm-2 control-label">品牌类型</label>
+                            <div class="col-sm-3">
+                                <select id="brand_select_type" data-rel="chosen" class="form-control">
+                                    <option value> 全部</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-success" id="brand_select_btn_search">查询
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表-->
+                <div class="row" style="padding: 0 15px">
+                    <!-- 列表项目-->
+                    <table class="table table-striped table-hover table-bordered"
+                           id="brand_select_table">
+                        <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>品牌类型</th>
+                            <th>品牌名称</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 0">
+                <div id="brand_select_tip" style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="brand_select_btn_confirm" class="btn blue">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../page/mmb_level_rule/brand_select.js"></script>
+

@@ -1,0 +1,157 @@
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            首页
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="index.html">首页</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">总览</a></li>
+
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS -->
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat blue" onclick="goDispatchPage()">
+            <div class="visual">
+                <i class="icon-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span id="pending_dispatch">0</span>
+                </div>
+                <div class="desc">
+                    未分派门店
+                </div>
+            </div>
+            <div class="more">
+                详细 <i class="m-icon-swapright m-icon-white"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green" onclick="goApprovePage()">
+            <div class="visual">
+                <i class="icon-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span id="pending_rejected">0</span>
+                </div>
+                <div class="desc">退货审批</div>
+            </div>
+            <div class="more">
+                详细 <i class="m-icon-swapright m-icon-white"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat purple" onclick="goGoodsList()">
+            <div class="visual">
+                <i class="icon-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span id="goods_onSell">0</span>
+                </div>
+                <div class="desc">上架商品</div>
+            </div>
+            <div class="more">
+                详细 <i class="m-icon-swapright m-icon-white"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat yellow" onclick="goMemberList()">
+            <div class="visual" style="cursor: hand">
+                <i class="icon-bar-chart"></i>
+            </div>
+            <div class="details" style="cursor: hand">
+                <div class="number">
+                    <span id="member_count">0</span>
+                </div>
+                <div class="desc">注册会员</div>
+            </div>
+            <div class="more">
+                详细 <i class="m-icon-swapright m-icon-white"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DASHBOARD STATS -->
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="box col-md-6">
+        <div class="portlet solid bordered light-grey">
+            <div class="portlet-title">
+                <div class="caption">订单数量</div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart1" style="height:200px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="box col-md-6">
+        <div class="portlet solid bordered light-grey">
+            <div class="portlet-title">
+                <div class="caption">订单金额</div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart2" style="height:200px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="box col-md-6">
+        <div class="portlet solid bordered light-grey">
+            <div class="portlet-title">
+                <div class="caption">会员等级</div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart3" style="height:200px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="box col-md-6">
+        <div class="portlet solid bordered light-grey">
+            <div class="portlet-title">
+                <div class="caption">会员注册</div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart4" style="height:200px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="portlet solid bordered light-grey">
+            <div class="portlet-title">
+                <div class="caption">销量排行前十</div>
+            </div>
+            <div class="portlet-body">
+                <div id="chart5" style="height:200px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<script src="dashboard.js"></script>

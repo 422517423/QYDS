@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.OrdTransferListMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.OrdTransferListExt" >
+    <id column="order_transfer_id" property="orderTransferId" jdbcType="VARCHAR" />
+    <result column="sub_order_id" property="subOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="transfer_status" property="transferStatus" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="price_share" property="priceShare" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="apply_store" property="applyStore" jdbcType="VARCHAR" />
+    <result column="apply_user" property="applyUser" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="apply_address" property="applyAddress" jdbcType="VARCHAR" />
+    <result column="apply_contactor" property="applyContactor" jdbcType="VARCHAR" />
+    <result column="apply_phone" property="applyPhone" jdbcType="VARCHAR" />
+    <result column="apply_postcode" property="applyPostcode" jdbcType="VARCHAR" />
+    <result column="dispatch_user" property="dispatchUser" jdbcType="VARCHAR" />
+    <result column="dispatch_time" property="dispatchTime" jdbcType="TIMESTAMP" />
+    <result column="dispatch_store" property="dispatchStore" jdbcType="VARCHAR" />
+    <result column="refuse_store" property="refuseStore" jdbcType="VARCHAR" />
+    <result column="refuse_user" property="refuseUser" jdbcType="VARCHAR" />
+    <result column="refuse_time" property="refuseTime" jdbcType="TIMESTAMP" />
+    <result column="accept_user" property="acceptUser" jdbcType="VARCHAR" />
+    <result column="accept_time" property="acceptTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_user" property="deliveryUser" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_address" property="deliveryAddress" jdbcType="VARCHAR" />
+    <result column="delivery_contactor" property="deliveryContactor" jdbcType="VARCHAR" />
+    <result column="delivery_phone" property="deliveryPhone" jdbcType="VARCHAR" />
+    <result column="delivery_postcode" property="deliveryPostcode" jdbcType="VARCHAR" />
+    <result column="express_id" property="expressId" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="receive_user" property="receiveUser" jdbcType="VARCHAR" />
+    <result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="erp_send_status_delivery" property="erpSendStatusDelivery" jdbcType="VARCHAR" />
+    <result column="erp_send_status_receive" property="erpSendStatusReceive" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="transfer_status_name" property="transferStatusName" jdbcType="VARCHAR" />
+
+    <!-- 20171204扩展字段-->
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="apply_contactor" property="applyContactor" jdbcType="VARCHAR" />
+    <result column="apply_cname" property="applyCname" jdbcType="VARCHAR" />
+    <result column="apply_pname" property="applyPname" jdbcType="VARCHAR" />
+    <result column="apply_cname" property="applyCname" jdbcType="VARCHAR" />
+    <result column="apply_dname" property="applyDname" jdbcType="VARCHAR" />
+
+    <result column="dispatch_uname" property="dispatchUname" jdbcType="VARCHAR" />
+    <result column="dispatch_phone" property="dispatchPhone" jdbcType="VARCHAR" />
+    <result column="apply_address1" property="applyAddress1" jdbcType="VARCHAR" />
+    <result column="dispatch_pname" property="dispatchPname" jdbcType="VARCHAR" />
+    <result column="dispatch_cname" property="dispatchCname" jdbcType="VARCHAR" />
+    <result column="dispatch_dname" property="dispatchDname" jdbcType="VARCHAR" />
+    <result column="dispatch_address1" property="dispatchAddress1" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_transfer_id, sub_order_id, order_id, transfer_status, goods_type, goods_id,
+    goods_code, goods_name, colore_code, colore_name, size_code, size_name, sku, erp_sku,
+    erp_style_no, erp_colore_code, erp_colore_name, erp_size_code, erp_size_name, price,
+    price_discount, price_share, quantity, amount, amount_discount, apply_store, apply_user,
+    apply_time, apply_address, apply_contactor, apply_phone, apply_postcode, dispatch_user,
+    dispatch_time, dispatch_store, refuse_store, refuse_user, refuse_time, accept_user,
+    accept_time, delivery_user, delivery_time, delivery_address, delivery_contactor,
+    delivery_phone, delivery_postcode, express_id, express_name, express_no, receive_user,
+    receive_time, erp_send_status_delivery, erp_send_status_receive, deleted, update_user_id,
+    update_time, insert_user_id, insert_time
+  </sql>
+  <select id="getBySubOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_transfer_list
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectSendFail" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_transfer_list
+    where transfer_status in ('31','32')
+    and (erp_send_status_delivery = '20' or erp_send_status_receive = '20')
+  </select>
+  <select id="getDispatchList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.OrdTransferListExt" >
+    select l.order_transfer_id, l.sub_order_id, l.order_id,
+    l.transfer_status, c.display_cn transfer_status_name,
+    l.sku, l.quantity,
+    g.goods_name_cn goods_name, g.color_name colore_name, g.size_name,
+    s1.store_name_cn apply_store, l.apply_user,l.apply_time,
+    s2.store_name_cn dispatch_store, l.dispatch_time,
+    u.user_name delivery_user, l.delivery_time,
+    u1.user_name receive_user,l.receive_time
+    from ord_transfer_list l
+    left join view_erp_goods g on l.sku=g.sku
+    left join com_code c on c.code='TRANSFER_STATUS' and c.value=l.transfer_status
+    left join erp_store s1 on s1.store_code=l.apply_store
+    left join erp_store s2 on s2.store_code=l.dispatch_store
+    left join sys_user u on u.login_id=l.delivery_user
+    left join sys_user u1 on u1.login_id=l.receive_user
+    where l.deleted='0'
+    <if test="orderTransferId != null and !orderTransferId.isEmpty()" >
+      AND order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId != null and !orderId.isEmpty()" >
+      AND order_id LIKE '%' || #{orderId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="subOrderId != null and !subOrderId.isEmpty()" >
+      AND sub_order_id LIKE '%' || #{subOrderId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="sku != null and !sku.isEmpty()" >
+      AND l.sku LIKE '%' || #{sku,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="transferStatus != null and !transferStatus.isEmpty()" >
+      AND transfer_status = #{transferStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="applyStore != null and !applyStore.isEmpty()" >
+      AND apply_store = #{applyStore,jdbcType=VARCHAR}
+    </if>
+    <if test="dispatchStore != null and !dispatchStore.isEmpty()" >
+      AND dispatch_store = #{dispatchStore,jdbcType=VARCHAR}
+    </if>
+    ORDER by l.transfer_status,l.apply_time
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getDispatchListCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ext.OrdTransferListExt" >
+    select count(*)
+    from ord_transfer_list
+    where deleted='0'
+    <if test="orderTransferId != null and !orderTransferId.isEmpty()" >
+      AND order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId != null and !orderId.isEmpty()" >
+      AND order_id LIKE '%' || #{orderId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="subOrderId != null and !subOrderId.isEmpty()" >
+      AND sub_order_id LIKE '%' || #{subOrderId,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="sku != null and !sku.isEmpty()" >
+      AND sku LIKE '%' || #{sku,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="transferStatus != null and !transferStatus.isEmpty()" >
+      AND transfer_status = #{transferStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="applyStore != null and !applyStore.isEmpty()" >
+      AND apply_store = #{applyStore,jdbcType=VARCHAR}
+    </if>
+    <if test="dispatchStore != null and !dispatchStore.isEmpty()" >
+      AND dispatch_store = #{dispatchStore,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="getDetailById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select l.order_transfer_id, l.sub_order_id, l.order_id,
+    l.transfer_status, c.display_cn transfer_status_name,
+    l.sku, l.quantity,
+    g.goods_name_cn goods_name, g.color_name colore_name, g.size_name,
+    s1.store_name_cn apply_store, l.apply_user,l.apply_time,
+    s2.store_name_cn dispatch_store, l.dispatch_time,
+    u.user_name delivery_user, l.delivery_time,
+    u1.user_name receive_user,l.receive_time,
+    delivery_address, delivery_contactor,
+    delivery_phone, delivery_postcode, express_id, express_name, express_no
+    from ord_transfer_list l
+    left join view_erp_goods g on l.sku=g.sku
+    left join com_code c on c.code='TRANSFER_STATUS' and c.value=l.transfer_status
+    left join erp_store s1 on s1.store_code=l.apply_store
+    left join erp_store s2 on s2.store_code=l.dispatch_store
+    left join sys_user u on u.login_id=l.delivery_user
+    left join sys_user u1 on u1.login_id=l.receive_user
+    where l.deleted='0'
+    AND order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+  </select>
+
+  <!--获取调货订单信息(包括发货/收货门店信息)-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    apply_store.order_transfer_id,
+    apply_store.goods_name,
+    apply_store.quantity,
+    apply_store.apply_contactor,
+    apply_store.apply_phone,
+    apply_store.apply_pname,
+    apply_store.apply_cname,
+    apply_store.apply_dname,
+    apply_store.apply_address1,
+    dispatch_store.dispatch_uname,
+    dispatch_store.dispatch_phone,
+    dispatch_store.dispatch_pname,
+    dispatch_store.dispatch_cname,
+    dispatch_store.dispatch_dname,
+    dispatch_store.dispatch_address1
+    from
+    (select
+  	ot.*,ep.pname as apply_pname,ec.cname as apply_cname,ed.dname as apply_dname,es.address as apply_address1
+    from public.ord_transfer_list ot
+  	join ord_sub_list os on ot.sub_order_id=os.sub_order_id
+    join erp_store es on ot.apply_store = es.store_code
+    left join erp_province ep on es.province_code = ep.pcode
+    left join erp_city ec on es.city_code = ec.ccode
+    left join erp_district ed on es.district_code = ed.dcode
+    where  order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+    )as apply_store,
+
+    (select
+  	su.user_name as dispatch_uname,es.phone as dispatch_phone,ep.pname as dispatch_pname,ec.cname as dispatch_cname,ed.dname as dispatch_dname,es.address as dispatch_address1
+    from public.ord_transfer_list ot
+    join sys_user su on ot.delivery_user = su.login_id
+    join erp_store es on ot.dispatch_store = es.store_code
+    left join erp_province ep on es.province_code = ep.pcode
+    left join erp_city ec on es.city_code = ec.ccode
+    left join erp_district ed on es.district_code = ed.dcode
+    where  order_transfer_id = #{orderTransferId,jdbcType=VARCHAR}
+    )as dispatch_store
+  </select>
+</mapper>

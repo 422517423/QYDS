@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ErpOrderListMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpOrderList" >
+    <id column="ticket_subno" property="ticketSubno" jdbcType="VARCHAR" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="TIMESTAMP" />
+    <result column="goods_name_cn" property="goodsNameCn" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="action_type" property="actionType" jdbcType="TIMESTAMP" />
+    <result column="discount" property="discount" jdbcType="NUMERIC" />
+    <result column="goods_no" property="goodsNo" jdbcType="NUMERIC" />
+    <result column="size" property="size" jdbcType="NUMERIC" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="count" property="count" jdbcType="NUMERIC" />
+    <result column="action_code" property="actionCode" jdbcType="VARCHAR" />
+    <result column="action_flg" property="actionFlg" jdbcType="VARCHAR" />
+    <result column="point_payed" property="pointPayed" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ticket_subno, no, goods_code, goods_name_cn, amount, color_code, action_type, discount, 
+    goods_no, size, price, count, action_code, action_flg, point_payed, comment, deleted, 
+    update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_order_list
+    where ticket_subno = #{ticketSubno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.erp_order_list
+    where ticket_subno = #{ticketSubno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ErpOrderList" >
+    insert into public.erp_order_list (ticket_subno, no, goods_code, 
+      goods_name_cn, amount, color_code, 
+      action_type, discount, goods_no, 
+      size, price, count, 
+      action_code, action_flg, point_payed, 
+      comment, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{ticketSubno,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{goodsCode,jdbcType=TIMESTAMP}, 
+      #{goodsNameCn,jdbcType=VARCHAR}, #{amount,jdbcType=NUMERIC}, #{colorCode,jdbcType=VARCHAR}, 
+      #{actionType,jdbcType=TIMESTAMP}, #{discount,jdbcType=NUMERIC}, #{goodsNo,jdbcType=NUMERIC}, 
+      #{size,jdbcType=NUMERIC}, #{price,jdbcType=NUMERIC}, #{count,jdbcType=NUMERIC}, 
+      #{actionCode,jdbcType=VARCHAR}, #{actionFlg,jdbcType=VARCHAR}, #{pointPayed,jdbcType=INTEGER}, 
+      #{comment,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ErpOrderList" >
+    insert into public.erp_order_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ticketSubno != null" >
+        ticket_subno,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsNameCn != null" >
+        goods_name_cn,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="colorCode != null" >
+        color_code,
+      </if>
+      <if test="actionType != null" >
+        action_type,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="goodsNo != null" >
+        goods_no,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="actionCode != null" >
+        action_code,
+      </if>
+      <if test="actionFlg != null" >
+        action_flg,
+      </if>
+      <if test="pointPayed != null" >
+        point_payed,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ticketSubno != null" >
+        #{ticketSubno,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsNameCn != null" >
+        #{goodsNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="colorCode != null" >
+        #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionType != null" >
+        #{actionType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsNo != null" >
+        #{goodsNo,jdbcType=NUMERIC},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=NUMERIC},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=NUMERIC},
+      </if>
+      <if test="actionCode != null" >
+        #{actionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionFlg != null" >
+        #{actionFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="pointPayed != null" >
+        #{pointPayed,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ErpOrderList" >
+    update public.erp_order_list
+    <set >
+      <if test="no != null" >
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsNameCn != null" >
+        goods_name_cn = #{goodsNameCn,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="colorCode != null" >
+        color_code = #{colorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionType != null" >
+        action_type = #{actionType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsNo != null" >
+        goods_no = #{goodsNo,jdbcType=NUMERIC},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=NUMERIC},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=NUMERIC},
+      </if>
+      <if test="actionCode != null" >
+        action_code = #{actionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="actionFlg != null" >
+        action_flg = #{actionFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="pointPayed != null" >
+        point_payed = #{pointPayed,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ticket_subno = #{ticketSubno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ErpOrderList" >
+    update public.erp_order_list
+    set no = #{no,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=TIMESTAMP},
+      goods_name_cn = #{goodsNameCn,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=NUMERIC},
+      color_code = #{colorCode,jdbcType=VARCHAR},
+      action_type = #{actionType,jdbcType=TIMESTAMP},
+      discount = #{discount,jdbcType=NUMERIC},
+      goods_no = #{goodsNo,jdbcType=NUMERIC},
+      size = #{size,jdbcType=NUMERIC},
+      price = #{price,jdbcType=NUMERIC},
+      count = #{count,jdbcType=NUMERIC},
+      action_code = #{actionCode,jdbcType=VARCHAR},
+      action_flg = #{actionFlg,jdbcType=VARCHAR},
+      point_payed = #{pointPayed,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where ticket_subno = #{ticketSubno,jdbcType=VARCHAR}
+  </update>
+</mapper>

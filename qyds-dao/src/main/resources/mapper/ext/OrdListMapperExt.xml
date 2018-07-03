@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.OrdListMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdList" >
+    <id column="detail_id" property="detailId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    detail_id, order_id, type, goods_code, goods_name, sku, colore_code, colore_name, 
+    size_code, size_name, erp_sku, erp_style_no, erp_colore_code, erp_colore_name, erp_size_code, 
+    erp_size_name, price, action_id, action_name, price_discount, quantity, amount, amount_discount, 
+    deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_list
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOrdListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ol.detail_id,ol.order_id,ol.detail_id,ol.type,ol.goods_code,ol.goods_id,ol.goods_name, ol.image_url_json,ol.sku,
+    ol.colore_code, ol.colore_name,ol.size_code, ol.size_name, ol.erp_sku, ol.erp_style_no, ol.erp_colore_code,
+    ol.erp_colore_name, ol.erp_size_code,ol.erp_size_name, ol.price, ol.action_id, ol.action_name, ol.price_discount,
+    ol.quantity, ol.amount, ol.amount_discount,ol.deleted, ol.update_user_id, ol.update_time, ol.insert_user_id, ol.insert_time
+    from ord_list ol
+--     left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = ol.type
+    where order_id in (${_parameter})
+    order by ol.detail_id
+  </select>
+  <select id="selectOrderGoodsInfo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ol.detail_id,ol.order_id,ol.detail_id,ol.type,ol.goods_code,ol.goods_id,ol.goods_name, ol.image_url_json,ol.sku,
+    ol.colore_code, ol.colore_name,ol.size_code, ol.size_name, ol.erp_sku, ol.erp_style_no, ol.erp_colore_code,
+    ol.erp_colore_name, ol.erp_size_code,ol.erp_size_name, ol.price, ol.action_id, ol.action_name, ol.price_discount,
+    ol.quantity, ol.amount, ol.amount_discount,ol.deleted, ol.update_user_id, ol.update_time, ol.insert_user_id, ol.insert_time
+    from ord_list ol
+--     left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = ol.type
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    order by ol.detail_id
+  </select>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdList" >
+    insert into public.ord_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="imageUrlJson != null" >
+        image_url_json,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name,
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code,
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="isGift != null" >
+        is_gift,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlJson != null" >
+        #{imageUrlJson,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceDiscount != null" >
+        #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        now(),
+      </if>
+      <if test="isGift != null" >
+        #{isGift,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

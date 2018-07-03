@@ -1,0 +1,60 @@
+<div class="container-fluid" style="background: white">
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px;overflow: hidden">
+            <h4>我的积分({{point}})</h4>
+        </div>
+    </div>
+
+    <div class="row" style="background: #efefef;padding-bottom: 20px">
+        <div class="col-xs-12" style="padding-top: 15px">
+            积分兑换区
+        </div>
+        <div class="col-xs-12" ng-if="couponList.length==0"
+             style="text-align:center;font-size:12px;color: #666666;">
+            暂时没有可兑换的优惠劵
+        </div>
+        <div class="col-xs-12 col-sm-6" ng-repeat="coupon in couponList" ng-if="couponList.length>0"
+             style="padding: 15px;">
+            <div class="coupon_bg" style="padding: 10px;overflow: hidden;width: 100%;">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div style="font-weight:normal;font-size:16px;color:#000000">
+                            {{coupon.couponName}}
+                        </div>
+                        <div ng-if="coupon.endTime != null" style="margin-bottom:20px;margin-top:5px;font-weight:normal;font-size:12px;color:#999999">
+                            有效期至
+                            {{coupon.endTime | date:"yyyy年MM月dd日"}}
+                        </div>
+                        <div ng-if="coupon.validDays != null" style="margin-bottom:20px;margin-top:5px;font-weight:normal;font-size:12px;color:#999999">
+                            有效期
+                            {{coupon.validDays}}天
+                        </div>
+
+                        <div ng-if="coupon.minOrderPrice!=''"
+                             style="font-size:14px;color:#999999">
+                            (购买满{{coupon.minOrderPrice}}可用)
+                        </div>
+                    </div>
+                    <div class="col-xs-4" style="text-align:right;">
+                        <div style="font-weight:normal;font-size:24px;color:#000000">
+                            <span ng-if="coupon.couponStyle == 0">{{coupon.worth}}元</span>
+                            <span ng-if="coupon.couponStyle == 1">{{coupon.discount}}折</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div ng-if="coupon.exchangePoint!=null&&coupon.exchangePoint>0"
+                         style="float:left;font-size:14px;">
+                        {{coupon.exchangePoint}}积分
+                    </div>
+                    <button
+                            class="hvr-outline-out-dark"
+                            style="float:right;outline: none;border: none;"
+                            ng-click="getCoupon(coupon.couponId)">立即兑换
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

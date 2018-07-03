@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpBankRecordMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.ErpBankRecordExt" >
+    <id column="recordid" property="recordid" jdbcType="INTEGER" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name_cn" property="goodsNameCn" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="color_code" property="colorCode" jdbcType="VARCHAR" />
+    <result column="color_name" property="colorName" jdbcType="VARCHAR" />
+    <result column="size_type_code" property="sizeTypeCode" jdbcType="VARCHAR" />
+    <result column="size_type_name" property="sizeTypeName" jdbcType="VARCHAR" />
+    <result column="size_sort" property="sizeSort" jdbcType="INTEGER" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_storeid" property="erpStoreid" jdbcType="VARCHAR" />
+    <result column="store_name_cn" property="storeNameCn" jdbcType="VARCHAR" />
+    <result column="banktype" property="banktype" jdbcType="VARCHAR" />
+    <result column="inout_count" property="inoutCount" jdbcType="INTEGER" />
+    <result column="inout_time" property="inoutTime" jdbcType="TIMESTAMP" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    erp_goods_code,goods_name_cn, erp_sku,
+    color_code,color_name,
+    size_type_code,size_type_name,size_sort,size_code,size_name,
+    erp_storeid,store_name_cn,
+    banktype, inout_count, inout_time
+  </sql>
+  <sql id="Base_Where_Byselect" >
+    WHERE 1=1
+    <if test="erpSku != null and !erpSku.isEmpty()" >
+      AND erp_sku LIKE '%' || #{erpSku,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="goodsNameCn != null and !goodsNameCn.isEmpty()" >
+      AND goods_name_cn LIKE '%' || #{goodsNameCn,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="colorName != null and !colorName.isEmpty()" >
+      AND color_name LIKE '%' || #{colorName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="sizeName != null and !sizeName.isEmpty()" >
+      AND size_name LIKE '%' || #{sizeName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="erpStoreid != null and !erpStoreid.isEmpty()" >
+      AND erp_storeid LIKE '%' || #{erpStoreid,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="storeNameCn != null and !storeNameCn.isEmpty()" >
+      AND store_name_cn LIKE '%' || #{storeNameCn,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="startDate != null and !startDate.isEmpty()" >
+      AND to_char(inout_time,'yyyy-mm-dd') >= #{startDate,jdbcType=VARCHAR}
+    </if>
+    <if test="endDate != null and !endDate.isEmpty()" >
+      AND to_char(inout_time,'yyyy-mm-dd') &lt;= #{endDate,jdbcType=VARCHAR}
+    </if>
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.view_erp_bank_record
+    <include refid="Base_Where_Byselect" />
+    ORDER BY erp_goods_code,color_code,size_sort,inout_time desc
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpBankRecordForm" >
+    select
+    <include refid="Base_Column_List" />
+    from public.view_erp_bank_record
+    <include refid="Base_Where_Byselect" />
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpBankRecordForm" >
+    select count(*)
+    from public.view_erp_bank_record
+    <include refid="Base_Where_Byselect" />
+  </select>
+  <select id="selectSumByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpBankRecordForm" >
+    select
+    erp_sku,
+    erp_storeid,
+    goods_name_cn,
+    color_name,
+    size_name,
+    store_name_cn,
+    sum(inout_count) inout_count
+    from public.view_erp_bank_record
+    <include refid="Base_Where_Byselect" />
+    group by
+    erp_goods_code,color_code,size_type_code,size_sort,erp_storeid,
+    erp_sku,goods_name_cn,color_name,size_name,store_name_cn
+    order by erp_goods_code,color_code,size_type_code,size_sort,erp_storeid
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getSumCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpBankRecordForm" >
+    select count(*)
+    from (
+    select 1
+    from public.view_erp_bank_record
+    <include refid="Base_Where_Byselect" />
+    group by erp_sku,erp_storeid
+    ) g
+  </select>
+  <select id="selectRecordByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ErpBankRecordForm" >
+    select inout_count, inout_time
+    from public.erp_bank_record
+    <include refid="Base_Where_Byselect" />
+    ORDER BY inout_time desc
+    <if test="iDisplayLength != null" >
+      limit #{iDisplayLength,jdbcType=INTEGER}
+    </if>
+    <if test="iDisplayStart != null" >
+      offset #{iDisplayStart,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="getRecordCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ErpBankRecordForm" >
+    select count(*)
+    from public.erp_bank_record
+    <include refid="Base_Where_Byselect" />
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_bank_record
+  </delete>
+</mapper>

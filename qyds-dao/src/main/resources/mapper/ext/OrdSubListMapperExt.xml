@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.OrdSubListMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdSubListExt" >
+    <id column="sub_order_id" property="subOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="detail_id" property="detailId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="deliver_status" property="deliverStatus" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliverTime" jdbcType="TIMESTAMP" />
+    <result column="express_id" property="expressId" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="deliver_type" property="deliverType" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_delivery_id" property="storeDeliveryId" jdbcType="VARCHAR" />
+    <result column="store_delivery_name" property="storeDeliveryName" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR" />
+    <result column="dispatch_status" property="dispatchStatus" jdbcType="VARCHAR" />
+    <result column="dispatch_store" property="dispatchStore" jdbcType="VARCHAR" />
+    <result column="price_share" property="priceShare" jdbcType="NUMERIC" />
+    <result column="up_seasoning" property="upSeasoning" jdbcType="VARCHAR" />
+    <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+    <result column="inner_buy" property="innerBuy" jdbcType="VARCHAR" />
+    <result column="dispatch_store_name" property="dispatchStoreName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultCodeMap" type="net.dlyt.qyds.common.dto.OrdSubListExt" >
+    <id column="sub_order_id" property="subOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="detail_id" property="detailId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="sku" property="sku" jdbcType="VARCHAR" />
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR" />
+    <result column="colore_code" property="coloreCode" jdbcType="VARCHAR" />
+    <result column="colore_name" property="coloreName" jdbcType="VARCHAR" />
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR" />
+    <result column="erp_sku" property="erpSku" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="erp_colore_code" property="erpColoreCode" jdbcType="VARCHAR" />
+    <result column="erp_colore_name" property="erpColoreName" jdbcType="VARCHAR" />
+    <result column="erp_size_code" property="erpSizeCode" jdbcType="VARCHAR" />
+    <result column="erp_size_name" property="erpSizeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="price_discount" property="priceDiscount" jdbcType="NUMERIC" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="deliver_status" property="deliverStatus" jdbcType="VARCHAR" />
+    <result column="deliver_status_code" property="deliverStatusCode" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliverTime" jdbcType="TIMESTAMP" />
+    <result column="express_id" property="expressId" jdbcType="VARCHAR" />
+    <result column="express_name" property="expressName" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="deliver_type" property="deliverType" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_delivery_id" property="storeDeliveryId" jdbcType="VARCHAR" />
+    <result column="store_delivery_name" property="storeDeliveryName" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="skucontent" property="skucontent" jdbcType="VARCHAR" />
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR" />
+    <result column="rex_status" property="rexStatus" jdbcType="VARCHAR" />
+    <result column="rex_status_name" property="rexStatusName" jdbcType="VARCHAR" />
+    <result column="rex_order_id" property="rexOrderId" jdbcType="VARCHAR" />
+    <result column="rex_store_id" property="rexStoreId" jdbcType="VARCHAR" />
+    <result column="rex_store_name" property="rexStoreName" jdbcType="VARCHAR" />
+    <result column="dispatch_status" jdbcType="VARCHAR" property="dispatchStatus" />
+    <result column="dispatch_store" jdbcType="VARCHAR" property="dispatchStore" />
+    <result column="price_share" property="priceShare" jdbcType="NUMERIC" />
+    <result column="up_seasoning" property="upSeasoning" jdbcType="VARCHAR" />
+    <result column="dispatch_store_name" property="dispatchStoreName" jdbcType="VARCHAR" />
+    <result column="insert_time1" property="insertTimeString" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sub_order_id, order_id, detail_id, type, goods_id, goods_code, goods_name, sku, colore_code,
+    colore_name, size_code, size_name, erp_sku, erp_style_no, erp_colore_code, erp_colore_name,
+    erp_size_code, erp_size_name, price, action_id, action_name, price_discount, quantity,
+    amount, amount_discount, deliver_status, deliver_time, express_id, express_name,
+    express_no, deliver_type, erp_store_id, store_name, store_phone, store_delivery_id,
+    store_delivery_name, deleted, update_user_id, update_time, insert_user_id, insert_time,
+    sku_id, dispatch_status, dispatch_store, price_share
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_sub_list
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and insert_user_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectOrderSubInfo" resultMap="BaseResultCodeMap" parameterType="java.lang.String" >
+    select osl.sub_order_id,osl.detail_id,osl.order_id,cc.display_cn as type,osl.goods_code,osl.goods_id,osl.goods_name,osl.sku,osl.action_name,osl.quantity,
+    osl.price,osl.price_discount,osl.price_share,osl.amount,osl.amount_discount,cc2.display_cn as deliver_status,osl.deliver_status as deliver_status_code,osl.deliver_time,osl.express_name,osl.express_no,
+    cc1.display_cn as deliver_type,osl.store_name,osl.store_phone,osl.store_delivery_name,osl.colore_name,osl.size_name,
+    cc3.display_cn as rex_status_name, ore.rex_status,ore.rex_order_id,osl.sku_id,osl.deleted, osl.dispatch_status, osl.dispatch_store,
+    osl.erp_store_id,ore.rex_store_id,ore.rex_store_name,osl.up_seasoning,st.store_name_cn dispatch_store_name
+    from public.ord_sub_list osl
+    left join ord_return_exchange ore on osl.sub_order_id = ore.sub_order_id
+    left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = osl.type
+    left join com_code cc1 on cc1.code = 'DELIVER_TYPE' and cc1.value = osl.deliver_type
+    left join com_code cc2 on cc2.code = 'DELIVER_STATUS' and cc2.value = osl.deliver_status
+    left join com_code cc3 on cc3.code = 'REX_STATUS' and cc3.value = ore.rex_status
+    left join erp_store st on st.store_code = osl.dispatch_store
+    where osl.order_id = #{orderId,jdbcType=VARCHAR} order by osl.detail_id
+  </select>
+
+  <select id="selectDistinctOrderSubInfo" resultMap="BaseResultCodeMap" parameterType="java.lang.String" >
+    select DISTINCT osl.detail_id,osl.order_id,cc.display_cn as type,osl.goods_code,osl.goods_id,osl.goods_name,osl.sku,osl.action_name,osl.quantity,
+    osl.amount,osl.amount_discount,cc2.display_cn as deliver_status,osl.deliver_status as deliver_status_code,osl.deliver_time,osl.express_name,osl.express_no,
+    cc1.display_cn as deliver_type,osl.store_name,osl.store_phone,osl.store_delivery_name,osl.colore_name,osl.size_name
+    from public.ord_sub_list osl
+    left join com_code cc on cc.code = 'GOODS_TYPE' and cc.value = osl.type
+    left join com_code cc1 on cc1.code = 'DELIVER_TYPE' and cc1.value = osl.deliver_type
+    left join com_code cc2 on cc2.code = 'DELIVER_STATUS' and cc2.value = osl.deliver_status
+    where order_id = #{orderId,jdbcType=VARCHAR} order by osl.detail_id
+  </select>
+
+  <select id="selectOrderSubInfoOrderByExpressNo" resultMap="BaseResultCodeMap" parameterType="java.lang.String" >
+    select osl.*,
+    vas.image_url_json,
+    vas.skucontent
+    from public.ord_sub_list osl
+    left join view_all_sku vas ON vas.skuid = osl.sku_id
+    where order_id = #{orderId,jdbcType=VARCHAR}
+    order by osl.express_no, osl.detail_id
+  </select>
+
+  <select id="selectSubOrderByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.ord_sub_list
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectSubOrderByDetailId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select
+    osl.sub_order_id, osl.order_id, osl.detail_id, osl.type, osl.goods_code, osl.goods_name, osl.sku, osl.colore_code,
+    osl.colore_name, osl.size_code, osl.size_name, osl.erp_sku, osl.erp_style_no, osl.erp_colore_code, osl.erp_colore_name,
+    osl.erp_size_code, osl.erp_size_name, osl.price, osl.action_id, osl.action_name, osl.price_discount, osl.quantity,
+    osl.amount, osl.amount_discount, osl.deliver_status, osl.deliver_time, osl.express_id, osl.express_name,
+    osl.express_no, osl.deliver_type, osl.erp_store_id, osl.store_name, osl.store_phone, osl.store_delivery_id,
+    osl.store_delivery_name, osl.deleted, osl.update_user_id, osl.update_time, osl.insert_user_id, osl.insert_time
+    from public.ord_sub_list osl
+    left join ord_list ol on osl.detail_id = ol.detail_id
+    left join ord_master om on osl.order_id = om.order_id
+    where ol.detail_id = #{detailId,jdbcType=VARCHAR}
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <update id="confirmReceipt" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    update public.ord_sub_list
+    set
+    deliver_status = '21',
+    receipt_time = now(),
+    update_user_id = #{memberId,jdbcType=VARCHAR},
+    update_time = now()
+    where 1=1
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and order_id = #{orderId,jdbcType=VARCHAR}
+    </if>
+    <if test="subOrderId != null and !subOrderId.isEmpty()" >
+      and sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    </if>
+    <if test="expressNo != null and !expressNo.isEmpty()" >
+      and express_no = #{expressNo,jdbcType=VARCHAR}
+    </if>
+  </update>
+  <update id="applyReturnGoods" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    update public.ord_sub_list
+    set
+    deliver_status = '21',
+    update_user_id = #{memberId,jdbcType=VARCHAR},
+    update_time = now()
+    where 1=1
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and order_id = #{orderId,jdbcType=VARCHAR}
+    </if>
+    <if test="subOrderId != null and !subOrderId.isEmpty()" >
+      and sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    </if>
+  </update>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    insert into public.ord_sub_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subOrderId != null" >
+        sub_order_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="sku != null" >
+        sku,
+      </if>
+      <if test="coloreCode != null" >
+        colore_code,
+      </if>
+      <if test="coloreName != null" >
+        colore_name,
+      </if>
+      <if test="sizeCode != null" >
+        size_code,
+      </if>
+      <if test="sizeName != null" >
+        size_name,
+      </if>
+      <if test="erpSku != null" >
+        erp_sku,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="erpColoreCode != null" >
+        erp_colore_code,
+      </if>
+      <if test="erpColoreName != null" >
+        erp_colore_name,
+      </if>
+      <if test="erpSizeCode != null" >
+        erp_size_code,
+      </if>
+      <if test="erpSizeName != null" >
+        erp_size_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+      <if test="priceDiscount != null" >
+        price_discount,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount,
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status,
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time,
+      </if>
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="expressName != null" >
+        express_name,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="deliverType != null" >
+        deliver_type,
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storePhone != null" >
+        store_phone,
+      </if>
+      <if test="storeDeliveryId != null" >
+        store_delivery_id,
+      </if>
+      <if test="storeDeliveryName != null" >
+        store_delivery_name,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="dispatchStatus != null" >
+        dispatch_status,
+      </if>
+      <if test="dispatchStore != null" >
+        dispatch_store,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subOrderId != null" >
+        #{subOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreCode != null" >
+        #{coloreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coloreName != null" >
+        #{coloreName,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeCode != null" >
+        #{sizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sizeName != null" >
+        #{sizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSku != null" >
+        #{erpSku,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreCode != null" >
+        #{erpColoreCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpColoreName != null" >
+        #{erpColoreName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeCode != null" >
+        #{erpSizeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSizeName != null" >
+        #{erpSizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="priceDiscount != null" >
+        #{priceDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountDiscount != null" >
+        #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="deliverStatus != null" >
+        #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressId != null" >
+        #{expressId,jdbcType=VARCHAR},
+      </if>
+      <if test="expressName != null" >
+        #{expressName,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverType != null" >
+        #{deliverType,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryId != null" >
+        #{storeDeliveryId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryName != null" >
+        #{storeDeliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dispatchStatus != null" >
+        #{dispatchStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="dispatchStore != null" >
+        #{dispatchStore,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByErp" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    update public.ord_sub_list
+    set
+    deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+    deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+    express_id = #{expressId,jdbcType=VARCHAR},
+    express_name = #{expressName,jdbcType=VARCHAR},
+    express_no = #{expressNo,jdbcType=VARCHAR},
+    erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+    store_name = #{storeName,jdbcType=VARCHAR},
+    store_phone = #{storePhone,jdbcType=VARCHAR},
+    store_delivery_name = #{storeDeliveryName,jdbcType=VARCHAR},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+      and sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </update>
+  <select id="getCountNoSendByOrderId" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(1)
+    from ord_sub_list
+    where deliver_status &lt;> '20'
+    and order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <select id="getCountSendByOrderId" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(1)
+    from ord_sub_list
+    where deliver_status = '20'
+    and order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <update id="changeReturnGoods" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    update public.ord_sub_list
+    set
+    deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where 1=1
+    <if test="subOrderId != null and !subOrderId.isEmpty()" >
+      and sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and order_id = #{orderId,jdbcType=VARCHAR}
+    </if>
+  </update>
+  <update id="acceptReturnGoods" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    update public.ord_sub_list
+    set
+    deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where 1=1
+    <if test="subOrderId != null and !subOrderId.isEmpty()" >
+      and sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    </if>
+    <if test="orderId != null and !orderId.isEmpty()" >
+      and order_id = #{orderId,jdbcType=VARCHAR}
+    </if>
+  </update>
+  <select id="selectErpByOrder" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select sub_order_id, order_id, sku_id, price, price_discount, price_share,
+           deliver_time,express_name,express_no,erp_store_id,store_delivery_id,store_delivery_name,
+           action_name,(case when position('内购' in action_name)>0 then '1' else '0' end)inner_buy
+    from ord_sub_list
+    where deleted = '0'
+    and type = '10'
+    and order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectErpReturnFailByOrder" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select s.sub_order_id, s.order_id, s.sku_id, s.price, r.refund_infact as price_discount,
+           r.return_accept_time deliver_time,
+           r.reback_express_name express_name,
+           r.reback_express_no express_no,
+           r.rex_store_id erp_store_id,
+           r.return_accept_user_id store_delivery_id,r.refund_time update_time
+    from ord_sub_list s,ord_return_exchange r
+    where s.deleted = '0'
+    and s.sub_order_id = r.sub_order_id
+    and s.type = '10'
+    and r.erp_send_status = '20'
+    and s.order_id = #{orderId,jdbcType=VARCHAR}
+    and r.order_id = #{orderId,jdbcType=VARCHAR}
+    order by update_time
+  </select>
+  <select id="selectErpReturnFailBySubOrder" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select s.sub_order_id, s.order_id, s.sku_id, s.price, r.refund_infact as price_discount,
+           r.return_accept_time deliver_time,
+           r.reback_express_name express_name,
+           r.reback_express_no express_no,
+           r.rex_store_id erp_store_id,
+           r.return_accept_user_id store_delivery_id,r.refund_time update_time
+    from ord_sub_list s,ord_return_exchange r
+    where s.deleted = '0'
+    and s.sub_order_id = r.sub_order_id
+    and s.type = '10'
+    and r.erp_send_status = '20'
+    and s.sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    and r.sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    order by update_time
+  </select>
+  <select id="selectErpReturnBySubOrder" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select s.sub_order_id, s.order_id, s.sku_id, s.price, r.refund_infact as price_discount,
+    r.return_accept_time deliver_time,
+    r.reback_express_name express_name,
+    r.reback_express_no express_no,
+    r.rex_store_id erp_store_id,
+    r.return_accept_user_id store_delivery_id,r.refund_time update_time,r.erp_send_status
+    from ord_sub_list s,ord_return_exchange r
+    where s.deleted = '0'
+    and s.sub_order_id = r.sub_order_id
+    and s.type = '10'
+    and s.sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    and r.sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+    order by update_time
+  </select>
+
+  <resultMap id="SKUResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbShoppingSKuExt">
+
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+    <result column="type" property="type" jdbcType="VARCHAR"/>
+
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR"/>
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR"/>
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+    <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR"/>
+    <result column="image_url_json" property="imageUrlJson" jdbcType="VARCHAR"/>
+    <result column="skucontent" property="skucontent" jdbcType="VARCHAR"/>
+    <result column="color_code" property="colorCode" jdbcType="VARCHAR"/>
+    <result column="color_name" property="colorName" jdbcType="VARCHAR"/>
+    <result column="price" property="price" jdbcType="NUMERIC"/>
+    <result column="safe_bank" property="safeBank" jdbcType="INTEGER"/>
+    <result column="size_code" property="sizeCode" jdbcType="VARCHAR"/>
+    <result column="size_name" property="sizeName" jdbcType="VARCHAR"/>
+    <result column="sku_deleted" property="skuDeleted" jdbcType="VARCHAR"/>
+    <result column="goods_deleted" property="goodsDeleted" jdbcType="VARCHAR"/>
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR"/>
+
+  </resultMap>
+  <select id="querySKUListByOrderDetailId" resultMap="SKUResultMapExt" parameterType="java.lang.String">
+
+    select distinct
+    osl.sku_id,
+    osl.type,
+
+    vas.brand_id,
+    vas.goods_type_id,
+    vas.goods_name,
+    vas.goods_type_name_path,
+    vas.image_url_json,
+    vas.skucontent,
+    vas.color_code,
+    vas.color_name,
+    vas.price,
+    vas.safe_bank,
+    vas.size_code,
+    vas.size_name,
+    vas.sku_deleted,
+    vas.goods_deleted,
+    vas.is_onsell
+    from public.ord_sub_list osl
+    left join view_all_sku vas ON vas.skuid = osl.sku_id
+    where osl.detail_id = #{detailId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectErpReturnByOrder" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select s.sub_order_id, s.order_id, s.sku_id, s.price, r.refund_infact as price_discount,
+           r.return_accept_time deliver_time,
+           r.reback_express_name express_name,
+           r.reback_express_no express_no,
+           r.rex_store_id erp_store_id,
+           r.return_accept_user_id store_delivery_id,r.refund_time update_time,r.erp_send_status,
+           s.action_name,(case when position('内购' in s.action_name)>0 then '1' else '0' end)inner_buy
+    from ord_sub_list s,ord_return_exchange r
+    where s.deleted = '0'
+    and s.sub_order_id = r.sub_order_id
+    and s.type = '10'
+    and r.rex_status = '41'
+    and s.order_id = #{orderId,jdbcType=VARCHAR}
+    and r.order_id = #{orderId,jdbcType=VARCHAR}
+    order by update_time
+  </select>
+
+  <select id="selectProof" resultMap="BaseResultMap"  parameterType="net.dlyt.qyds.common.dto.OrdSubList">
+  /*20180124添加了退款金额price_share*/
+  select s.sub_order_id, s.sku_id, s.price,s.price_share,r.refund_infact as price_discount,
+  r.return_accept_time deliver_time,
+  r.rex_store_id erp_store_id,
+  r.return_accept_user_id store_delivery_id,
+  v.goods_code,v.goods_name_cn goods_name, v.color_name coloreName,v.size_name size_name,
+  u.user_name store_delivery_name
+  from ord_sub_list s
+  inner join ord_return_exchange r
+  on r.sub_order_id = s.sub_order_id
+  and r.rex_type = '10'
+  and r.rex_status in ('22','40','41')
+  and r.rex_store_id = #{erpStoreId,jdbcType=VARCHAR}
+  and r.order_id = #{orderId,jdbcType=VARCHAR}
+  left join view_erp_goods v
+  on v.sku = s.sku_id
+  left join sys_user u
+  on u.login_id = r.return_accept_user_id
+  where s.deleted = '0'
+  and s.type = '10'
+  and s.order_id = #{orderId,jdbcType=VARCHAR}
+  order by r.return_accept_time
+  </select>
+
+  <select id="selectProofDispatch" resultMap="BaseResultMap"  parameterType="net.dlyt.qyds.common.dto.OrdSubList">
+    select s.sub_order_id, s.sku_id, s.price, s.price_discount,
+    s.deliver_time,
+    s.erp_store_id,
+    s.store_delivery_id,
+    v.goods_code,v.goods_name_cn goods_name, v.color_name coloreName,v.size_name size_name,
+    s.store_delivery_name
+    from ord_sub_list s
+    left join view_erp_goods v
+    on v.sku = s.sku_id
+    where s.deleted = '0'
+    and s.type = '10'
+    and s.deliver_status >= '20'
+    and s.order_id = #{orderId,jdbcType=VARCHAR}
+    and dispatch_store = #{erpStoreId,jdbcType=VARCHAR}
+    order by s.deliver_time
+  </select>
+
+  <select id="getUpSeasoningDispatchListCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.OrdSubListExt">
+    select count(1)
+    from ord_sub_list
+    where 1 = 1
+    <if test="subOrderId!=null and subOrderId!='' ">
+      sub_order_id LIKE CONCAT('%', #{subOrderId},'%')
+    </if>
+    <if test="orderId!=null and orderId!='' ">
+      order_id LIKE CONCAT('%', #{orderId},'%')
+    </if>
+    and deleted = '0'
+    and (up_seasoning = '1' or up_seasoning = '2')
+  </select>
+
+
+  <select id="getUpSeasoningDispatchList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdSubListExt">
+    select *
+    from ord_sub_list
+    where 1 = 1
+    <if test="subOrderId!=null and subOrderId!='' ">
+      sub_order_id LIKE CONCAT('%', #{subOrderId},'%')
+    </if>
+    <if test="orderId!=null and orderId!='' ">
+      order_id LIKE CONCAT('%', #{orderId},'%')
+    </if>
+    and deleted = '0'
+    and (up_seasoning = '1' or up_seasoning = '2')
+    order by insert_time DESC
+    limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <update id="receiveSubOrder" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    update public.ord_sub_list
+    set
+    deliver_status = '21',
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getReportSale" resultMap="BaseResultCodeMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select s.order_id, sum(s.quantity) quantity,sum(s.price_share) price_share,m.order_time
+    from ord_sub_list s
+    inner join ord_master m
+    on m.order_id = s.order_id
+    and m.deliver_status >= '20'
+    <if test="orderTimeStart != null and !orderTimeStart.isEmpty()" >
+      AND to_char(m.order_time,'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeEnd != null and !orderTimeEnd.isEmpty()" >
+      AND to_char(m.order_time,'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </if>
+    group by s.order_id,m.order_time
+    order by m.order_time
+  </select>
+
+  <select id="getReportReturn" resultMap="BaseResultCodeMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt" >
+    select s.order_id, sum(s.quantity) quantity,sum(r.refund_infact) price_share,m.order_time
+    from ord_sub_list s
+    inner join ord_return_exchange r
+    on r.sub_order_id = s.sub_order_id
+    and r.rex_status ='41'
+    inner join ord_master m
+    on m.order_id = s.order_id
+    <if test="orderTimeStart != null and !orderTimeStart.isEmpty()" >
+      AND to_char(m.order_time,'yyyy-mm-dd') >= #{orderTimeStart,jdbcType=VARCHAR}
+    </if>
+    <if test="orderTimeEnd != null and !orderTimeEnd.isEmpty()" >
+      AND to_char(m.order_time,'yyyy-mm-dd') &lt;= #{orderTimeEnd,jdbcType=VARCHAR}
+    </if>
+    group by s.order_id,m.order_time
+    order by m.order_time
+  </select>
+
+  <select id="countMemberSecKillGoods" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.OrdSubList" >
+    select count(sl.quantity)
+    from ord_sub_list sl
+    inner join ord_master om on om.order_id = sl.order_id
+    where (om.pay_status = '20' or om.pay_status = '10' )
+    and om.order_status != '11'
+    and sl.action_id =  #{actionId,jdbcType=VARCHAR}
+    and sl.sku_id=  #{skuId,jdbcType=VARCHAR}
+    and om.member_id =  #{insertUserId,jdbcType=VARCHAR}
+    <if test="orderId != null and !orderId.isEmpty()" >
+      AND sl.order_id != #{orderId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectSecKillActivityOrdSubList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select osl.order_id, osl.action_id, osl.goods_id, osl.sku_id, sum(osl.quantity) quantity
+     from ord_sub_list osl
+      inner join act_master acm on osl.action_id = acm.activity_id
+      inner join act_template act on act.temp_id = acm.temp_id
+      where act.actition_type = '11' and osl.order_id = #{orderId,jdbcType=VARCHAR}
+      group by osl.order_id, osl.action_id, osl.goods_id, osl.sku_id
+  </select>
+
+
+  <select id="excelSubExport" resultMap="BaseResultCodeMap" parameterType="java.lang.String" >
+    select  osl.sub_order_id,osl.detail_id,osl.order_id,osl.goods_code,osl.goods_id,osl.goods_name,osl.sku,osl.action_name,osl.quantity,
+    osl.amount,osl.amount_discount,osl.deliver_status as deliver_status_code,osl.express_name,osl.express_no,
+    osl.store_phone,osl.store_delivery_name,osl.colore_name,osl.size_name,osl.price,osl.price_discount,to_char(osl.insert_time,'yyyy-MM-dd hh24:MI:ss') as insert_time1,osl.store_name
+    from public.ord_sub_list osl
+
+    where order_id = #{orderId,jdbcType=VARCHAR} order by osl.detail_id
+  </select>
+
+  <!--20171204 根据物流号查询子订单信息-->
+  <select id="selectByTxLogisticID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from public.ord_sub_list osl
+
+    where sub_order_id = #{subOrderId,jdbcType=VARCHAR}
+  </select>
+</mapper>

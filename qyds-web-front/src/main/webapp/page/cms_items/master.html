@@ -1,0 +1,158 @@
+<!-- 商品分类编辑画面 start-->
+            <div class="form-group">
+                <div class="col-md-12">
+                    <!-- 标题 & 面包屑-->
+                    <h3 class="page-title">
+                        商品分类详细画面
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.html">系统</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#" onclick="gotoListPage();">商品分类</a><i class="icon-angle-right"></i></li>
+                        <li><a href="#">分类详细</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption">分类详细</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                        <div class="form-group">
+                            <form id="gds_type_form" class="form-horizontal validator">
+                                <input type="hidden" value="" name="cms_id" id="cms_id" />
+                                <div class="col-md-12">
+                                    <div class="form-body">
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">标题<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="text" id="title" name="title" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="parent_div">
+                                            <div class="col-md-2 control-label">
+                                                <label  class="ontrol-label">图片维护</label>
+                                                <input type="checkbox" id="img_check_box" cxb_type="img"/>
+                                            </div>
+                                            <div class="col-md-10" id="img_show_area">
+
+                                                <div class="col-md-12" >
+                                                    <li class="icon-plus-sign" style="margin-top: 10px;" id="add_img_btn"></li>
+                                                </div>
+                                                <div class="col-md-12 img-list" style="height:80px;margin-top: 10px;" imgNo="1">
+                                                    <div class="col-md-2">
+                                                        <img id="img_1" class="img_click" style="width:80px;height:80px;border: 1px solid #d4d4d4" src="" imgNo="1"/>
+                                                        <input type="file" class="img_file_click" id="img_file_1" style="display: none" imgNo="1"/>
+                                                        <input type="text" id="img_url_1" hidden />
+                                                    </div>
+                                                    <div class="col-md-8 control-label" style="padding-top: 20px;">
+                                                        <label  class="col-md-2 control-label">连接地址</label>
+                                                        <div class="col-md-5">
+                                                            <input type="text" id="img_link_1" data-required="1" class="form-control specification">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2"></div>
+                                                </div>
+                                                <span id="img_error_1" class="col-md-12" style="color: red;height: 40px;padding-top: 5px;margin-left: 10px;" hidden>请选择图片</span>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                                <div class="col-md-2 control-label">
+                                                    <label  class="ontrol-label">属性维护</label>
+                                                    <input type="checkbox" id="attribute_check_box" cxb_type="inp"/>
+                                                </div>
+                                                <div class="col-md-10" id="inp_show_area">
+                                                    <div class="form-group" >
+                                                        <div class="col-md-12" >
+                                                            <li class="icon-plus-sign" style="margin-top: 10px;" id="add_inp_btn"></li>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="inp_form-group_show_area">
+                                                        <div class="col-md-12 inp-list" style="margin-top: 10px;" inpNo="1">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12" style="height: 40px;">
+                                                                <div class="form-group">
+                                                                    <div class="col-md-2">
+                                                                        <label  class="control-label" style="text-align: left">属性名称</label>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input type="text" id="inp_name_1" data-required="1" class="form-control specification">
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <label  class="control-label" style="text-align: left">属性连接</label>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <input type="text" data-required="1" id="inp_link_1" class="form-control specification_value">
+                                                                    </div>
+                                                                    <div class="col-md-2"></div>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="form-group" id="inp_error_1" hidden>
+                                                                <div class="col-md-12" >
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-2"></div>
+                                                                        <span class="col-md-10" style="color: red;height: 40px;padding-top: 5px;margin-left: 10px;" >请输入属性名称</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-2">
+                                                                            <label  class="ontrol-label">子属性维护</label>
+                                                                            <li class="icon-plus-sign add_inp_attribute_btn" id="add_inp_attribute_btn_1" inpNo="1"></li>
+                                                                        </div>
+                                                                        <div class="col-md-10" >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2 control-label">
+                                                <label  class="ontrol-label">富文本维护</label>
+                                                <input type="checkbox" id="ueditor_check_box" cxb_type="ueditor"/>
+                                            </div>
+                                            <div class="col-md-8" id="ueditor_show_area">
+                                                <script id="content_html" type="text/plain"></script>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">说明</label>
+                                            <div class="col-md-4">
+                                                <textarea id="comment" name="comment" data-required="1" class="form-control" rows="5" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancel_btn" class="btn default" >取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+<!-- 商品分类编辑画面 end -->
+<script src="../page/cms_items/master.js"></script>

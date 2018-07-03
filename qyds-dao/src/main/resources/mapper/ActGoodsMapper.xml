@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ActGoodsMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ActGoods" >
+    <id column="act_goods_id" property="actGoodsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="sku_id" property="skuId" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="buy_max" property="buyMax" jdbcType="INTEGER" />
+    <result column="surplus" property="surplus" jdbcType="INTEGER" />
+    <result column="act_price" property="actPrice" jdbcType="NUMERIC" />
+    <result column="goods_type_value" property="goodsTypeValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    act_goods_id, shop_id, activity_id, goods_type, goods_id, sku_id, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time, quantity, buy_max, surplus, act_price, 
+    goods_type_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.act_goods
+    where act_goods_id = #{actGoodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.act_goods
+    where act_goods_id = #{actGoodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ActGoods" >
+    insert into public.act_goods (act_goods_id, shop_id, activity_id, 
+      goods_type, goods_id, sku_id, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time, quantity, 
+      buy_max, surplus, act_price, 
+      goods_type_value)
+    values (#{actGoodsId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{activityId,jdbcType=VARCHAR}, 
+      #{goodsType,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{skuId,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{quantity,jdbcType=INTEGER}, 
+      #{buyMax,jdbcType=INTEGER}, #{surplus,jdbcType=INTEGER}, #{actPrice,jdbcType=NUMERIC}, 
+      #{goodsTypeValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ActGoods" >
+    insert into public.act_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actGoodsId != null" >
+        act_goods_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="buyMax != null" >
+        buy_max,
+      </if>
+      <if test="surplus != null" >
+        surplus,
+      </if>
+      <if test="actPrice != null" >
+        act_price,
+      </if>
+      <if test="goodsTypeValue != null" >
+        goods_type_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actGoodsId != null" >
+        #{actGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="buyMax != null" >
+        #{buyMax,jdbcType=INTEGER},
+      </if>
+      <if test="surplus != null" >
+        #{surplus,jdbcType=INTEGER},
+      </if>
+      <if test="actPrice != null" >
+        #{actPrice,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsTypeValue != null" >
+        #{goodsTypeValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ActGoods" >
+    update public.act_goods
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="buyMax != null" >
+        buy_max = #{buyMax,jdbcType=INTEGER},
+      </if>
+      <if test="surplus != null" >
+        surplus = #{surplus,jdbcType=INTEGER},
+      </if>
+      <if test="actPrice != null" >
+        act_price = #{actPrice,jdbcType=NUMERIC},
+      </if>
+      <if test="goodsTypeValue != null" >
+        goods_type_value = #{goodsTypeValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where act_goods_id = #{actGoodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ActGoods" >
+    update public.act_goods
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      activity_id = #{activityId,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      quantity = #{quantity,jdbcType=INTEGER},
+      buy_max = #{buyMax,jdbcType=INTEGER},
+      surplus = #{surplus,jdbcType=INTEGER},
+      act_price = #{actPrice,jdbcType=NUMERIC},
+      goods_type_value = #{goodsTypeValue,jdbcType=VARCHAR}
+    where act_goods_id = #{actGoodsId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByActivityIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.act_goods
+    <if test="activityIds != null">
+      where activity_id in
+      <foreach item="activityIds" index="index" collection="activityIds"
+               open="(" separator="," close=")">#{activityIds}</foreach>
+    </if>
+  </select>
+  <select id="selectByGoodsActivityIds" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from public.act_goods
+
+    where goods_id=#{goodsId}
+    <if test="activityIds != null">
+      and activity_id in
+      <foreach item="activityIds" index="index" collection="activityIds"
+               open="(" separator="," close=")">#{activityIds}</foreach>
+    </if>
+  </select>
+</mapper>

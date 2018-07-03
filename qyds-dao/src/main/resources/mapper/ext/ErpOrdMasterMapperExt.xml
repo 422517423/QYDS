@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpOrdMasterMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.ErpOrderMasterExt" >
+    <id column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="member_code" property="memberCode" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="store_code" property="storeCode" jdbcType="VARCHAR" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <select id="getAllCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(1) from erp_order_master erp
+    left join mmb_master mmb
+    on erp.member_code = mmb.telephone
+    where mmb.member_id = #{memberId,jdbcType=VARCHAR}
+    and erp.deleted = '0'
+  </select>
+
+
+  <select id="getAllOrderByMemberId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.OrdMasterExt">
+    select * from erp_order_master erp
+    left join mmb_master mmb
+    on erp.member_code = mmb.telephone
+    where mmb.member_id = #{memberId,jdbcType=VARCHAR}
+    order by erp.order_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllOrderByMemberIdForWeb" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from erp_order_master erp
+    left join mmb_master mmb
+    on erp.member_code = mmb.telephone
+    where mmb.member_id = #{memberId,jdbcType=VARCHAR}
+    order by erp.order_time DESC
+  </select>
+
+</mapper>

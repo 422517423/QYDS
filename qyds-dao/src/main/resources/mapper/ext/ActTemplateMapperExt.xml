@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ActTemplateMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.form.ActTemplateForm">
+        <id column="temp_id" property="tempId" jdbcType="VARCHAR"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="temp_code" property="tempCode" jdbcType="VARCHAR"/>
+        <result column="temp_name" property="tempName" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="actition_type" property="actitionType" jdbcType="VARCHAR"/>
+        <result column="apply_user_id" property="applyUserId" jdbcType="VARCHAR"/>
+        <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="apply_content" property="applyContent" jdbcType="VARCHAR"/>
+        <result column="approve_user_id" property="approveUserId" jdbcType="VARCHAR"/>
+        <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP"/>
+        <result column="approve_content" property="approveContent" jdbcType="VARCHAR"/>
+        <result column="approve_status" property="approveStatus" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="apply_user_name" property="applyUserName" jdbcType="VARCHAR"/>
+        <result column="approve_user_name" property="approveUserName" jdbcType="VARCHAR"/>
+        <result column="actition_type_cn" property="actitionTypeCn" jdbcType="VARCHAR"/>
+        <result column="actition_type_en" property="actitionTypeEn" jdbcType="VARCHAR"/>
+        <result column="approve_status_cn" property="approveStatusCn" jdbcType="VARCHAR"/>
+        <result column="approve_status_en" property="approveStatusEn" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="select" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActTemplateForm">
+        select at.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.display_cn as actition_type_cn,
+        code1.display_en as actition_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from act_template at
+        LEFT JOIN sys_user user1 ON at.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON at.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'ACTITION_TYPE' and at.actition_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and at.approve_status = code2.value
+        <if test="_parameter != null">
+            <where>
+                <if test="tempName!=null and tempName!='' ">
+                    at.temp_name LIKE CONCAT('%', #{tempName},'%')
+                </if>
+                <if test="actitionType!= null and actitionType!= '' ">
+                    AND at.actition_type = #{actitionType}
+                </if>
+                <if test="approveStatus!= null and approveStatus!= '' ">
+                    AND at.approve_status = #{approveStatus}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND at.deleted = #{deleted}
+                </if>
+            </where>
+        </if>
+        order by at.insert_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ActTemplate">
+        select count(1)
+        from act_template at
+        <if test="_parameter != null">
+            <where>
+                <if test="tempName!=null and tempName!='' ">
+                    at.temp_name LIKE CONCAT('%', #{tempName},'%')
+                </if>
+                <if test="actitionType!= null and actitionType!= '' ">
+                    AND at.actition_type = #{actitionType}
+                </if>
+                <if test="approveStatus!= null and approveStatus!= '' ">
+                    AND at.approve_status = #{approveStatus}
+                </if>
+                <if test="deleted!= null and deleted!= '' ">
+                    AND at.deleted = #{deleted}
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActTemplateForm">
+        select at.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.display_cn as actition_type_cn,
+        code1.display_en as actition_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from act_template at
+        LEFT JOIN sys_user user1 ON at.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON at.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'ACTITION_TYPE' and at.actition_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and at.approve_status = code2.value
+        WHERE at.temp_id = #{tempId}
+    </select>
+
+    <select id="selectApproveList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActTemplateForm">
+        select at.*,
+        user1.user_name as apply_user_name,
+        user2.user_name as approve_user_name,
+        code1.display_cn as actition_type_cn,
+        code1.display_en as actition_type_en,
+        code2.display_cn as approve_status_cn,
+        code2.display_en as approve_status_en
+        from act_template at
+        LEFT JOIN sys_user user1 ON at.apply_user_id = user1.login_id
+        LEFT JOIN sys_user user2 ON at.approve_user_id = user2.login_id
+        LEFT JOIN com_code code1 ON code1.code = 'ACTITION_TYPE' and at.actition_type = code1.value
+        LEFT JOIN com_code code2 ON code2.code = 'APPROVE_STATUS' and at.approve_status = code2.value
+        where at.approve_status != '40'
+        <if test="tempName!=null and tempName!='' ">
+            AND at.temp_name LIKE CONCAT('%', #{tempName},'%')
+        </if>
+        <if test="actitionType!= null and actitionType!= '' ">
+            AND at.actition_type = #{actitionType}
+        </if>
+        <if test="approveStatus!= null and approveStatus!= '' ">
+            AND at.approve_status = #{approveStatus}
+        </if>
+        <if test="deleted!= null and deleted!= '' ">
+            AND at.deleted = #{deleted}
+        </if>
+        order by at.approve_status,actition_type,at.update_time desc limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectApproveCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ActTemplate">
+        select count(1)
+        from act_template at
+        where at.approve_status != '40'
+        <if test="tempName!=null and tempName!='' ">
+            AND at.temp_name LIKE CONCAT('%', #{tempName},'%')
+        </if>
+        <if test="actitionType!= null and actitionType!= '' ">
+            AND at.actition_type = #{actitionType}
+        </if>
+        <if test="approveStatus!= null and approveStatus!= '' ">
+            AND at.approve_status = #{approveStatus}
+        </if>
+        <if test="deleted!= null and deleted!= '' ">
+            AND at.deleted = #{deleted}
+        </if>
+    </select>
+
+    <select id="checkExistByTempName" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.ActTemplate">
+        SELECT count(*)
+        FROM act_template at
+        WHERE at.temp_name = #{tempName} AND at.deleted = '0'
+    </select>
+
+
+</mapper>

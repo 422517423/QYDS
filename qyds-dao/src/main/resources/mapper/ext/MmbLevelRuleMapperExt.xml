@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbLevelRuleMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.MmbLevelRuleExt">
+        <id column="member_level_id" property="memberLevelId" jdbcType="VARCHAR"/>
+        <result column="member_level_code" property="memberLevelCode" jdbcType="VARCHAR"/>
+        <result column="member_level_name" property="memberLevelName" jdbcType="VARCHAR"/>
+        <result column="member_count" property="memberCount" jdbcType="INTEGER"/>
+        <result column="point_single" property="pointSingle" jdbcType="NUMERIC"/>
+        <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC"/>
+        <result column="point_lower" property="pointLower" jdbcType="INTEGER"/>
+        <result column="point_upper" property="pointUpper" jdbcType="INTEGER"/>
+        <result column="discount" property="discount" jdbcType="NUMERIC"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <!-- 20171214-->
+        <result column="point_cumulative" property="pointCumulative" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <resultMap id="ResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbLevelRuleExt">
+        <id column="member_level_id" property="memberLevelId" jdbcType="VARCHAR"/>
+        <result column="member_level_code" property="memberLevelCode" jdbcType="VARCHAR"/>
+        <result column="member_level_name" property="memberLevelName" jdbcType="VARCHAR"/>
+        <result column="member_count" property="memberCount" jdbcType="INTEGER"/>
+        <result column="point_single" property="pointSingle" jdbcType="NUMERIC"/>
+        <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC"/>
+        <result column="point_lower" property="pointLower" jdbcType="INTEGER"/>
+        <result column="point_upper" property="pointUpper" jdbcType="INTEGER"/>
+        <result column="discount" property="discount" jdbcType="NUMERIC"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_user_name" property="insertUserName" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <!-- 20171214-->
+        <result column="point_cumulative" property="pointCumulative" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="ResultMapExt" parameterType="net.dlyt.qyds.common.form.MmbLevelRuleForm">
+        select
+
+        mlr.member_level_id, mlr.member_level_code, mlr.point_lower,mlr.point_upper,
+        mlr.discount, mlr.point_ratio, mlr.comment, mlr.deleted, mlr.update_user_id, mlr.update_time,
+        mlr.insert_user_id,
+        mlr.insert_time, mlr.point_single, mlr.point_cumulative,
+        su1.user_name as insert_user_name, su2.user_name as update_user_name,mmc.member_count,
+        cc.display_cn as member_level_name
+        from public.mmb_level_rule mlr
+        left join sys_user su1 on cast(su1.user_id as varchar) = mlr.insert_user_id
+        left join sys_user su2 on cast(su2.user_id as varchar) = mlr.update_user_id
+        left join com_code cc on cc.code = 'MEMBER_LEVEL' and cc.deleted = '0' and cc.value = mlr.member_level_code
+        left join
+        (
+        select count(member_id) member_count, member_level_id
+        from mmb_master
+        where deleted = '0'
+        group by member_level_id
+        ) mmc on mmc.member_level_id = mlr.member_level_code
+        where mlr.deleted = '0'
+
+        <if test="memberLevelName!=null and !memberLevelName.isEmpty() ">
+            AND mlr.member_level_name LIKE CONCAT(CONCAT('%', #{memberLevelName}),'%')
+        </if>
+        <if test="memberLevelCode!= null and !memberLevelCode.isEmpty() ">
+            AND mlr.member_level_code = #{memberLevelCode}
+        </if>
+
+        order by mlr.member_level_code, mlr.update_time DESC limit #{iDisplayLength,jdbcType=INTEGER} offset
+        #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAllDataCount" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelRuleForm">
+    select
+    count(*) as count
+    from public.mmb_level_rule mlr
+    where mlr.deleted = '0'
+  </select>
+
+    <select id="select" resultMap="ResultMapExt" parameterType="net.dlyt.qyds.common.form.MmbLevelRuleForm">
+        select
+        mlr.*, su1.user_name as insert_user_name, su2.user_name as update_user_name
+        from public.mmb_level_rule mlr
+        left join sys_user su1 on cast(su1.user_id as varchar) = mlr.insert_user_id
+        left join sys_user su2 on cast(su2.user_id as varchar) = mlr.update_user_id
+        where mlr.deleted = '0'
+        <if test="memberLevelCode!= null and !memberLevelCode.isEmpty() ">
+            AND mlr.member_level_code = #{memberLevelCode}
+        </if>
+        <if test="memberLevelId!= null and !memberLevelId.isEmpty() ">
+            AND mlr.member_level_id = #{memberLevelId}
+        </if>
+
+    </select>
+
+    <select id="selectLevelBySinglePoint" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        mlr.*
+        from public.mmb_level_rule mlr
+        where mlr.deleted = '0'
+        where mlr.point_single &lt;= #{point,jdbcType=INTEGER}
+        order by mlr.point_single desc
+        limit 1
+
+    </select>
+    <!--更改为对累计消费的操作-->
+    <select id="selectMemberLevelByYearPoint" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select mlr.*
+        from public.mmb_level_rule mlr
+        where mlr.deleted = '0'
+        and mlr.point_lower &lt;= #{point,jdbcType=INTEGER}
+        and (mlr.point_upper &gt;= #{point,jdbcType=INTEGER}  or mlr.point_upper is null)
+    </select>
+
+
+    <resultMap id="MmbLevelManagerResultMap" type="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="member_name" property="memberName" jdbcType="VARCHAR"/>
+        <result column="current_level_id" property="currentLevelId" jdbcType="VARCHAR"/>
+        <result column="current_level_name" property="currentLevelName" jdbcType="VARCHAR"/>
+        <result column="approval_level_id" property="approvalLevelId" jdbcType="VARCHAR"/>
+        <result column="approval_level_name" property="approvalLevelName" jdbcType="VARCHAR"/>
+        <result column="all_point" property="allPoint" jdbcType="INTEGER"/>
+        <result column="max_point" property="pointSingle" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="MmbLevelManagerResultMapInTwo" type="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="member_name" property="memberName" jdbcType="VARCHAR"/>
+        <result column="current_level_id" property="currentLevelId" jdbcType="VARCHAR"/>
+        <result column="current_level_name" property="currentLevelName" jdbcType="VARCHAR"/>
+        <result column="approval_level_id" property="approvalLevelId" jdbcType="VARCHAR"/>
+        <result column="approval_level_name" property="approvalLevelName" jdbcType="VARCHAR"/>
+        <result column="all_point" property="allPoint" jdbcType="INTEGER"/>
+        <result column="max_point" property="pointSingle" jdbcType="INTEGER"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectApprovalUpMemberList" resultMap="MmbLevelManagerResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select member.*, cc.display_cn current_level_name, cc1.display_cn approval_level_name
+        from view_approval_up_member member
+        inner join (select
+        member_id,
+        max(approval_level_id) max_approval_level_id
+        from view_approval_up_member group by member_id) ma
+        on ma.member_id = member.member_id and member.approval_level_id = ma.max_approval_level_id
+        left join com_code cc on cc.code = 'MEMBER_LEVEL' and cc.value = member.current_level_id
+        left join com_code cc1 on cc1.code = 'MEMBER_LEVEL' and cc1.value = member.approval_level_id
+
+        where member.approval_level_id > member.current_level_id
+        <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
+            AND member.current_level_id = #{currentLevelId}
+        </if>
+        order by member.approval_level_id DESC, member.current_level_id DESC, member.member_name
+        limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectApprovalUpMemberListInTwo"  resultMap="MmbLevelManagerResultMapInTwo"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select member.*, cc.display_cn current_level_name, cc1.display_cn approval_level_name
+        from view_approval_up_memberintwo member
+        inner join (select
+        member_id,
+        max(approval_level_id) max_approval_level_id
+        from view_approval_up_memberintwo group by member_id) ma
+        on ma.member_id = member.member_id and member.approval_level_id = ma.max_approval_level_id
+        left join com_code cc on cc.code = 'MEMBER_LEVEL' and cc.value = member.current_level_id
+        left join com_code cc1 on cc1.code = 'MEMBER_LEVEL' and cc1.value = member.approval_level_id
+
+        where member.approval_level_id > member.current_level_id
+        <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
+            AND member.current_level_id = #{currentLevelId}
+        </if>
+        /*添加手机号搜索功能*/
+        <if test="telephone!= null and !telephone.isEmpty() ">
+
+            and member.telephone like CONCAT('%', #{telephone,jdbcType=VARCHAR}, '%')
+        </if>
+        /*添加了年份标识判断*/
+        /*当yearNum=0时，查询当年消费*/
+        <if test="yearNum == 0">
+          and y_time = to_char((SELECT now()::timestamp),'yyyy')
+        </if>
+        /*当yearNum=1时，查询当年和前一年的消费*/
+        <if test="yearNum == 1">
+          and y_time &gt;= to_char((SELECT now()::timestamp+ '-1 year'),'yyyy')
+          and y_time &lt;= to_char((SELECT now()::timestamp),'yyyy')
+        </if>
+        order by member.approval_level_id DESC, member.current_level_id DESC, member.member_name
+        limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="countApprovalUpMemberList" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select count(*)
+        from view_approval_up_member member
+        inner join (select
+        member_id,
+        max(approval_level_id) max_approval_level_id
+        from view_approval_up_member group by member_id) ma
+        on ma.member_id = member.member_id and member.approval_level_id = ma.max_approval_level_id
+        where member.approval_level_id > member.current_level_id
+        <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
+            AND member.current_level_id = #{currentLevelId}
+        </if>
+    </select>
+
+    <select id="countApprovalUpMemberListInTwo" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        SELECT count(*) FROM view_approval_up_memberInTwo
+        /*添加了年份标识判断*/
+        /*当yearNum=0时，查询当年消费*/
+        <if test="yearNum == 0">
+            where y_time = to_char((SELECT now()::timestamp),'yyyy')
+        </if>
+        /*当yearNum=1时，查询当年和前一年的消费*/
+        <if test="yearNum == 1">
+            where y_time &gt;= to_char((SELECT now()::timestamp+ '-1 year'),'yyyy')
+            and y_time &lt;= to_char((SELECT now()::timestamp),'yyyy')
+        </if>
+    </select>
+    
+    <select id="selectRelegationMemberList" resultMap="MmbLevelManagerResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select a.member_id, (case when max(a.a_total) is not null then max(a.a_total) else 0 end) as max_amout,
+        (
+        case when sum(a.a_total) is not null then sum(a.a_total) else 0 end
+        ) as total_amount
+
+        from(
+        select m.member_id,om.pay_infact as a_total,to_char((SELECT om.pay_time::timestamp),'yyyy') as y_time
+        from public.mmb_master m
+        left join public.ord_master om on om.member_id = m.member_id
+        and to_char((SELECT om.pay_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy')
+        and om.pay_status='20'
+        and om.deleted = '0'
+        where m.member_level_id='30'
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+
+
+        UNION ALL
+
+        select m.member_id,eos.amount as a_total,to_char((SELECT eos.order_time::timestamp),'yyyy') as y_time
+        from mmb_master m
+        left join erp_order_statistics eos on eos.member_code::text = m.telephone::text
+        and to_char((SELECT eos.order_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy')
+        and eos.deleted = '0'
+        where m.member_level_id='30'
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+
+        )a
+        group by a.member_id having ((case when sum(a.a_total) is not null then sum(a.a_total) else 0 end)  &lt; '3000'
+        and (case when max(a.a_total) is not null then max(a.a_total) else 0 end)  &lt; '1500')
+    </select>
+
+    <select id="selectRelegationMemberListOneTime" resultMap="MmbLevelManagerResultMap"
+            parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
+        select a.member_id, (case when max(a.a_total) is not null then max(a.a_total) else 0 end) as max_amout,
+        (
+        case when sum(a.a_total) is not null then sum(a.a_total) else 0 end
+        ) as total_amount
+
+        from(
+        select m.member_id,om.pay_infact as a_total,to_char((SELECT om.pay_time::timestamp),'yyyy') as y_time
+        from public.mmb_master m
+        left join public.ord_master om on om.member_id = m.member_id
+        and (to_char((SELECT om.pay_time::timestamp),'yyyy')=to_char((SELECT (now()- interval '1 years')::timestamp),'yyyy') OR to_char((SELECT om.pay_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy'))
+        and om.pay_status='20'
+        and om.deleted = '0'
+        where m.member_level_id='30'
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+
+
+        UNION ALL
+
+        select m.member_id,eos.amount as a_total,to_char((SELECT eos.order_time::timestamp),'yyyy') as y_time
+        from mmb_master m
+        left join erp_order_statistics eos on eos.member_code::text = m.telephone::text
+        and (to_char((SELECT eos.order_time::timestamp),'yyyy')=to_char((SELECT (now()- interval '1 years')::timestamp),'yyyy') OR to_char((SELECT eos.order_time::timestamp),'yyyy')=to_char((SELECT now()::timestamp),'yyyy'))
+        and eos.deleted = '0'
+        where m.member_level_id='30'
+        and m.deleted = '0'
+        and (m.telephone is not null or trim(m.telephone) != '')
+        )a
+        group by a.member_id having ((case when sum(a.a_total) is not null then sum(a.a_total) else 0 end)&lt;'3000'
+        and (case when max(a.a_total) is not null then max(a.a_total) else 0 end)&lt;'1500');
+    </select>
+
+</mapper>

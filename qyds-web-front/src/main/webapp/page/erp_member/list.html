@@ -1,0 +1,340 @@
+<!-- ERP会员列表画面 开始-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 标题 -->
+                <h3 class="page-title">
+                    会员列表
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">ERP管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">会员列表</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 检索条件 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-search"></i>查询条件</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="x_content">
+                            <!-- 查询条件 -->
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="member_code_in" class="col-sm-2 control-label">会员编码</label>
+                                    <div class="col-sm-3">
+                                        <input id="member_code_in" class="form-control" />
+                                    </div>
+                                    <label for="member_name_in" class="col-sm-2 control-label">会员姓名</label>
+                                    <div class="col-sm-3">
+                                        <input id="member_name_in" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobil_in" class="col-sm-2 control-label">手机号码</label>
+                                    <div class="col-sm-3">
+                                        <input id="mobil_in" class="form-control" />
+                                    </div>
+                                    <label for="address_in" class="col-sm-2 control-label">邮寄地址</label>
+                                    <div class="col-sm-3">
+                                        <input id="address_in" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-8 col-sm-4">
+                                        <button type="button" class="btn btn-success"
+                                                style="width: 100px" id="btn_search">查询</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 列表-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- 列表项目-->
+                        <table class="table table-striped table-hover table-bordered" id="list_table">
+                            <thead>
+                            <tr>
+                                <th>编码</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>生日</th>
+                                <th>手机</th>
+                                <th>地址</th>
+                                <th>注册时间</th>
+                                <th>会员级别</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- 会员列表画面 结束-->
+
+<!-- /.modal -->
+<div id="editArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">会员详细</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <form id="memberForm" class="form-horizontal validator">
+                            <!--<input type="hidden" value="" name="member_id" id="member_id" />-->
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">会员编码</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="member_code" name="member_code" disabled="disabled"  class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">姓名</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="member_name" name="member_name" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">性别</label>
+                                    <div class="col-md-8">
+                                        <select type="text" id="sex_code" name="sex_code" disabled="disabled" class="form-control">
+                                            <option value="0"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--<div class="form-group">-->
+                                    <!--<label  class="col-md-3 control-label">性别</label>-->
+                                    <!--<div class="col-md-8">-->
+                                        <!--<input type="text" id="sex_name" name="sex_name" disabled="disabled" class="form-control">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">电话</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="mobil" name="mobil" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">生日</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="birthday" name="birthday" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">省</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="province_name" name="province_name" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">市</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="city_name" name="city_name" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">区</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="district_name" name="district_name" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">邮箱</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="email" name="email" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">门店</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="store_name" name="store_name" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">售货员</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="seller_name" name="seller_name" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">职业</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="profession" name="profession" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">地址</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="address" name="address" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">邮政编码</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="post_code" name="post_code" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">验证通过</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="checked" name="post_code" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">收入</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="income" name="income" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">注册时间</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="regist_time" name="regist_time" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">会员等级</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="member_grade" name="member_grade" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">消费金额</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="amount" name="amount" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">积分</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="point" name="point" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">代金券</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="ticket" name="ticket" disabled="disabled" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <!--<button type="button" id="save_btn" class="btn blue">保存</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="recordArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">积分履历</h4>
+            </div>
+            <div class="modal-header">
+                <form class="form-horizontal">
+                    <input type="hidden" id="member_code_record" class="form-control" />
+                    <div class="form-group">
+                        <label for="start_date" class="col-sm-2 control-label">开始日期</label>
+                        <div class="col-sm-4">
+                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <input type="text" class="form-control" id="start_date" name="start_date">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <label for="end_date" class="col-sm-2 control-label">结束日期</label>
+                        <div class="col-sm-4">
+                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <input type="text" class="form-control" id="end_date" name="end_date">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-9 col-sm-4">
+                            <button type="button" class="btn btn-success"
+                                    style="width: 100px" id="btn_record">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="portlet-body">
+                        <!-- 列表项目-->
+                        <table class="table table-striped table-hover table-bordered" id="record_table">
+                            <thead>
+                            <tr>
+                                <th>积分时间</th>
+                                <th>积分数量</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn default" data-dismiss="modal">关闭</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../page/erp_member/list.js"></script>

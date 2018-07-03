@@ -1,0 +1,70 @@
+<div class="modal fade" id="prize_goods_edit_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">奖品编辑</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0px">
+                <div class="row">
+                    <form id="prize_goods_edit_form" class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">奖品等级</label>
+                                    <div class="col-md-7">
+                                        <input type="number" id="prize_goods_sort" name="prize_goods_sort" data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">奖品名称</label>
+                                    <div class="col-md-7">
+                                        <input type="text" id="prize_goods_name" name="prize_goods_name" data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">奖品件数</label>
+                                    <div class="col-md-7">
+                                        <input type="text" id="prize_goods_count" name="prize_goods_count" data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">中奖概率(%)</label>
+                                    <div class="col-md-7">
+                                        <input type="text" id="win_percent" name="win_percent" data-required="1"
+                                               class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display: none">
+                                    <label class="col-md-3 control-label">奖品图片</label>
+                                    <div class="col-sm-4">
+                                        <img id="prize_goods_image" alt="" src=""
+                                             style="width: 100px;height: 100px;border: 1px #cccccc solid">
+                                        <input type="file" id="prize_goods_image_input" style="display: none">
+                                        <div style="padding: 10px">(建议大小: 200*200)</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">说明</label>
+                                    <div class="col-md-7">
+                                        <textarea id="prize_goods_desc" rows="4" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 0">
+                <button type="button" class="btn blue" id="prize_goods_btn_confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../page/prize_draw/prize_goods_edit.js"></script>
+

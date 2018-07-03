@@ -1,0 +1,38 @@
+<!-- /.modal -->
+<div id="rejectDispatchArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">拒绝发货</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px;overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <div class="row">
+                        <form id="rejectForm" class="form-horizontal validator">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">回复内容<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <textarea type="text" id="reject_content" name="reject_content" data-required="1"
+                                               class="form-control" maxlength="50"rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="reject_dispatch_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">取消</button>
+                <button type="button" id="btn_save" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/ord_dispatch/rejectDispatch.js"></script>

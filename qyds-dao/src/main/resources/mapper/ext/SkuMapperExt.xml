@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SkuMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.form.SkuForm">
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="brand_id" property="brandId" jdbcType="VARCHAR"/>
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR"/>
+        <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR"/>
+        <result column="skuid" property="skuid" jdbcType="VARCHAR"/>
+        <result column="skucontent" property="skucontent" jdbcType="VARCHAR"/>
+        <result column="color_code" property="colorCode" jdbcType="VARCHAR"/>
+        <result column="color_name" property="colorName" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="VARCHAR"/>
+        <result column="safe_bank" property="safeBank" jdbcType="VARCHAR"/>
+        <result column="size_code" property="sizeCode" jdbcType="VARCHAR"/>
+        <result column="size_name" property="sizeName" jdbcType="VARCHAR"/>
+        <result column="erpimg" property="erpimg" jdbcType="VARCHAR"/>
+        <result column="new_count" property="newCount" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        goods_id, type, brand_id, goods_type_id, is_onsell, goods_name,
+       goods_code, goods_type_name_path, skuid, skucontent, color_code,
+       color_name, price, safe_bank, size_code, size_name, erpimg, new_count
+    </sql>
+    <select id="select" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.SkuForm">
+        select
+        goods_id, type, brand_id, goods_type_id, is_onsell, goods_name,
+        goods_code, goods_type_name_path, skuid,skucontent, color_code,
+        color_name, price, safe_bank, size_code, size_name, erpimg, new_count
+        from public.view_onsell_sku
+        <if test="_parameter != null">
+            <where>
+                <if test="type!=null and type!='' ">
+                    type = #{type}
+                </if>
+                <if test="goodsName!=null and goodsName!='' ">
+                    AND goods_name LIKE CONCAT('%', #{goodsName},'%')
+                </if>
+                <if test="goodsCode!=null and goodsCode!='' ">
+                    AND goods_code LIKE CONCAT('%', #{goodsCode},'%')
+                </if>
+                <if test="brandId!= null and brandId!= '' ">
+                    AND brand_id = #{brandId}
+                </if>
+                <if test="goodsTypeId!= null and goodsTypeId!= '' ">
+                    AND goods_type_id = #{goodsTypeId}
+                </if>
+                <if test="colorCode!= null and colorCode!= '' ">
+                    AND color_code = #{colorCode}
+                </if>
+                <if test="colorName!= null and colorName!= '' ">
+                    AND color_name LIKE  CONCAT('%', #{colorName},'%')
+                </if>
+                <if test="sizeCode!= null and sizeCode!= '' ">
+                    AND size_code = #{sizeCode}
+                </if>
+            </where>
+        </if>
+        order by goods_id limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.SkuForm">
+        select count(1)
+        from public.view_onsell_sku
+        <if test="_parameter != null">
+            <where>
+                <if test="type!=null and type!='' ">
+                    type = #{type}
+                </if>
+                <if test="goodsName!=null and goodsName!='' ">
+                    AND goods_name LIKE CONCAT('%', #{goodsName},'%')
+                </if>
+                <if test="brandId!= null and brandId!= '' ">
+                    AND brand_id = #{brandId}
+                </if>
+                <if test="goodsTypeId!= null and goodsTypeId!= '' ">
+                    AND goods_type_id = #{goodsTypeId}
+                </if>
+                <if test="colorCode!= null and colorCode!= '' ">
+                    AND color_code = #{colorCode}
+                </if>
+                <if test="sizeCode!= null and sizeCode!= '' ">
+                    AND size_code = #{sizeCode}
+                </if>
+                <if test="colorName!= null and colorName!= '' ">
+                    AND color_name LIKE  CONCAT('%', #{colorName},'%')
+                </if>
+                <if test="goodsCode!=null and goodsCode!='' ">
+                    AND goods_code LIKE CONCAT('%', #{goodsCode},'%')
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="selectSkuColor" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.SkuForm">
+        SELECT * FROM (
+            SELECT master.goods_id,
+            master.is_onsell,
+            master.goods_name,
+            master.type,
+            master.goods_code,
+            ''::text AS skucontent,
+            erpgoods.color_code,
+            erpgoods.color_name
+            FROM view_erp_goods erpgoods
+            RIGHT JOIN gds_master master ON erpgoods.goods_code::text = master.erp_goods_code::text
+            group by master.goods_id,erpgoods.color_code,erpgoods.color_name
+        ) sub
+        <if test="_parameter != null">
+            <where>
+                <if test="goodsCode!=null and goodsCode!='' ">
+                    AND sub.goods_code = #{goodsCode}
+                </if>
+                <if test="colorName!= null and colorName!= '' ">
+                    AND sub.color_name LIKE  CONCAT('%', #{colorName},'%')
+                </if>
+            </where>
+        </if>
+        order by sub.goods_code, sub.color_code limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+    <select id="selectSkuColorCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.SkuForm">
+        SELECT count(1) FROM (
+            SELECT master.goods_id,
+            master.is_onsell,
+            master.goods_name,
+            master.type,
+            master.goods_code,
+            ''::text AS skucontent,
+            erpgoods.color_code,
+            erpgoods.color_name
+            FROM view_erp_goods erpgoods
+            RIGHT JOIN gds_master master ON erpgoods.goods_code::text = master.erp_goods_code::text
+            group by master.goods_id,erpgoods.color_code,erpgoods.color_name
+        ) sub
+        <if test="_parameter != null">
+            <where>
+                <if test="goodsCode!=null and goodsCode!='' ">
+                    AND sub.goods_code = #{goodsCode}
+                </if>
+                <if test="colorName!= null and colorName!= '' ">
+                    AND sub.color_name LIKE  CONCAT('%', #{colorName},'%')
+                </if>
+            </where>
+        </if>
+    </select>
+
+    <select id="selectBySkuId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.SkuForm">
+        select
+        <include refid="Base_Column_List"/>
+        from public.view_onsell_sku
+        WHERE  skuid = #{skuid}
+    </select>
+
+    <select id="getSuitPrice" resultType="java.lang.Float" parameterType="java.lang.String">
+        select
+        sum(price)
+        from public.view_onsell_sku
+        WHERE  skuid in (${_parameter})
+    </select>
+
+    <select id="getSkuByIds" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from public.view_onsell_sku
+        WHERE skuid in (${_parameter})
+    </select>
+
+    <select id="getSkuColorsByGoodsCodeAndColorCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT * FROM (
+            SELECT master.goods_id,
+            master.is_onsell,
+            master.goods_name,
+            master.type,
+            master.goods_name,
+            master.goods_code,
+            ''::text AS skucontent,
+            erpgoods.color_code,
+            erpgoods.color_name
+            FROM view_erp_goods erpgoods
+            LEFT JOIN gds_master master ON erpgoods.goods_code::text = master.erp_goods_code::text
+            group by master.goods_id,erpgoods.color_code,erpgoods.color_name
+        ) sub
+        WHERE CONCAT(sub.goods_code,'_',sub.color_code) in (${_parameter})
+    </select>
+
+</mapper>

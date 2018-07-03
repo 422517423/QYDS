@@ -1,0 +1,129 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--</button>-->
+        <!--<div class="h1 title" style="font-size:24px;">退货</div>-->
+        <!--</button>-->
+    <!--</ion-header-bar>-->
+    <ion-content on-swipe-left="onSwipeLeft()">
+        <div ng-repeat="refundItem in refundsInfo.ordList" style="padding: 10px;">
+            <img ng-src="{{refundItem.imageUrlJson | imgPath :'480'}}"
+                 style="width:80px;float:left;margin-right: 10px;"
+                 class='bordered'>
+            <div>
+                <div style="font-size: 13px;margin-top: 10px" class="max-line-1">{{refundItem.goodsName}}</div>
+                <div style="font-size: 12px;color: #666666;margin-top: 10px" ng-if="good.type!=30">
+                    <span>颜色:</span>
+                    <span ng-if="refundItem.type==20">{{refundItem.sku | orderSkuFilter20:"color"}}</span>
+                    <span ng-if="refundItem.type==10">{{refundItem.sku | orderSkuFilter10:"color"}}</span>
+                    <span style="margin-left: 10px">尺码:</span>
+                    <span ng-if="refundItem.type==20">{{refundItem.sku | orderSkuFilter20:"size"}}</span>
+                    <span ng-if="refundItem.type==10">{{refundItem.sku | orderSkuFilter10:"size"}}</span>
+                </div>
+                <div style="font-size: 12px;color: #999999;margin-top: 10px">
+                    <span>数量: </span>
+                    <span>×{{refundItem.quantity}}</span>
+                </div>
+                <!--价钱-->
+                <div style="text-align:right;font-size:13px;margin-top: 10px">
+                    <div ng-if="refundItem.priceDiscount == null" style="font-weight:bold;">{{refundItem.price |
+                        currency : '￥'}}
+                    </div>
+                    <div ng-if="refundItem.priceDiscount != null" style="font-weight:bold;">
+                        {{refundItem.priceDiscount
+                        | currency : '￥'}}
+                    </div>
+                    <div ng-if="refundItem.priceDiscount != null"
+                         style="color:#999999;text-decoration:line-through">
+                        {{refundItem.price | currency : '￥'}}
+                    </div>
+                </div>
+
+                <div ng-if="refundsInfo.canDivide == '1'" style="width: 100%;">
+                    <div class="divider_gray_bold"></div>
+                    <div class="row row-wrap">
+                        <div class="col col-center col-33">退货数量：</div>
+                        <div class="col">
+                            <input type="text" class="refundsNumSpinner noCheck" ng-Update-Input ng-model="refundItem.newQuantity"/>
+                        </div>
+                    </div>
+                    <div class="divider_gray_bold"></div>
+                </div>
+            </div>
+
+            <!--<div class="col col-25 text-right"><img  ng-src="{{refundItem.imageUrlJson | imgPath:'480'}}" width="80px" class='img-responsive'></div>-->
+            <!--<div class="col max-line-1" style="margin-left: 5px;">-->
+                <!--{{refundItem.goodsName}}-->
+
+            <!--</div>-->
+            <!--<div style="col">-->
+                <!--X <span id="quantity{{$index}}">{{refundItem.quantity}}</span>-->
+            <!--</div>-->
+            <!--<div ng-if="goodsItem.priceDiscount == null" class="col col-25" style="text-align:right">{{refundItem.price | currency : '￥'}}</div>-->
+            <!--<div ng-if="goodsItem.priceDiscount != null" class="col col-25" style="text-align:right">{{refundItem.priceDiscount | currency : '￥'}}</div>-->
+
+            <!--<div ng-if="refundsInfo.canDivide == '1'" style="width: 100%;">-->
+                <!--<div class="divider_gray_bold"></div>-->
+                <!--<div class="row row-wrap">-->
+                    <!--<div class="col col-center col-25">退货数量：</div>-->
+                    <!--<div class="col">-->
+                        <!--<input type="text" class="refundsNumSpinner noCheck" ng-Update-Input ng-model="refundItem.newQuantity"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="divider_gray_bold"></div>-->
+            <!--</div>-->
+        </div>
+        <div class="row row-wrap" style="margin-top: 5px;">
+            <div class="col">
+                问题描述：
+            </div>
+        </div>
+        <div class="row row-wrap">
+            <div class="col" style="margin-top:5px;">
+                <label class="item item-input">
+                    <textarea placeholder="请在此描述详细问题" rows="3" cols="20" ng-Update-Input ng-model="refundsInfo.applyComment"></textarea>
+                </label>
+            </div>
+        </div>
+        <div class="divider_gray"></div>
+
+        <div  ng-if="refundsInfo.canDivide == '0'" class="row" style="color:#ff3b30; font-size: 5px;">
+            <span>* 此单商品因为在购买的时候，参加过活动，所以只能整单退货。</span>
+        </div>
+
+        <div class="divider_gray_bold"></div>
+        <div class="row row-wrap" style="margin-top: 5px;">
+            <div class="col">
+                请选择退货方式：
+            </div>
+        </div>
+        <div class="row row-wrap">
+            <div class="col" style="margin-top:5px;">
+
+                <label style="float: left ;width: 50%;">
+                    <input type="radio" name="rexPoint" value="10" ng-model="refundsInfo.rexPoint" ng-click="changeRexPoint('10')" />
+                    快递退货
+                </label>
+                <label style="float: left ;width: 50%;">
+                    <input type="radio" name="rexPoint" value="20" ng-model="refundsInfo.rexPoint" ng-click="changeRexPoint('20')" />
+                    门店退货
+                </label>
+            </div>
+        </div>
+        <div class="row row-wrap" ng-if="refundsInfo.rexPoint == '20'" style="margin-left: 10px; margin-bottom: 10px;">
+            <span>请选择门店</span>
+            <div class="col col-70 item-select" style="height:44px;">
+                <select ng-model="refundsInfo.rexStoreId" style="font-size:15px;" ng-options="rex.store_name_cn for rex in orgList">
+
+                </select>
+            </div>
+        </div>
+        <div class="divider_gray"></div>
+
+
+        <div class="row">
+            <button class="button button-dark button-block" style="margin-top:20px" ng-click="refundOrder()">
+                确认退货
+            </button>
+        </div>
+</ion-view>

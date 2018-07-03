@@ -1,0 +1,97 @@
+<!-- 抽奖列表画面 开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            数据列表
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="index.html">抽奖管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">抽奖列表</a></li>
+        </ul>
+    </div>
+</div>
+<!--查询-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-search"></i>查询条件</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="x_content">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="prize_draw_name" class="col-sm-2 control-label">抽奖名称</label>
+                            <div class="col-sm-3">
+                                <input id="prize_draw_name" class="form-control"/>
+                            </div>
+                            <label for="is_valid" class=" col-sm-2 control-label">是否启用</label>
+                            <div class="col-sm-3">
+                                <select type="text" id="is_valid" name="is_valid" class="form-control">
+                                    <option value="">全部</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class=" col-sm-offset-8 col-sm-4">
+                                <button type="button" class="btn btn-primary"
+                                        style="width: 100px" id="btn_add">新建
+                                </button>
+                                <button type="button" class="btn btn-success"
+                                        style="width: 100px" id="btn_search">查询
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 列表-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="prize_draw_table">
+                    <thead>
+                    <tr>
+                        <th>抽奖名称</th>
+                        <th>开始日期</th>
+                        <th>结束日期</th>
+                        <th>是否启用</th>
+                        <th>积分兑换</th>
+                        <th>注册赠送</th>
+                        <th>订单满赠</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../page/prize_draw/list.js"></script>

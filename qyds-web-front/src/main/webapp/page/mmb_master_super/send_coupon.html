@@ -1,0 +1,45 @@
+<!-- /.modal -->
+<div id="sendCoupon" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content col-md-12">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">补发会员优惠券</h4>
+            </div>
+            <div class="modal-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="send_coupon_table">
+                    <thead>
+                    <tr>
+                        <th>操作</th>
+                        <th>优惠劵名称</th>
+                        <th>类型</th>
+                        <th>发放方式</th>
+                        <th>发放开始时间</th>
+                        <th>发放结束时间</th>
+                        <th>使用开始时间</th>
+                        <th>使用结束时间</th>
+                        <th>最大发放数量</th>
+                        <th>已发放数量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div id="send_coupon_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../page/mmb_master_super/send_coupon.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        TableEditable.init();
+    });
+</script>

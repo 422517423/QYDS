@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'qydsIcon';
+    src:
+            url('qydsIcon.ttf?do9xwg') format('truetype'),
+            url('qydsIcon.woff?do9xwg') format('woff'),
+            url('qydsIcon.svg?do9xwg#qydsIcon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="qyds-icon-"], [class*=" qyds-icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'qydsIcon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.qyds-icon-category-outline:before {
+    content: "\e900";
+}
+.qyds-icon-category:before {
+    content: "\e901";
+}
+.qyds-icon-home-outline:before {
+    content: "\e902";
+}
+.qyds-icon-home:before {
+    content: "\e903";
+}
+.qyds-icon-personal-outline:before {
+    content: "\e904";
+}
+.qyds-icon-personal:before {
+    content: "\e905";
+}
+.qyds-icon-shopcart-outline:before {
+    content: "\e906";
+}
+.qyds-icon-shopcart:before {
+    content: "\e907";
+}
+

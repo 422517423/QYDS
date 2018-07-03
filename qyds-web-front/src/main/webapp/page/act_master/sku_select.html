@@ -1,0 +1,58 @@
+<div class="modal fade" id="sku_select_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">选择商品</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0px">
+                <div class="row">
+                    <!-- 查询条件 -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="select_sku_goods_code" class="col-sm-2 control-label">商品款号</label>
+                            <div class="col-sm-3">
+                                <input id="select_sku_goods_code" class="form-control"/>
+                            </div>
+                            <label for="select_sku_goods_color" class="col-sm-2 control-label">商品颜色</label>
+                            <div class="col-sm-3">
+                                <input id="select_sku_goods_color" class="form-control"/>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-success" id="select_sku_btn_search">查询
+                                </button>
+                            </div>
+
+                        </div>
+                        <div style="color:#ff0000;margin-left: 20px">* 因数据量较大,请先输入条件再进行查询.</div>
+                    </form>
+                </div>
+                <!-- 列表-->
+                <div class="row" style="padding: 0 15px">
+                    <!-- 列表项目-->
+                    <table class="table table-striped table-hover table-bordered"
+                           id="sku_select_table">
+                        <thead>
+                        <tr>
+                            <th>全选<input type="checkbox" class="allCheck" onchange="setAllCheckboxs()"/></th>
+                            <th>商品款号</th>
+                            <th>颜色</th>
+                            <th>尺码</th>
+                            <th>库存</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 0">
+                <div id="sku_select_tip" style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="sku_select_btn_confirm" class="btn blue">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../page/act_master/sku_select.js"></script>
+

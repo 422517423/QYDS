@@ -1,0 +1,66 @@
+<ion-view cache-view="false">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+    <!--<div class="h1 title" style="font-size:24px;">优惠券</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-gray' style="padding:10px;">
+        <div ng-if="couponList.length==0" class="vertical-align">
+            <div class="row">
+                <div class="col col-10"></div>
+                <div class="col" style="text-align:center;font-size:14px;color: #333;">
+                    平台还没有发放优惠劵
+                </div>
+                <div class="col col-10"></div>
+            </div>
+        </div>
+
+        <div ng-repeat="coupon in couponList" class="coupon_bg text-center" style="padding: 10px;margin-top: 15px">
+            <div class="row row-no-padding" style="margin-top: 5px">
+                <div class="col col-70" style="text-align:left;color:#CCCCCC;">
+                    <div style="font-weight:bold;font-size:23px;color:#333333">
+                        优惠券
+                    </div>
+                    <div ng-if="coupon.couponName!=''"
+                         style="font-weight:normal;font-size:14px;color:#666666;line-height: 1.2;margin-top: 10px">
+                        {{coupon.couponName}}
+                    </div>
+                    <div style="color: #666666;font-size:14px;margin-top: 8px" ng-if="coupon.minOrderPrice&&coupon.minOrderPrice.length>0">购物满{{coupon.minOrderPrice}}可用</div>
+                </div>
+                <div class="col col-30 col-center" style="text-align:right">
+                    <div style="font-weight:bold;font-size:22px;color:#000000">
+                        <span ng-if="coupon.couponStyle == 0">{{coupon.worth}}元</span>
+                        <span ng-if="coupon.couponStyle == 1">{{coupon.discount}}折</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-no-padding" style="margin-top: 10px">
+                <div class="col col-70" style="text-align:left;color:#CCCCCC;">
+                    <div style="margin-top:10px;font-weight:normal;font-size:12px;color:#999999" ng-if="coupon.endTime != null">有效期至:
+                        {{coupon.endTime | date:"yyyy年MM月dd日"}}
+                    </div>
+                    <div ng-if="coupon.validDays != null && coupon.validDays != 0" style="margin-bottom:20px;margin-top:5px;font-weight:normal;font-size:12px;color:#999999">
+                        有效期
+                        {{coupon.validDays}}天
+                    </div>
+                </div>
+                <div class="col col-30 col-center" style="text-align:right">
+                    <button ng-if=" coupon.distributeType != '60'" class="button button-dark button-small"
+                            style="padding: 0px 4px;min-height: 0px;"
+                            ng-click="getCoupon(coupon.couponId)">
+                        立即领取
+                    </button>
+                    <!--<span ng-if="coupon.isGeted=='1' && coupon.distributeType != '60' " style="color: #999999">已领取</span>-->
+
+                    <button ng-if="coupon.distributeType == '60'" class="button button-dark button-small"
+                            style="padding: 0px 4px;min-height: 0px;"
+                            ng-click="getCoupon(coupon.couponId,coupon.distributeType,coupon.price)">
+                        购买
+                    </button>
+
+
+                </div>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

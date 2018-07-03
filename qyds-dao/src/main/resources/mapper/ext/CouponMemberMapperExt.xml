@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.CouponMemberMapperExt" >
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.CouponMemberExt" >
+        <id column="coupon_member_id" property="couponMemberId" jdbcType="VARCHAR" />
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+        <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="status_name" property="statusName" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+        <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+        <result column="used_time" property="usedTime" jdbcType="TIMESTAMP" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+        <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+        <result column="erp_send_used_status" property="erpSendUsedStatus" jdbcType="VARCHAR" />
+        <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+        <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+        <result column="coupon_style" property="couponStyle" jdbcType="CHAR" />
+        <result column="discount" property="discount" jdbcType="NUMERIC" />
+        <result column="member_level" property="memberLevel" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        coupon_member_id, shop_id, coupon_id, member_id, order_id, status, start_time, end_time,
+        send_time, used_time, deleted, update_user_id, update_time, insert_user_id, insert_time,
+        erp_send_status, erp_send_used_status
+    </sql>
+    <select id="checkCouponGeted" resultType="java.lang.Integer"
+            parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt">
+        SELECT count(1)
+        FROM coupon_member cm
+        WHERE cm.coupon_id = #{couponId} AND cm.member_id = #{memberId} AND cm.deleted = '0'
+    </select>
+
+    <select id="getUserForDistribute" resultType="java.lang.String"
+            parameterType="java.lang.String">
+        SELECT member_id
+        FROM mmb_master
+        WHERE member_id NOT IN
+            ( SELECT member_id
+              FROM coupon_member
+              WHERE coupon_id = #{couponId} and deleted = '0'
+            )
+            AND deleted = '0'
+    </select>
+
+    <update id="updateStatusUsedById" parameterType="net.dlyt.qyds.common.dto.CouponMember" >
+        update public.coupon_member
+        set order_id = #{orderId,jdbcType=VARCHAR},
+        status = '20',
+        used_time = #{usedTime,jdbcType=TIMESTAMP},
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+        update_time = now()
+        where coupon_member_id = #{couponMemberId,jdbcType=VARCHAR}
+        and status = '10'
+    </update>
+
+    <select id="selectSendFail" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from coupon_member
+        where deleted='0'
+        and erp_send_status='20'
+    </select>
+
+    <select id="selectSendFailById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from coupon_member
+        where deleted='0'
+        and erp_send_status='20'
+        and coupon_member_id = #{couponMemberId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectSendUsedFail" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from coupon_member
+        where deleted='0'
+        and erp_send_used_status='20'
+    </select>
+
+    <select id="selectSendUsedFailById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from coupon_member
+        where deleted='0'
+        and erp_send_used_status='20'
+        and coupon_member_id = #{couponMemberId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectRecordByPage" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt" >
+        select r.coupon_member_id, r.shop_id, r.coupon_id, r.member_id, r.order_id, r.status, r.start_time, r.end_time,
+        r.send_time, r.used_time, r.deleted,
+        (case when r.update_user_id='ERP' then 'ERP' else '电商' end) as update_user_id, r.update_time,
+        (case when r.insert_user_id='ERP' then 'ERP' else '电商' end) as insert_user_id, r.insert_time,
+        r.erp_send_status, r.erp_send_used_status,
+        c.display_cn type_name,
+        (case when r.status='20' then '已使用' else '未使用' end) as status_name,
+        m.coupon_name,m.worth,
+        (case when m.coupon_style='1' then '折扣' else '金额' end) as coupon_style,
+        (case when m.coupon_style='1' then m.discount else m.worth end) as discount
+        from coupon_member r
+        left join coupon_master m
+        on m.coupon_id = r.coupon_id
+        left join com_code c
+        on c.value = m.coupon_type
+        and c.code='COUPON_TYPE'
+        where r.member_id = #{memberId,jdbcType=VARCHAR}
+        ORDER BY r.send_time
+        <if test="iDisplayLength != null" >
+            limit #{iDisplayLength,jdbcType=INTEGER}
+        </if>
+        <if test="iDisplayStart != null" >
+            offset #{iDisplayStart,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="getRecordCountByPage" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ext.CouponMemberExt" >
+        select count(*)
+        from coupon_member
+        where member_id = #{memberId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

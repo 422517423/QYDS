@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.PrizeDrawConfigMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.PrizeDrawConfig" >
+    <id column="prize_draw_id" property="prizeDrawId" jdbcType="VARCHAR" />
+    <result column="exchange_flag" property="exchangeFlag" jdbcType="CHAR" />
+    <result column="exchange_point" property="exchangePoint" jdbcType="NUMERIC" />
+    <result column="is_login" property="isLogin" jdbcType="CHAR" />
+    <result column="is_order" property="isOrder" jdbcType="CHAR" />
+    <result column="order_amount" property="orderAmount" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prize_draw_id, exchange_flag, exchange_point, is_login, is_order, order_amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.prize_draw_config
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.prize_draw_config
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.PrizeDrawConfig" >
+    insert into public.prize_draw_config (prize_draw_id, exchange_flag, exchange_point, 
+      is_login, is_order, order_amount
+      )
+    values (#{prizeDrawId,jdbcType=VARCHAR}, #{exchangeFlag,jdbcType=CHAR}, #{exchangePoint,jdbcType=NUMERIC}, 
+      #{isLogin,jdbcType=CHAR}, #{isOrder,jdbcType=CHAR}, #{orderAmount,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.PrizeDrawConfig" >
+    insert into public.prize_draw_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prizeDrawId != null" >
+        prize_draw_id,
+      </if>
+      <if test="exchangeFlag != null" >
+        exchange_flag,
+      </if>
+      <if test="exchangePoint != null" >
+        exchange_point,
+      </if>
+      <if test="isLogin != null" >
+        is_login,
+      </if>
+      <if test="isOrder != null" >
+        is_order,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prizeDrawId != null" >
+        #{prizeDrawId,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeFlag != null" >
+        #{exchangeFlag,jdbcType=CHAR},
+      </if>
+      <if test="exchangePoint != null" >
+        #{exchangePoint,jdbcType=NUMERIC},
+      </if>
+      <if test="isLogin != null" >
+        #{isLogin,jdbcType=CHAR},
+      </if>
+      <if test="isOrder != null" >
+        #{isOrder,jdbcType=CHAR},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.PrizeDrawConfig" >
+    update public.prize_draw_config
+    <set >
+      <if test="exchangeFlag != null" >
+        exchange_flag = #{exchangeFlag,jdbcType=CHAR},
+      </if>
+      <if test="exchangePoint != null" >
+        exchange_point = #{exchangePoint,jdbcType=NUMERIC},
+      </if>
+      <if test="isLogin != null" >
+        is_login = #{isLogin,jdbcType=CHAR},
+      </if>
+      <if test="isOrder != null" >
+        is_order = #{isOrder,jdbcType=CHAR},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.PrizeDrawConfig" >
+    update public.prize_draw_config
+    set exchange_flag = #{exchangeFlag,jdbcType=CHAR},
+      exchange_point = #{exchangePoint,jdbcType=NUMERIC},
+      is_login = #{isLogin,jdbcType=CHAR},
+      is_order = #{isOrder,jdbcType=CHAR},
+      order_amount = #{orderAmount,jdbcType=NUMERIC}
+    where prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,162 @@
+<div class="goodList container-fluid" style="margin:0;" >
+    <div class="hidden-xs product-list" style="margin-top:15px;font-size: 10px;">
+
+        <div ng-if="!goodsList || goodsList.length==0" class="row vertical-align" style="margin-top: 20px;">
+            <div class="col-xs-10 col-xs-offset-1" style="text-align: center">
+                <img src="./images/empty.png" width="50%">
+            </div>
+            <div class="col-xs-10 col-xs-offset-1" style="text-align: center;margin-top: 16px;margin-bottom: 16px;">
+                查找的商品不存在
+            </div>
+        </div>
+
+        <div ng-if="goodsList.length>0" class="col-xs-12" style="margin-top:5px;">
+
+            <table class="table table-condensed" style="margin-top:20px;">
+                <thead>
+                <tr>
+                    <th style="border: 0;width: 25%"></th>
+                    <th style="border: 0;width: 25%"></th>
+                    <th style="border: 0;width: 25%"></th>
+                    <th style="border: 0;width: 25%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="font-size:13px;" ng-repeat="goods in goodsList" ng-if="$index%4==0">
+                    <td style="border-top:0;cursor: pointer;padding:5px 0;" ng-click="goProdocutDetail(goods.goodsId);">
+                        <div class="good">
+                            <div style="position:relative">
+                                <img ng-src="{{goods.imageUrlJson | imgPath:'480'}}" class="" alt="" width="100%" style="margin:0 auto;"/>
+                                <div class="tag">
+                                    <div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">
+                                        <a href="javascript:void(0);" class="img_blink">
+                                            <img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                                            <img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                                            <img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                                            <img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price">
+                                {{goods.minAndMaxPrice}}
+                            </div>
+                            <div class="name">
+                                {{goods.goodsName}}
+                            </div>
+                        </div>
+                    </td>
+                    <td ng-if="$index<=goodsList.length-2" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsList[$index+1].goodsId);">
+                        <div class="good">
+                            <div style="position:relative">
+                                <img ng-src="{{goodsList[$index+1].imageUrlJson | imgPath:'480'}}" class="" alt="" width="100%" style="margin:0 auto;"/>
+                                <div class="tag">
+                                    <div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsList[$index+1].activityTags">
+                                        <a href="javascript:void(0);" class="img_blink">
+                                            <img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                                            <img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                                            <img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                                            <img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price">
+                                {{goodsList[$index+1].minAndMaxPrice}}
+                            </div>
+                            <div class="name">
+                                {{goodsList[$index+1].goodsName}}
+                            </div>
+                        </div>
+                    </td>
+                    <td ng-if="$index<=goodsList.length-3" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsList[$index+2].goodsId);">
+                        <div class="good">
+                            <div style="position:relative">
+                                <img ng-src="{{goodsList[$index+2].imageUrlJson | imgPath:'480'}}" class="" alt="" width="100%" style="margin:0 auto;"/>
+                                <div class="tag">
+                                    <div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsList[$index+2].activityTags">
+                                        <a href="javascript:void(0);" class="img_blink">
+                                            <img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                                            <img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                                            <img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                                            <img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price">
+                                {{goodsList[$index+2].minAndMaxPrice}}
+                            </div>
+                            <div class="name">
+                                {{goodsList[$index+2].goodsName}}
+                            </div>
+                        </div>
+                    </td>
+                    <td ng-if="$index<=goodsList.length-4" style="border-top:0;padding:5px 0;cursor: pointer;" ng-click="goProdocutDetail(goodsList[$index+3].goodsId);">
+                        <div class="good">
+                            <div style="position:relative">
+                                <img ng-src="{{goodsList[$index+3].imageUrlJson | imgPath:'480'}}" class="" alt="" width="100%" style="margin:0 auto;"/>
+                                <div class="tag">
+                                    <div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goodsList[$index+3].activityTags">
+                                        <a href="javascript:void(0);" class="img_blink">
+                                            <img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                                            <img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                                            <img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                                            <img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="price">
+                                {{goodsList[$index+3].minAndMaxPrice}}
+                            </div>
+                            <div class="name">
+                                {{goodsList[$index+3].goodsName}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pager" id="pic_page"></div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 visible-xs" id="phone" style="font-size:16px;background:#fff;margin-top:20px;">
+
+        <div ng-if="!goodsListPhone || goodsListPhone.length==0" class="row vertical-align" style="margin-top: 20px;">
+            <div class="col-xs-10 col-xs-offset-1" style="text-align: center">
+                <img src="./images/empty.png" width="50%">
+            </div>
+            <div class="col-xs-10 col-xs-offset-1" style="text-align: center;margin-top: 16px;margin-bottom: 16px;">
+                查找的商品不存在
+            </div>
+        </div>
+
+        <div ng-if="goodsListPhone.length > 0" class="product-list-xs" style="padding:0 10px;">
+            <table class="table table-condensed" style="margin-top: 20px;">
+                <tbody>
+                <tr style="font-size:13px;" ng-repeat="goods in goodsListPhone" >
+                    <td style="border-top:0;" ng-click="goProdocutDetail(goods.goodsId);">
+                        <div style="position:relative;width: 85%;margin:0 auto;">
+                        <img ng-src="{{goods.imageUrlJson | imgPath:'480'}}" class="" alt="" width="100%" style="margin:0 auto;"/>
+                            <div style="position:absolute;bottom:0;padding:0">
+                                <div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">
+                                    <img src="./images/special.png" width="100%" class='img-responsive' ng-if="tag == '10'">
+                                    <img src="./images/sells_off.png" width="100%" class='img-responsive' ng-if="tag == '20'">
+                                    <img src="./images/full_delivery.png" width="100%" class='img-responsive' ng-if="tag == '40'">
+                                    <img src="./images/full_cut.png" width="100%" class='img-responsive' ng-if="tag == '41'">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-left" style="margin: 8px">
+                            <span>{{goods.goodsName}}</span><br/>
+                            <span>{{goods.minAndMaxPrice}}</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.MmbPointRecordMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.MmbPointRecord" >
+    <id column="record_no" property="recordNo" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="rule_id" property="ruleId" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="point_time" property="pointTime" jdbcType="TIMESTAMP" />
+    <result column="score_source" property="scoreSource" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="point_surplus" property="pointSurplus" jdbcType="INTEGER" />
+    <result column="point_ratio" property="pointRatio" jdbcType="NUMERIC" />
+    <result column="point_cash" property="pointCash" jdbcType="INTEGER" />
+    <result column="erp_send_status" property="erpSendStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    record_no, member_id, type, rule_id, point, point_time, score_source, deleted, update_user_id, 
+    update_time, insert_user_id, insert_time, point_surplus, point_ratio, point_cash, 
+    erp_send_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.mmb_point_record
+    where record_no = #{recordNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from public.mmb_point_record
+    where record_no = #{recordNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.MmbPointRecord" >
+    insert into public.mmb_point_record (record_no, member_id, type, 
+      rule_id, point, point_time, 
+      score_source, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time, 
+      point_surplus, point_ratio, point_cash, 
+      erp_send_status)
+    values (#{recordNo,jdbcType=INTEGER}, #{memberId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{ruleId,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{pointTime,jdbcType=TIMESTAMP}, 
+      #{scoreSource,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{pointSurplus,jdbcType=INTEGER}, #{pointRatio,jdbcType=NUMERIC}, #{pointCash,jdbcType=INTEGER}, 
+      #{erpSendStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.MmbPointRecord" useGeneratedKeys="true" keyProperty="recordNo">
+    insert into public.mmb_point_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordNo != null" >
+        record_no,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ruleId != null" >
+        rule_id,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="pointTime != null" >
+        point_time,
+      </if>
+      <if test="scoreSource != null" >
+        score_source,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="pointSurplus != null" >
+        point_surplus,
+      </if>
+      <if test="pointRatio != null" >
+        point_ratio,
+      </if>
+      <if test="pointCash != null" >
+        point_cash,
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordNo != null" >
+        #{recordNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        #{ruleId,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="pointTime != null" >
+        #{pointTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scoreSource != null" >
+        #{scoreSource,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pointSurplus != null" >
+        #{pointSurplus,jdbcType=INTEGER},
+      </if>
+      <if test="pointRatio != null" >
+        #{pointRatio,jdbcType=NUMERIC},
+      </if>
+      <if test="pointCash != null" >
+        #{pointCash,jdbcType=INTEGER},
+      </if>
+      <if test="erpSendStatus != null" >
+        #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.MmbPointRecord" >
+    update public.mmb_point_record
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleId != null" >
+        rule_id = #{ruleId,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="pointTime != null" >
+        point_time = #{pointTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scoreSource != null" >
+        score_source = #{scoreSource,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pointSurplus != null" >
+        point_surplus = #{pointSurplus,jdbcType=INTEGER},
+      </if>
+      <if test="pointRatio != null" >
+        point_ratio = #{pointRatio,jdbcType=NUMERIC},
+      </if>
+      <if test="pointCash != null" >
+        point_cash = #{pointCash,jdbcType=INTEGER},
+      </if>
+      <if test="erpSendStatus != null" >
+        erp_send_status = #{erpSendStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_no = #{recordNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.MmbPointRecord" >
+    update public.mmb_point_record
+    set member_id = #{memberId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      rule_id = #{ruleId,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      point_time = #{pointTime,jdbcType=TIMESTAMP},
+      score_source = #{scoreSource,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      point_surplus = #{pointSurplus,jdbcType=INTEGER},
+      point_ratio = #{pointRatio,jdbcType=NUMERIC},
+      point_cash = #{pointCash,jdbcType=INTEGER},
+      erp_send_status = #{erpSendStatus,jdbcType=VARCHAR}
+    where record_no = #{recordNo,jdbcType=INTEGER}
+  </update>
+</mapper>

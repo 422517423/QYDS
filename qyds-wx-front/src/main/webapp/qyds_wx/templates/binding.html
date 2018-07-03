@@ -1,0 +1,62 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<div class="h1 title" style="font-size:24px;">账号登录</div>-->
+        <!--<button class="button no-animation button-icon icon ion-close-round" ng-click="goBack()"></button>-->
+    <!--</ion-header-bar>-->
+    <ion-content class="" scroll="false">
+        <div class="" style="padding:20px;color:#C0C0C0;">
+            <form role="form" name="bindingForm" class="form-horizontal" novalidate>
+                <div class="row">
+                    <div class="col col-center form-group" style="border-bottom:1px solid #C0C0C0;">
+                        <div class="row" style="padding:0;margin:0;">
+                            <div class="col" style="padding:0;margin:0">
+                                <label class="item-input" style="padding:0">
+                                    <i class="icon ion-android-phone-portrait placeholder-icon" style="width:22px;font-size:22px;"></i>
+                                    <input class="form-control" maxlength="11" id="tel" name="tel" type="text" ng-pattern="/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/" ng-model='bindingInfo.tel'  placeholder="输入手机号" required style="line-height:40px;height:40px;color:#C0C0C0;font-size:16px;">
+                                </label>
+                            </div>
+                            <div class="col col-35" style="padding:0;margin:0"></div>
+                        </div>
+                        <div class="row col" style="padding:0;margin:0;" ng-class="{'has-error':bindingForm.tel.$invalid && submitted_verifyCode,'no-error':bindingForm.tel.$valid && submitted_verifyCode}">
+                            <div class="error_msg" ng-show="bindingForm.tel.$error.required && submitted_verifyCode">手机号不能为空</div>
+                            <div class="error_msg" ng-show="bindingForm.tel.$error.pattern && submitted_verifyCode">手机号格式不正确</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-center form-group" style="border-bottom:1px solid #C0C0C0;">
+                        <div class="row" style="padding:0;margin:0">
+                            <div class="col" style="padding:0;margin:0">
+                                <label class="item-input" style="padding:0;float:left;">
+                                    <!--<i class="icon ion-android-phone-portrait placeholder-icon" style="width:22px;font-size:22px;"></i>-->
+                                    <i class="icon ion-checkmark placeholder-icon" style="width:22px;font-size:22px;"></i>
+                                    <input class="form-control" id="captcha" name="captcha" ng-model='bindingInfo.captcha' maxlength="6" type="text" required ng-pattern="/^\d{6}$/" placeholder="输入验证码" style="line-height:40px;height:40px;width:100%;color:#C0C0C0;font-size:16px;">
+                                </label>
+                            </div>
+                            <div class="col col-35 col-center" style="padding:0;margin:0">
+                                <timerbutton style="float:right" cb="getVerifyCode(bindingForm.tel.$valid)" is-valid="{{bindingForm.tel.$valid}}" show-timer="false"  timeout="time">获取验证码</timerbutton>
+                            </div>
+                        </div>
+                        <div class="row col" style="padding:0;margin:0;" ng-class="{'has-error':bindingForm.captcha.$invalid && submitted_binding,'no-error':bindingForm.captcha.$valid && submitted_binding}">
+                            <div class="error_msg" ng-show="bindingForm.captcha.$error.required && submitted_binding">验证码不能为空</div>
+                            <div class="error_msg" ng-show="bindingForm.captcha.$error.pattern && submitted_binding">验证码格式不正确</div>
+                        </div>
+                        <!--<timerbutton style="float:right" cb="getVerifyCode(bindingForm.tel.$valid)" is-valid="{{bindingForm.tel.$valid}}" show-timer="false"  timeout="time">获取验证码</timerbutton>-->
+                            <!--<button class="button button-dark" ng-click="getVerifyCode(bindingForm.tel.$valid)" ng-class="customerParaclass"> 获取验证码-->
+                            <!--</button>-->
+                            <!--<timerbutton style="float:right" cb="getVerifyCode(bindingForm.tel.$valid)" is-valid="{{bindingForm.tel.$valid}}" show-timer="false"  timeout="time">获取验证码</timerbutton>-->
+
+                    </div>
+                </div>
+            </form>
+            <button class="button button-block button-dark" style="margin-top: 10px;border-radius: 0" ng-click="submitBinding(bindingForm.$valid)">
+                登录
+            </button>
+            <div class="row" style="margin-top:15px">
+                <div class="col col-center" style="text-align:center;">
+                    <span>还没有账号?</span>
+                    <span style="display:inline-block;margin-left:2px;color:#000000" ng-click="onRegister()">点击注册</span></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

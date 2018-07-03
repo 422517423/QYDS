@@ -1,0 +1,40 @@
+<!-- /.modal -->
+<div id="erpOrderMaster" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content col-md-12">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">线下订单</h4>
+            </div>
+            <div class="modal-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="erp_order_master_table">
+                    <thead>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>会员编码</th>
+                        <th>会员姓名</th>
+                        <th>门店编码</th>
+                        <th>门店名称</th>
+                        <th>下单时间</th>
+                        <th>订单金额</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../page/mmb_master_super/erp_order_master.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        TableEditable.init();
+    });
+</script>

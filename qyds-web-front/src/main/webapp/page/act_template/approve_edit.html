@@ -1,0 +1,151 @@
+<!-- 活动模板编辑画面 start-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            活动模板详细画面
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">活动管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#" onclick="gotoListPage();">活动审批</a><i class="icon-angle-right"></i></li>
+            <li><a href="#">活动审批详细</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">活动模板详细</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form id="act_template_form" class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">活动类型</label>
+                                <div class="col-md-4">
+                                    <select type="text" id="actition_type" name="actition_type" class="form-control"
+                                            disabled>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">模板名称</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="temp_name" name="temp_name" data-required="1"
+                                           class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_act_rule">
+                                <label class="col-md-2 control-label">活动规则</label>
+                                <div class="col-md-8" style="padding: 20px 15px 0px 15px">
+                                    <div id="paramList" style="padding: 10px 0">
+                                        <div class="template param-item" style="padding: 5px 0">
+                                            <label class="condition-label">满</label>
+                                            <input class="condition-input" type="text" data-required="1"
+                                                   style="width: 70px;padding: 4px;outline: none; border: 1px solid #e5e5e5;">
+                                            <label class="condition-unit-label" class="control-label">件,</label>
+                                            <label class="value-label">送</label>
+                                            <input class="value-input" type="text" data-required="1"
+                                                   style="width: 70px;padding: 4px;outline: none;border: 1px solid #e5e5e5;">
+                                            <label class="value-unit-label" class="control-label">元</label>
+                                            <button class="value-detail btn-default">查看详细</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div_selected_skus" style="display: none;">
+                                <div class="col-md-offset-2 col-md-6 col-sm-6">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="10%">序号</th>
+                                            <th width="40%">商品款号</th>
+                                            <th width="20%">颜色</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="skuList">
+                                        <tr class="template sku-item">
+                                            <td class="sku-item-index"></td>
+                                            <td class="sku-item-name"></td>
+                                            <td class="sku-item-color"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="comment" rows="4" class="form-control" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请人</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="apply_user_name" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请时间</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="apply_time" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">申请说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="apply_content" rows="4" class="form-control" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_status" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批人</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_user_name" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="approve_time" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">审批说明</label>
+                                <div class="col-md-8">
+                                    <textarea id="approve_content" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-right">
+    <button type="button" id="btn_cancel" class="btn default" data-dismiss="modal">取消</button>
+    <button type="button" id="btn_approve" class="btn blue" style="display: none">通过</button>
+    <button type="button" id="btn_reject" class="btn blue" style="display: none">驳回</button>
+</div>
+<!-- 活动模板编辑画面 end -->
+<script src="../page/act_template/approve_edit.js"></script>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.CmsMasterMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.CmsMaster" >
+    <id column="cms_id" property="cmsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_type" property="itemType" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="text_comment" property="textComment" jdbcType="VARCHAR" />
+    <result column="list_json" property="listJson" jdbcType="VARCHAR" />
+    <result column="content_html" property="contentHtml" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="item_url" property="itemUrl" jdbcType="VARCHAR" />
+    <result column="goods_id_flag" property="goodsIdFlag" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapExt" type="net.dlyt.qyds.common.dto.ext.CmsMasterExt" >
+    <id column="cms_id" property="cmsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_type" property="itemType" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="text_comment" property="textComment" jdbcType="VARCHAR" />
+    <result column="list_json" property="listJson" jdbcType="VARCHAR" />
+    <result column="content_html" property="contentHtml" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="item_type_name" property="itemTypeName" jdbcType="VARCHAR" />
+    <result column="insert_user_name" property="insertUserName" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="cms_item_type" property="cmsItemType" jdbcType="VARCHAR" />
+    <result column="cms_id_parent" property="cmsIdParent" jdbcType="VARCHAR" />
+    <result column="item_url" property="itemUrl" jdbcType="VARCHAR" />
+    <result column="goods_id_flag" property="goodsIdFlag" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="item_code" property="itemCode" jdbcType="VARCHAR" />
+    <result column="tops" property="tops" jdbcType="VARCHAR" />
+    <result column="pants" property="pants" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapSort" type="java.lang.Short" >
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    cm.cms_id, cm.shop_id, cm.item_id, cm.item_type, cm.sort, cm.title, cm.text_comment, cm.list_json, cm.content_html,
+    cm.comment, cm.deleted, cm.update_user_id, cm.update_time, cm.insert_user_id, cm.insert_time, cm.item_url, cm.goods_id_flag,
+    cm.tops,cm.pants
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.ext.CmsMasterExt" >
+    select
+    <include refid="Base_Column_List" />, cct.display_cn as item_type_name,
+    su.user_name as insert_user_name, ci.item_name as item_name
+    from public.cms_master cm
+    left join com_code cct on cct.code = 'CMS_MASTER_TYPE' and cct.value = cm.item_type
+    left join sys_user su on cast(su.user_id as varchar) = cm.insert_user_id
+    left join cms_items ci on ci.item_id = cm.item_id
+    where cm.deleted = '0'
+    <if test="title != null and !title.isEmpty()" >
+      and cm.title LIKE '%' || #{title,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="itemType != null and !itemType.isEmpty()" >
+      and cm.item_type = #{itemType,jdbcType=VARCHAR}
+    </if>
+    <if test="itemId != null and !itemId.isEmpty()" >
+      and cm.item_id = #{itemId,jdbcType=VARCHAR}
+    </if>
+    order by cm.update_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.ext.CmsMasterExt" >
+    select
+    count(*) as count
+    from public.cms_master cm
+    where cm.deleted = '0'
+    <if test="title != null and !title.isEmpty()" >
+      and cm.title LIKE '%' || #{title,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="itemType != null and !itemType.isEmpty()" >
+      and cm.item_type = #{itemType,jdbcType=VARCHAR}
+    </if>
+    <if test="itemId != null and !itemId.isEmpty()" >
+      and cm.item_id = #{itemId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectMaxSrot" resultMap="BaseResultMapSort" parameterType="net.dlyt.qyds.common.dto.CmsMaster">
+    select
+    max(cm.sort) as sort
+    from public.cms_master cm
+    where cm.deleted = '0'
+  </select>
+
+  <select id="selectCmsMasterByCmsId" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.CmsMaster" >
+    select
+    <include refid="Base_Column_List" />, ci.item_type as cms_item_type, ci.item_name as item_name, ci.item_code
+    from public.cms_master cm
+    left join cms_items ci on ci.item_id = cm.item_id
+    where cm.cms_id = #{cmsId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllCmsMaster" resultMap="BaseResultMapExt" >
+    select
+    <include refid="Base_Column_List" />, cm.item_id as cms_id_parent, '1' as level
+    from public.cms_master cm
+    where cm.deleted = '0'
+    order by cm.sort
+  </select>
+
+  <select id="selectAllCmsItems" resultMap="BaseResultMapExt" >
+    select
+    cm.item_id,ci.item_id as cms_id, '0' as cms_id_parent, ci.item_name as title, ci.sort, '0' as level
+    from public.cms_master cm
+    left join cms_items ci on ci.item_id = cm.item_id
+    group by cm.item_id, ci.item_id, ci.item_name
+    order by ci.insert_time
+  </select>
+
+  <select id="selectAllCmsMasterGoods" resultMap="BaseResultMapExt" >
+    select
+    cmg.cms_gds_id as cms_id, cmg.cms_id as cms_id_parent, gm.goods_name as title, cmg.sort, '2' as level
+    from public.cms_master cm
+    inner join cms_master_goods cmg on cmg.cms_id = cm.cms_id
+    inner join gds_master gm on cmg.goods_id = gm.goods_id
+    order by cmg.sort
+  </select>
+
+  <select id="selectCmsMasterByItemCode" resultMap="BaseResultMapExt" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from public.cms_master cm
+    left join cms_items ci on ci.item_id = cm.item_id
+    where ci.item_code = #{itemCode}
+    and cm.deleted = '0'
+    order by cm.sort
+  </select>
+
+  <select id="selectCmsMasterByItemId" resultMap="BaseResultMapExt" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from public.cms_master cm
+    left join cms_items ci on ci.item_id = cm.item_id
+    where ci.item_id = #{itemId}
+    and cm.deleted = '0'
+    order by cm.sort
+  </select>
+
+  <update id="delete" parameterType="java.lang.String" >
+    update public.cms_master
+    set deleted = '1'
+    where cms_id = #{cmsId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getGoodsTypeIndex" resultMap="BaseResultMapExt" parameterType="java.lang.String">
+    select
+    cm.*
+    from
+    cms_items ci1
+    inner join cms_items ci2 on ci2.item_id_parent = ci1.item_id
+    inner join cms_items ci3 on ci3.item_id_parent = ci2.item_id
+    left join cms_master cm on cm.item_id = ci3.item_id
+    where ci1.item_code = #{itemCode,jdbcType=VARCHAR}
+    and ci1.deleted = '0' and ci2.deleted = '0'
+  </select>
+
+</mapper>

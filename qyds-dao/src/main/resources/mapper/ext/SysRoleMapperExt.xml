@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.SysRoleMapperExt" >
+  <resultMap id="SysRoleResultMap" type="net.dlyt.qyds.common.dto.SysRole" >
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="SysRoleMenuResultMap" type="net.dlyt.qyds.common.view.SysMenuExt" >
+    <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="checked" property="checked" jdbcType="BOOLEAN" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    role_id, role_name, is_valid, create_user, create_time, update_user, update_time
+  </sql>
+
+  <select id="selectAll" resultMap="SysRoleResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from public.sys_role
+    where is_valid = '0'
+    order by create_time DESC
+  </select>
+
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.SysRole" useGeneratedKeys="true" keyProperty="roleId">
+    insert into public.sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="isValid != null" >
+        is_valid,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      role_id,
+      create_time,
+      update_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      nextval('sys_role_role_id_seq'),
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.SysRole" >
+    update public.sys_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      update_time = now()
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+
+  <update id="deleteByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.SysRole" >
+    update public.sys_role
+    <set >
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      update_time = now(),
+      is_valid = '1'
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getRoleMenu" parameterType="java.lang.Integer" resultMap="SysRoleMenuResultMap">
+    select m.menu_id, m.parent_id, m.menu_name,(case when (srm.menu_id is null) then false else true end) as checked
+  	from sys_menu m left join sys_role_menu srm on m.menu_id = srm.menu_id and srm.role_id = #{roleId,jdbcType=INTEGER}
+  	where m.is_valid = '0'
+  	order by m.parent_id,m.sort
+  </select>
+
+  <delete id="clearRoleMenu" parameterType="java.lang.Integer">
+    delete from public.sys_role_menu
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+
+</mapper>

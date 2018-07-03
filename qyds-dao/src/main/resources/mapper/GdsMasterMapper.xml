@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.GdsMasterMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsMaster" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="goods_type_id" property="goodsTypeId" jdbcType="VARCHAR" />
+    <result column="goods_type_id_path" property="goodsTypeIdPath" jdbcType="VARCHAR" />
+    <result column="goods_type_code" property="goodsTypeCode" jdbcType="VARCHAR" />
+    <result column="goods_type_code_path" property="goodsTypeCodePath" jdbcType="VARCHAR" />
+    <result column="erp_style_no" property="erpStyleNo" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR" />
+    <result column="erp_goods_name" property="erpGoodsName" jdbcType="VARCHAR" />
+    <result column="maintain_status" property="maintainStatus" jdbcType="VARCHAR" />
+    <result column="is_onsell" property="isOnsell" jdbcType="VARCHAR" />
+    <result column="is_waste" property="isWaste" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="goods_type_name_path" property="goodsTypeNamePath" jdbcType="VARCHAR" />
+    <result column="erp_send_type_status" property="erpSendTypeStatus" jdbcType="VARCHAR" />
+    <result column="goods_brand_type_id" property="goodsBrandTypeId" jdbcType="VARCHAR" />
+    <result column="goods_brand_type_id_path" property="goodsBrandTypeIdPath" jdbcType="VARCHAR" />
+    <result column="goods_brand_type_code" property="goodsBrandTypeCode" jdbcType="VARCHAR" />
+    <result column="goods_brand_type_code_path" property="goodsBrandTypeCodePath" jdbcType="VARCHAR" />
+    <result column="goods_brand_type_name_path" property="goodsBrandTypeNamePath" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goods_id, shop_id, type, brand_id, goods_type_id, goods_type_id_path, goods_type_code, 
+    goods_type_code_path, erp_style_no, goods_code, goods_name, erp_goods_code, erp_goods_name, 
+    maintain_status, is_onsell, is_waste, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time, goods_type_name_path, erp_send_type_status, goods_brand_type_id, goods_brand_type_id_path, 
+    goods_brand_type_code, goods_brand_type_code_path, goods_brand_type_name_path,sort,sales
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.gds_master
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.gds_master
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.GdsMaster" >
+    insert into public.gds_master (goods_id, shop_id, type, 
+      brand_id, goods_type_id, goods_type_id_path, 
+      goods_type_code, goods_type_code_path, erp_style_no, 
+      goods_code, goods_name, erp_goods_code, 
+      erp_goods_name, maintain_status, is_onsell, 
+      is_waste, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time, 
+      goods_type_name_path, erp_send_type_status, goods_brand_type_id, 
+      goods_brand_type_id_path, goods_brand_type_code, 
+      goods_brand_type_code_path, goods_brand_type_name_path, 
+      sort)
+    values (#{goodsId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{brandId,jdbcType=VARCHAR}, #{goodsTypeId,jdbcType=VARCHAR}, #{goodsTypeIdPath,jdbcType=VARCHAR}, 
+      #{goodsTypeCode,jdbcType=VARCHAR}, #{goodsTypeCodePath,jdbcType=VARCHAR}, #{erpStyleNo,jdbcType=VARCHAR}, 
+      #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{erpGoodsCode,jdbcType=VARCHAR}, 
+      #{erpGoodsName,jdbcType=VARCHAR}, #{maintainStatus,jdbcType=VARCHAR}, #{isOnsell,jdbcType=VARCHAR}, 
+      #{isWaste,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
+      #{goodsTypeNamePath,jdbcType=VARCHAR}, #{erpSendTypeStatus,jdbcType=VARCHAR}, #{goodsBrandTypeId,jdbcType=VARCHAR}, 
+      #{goodsBrandTypeIdPath,jdbcType=VARCHAR}, #{goodsBrandTypeCode,jdbcType=VARCHAR}, 
+      #{goodsBrandTypeCodePath,jdbcType=VARCHAR}, #{goodsBrandTypeNamePath,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.GdsMaster" >
+    insert into public.gds_master
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id,
+      </if>
+      <if test="goodsTypeIdPath != null" >
+        goods_type_id_path,
+      </if>
+      <if test="goodsTypeCode != null" >
+        goods_type_code,
+      </if>
+      <if test="goodsTypeCodePath != null" >
+        goods_type_code_path,
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code,
+      </if>
+      <if test="erpGoodsName != null" >
+        erp_goods_name,
+      </if>
+      <if test="maintainStatus != null" >
+        maintain_status,
+      </if>
+      <if test="isOnsell != null" >
+        is_onsell,
+      </if>
+      <if test="isWaste != null" >
+        is_waste,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="goodsTypeNamePath != null" >
+        goods_type_name_path,
+      </if>
+      <if test="erpSendTypeStatus != null" >
+        erp_send_type_status,
+      </if>
+      <if test="goodsBrandTypeId != null" >
+        goods_brand_type_id,
+      </if>
+      <if test="goodsBrandTypeIdPath != null" >
+        goods_brand_type_id_path,
+      </if>
+      <if test="goodsBrandTypeCode != null" >
+        goods_brand_type_code,
+      </if>
+      <if test="goodsBrandTypeCodePath != null" >
+        goods_brand_type_code_path,
+      </if>
+      <if test="goodsBrandTypeNamePath != null" >
+        goods_brand_type_name_path,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeIdPath != null" >
+        #{goodsTypeIdPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeCode != null" >
+        #{goodsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeCodePath != null" >
+        #{goodsTypeCodePath,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsName != null" >
+        #{erpGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainStatus != null" >
+        #{maintainStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnsell != null" >
+        #{isOnsell,jdbcType=VARCHAR},
+      </if>
+      <if test="isWaste != null" >
+        #{isWaste,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsTypeNamePath != null" >
+        #{goodsTypeNamePath,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendTypeStatus != null" >
+        #{erpSendTypeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeId != null" >
+        #{goodsBrandTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeIdPath != null" >
+        #{goodsBrandTypeIdPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeCode != null" >
+        #{goodsBrandTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeCodePath != null" >
+        #{goodsBrandTypeCodePath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeNamePath != null" >
+        #{goodsBrandTypeNamePath,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.GdsMaster" >
+    update public.gds_master
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeId != null" >
+        goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeIdPath != null" >
+        goods_type_id_path = #{goodsTypeIdPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeCode != null" >
+        goods_type_code = #{goodsTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTypeCodePath != null" >
+        goods_type_code_path = #{goodsTypeCodePath,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStyleNo != null" >
+        erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsCode != null" >
+        erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpGoodsName != null" >
+        erp_goods_name = #{erpGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainStatus != null" >
+        maintain_status = #{maintainStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnsell != null" >
+        is_onsell = #{isOnsell,jdbcType=VARCHAR},
+      </if>
+      <if test="isWaste != null" >
+        is_waste = #{isWaste,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsTypeNamePath != null" >
+        goods_type_name_path = #{goodsTypeNamePath,jdbcType=VARCHAR},
+      </if>
+      <if test="erpSendTypeStatus != null" >
+        erp_send_type_status = #{erpSendTypeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeId != null" >
+        goods_brand_type_id = #{goodsBrandTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeIdPath != null" >
+        goods_brand_type_id_path = #{goodsBrandTypeIdPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeCode != null" >
+        goods_brand_type_code = #{goodsBrandTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeCodePath != null" >
+        goods_brand_type_code_path = #{goodsBrandTypeCodePath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsBrandTypeNamePath != null" >
+        goods_brand_type_name_path = #{goodsBrandTypeNamePath,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="sales != null">
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.GdsMaster" >
+    update public.gds_master
+    set shop_id = #{shopId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=VARCHAR},
+      goods_type_id = #{goodsTypeId,jdbcType=VARCHAR},
+      goods_type_id_path = #{goodsTypeIdPath,jdbcType=VARCHAR},
+      goods_type_code = #{goodsTypeCode,jdbcType=VARCHAR},
+      goods_type_code_path = #{goodsTypeCodePath,jdbcType=VARCHAR},
+      erp_style_no = #{erpStyleNo,jdbcType=VARCHAR},
+      goods_code = #{goodsCode,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      erp_goods_code = #{erpGoodsCode,jdbcType=VARCHAR},
+      erp_goods_name = #{erpGoodsName,jdbcType=VARCHAR},
+      maintain_status = #{maintainStatus,jdbcType=VARCHAR},
+      is_onsell = #{isOnsell,jdbcType=VARCHAR},
+      is_waste = #{isWaste,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      goods_type_name_path = #{goodsTypeNamePath,jdbcType=VARCHAR},
+      erp_send_type_status = #{erpSendTypeStatus,jdbcType=VARCHAR},
+      goods_brand_type_id = #{goodsBrandTypeId,jdbcType=VARCHAR},
+      goods_brand_type_id_path = #{goodsBrandTypeIdPath,jdbcType=VARCHAR},
+      goods_brand_type_code = #{goodsBrandTypeCode,jdbcType=VARCHAR},
+      goods_brand_type_code_path = #{goodsBrandTypeCodePath,jdbcType=VARCHAR},
+      goods_brand_type_name_path = #{goodsBrandTypeNamePath,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=SMALLINT}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,268 @@
+<ion-view style="background-color:#efefef">
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+    <!--<div class="h1 title" style="font-size:24px;">登录</div>-->
+    <!--<button class="button no-animation button-icon icon ion-close-round" ng-click="goBack()"></button>-->
+    <!--</ion-header-bar>-->
+    <ion-content class="">
+        <div class="" style="padding:20px 15px;color:#000000;">
+            <div style="background-color:#ffffff;border-radius:8px;padding:0px 5px;">
+                <div class="row" style="border-bottom:1px solid #efefef;">
+                    <div class="col col-center" style="position:relative;">
+                        <i class="icon ion-ios-paper-outline placeholder-icon" style="font-size:20px;"></i>
+                        <span style="display:inline-block;margin-left:5px;position:absolute;top:6px; font-size:20px;">基本信息</span>
+                    </div>
+                </div>
+                <div class="row row-center" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">分类</span>
+                    </div>
+                    <div class="col-50 col-center" style="position: relative;">
+                        <!--<select style="color:#999999;font-size:18px;width:80%;-webkit-appearance: none;border:none;background: #ffffff"-->
+                                <!--id="coalType" name="coalType"-->
+                                <!--ng-model="purchaseInfo.coalType" ng-options="x for (x, y) in coalList"></select>-->
+                        <select style="font-size:18px;width:80%;-webkit-appearance: none;border:none;background: #ffffff"
+                                id="coalType" name="coalType"
+                                ng-model="purchaseInfo.coalType" ng-options="x for (x, y) in coalList"></select>
+                    </div>
+                    <div class="col-15" style="position: relative;margin-left: 5px;">
+                        <!--<select style="color:#999999;font-size:18px;width:80%;-webkit-appearance: none;border:none;background: #ffffff"-->
+                        <!--id="coalType" name="coalType"-->
+                        <!--ng-model="purchaseInfo.coalType" ng-options="x for (x, y) in coalList"></select>-->
+                        <!--<select style="font-size:18px;width:80%;-webkit-appearance: none;border:none;background: #ffffff"-->
+                                <!--id="coalType" name="coalType"-->
+                                <!--ng-model="purchaseInfo.coalType" ng-options="x for (x, y) in coalList"></select>-->
+
+                        <img style="width: 13px;height: 17px;margin-left: 3px; display:inline-block;font-size:18px;margin-top:7px;" src="image/icon.png"/>
+                        <i class="icon ion-asterisk" style="font-size:10px;color:#e42112;position:absolute;top:6px;right:2px;"></i>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">数量</span>
+                    </div>
+                    <div class="col-50 col-center" style="position: relative;">
+                        <input type="text" ng-model='purchaseInfo.quantity' placeholder="吨数" style="height:28px;font-size:18px;margin-top:2px;">
+                        <!--<input type="text" ng-model='purchaseInfo.quantity' placeholder="吨数" style="height:28px;color:#C0C0C0;font-size:18px;">-->
+                    </div>
+                    <div class="col-15" style="position: relative;margin-left: 5px;">
+                        <span style="display:inline-block;font-size:18px;margin-top:7px;">吨</span>
+                        <i class="icon ion-asterisk" style="font-size:10px;color:#e42112;position:absolute;top:8px;right:2px;"></i>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">期望价格</span>
+                    </div>
+                    <div class="col-50 col-center" style="position: relative;">
+                        <input type="text" ng-model='purchaseInfo.price' placeholder="最低价-最高价" style="height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15" style="position: relative;margin-left: 5px;">
+                        <span style="display:inline-block;font-size:18px;margin-top:7px;">元</span>
+                        <i class="icon ion-asterisk" style="font-size:10px;color:#e42112;position:absolute;top:8px;right:2px;"></i>
+                    </div>
+                    <!--<div class="col-67" style="position: relative;">-->
+                        <!--<input type="text" ng-model='purchaseInfo.price' placeholder="最低价-最高价" style="height:28px;color:#C0C0C0;font-size:18px;">元-->
+                        <!--<i class="icon ion-asterisk" style="font-size:10px;color:#e42112;position:absolute;top:8px;right:2px;"></i>-->
+                    <!--</div>-->
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">交割地</span>
+                    </div>
+                    <div class="col-67 col-center" style="position: relative;">
+                        <input type="text" ng-model='purchaseInfo.address' placeholder="天津港" style="height:28px;font-size:18px;margin-top:2px;">
+                        <i class="icon ion-asterisk" style="font-size:10px;color:#e42112;position:absolute;top:8px;right:2px;"></i>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">截止时间</span>
+                    </div>
+                    <div class="col-67" style="position: relative;">
+                        <input type="text" style="background-color:#fff!important;text-align:left;font-size:18px;height:28px;margin-top:2px;"
+                               readonly
+                               id="birthdate" name="endDate" required
+                               placeholder=""
+                               ng-click="openDatePicker()"
+                               ng-model="purchaseInfo.endDate">
+                        <i class="icon ion-asterisk" style="font-size:10px;color:#e42112;position:absolute;top:8px;right:2px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="purchaseInfo.coalType == 0" style="background-color:#ffffff;border-radius:8px;padding:0px 5px;margin-top:15px;">
+                <div class="row" style="border-bottom:1px solid #efefef;">
+                    <div class="col col-center" style="position:relative;">
+                        <i class="icon ion-ios-search placeholder-icon" style="font-size:20px;"></i>
+                        <span style="display:inline-block;margin-left:5px;position:absolute;top:6px; font-size:20px;">采购指标</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">热值</span>
+                    </div>
+                    <div class="col-35  col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.heatV' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        kcal
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">全水份</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.moisture' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        %
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">灰份</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.ash' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        %
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">全硫份</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.sulfur' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        %
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">挥发份</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20" style="position:relative;">
+                        <input type="text" ng-model='purchaseInfo.volatilize' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        %
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="purchaseInfo.coalType == 1" style="background-color:#ffffff;border-radius:8px;padding:0px 5px;margin-top:15px;">
+                <div class="row" style="border-bottom:1px solid #efefef;">
+                    <div class="col col-center" style="position:relative;">
+                        <i class="icon ion-ios-search placeholder-icon" style="font-size:20px;"></i>
+                        <span style="display:inline-block;margin-left:5px;position:absolute;top:6px; font-size:18px;">采购指标</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">G值</span>
+                    </div>
+                    <div class="col-35  col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.gV' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">Y值</span>
+                    </div>
+                    <div class="col-35  col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.yV' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">灰份</span>
+                    </div>
+                    <div class="col-35  col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.ash' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        %
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">全硫份</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.sulfur' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        %
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">低位发热量</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20 col-center" style="position:relative;">
+                        <input type="text" ng-model='purchaseInfo.calorific' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                    <div class="col-15 col-center">
+                        kcal
+                    </div>
+                </div>
+            </div>
+            <div ng-if="purchaseInfo.coalType == 2" style="background-color:#ffffff;border-radius:8px;padding:0px 5px;margin-top:15px;">
+                <div class="row" style="border-bottom:1px solid #efefef;">
+                    <div class="col col-center" style="position:relative;">
+                        <i class="icon ion-ios-search placeholder-icon" style="font-size:20px;"></i>
+                        <span style="display:inline-block;margin-left:5px;position:absolute;top:6px; font-size:18px;">采购指标</span>
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">焦炭反应性</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.reaction' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">反应后强度</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.strength' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">M40</span>
+                    </div>
+                    <div class="col-35 col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.m40' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">M25</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20">
+                        <input type="text" ng-model='purchaseInfo.m25' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+                <div class="row" style="padding:6px 5px;height:42px;border-bottom:1px solid #efefef;">
+                    <div class="col-33 col-center">
+                        <span style="display:inline-block;font-size:18px;margin-top:2px;">M10</span>
+                    </div>
+                    <div class="col-35 col-center col-offset-20 " style="position:relative;">
+                        <input type="text" ng-model='purchaseInfo.m10' placeholder="请输入" style="width:80px;height:28px;font-size:18px;margin-top:2px;">
+                    </div>
+                </div>
+            </div>
+
+            <button ng-click="onPublish()" class="button button-block" style="margin-top:20px;color:#ffffff;background-color:#066BA2;">
+                发布需求
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

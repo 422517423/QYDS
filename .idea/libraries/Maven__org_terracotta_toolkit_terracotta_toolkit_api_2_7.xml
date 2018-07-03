@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.terracotta.toolkit:terracotta-toolkit-api:2.7">
+    <CLASSES>
+      <root url="jar://D:/maven/localware/org/terracotta/toolkit/terracotta-toolkit-api/2.7/terracotta-toolkit-api-2.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven/localware/org/terracotta/toolkit/terracotta-toolkit-api/2.7/terracotta-toolkit-api-2.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven/localware/org/terracotta/toolkit/terracotta-toolkit-api/2.7/terracotta-toolkit-api-2.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-service-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-service-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-tool-area" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-tool-area" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-utils" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-erp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-erp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-file" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-file" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-front" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-front" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-pc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-pc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-root" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-web-root" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-wx-front" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/qyds-wx-front" charset="UTF-8" />
+  </component>
+</project>

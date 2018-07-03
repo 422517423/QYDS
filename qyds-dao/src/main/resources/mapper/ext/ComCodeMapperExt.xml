@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ComCodeMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ComCodeExt">
+        <id column="code" property="code" jdbcType="VARCHAR"/>
+        <id column="value" property="value" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="display_cn" property="displayCn" jdbcType="VARCHAR"/>
+        <result column="display_en" property="displayEn" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="login_id" property="loginId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Com_Code_List">
+    code,name,value,comment,display_cn,display_en,deleted,insert_user_id,update_user_id,insert_time,update_time
+  </sql>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ComCodeExt">
+   select
+    cc.code,cc.name,cc.value,cc.comment,cc.display_cn,cc.display_en,cc.deleted,cc.insert_user_id,
+    cc.update_user_id,cc.insert_time,cc.update_time,su.login_id,su.user_name
+   from com_code cc
+   LEFT JOIN sys_user su
+   ON cc.insert_user_id = su.login_id
+   and su.is_valid = '0'
+   WHERE cc.deleted = '0'
+    order by value
+  </select>
+
+    <select id="selectComCodeByCategory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        cc.code,cc.name,cc.value,cc.comment,cc.display_cn,cc.display_en,cc.deleted,cc.insert_user_id,
+        cc.update_user_id,cc.insert_time,cc.update_time,su.login_id,su.user_name
+        from com_code cc
+        LEFT JOIN sys_user su
+        ON cc.insert_user_id = su.login_id
+        and su.is_valid = '0'
+        WHERE code = #{code,jdbcType=VARCHAR} and cc.deleted = '0'
+        order by value
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ComCode" >
+        update public.com_code
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="displayCn != null" >
+                display_cn = #{displayCn,jdbcType=VARCHAR},
+            </if>
+            <if test="displayEn != null" >
+                display_en = #{displayEn,jdbcType=VARCHAR},
+            </if>
+            <if test="comment != null" >
+                comment = #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null" >
+                deleted = #{deleted,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUserId != null" >
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+
+        </set>
+        where code = #{code,jdbcType=VARCHAR}
+        and value = #{value,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByNeed" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ComCode" >
+        select value,display_cn
+        from com_code
+        WHERE deleted='0'
+        <if test="code != null and !code.isEmpty()" >
+            AND code = #{code,jdbcType=VARCHAR}
+        </if>
+        <if test="value != null and !value.isEmpty()" >
+            AND value in(${value})
+        </if>
+        ORDER by value
+    </select>
+</mapper>

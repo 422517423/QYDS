@@ -1,0 +1,63 @@
+<!--搜索弹窗-->
+<ion-popover-view style="width: 97%;height: 370px;">
+    <ion-content style="color: #333333" overflow-scroll="false">
+        <div style="padding:5px 10px 0 10px">
+            <div style="overflow: hidden;">
+                <img ng-src="{{skuImage | imgPath:'480' }}"
+                     style="height: 80px;float: left;margin-right: 10px;">
+                <img src="image/button_close.png"
+                     style="float: right;width: 25px;height: 25px;float: right;margin-left: 10px" ng-click="closePopover()">
+                <div style="">
+                    <div class="max-line-2" style="font-size:15px;padding:0 5px;">{{productDetailData.goodsName}}</div>
+                    <div style="margin-top: 10px">
+                        <!--<span>¥</span>-->
+                        <span ng-if="activityPrice != null" style="font-size: 14px;">¥{{activityPrice}}</span>
+                        <span ng-if="activityPrice == null" style="font-size: 14px;">¥{{skuPrice}}</span>
+                        <span ng-if="activityPrice != null" style="display:inline-block; margin-left:5px; font-size: 12px;text-decoration: line-through">¥{{skuPrice}}</span>
+                    </div>
+                    <div style="margin-top: 10px">
+                        <span ng-if="newCount == null || newCount <= 0 " style="font-size: 14px;color:red">无货</span>
+                        <span ng-if="newCount != null && newCount > 0 && newCountDisplay == 1" style="font-size: 14px;color: #E4B34C">货少 (如无货，自动退款)</span>
+                        <span ng-if="newCount != null && newCount > 0 && newCountDisplay != 1" style="font-size: 14px;color: #333333">有货</span>
+                        <!--<span ng-if="newCount != null && newCount > 0 " style="font-size: 14px;">有货{{newCount}}件</span>-->
+                    </div>
+                </div>
+
+            </div>
+            <div style="padding-top:5px;">
+                <span style="font-size: 14px;">数量</span>
+                <div class="padding">
+                    <input type="text" style="" ng-Update-Input ng-model="selectedCount.value" disabled class="bagNumSpinner"/>
+                </div>
+            </div>
+            <div style="padding-top:5px;font-size: 14px;">颜色</div>
+            <div style="overflow: hidden;text-align: center;padding: 5px;">
+                <div ng-repeat="color in productDetailData.colorList" style="width: 25%;float: left;padding: 5px">
+                    <div style="padding: 4px 0px;font-size: 12px;"
+                         class="bordered"
+                         ng-click="setColor(color.key,color.name)"
+                         ng-class="getColorClass(color.key)">
+                        {{color.value}}
+                    </div>
+                </div>
+            </div>
+            <div style="padding-top:5px;font-size: 14px;">尺码</div>
+            <div style="overflow: hidden;text-align: center;padding:5px 5px 0 5px">
+                <div ng-repeat="size in productDetailData.sizeList" style="width: 25%;float: left;padding: 5px">
+                    <div style="padding: 4px 0px;font-size: 12px;"
+                         class="bordered"
+                         ng-click="setSize(size.key,size.name)"
+                         ng-class="getSizeClass(size.key)">
+                        {{size.value | sizeFilter2}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 0 10px">
+            <!--<button  class="button button-block button-dark button-small" style="border-radius: 0;" ng-click="confirmPopover()">确定</button>-->
+
+            <button ng-if="newCount == null || newCount <= 0 " class="button button-block button-dark button-small" style="border-radius: 0;font-size: 16px;" disabled>确定</button>
+            <button ng-if="newCount != null && newCount > 0 " class="button button-block button-dark button-small" style="border-radius: 0;font-size: 16px;" ng-click="confirmPopover()">确定</button>
+        </div>
+    </ion-content>
+</ion-popover-view>

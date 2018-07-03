@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.MmbSalerMapperExt" >
+  <resultMap id="BaseResultMapExt" type="net.dlyt.qyds.common.dto.ext.MmbSalerExt" >
+    <id column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="all_point" property="allPoint" jdbcType="INTEGER" />
+    <result column="member_level_id" property="memberLevelId" jdbcType="VARCHAR" />
+    <result column="birthdate" property="birthdate" jdbcType="TIMESTAMP" />
+    <result column="member_pic" property="memberPic" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="referrer_id" property="referrerId" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="regist_style" property="registStyle" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="sex_name" property="sexName" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="member_level_name" property="memberLevelName" jdbcType="VARCHAR" />
+    <result column="insert_user_name" property="insertUserName" jdbcType="VARCHAR" />
+    <result column="referrer_name" property="referrerName" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="oldphone" property="oldphone" jdbcType="VARCHAR" />
+    <result column="qr_code_url" property="qrCodeUrl" jdbcType="VARCHAR" />
+
+    <result column="operate" property="operate" jdbcType="VARCHAR" />
+    <result column="storeid" property="storeid" jdbcType="VARCHAR" />
+    <result column="storesubid" property="storesubid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.MmbSaler" >
+    <id column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="INTEGER" />
+    <result column="all_point" property="allPoint" jdbcType="INTEGER" />
+    <result column="member_level_id" property="memberLevelId" jdbcType="VARCHAR" />
+    <result column="birthdate" property="birthdate" jdbcType="TIMESTAMP" />
+    <result column="member_pic" property="memberPic" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="referrer_id" property="referrerId" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="regist_style" property="registStyle" jdbcType="VARCHAR" />
+    <result column="is_valid" property="isValid" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="oldphone" property="oldphone" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List_Ext" >
+    mm.member_id, mm.type, mm.open_id, mm.member_name, mm.nick_name, mm.telephone, mm.password, mm.point, mm.all_point, mm.member_level_id,
+    mm.birthdate, mm.member_pic, mm.email, mm.sex, mm.referrer_id, mm.id_card, mm.regist_style, mm.is_valid,
+    mm.deleted, mm.update_user_id, mm.update_time, mm.insert_user_id, mm.insert_time, mm.profession,
+    mm.income, mm.post_code, mm.address, mm.province_code, mm.province_name, mm.city_code, mm.city_name, mm.district_code,
+    mm.district_name,mm.oldphone
+  </sql>
+
+  <sql id="Base_Column_List" >
+    member_id, type, open_id, member_name, nick_name, telephone, password, point, all_point, member_level_id,
+    birthdate, member_pic, email, sex, referrer_id, id_card, regist_style, is_valid,
+    deleted, update_user_id, update_time, insert_user_id, insert_time,profession,
+    income, post_code, address, province_code, province_name, city_code, city_name, district_code,
+    district_name,oldphone
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.ext.MmbSalerExt" >
+    select
+    mm.member_id, mm.type, mm.open_id, mm.member_name, mm.nick_name, mm.telephone, mm.password, mm.point, mm.all_point, mm.member_level_id,
+    mm.birthdate, mm.member_pic, mm.email, mm.sex, mm.referrer_id, mm.id_card, mm.regist_style, mm.is_valid,
+    mm.deleted, mm.update_user_id, mm.update_time, mm.insert_user_id, mm.insert_time, mm.profession,
+    mm.income, mm.post_code, mm.address, mm.province_code, mm.province_name, mm.city_code, mm.city_name, mm.district_code,
+    mm.district_name,ccs.display_cn as sex_name,mm.oldphone
+    from public.mmb_saler mm
+    left join com_code ccs on ccs.code = 'SEX' and ccs.value = mm.sex
+    where mm.is_valid = '0'
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and mm.member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and mm.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and mm.telephone LIKE '%' || #{telephone,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="oldphone != null and !oldphone.isEmpty()" >
+      and mm.oldphone LIKE '%' || #{oldphone,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="deleted != null and !deleted.isEmpty()" >
+      and mm.deleted = #{deleted,jdbcType=VARCHAR}
+    </if>
+    order by mm.deleted,mm.telephone
+    LIMIT #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCount" resultMap="BaseResultMapCount" >
+    select
+    count(*) as count
+    from public.mmb_saler mm
+    where mm.is_valid = '0'
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and mm.member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and mm.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and mm.telephone LIKE '%' || #{telephone,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="oldphone != null and !oldphone.isEmpty()" >
+      and mm.oldphone LIKE '%' || #{oldphone,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="deleted != null and !deleted.isEmpty()" >
+      and mm.deleted = #{deleted,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+
+  <select id="getUserOrgInfo" resultMap="BaseResultMapExt" parameterType="java.lang.String"  >
+    select org.operate,org.storeid,org.storesubid
+    from sys_user sysuser
+    left join shp_org org
+    on sysuser.org_id = org.org_id
+    where sysuser.login_id = #{telphone}
+  </select>
+
+
+  <select id="selectBySelective" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.MmbSaler"  >
+    select
+    mm.member_id, mm.type, mm.open_id, mm.member_name, mm.nick_name, mm.telephone, mm.password, mm.point, mm.all_point, mm.member_level_id,
+    mm.birthdate, mm.member_pic, mm.email, mm.sex, mm.referrer_id, mm.id_card, mm.regist_style, mm.is_valid,
+    mm.deleted, mm.update_user_id, mm.update_time, mm.insert_user_id, mm.insert_time, mm.profession,
+    mm.income, mm.post_code, mm.address, mm.province_code, mm.province_name, mm.city_code, mm.city_name, mm.district_code,
+    mm.district_name,mm.qr_code_url ,ccs.display_cn as sex_name, mm.oldphone
+    from public.mmb_saler mm
+    left join com_code ccs on ccs.code = 'SEX' and ccs.value = mm.sex
+    where 1=1
+      <if test="memberId != null and !memberId.isEmpty()" >
+        and mm.member_id = #{memberId,jdbcType=VARCHAR}
+      </if>
+      <if test="memberName != null and !memberName.isEmpty()" >
+        and mm.member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+      </if>
+      <if test="nickName != null and !nickName.isEmpty()" >
+        and mm.nick_name  LIKE '%' || #{nickName,jdbcType=VARCHAR} || '%'
+      </if>
+      <if test="telephone != null and !telephone.isEmpty()" >
+        and mm.telephone = #{telephone,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null and !password.isEmpty()" >
+        and mm.password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="birthdate != null and !birthdate.isEmpty()" >
+        and mm.birthdate = #{birthdate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="email != null and !email.isEmpty()" >
+        and mm.email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="sex != null and !sex.isEmpty()" >
+        and mm.sex = #{sex,jdbcType=VARCHAR}
+      </if>
+      <if test="qrCodeUrl != null and !qrCodeUrl.isEmpty()" >
+      and mm.qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="updateUserId != null and !updateUserId.isEmpty()" >
+        and mm.update_user_id = #{updateUserId,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null and !updateTime.isEmpty()" >
+        and mm.update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="insertUserId != null and !insertUserId.isEmpty()" >
+        and mm.insert_user_id = #{insertUserId,jdbcType=VARCHAR}
+      </if>
+      <if test="insertTime != null and !insertTime.isEmpty()" >
+        and mm.insert_time = #{insertTime,jdbcType=TIMESTAMP}
+      </if>
+    <if test="deleted != null and !deleted.isEmpty()" >
+      and mm.deleted = #{deleted,jdbcType=TIMESTAMP}
+    </if>
+    <if test="isValid != null and !isValid.isEmpty()" >
+      and mm.is_valid = #{isValid,jdbcType=TIMESTAMP}
+    </if>
+
+    order by mm.telephone
+  </select>
+
+  <update id="updateByCode" parameterType="net.dlyt.qyds.common.dto.MmbSaler" >
+    update public.mmb_saler
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="allPoint != null" >
+        all_point = #{allPoint,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevelId != null" >
+        member_level_id = #{memberLevelId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        birthdate = #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memberPic != null" >
+        member_pic = #{memberPic,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="referrerId != null" >
+        referrer_id = #{referrerId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="registStyle != null" >
+        regist_style = #{registStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        is_valid = #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+        update_time = now(),
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtName != null" >
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where telephone = #{telephone,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteByCode" parameterType="java.lang.String" >
+    update mmb_saler
+    set deleted = '1'
+    where telephone = #{telephone,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="getCountBySelective" resultMap="BaseResultMapCount" >
+    select
+    count(*) as count
+    from public.mmb_saler mm
+    where mm.is_valid = '0' and mm.deleted = '0'
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and mm.member_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and mm.member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="nickName != null and !nickName.isEmpty()" >
+      and mm.nick_name  LIKE '%' || #{nickName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and mm.telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+    <if test="password != null and !password.isEmpty()" >
+      and mm.password = #{password,jdbcType=VARCHAR}
+    </if>
+    <if test="birthdate != null and !birthdate.isEmpty()" >
+      and mm.birthdate = #{birthdate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="email != null and !email.isEmpty()" >
+      and mm.email = #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="sex != null and !sex.isEmpty()" >
+      and mm.sex = #{sex,jdbcType=VARCHAR}
+    </if>
+    <if test="updateUserId != null and !updateUserId.isEmpty()" >
+      and mm.update_user_id = #{updateUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="updateTime != null and !updateTime.isEmpty()" >
+      and mm.update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="insertUserId != null and !insertUserId.isEmpty()" >
+      and mm.insert_user_id = #{insertUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="insertTime != null and !insertTime.isEmpty()" >
+      and mm.insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+
+  <select id="selectAllByPhone" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.ext.MmbSalerExt" >
+    select
+    mm.member_id, mm.type, mm.open_id, mm.member_name, mm.nick_name, mm.telephone, mm.password, mm.point, mm.all_point, mm.member_level_id,
+    mm.birthdate, mm.member_pic, mm.email, mm.sex, mm.referrer_id, mm.id_card, mm.regist_style, mm.is_valid,
+    mm.deleted, mm.update_user_id, mm.update_time, mm.insert_user_id, mm.insert_time, mm.profession,
+    mm.income, mm.post_code, mm.address, mm.province_code, mm.province_name, mm.city_code, mm.city_name, mm.district_code,
+    mm.district_name,
+    ccs.display_cn as sex_name,mm.oldphone
+    from public.mmb_saler mm
+    left join com_code ccs on ccs.code = 'SEX' and ccs.value = mm.sex
+    where mm.is_valid = '0' and mm.deleted = '0'
+    and mm.telephone = #{telephone,jdbcType=VARCHAR}
+    order by mm.telephone
+    LIMIT #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllDataCountByPhone" resultMap="BaseResultMapCount" >
+    select
+    count(*) as count
+    from public.mmb_saler mm
+    where mm.is_valid = '0' and mm.deleted = '0'
+    and mm.telephone = #{telephone,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getCountByPhone" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select
+    count(*) as count
+    from mmb_saler mm
+    where mm.telephone = #{telephone,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllByTel" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.ext.MmbSalerExt" >
+    select
+    mm.member_id, mm.type, mm.open_id, mm.member_name, mm.nick_name, mm.telephone, mm.password, mm.point, mm.all_point, mm.member_level_id,
+    mm.birthdate, mm.member_pic, mm.email, mm.sex, mm.referrer_id, mm.id_card, mm.regist_style, mm.is_valid,
+    mm.deleted, mm.update_user_id, mm.update_time, mm.insert_user_id, mm.insert_time, mm.profession,
+    mm.income, mm.post_code, mm.address, mm.province_code, mm.province_name, mm.city_code, mm.city_name, mm.district_code,
+    mm.district_name,mm.oldphone
+    from public.mmb_saler mm
+    where mm.is_valid = '0' and mm.deleted = '0'
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and mm.telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <delete id="deleteBySelective" parameterType="net.dlyt.qyds.common.dto.MmbSaler" >
+    delete from mmb_saler
+    where 1=1
+    <if test="memberId != null and !memberId.isEmpty()" >
+      and member_id = #{memberId,jdbcType=VARCHAR}
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="memberName != null and !memberName.isEmpty()" >
+      and member_name LIKE '%' || #{memberName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="nickName != null and !nickName.isEmpty()" >
+      and nick_name  LIKE '%' || #{nickName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="telephone != null and !telephone.isEmpty()" >
+      and telephone = #{telephone,jdbcType=VARCHAR}
+    </if>
+    <if test="password != null and !password.isEmpty()" >
+      and password = #{password,jdbcType=VARCHAR}
+    </if>
+    <if test="memberLevelId != null and !memberLevelId.isEmpty()" >
+      and member_level_id = #{memberLevelId,jdbcType=VARCHAR}
+    </if>
+    <if test="birthdate != null" >
+      and birthdate = #{birthdate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="email != null and !email.isEmpty()" >
+      and email = #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="sex != null and !sex.isEmpty()" >
+      and sex = #{sex,jdbcType=VARCHAR}
+    </if>
+    <if test="isValid != null and !isValid.isEmpty()" >
+      and is_valid = #{isValid,jdbcType=TIMESTAMP}
+    </if>
+    <if test="deleted != null and !deleted.isEmpty()" >
+      and deleted = #{deleted,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateUserId != null and !updateUserId.isEmpty()" >
+      and update_user_id = #{updateUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="updateTime != null" >
+      and update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="insertUserId != null and !insertUserId.isEmpty()" >
+      and insert_user_id = #{insertUserId,jdbcType=VARCHAR}
+    </if>
+    <if test="insertTime != null" >
+      and insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    </if>
+  </delete>
+
+  <update id="clearOldphoneById" parameterType="java.lang.String" >
+    update mmb_saler
+    set oldphone = '',
+    update_user_id = 'ERP',
+    update_time = now()
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectReport" resultMap="BaseResultMapExt" parameterType="net.dlyt.qyds.common.dto.MmbSaler"  >
+    select telephone, member_name, point,deleted
+    from mmb_saler
+    order by telephone
+  </select>
+
+</mapper>

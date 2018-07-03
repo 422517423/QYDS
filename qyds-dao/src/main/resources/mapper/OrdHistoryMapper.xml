@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.OrdHistoryMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.OrdHistory" >
+    <id column="seq_order_id" property="seqOrderId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_code" property="orderCode" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="amount_totle" property="amountTotle" jdbcType="NUMERIC" />
+    <result column="action_id" property="actionId" jdbcType="VARCHAR" />
+    <result column="action_name" property="actionName" jdbcType="VARCHAR" />
+    <result column="amount_discount" property="amountDiscount" jdbcType="NUMERIC" />
+    <result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <result column="amount_coupon" property="amountCoupon" jdbcType="NUMERIC" />
+    <result column="point_count" property="pointCount" jdbcType="NUMERIC" />
+    <result column="amount_point" property="amountPoint" jdbcType="NUMERIC" />
+    <result column="delivery_free" property="deliveryFree" jdbcType="VARCHAR" />
+    <result column="delivery_fee" property="deliveryFee" jdbcType="NUMERIC" />
+    <result column="pay_delivery_type" property="payDeliveryType" jdbcType="VARCHAR" />
+    <result column="pay_infact" property="payInfact" jdbcType="NUMERIC" />
+    <result column="service_fee" property="serviceFee" jdbcType="NUMERIC" />
+    <result column="amount_shop" property="amountShop" jdbcType="NUMERIC" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_account" property="payAccount" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="NUMERIC" />
+    <result column="receipt_account" property="receiptAccount" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="pay_req_json" property="payReqJson" jdbcType="VARCHAR" />
+    <result column="pay_resp_json" property="payRespJson" jdbcType="VARCHAR" />
+    <result column="deliver_status" property="deliverStatus" jdbcType="VARCHAR" />
+    <result column="deliver_time" property="deliverTime" jdbcType="TIMESTAMP" />
+    <result column="receipt_time" property="receiptTime" jdbcType="TIMESTAMP" />
+    <result column="evaluate_status" property="evaluateStatus" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="TIMESTAMP" />
+    <result column="want_invoice" property="wantInvoice" jdbcType="VARCHAR" />
+    <result column="invoice_json" property="invoiceJson" jdbcType="VARCHAR" />
+    <result column="delivery_json" property="deliveryJson" jdbcType="VARCHAR" />
+    <result column="express_json" property="expressJson" jdbcType="VARCHAR" />
+    <result column="invoice_account" property="invoiceAccount" jdbcType="VARCHAR" />
+    <result column="erp_storeid" property="erpStoreid" jdbcType="VARCHAR" />
+    <result column="storename" property="storename" jdbcType="VARCHAR" />
+    <result column="store_phone" property="storePhone" jdbcType="VARCHAR" />
+    <result column="store_deliveryid" property="storeDeliveryid" jdbcType="VARCHAR" />
+    <result column="store_deliveryname" property="storeDeliveryname" jdbcType="VARCHAR" />
+    <result column="can_return" property="canReturn" jdbcType="VARCHAR" />
+    <result column="can_exchange" property="canExchange" jdbcType="VARCHAR" />
+    <result column="can_divide" property="canDivide" jdbcType="VARCHAR" />
+    <result column="cancel_type" property="cancelType" jdbcType="VARCHAR" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seq_order_id, order_id, order_code, order_type, member_id, shop_id, amount_totle, 
+    action_id, action_name, amount_discount, coupon_id, amount_coupon, point_count, amount_point, 
+    delivery_free, delivery_fee, pay_delivery_type, pay_infact, service_fee, amount_shop, 
+    pay_type, pay_account, amount, receipt_account, message, order_status, order_time, 
+    pay_status, pay_time, pay_req_json, pay_resp_json, deliver_status, deliver_time, 
+    receipt_time, evaluate_status, evaluate_time, want_invoice, invoice_json, delivery_json, 
+    express_json, invoice_account, erp_storeid, storename, store_phone, store_deliveryid, 
+    store_deliveryname, can_return, can_exchange, can_divide, cancel_type, insert_user_id, 
+    insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.ord_history
+    where seq_order_id = #{seqOrderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.ord_history
+    where seq_order_id = #{seqOrderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.OrdHistory" >
+    insert into public.ord_history (seq_order_id, order_id, order_code, 
+      order_type, member_id, shop_id, 
+      amount_totle, action_id, action_name, 
+      amount_discount, coupon_id, amount_coupon, 
+      point_count, amount_point, delivery_free, 
+      delivery_fee, pay_delivery_type, pay_infact, 
+      service_fee, amount_shop, pay_type, 
+      pay_account, amount, receipt_account, 
+      message, order_status, order_time, 
+      pay_status, pay_time, pay_req_json, 
+      pay_resp_json, deliver_status, deliver_time, 
+      receipt_time, evaluate_status, evaluate_time, 
+      want_invoice, invoice_json, delivery_json, 
+      express_json, invoice_account, erp_storeid, 
+      storename, store_phone, store_deliveryid, 
+      store_deliveryname, can_return, can_exchange, 
+      can_divide, cancel_type, insert_user_id, 
+      insert_time)
+    values (#{seqOrderId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{orderCode,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, 
+      #{amountTotle,jdbcType=NUMERIC}, #{actionId,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR}, 
+      #{amountDiscount,jdbcType=NUMERIC}, #{couponId,jdbcType=NUMERIC}, #{amountCoupon,jdbcType=NUMERIC}, 
+      #{pointCount,jdbcType=NUMERIC}, #{amountPoint,jdbcType=NUMERIC}, #{deliveryFree,jdbcType=VARCHAR}, 
+      #{deliveryFee,jdbcType=NUMERIC}, #{payDeliveryType,jdbcType=VARCHAR}, #{payInfact,jdbcType=NUMERIC}, 
+      #{serviceFee,jdbcType=NUMERIC}, #{amountShop,jdbcType=NUMERIC}, #{payType,jdbcType=VARCHAR}, 
+      #{payAccount,jdbcType=VARCHAR}, #{amount,jdbcType=NUMERIC}, #{receiptAccount,jdbcType=VARCHAR}, 
+      #{message,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{payStatus,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{payReqJson,jdbcType=VARCHAR}, 
+      #{payRespJson,jdbcType=VARCHAR}, #{deliverStatus,jdbcType=VARCHAR}, #{deliverTime,jdbcType=TIMESTAMP}, 
+      #{receiptTime,jdbcType=TIMESTAMP}, #{evaluateStatus,jdbcType=VARCHAR}, #{evaluateTime,jdbcType=TIMESTAMP}, 
+      #{wantInvoice,jdbcType=VARCHAR}, #{invoiceJson,jdbcType=VARCHAR}, #{deliveryJson,jdbcType=VARCHAR}, 
+      #{expressJson,jdbcType=VARCHAR}, #{invoiceAccount,jdbcType=VARCHAR}, #{erpStoreid,jdbcType=VARCHAR}, 
+      #{storename,jdbcType=VARCHAR}, #{storePhone,jdbcType=VARCHAR}, #{storeDeliveryid,jdbcType=VARCHAR}, 
+      #{storeDeliveryname,jdbcType=VARCHAR}, #{canReturn,jdbcType=VARCHAR}, #{canExchange,jdbcType=VARCHAR}, 
+      #{canDivide,jdbcType=VARCHAR}, #{cancelType,jdbcType=VARCHAR}, #{insertUserId,jdbcType=VARCHAR}, 
+      #{insertTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.OrdHistory" >
+    insert into public.ord_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqOrderId != null" >
+        seq_order_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderCode != null" >
+        order_code,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="amountTotle != null" >
+        amount_totle,
+      </if>
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="actionName != null" >
+        action_name,
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount,
+      </if>
+      <if test="couponId != null" >
+        coupon_id,
+      </if>
+      <if test="amountCoupon != null" >
+        amount_coupon,
+      </if>
+      <if test="pointCount != null" >
+        point_count,
+      </if>
+      <if test="amountPoint != null" >
+        amount_point,
+      </if>
+      <if test="deliveryFree != null" >
+        delivery_free,
+      </if>
+      <if test="deliveryFee != null" >
+        delivery_fee,
+      </if>
+      <if test="payDeliveryType != null" >
+        pay_delivery_type,
+      </if>
+      <if test="payInfact != null" >
+        pay_infact,
+      </if>
+      <if test="serviceFee != null" >
+        service_fee,
+      </if>
+      <if test="amountShop != null" >
+        amount_shop,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payAccount != null" >
+        pay_account,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="receiptAccount != null" >
+        receipt_account,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="payReqJson != null" >
+        pay_req_json,
+      </if>
+      <if test="payRespJson != null" >
+        pay_resp_json,
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status,
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time,
+      </if>
+      <if test="receiptTime != null" >
+        receipt_time,
+      </if>
+      <if test="evaluateStatus != null" >
+        evaluate_status,
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time,
+      </if>
+      <if test="wantInvoice != null" >
+        want_invoice,
+      </if>
+      <if test="invoiceJson != null" >
+        invoice_json,
+      </if>
+      <if test="deliveryJson != null" >
+        delivery_json,
+      </if>
+      <if test="expressJson != null" >
+        express_json,
+      </if>
+      <if test="invoiceAccount != null" >
+        invoice_account,
+      </if>
+      <if test="erpStoreid != null" >
+        erp_storeid,
+      </if>
+      <if test="storename != null" >
+        storename,
+      </if>
+      <if test="storePhone != null" >
+        store_phone,
+      </if>
+      <if test="storeDeliveryid != null" >
+        store_deliveryid,
+      </if>
+      <if test="storeDeliveryname != null" >
+        store_deliveryname,
+      </if>
+      <if test="canReturn != null" >
+        can_return,
+      </if>
+      <if test="canExchange != null" >
+        can_exchange,
+      </if>
+      <if test="canDivide != null" >
+        can_divide,
+      </if>
+      <if test="cancelType != null" >
+        cancel_type,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqOrderId != null" >
+        #{seqOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotle != null" >
+        #{amountTotle,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountDiscount != null" >
+        #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="couponId != null" >
+        #{couponId,jdbcType=NUMERIC},
+      </if>
+      <if test="amountCoupon != null" >
+        #{amountCoupon,jdbcType=NUMERIC},
+      </if>
+      <if test="pointCount != null" >
+        #{pointCount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountPoint != null" >
+        #{amountPoint,jdbcType=NUMERIC},
+      </if>
+      <if test="deliveryFree != null" >
+        #{deliveryFree,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null" >
+        #{deliveryFee,jdbcType=NUMERIC},
+      </if>
+      <if test="payDeliveryType != null" >
+        #{payDeliveryType,jdbcType=VARCHAR},
+      </if>
+      <if test="payInfact != null" >
+        #{payInfact,jdbcType=NUMERIC},
+      </if>
+      <if test="serviceFee != null" >
+        #{serviceFee,jdbcType=NUMERIC},
+      </if>
+      <if test="amountShop != null" >
+        #{amountShop,jdbcType=NUMERIC},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null" >
+        #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="receiptAccount != null" >
+        #{receiptAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payReqJson != null" >
+        #{payReqJson,jdbcType=VARCHAR},
+      </if>
+      <if test="payRespJson != null" >
+        #{payRespJson,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverStatus != null" >
+        #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiptTime != null" >
+        #{receiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateStatus != null" >
+        #{evaluateStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wantInvoice != null" >
+        #{wantInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceJson != null" >
+        #{invoiceJson,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryJson != null" >
+        #{deliveryJson,jdbcType=VARCHAR},
+      </if>
+      <if test="expressJson != null" >
+        #{expressJson,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAccount != null" >
+        #{invoiceAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreid != null" >
+        #{erpStoreid,jdbcType=VARCHAR},
+      </if>
+      <if test="storename != null" >
+        #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryid != null" >
+        #{storeDeliveryid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryname != null" >
+        #{storeDeliveryname,jdbcType=VARCHAR},
+      </if>
+      <if test="canReturn != null" >
+        #{canReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="canExchange != null" >
+        #{canExchange,jdbcType=VARCHAR},
+      </if>
+      <if test="canDivide != null" >
+        #{canDivide,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelType != null" >
+        #{cancelType,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.OrdHistory" >
+    update public.ord_history
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null" >
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="amountTotle != null" >
+        amount_totle = #{amountTotle,jdbcType=NUMERIC},
+      </if>
+      <if test="actionId != null" >
+        action_id = #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null" >
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountDiscount != null" >
+        amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      </if>
+      <if test="couponId != null" >
+        coupon_id = #{couponId,jdbcType=NUMERIC},
+      </if>
+      <if test="amountCoupon != null" >
+        amount_coupon = #{amountCoupon,jdbcType=NUMERIC},
+      </if>
+      <if test="pointCount != null" >
+        point_count = #{pointCount,jdbcType=NUMERIC},
+      </if>
+      <if test="amountPoint != null" >
+        amount_point = #{amountPoint,jdbcType=NUMERIC},
+      </if>
+      <if test="deliveryFree != null" >
+        delivery_free = #{deliveryFree,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryFee != null" >
+        delivery_fee = #{deliveryFee,jdbcType=NUMERIC},
+      </if>
+      <if test="payDeliveryType != null" >
+        pay_delivery_type = #{payDeliveryType,jdbcType=VARCHAR},
+      </if>
+      <if test="payInfact != null" >
+        pay_infact = #{payInfact,jdbcType=NUMERIC},
+      </if>
+      <if test="serviceFee != null" >
+        service_fee = #{serviceFee,jdbcType=NUMERIC},
+      </if>
+      <if test="amountShop != null" >
+        amount_shop = #{amountShop,jdbcType=NUMERIC},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null" >
+        pay_account = #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=NUMERIC},
+      </if>
+      <if test="receiptAccount != null" >
+        receipt_account = #{receiptAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payReqJson != null" >
+        pay_req_json = #{payReqJson,jdbcType=VARCHAR},
+      </if>
+      <if test="payRespJson != null" >
+        pay_resp_json = #{payRespJson,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverStatus != null" >
+        deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverTime != null" >
+        deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiptTime != null" >
+        receipt_time = #{receiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluateStatus != null" >
+        evaluate_status = #{evaluateStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wantInvoice != null" >
+        want_invoice = #{wantInvoice,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceJson != null" >
+        invoice_json = #{invoiceJson,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryJson != null" >
+        delivery_json = #{deliveryJson,jdbcType=VARCHAR},
+      </if>
+      <if test="expressJson != null" >
+        express_json = #{expressJson,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceAccount != null" >
+        invoice_account = #{invoiceAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreid != null" >
+        erp_storeid = #{erpStoreid,jdbcType=VARCHAR},
+      </if>
+      <if test="storename != null" >
+        storename = #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null" >
+        store_phone = #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryid != null" >
+        store_deliveryid = #{storeDeliveryid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeliveryname != null" >
+        store_deliveryname = #{storeDeliveryname,jdbcType=VARCHAR},
+      </if>
+      <if test="canReturn != null" >
+        can_return = #{canReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="canExchange != null" >
+        can_exchange = #{canExchange,jdbcType=VARCHAR},
+      </if>
+      <if test="canDivide != null" >
+        can_divide = #{canDivide,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelType != null" >
+        cancel_type = #{cancelType,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where seq_order_id = #{seqOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.OrdHistory" >
+    update public.ord_history
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      order_code = #{orderCode,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=VARCHAR},
+      amount_totle = #{amountTotle,jdbcType=NUMERIC},
+      action_id = #{actionId,jdbcType=VARCHAR},
+      action_name = #{actionName,jdbcType=VARCHAR},
+      amount_discount = #{amountDiscount,jdbcType=NUMERIC},
+      coupon_id = #{couponId,jdbcType=NUMERIC},
+      amount_coupon = #{amountCoupon,jdbcType=NUMERIC},
+      point_count = #{pointCount,jdbcType=NUMERIC},
+      amount_point = #{amountPoint,jdbcType=NUMERIC},
+      delivery_free = #{deliveryFree,jdbcType=VARCHAR},
+      delivery_fee = #{deliveryFee,jdbcType=NUMERIC},
+      pay_delivery_type = #{payDeliveryType,jdbcType=VARCHAR},
+      pay_infact = #{payInfact,jdbcType=NUMERIC},
+      service_fee = #{serviceFee,jdbcType=NUMERIC},
+      amount_shop = #{amountShop,jdbcType=NUMERIC},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=NUMERIC},
+      receipt_account = #{receiptAccount,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      pay_status = #{payStatus,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_req_json = #{payReqJson,jdbcType=VARCHAR},
+      pay_resp_json = #{payRespJson,jdbcType=VARCHAR},
+      deliver_status = #{deliverStatus,jdbcType=VARCHAR},
+      deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+      receipt_time = #{receiptTime,jdbcType=TIMESTAMP},
+      evaluate_status = #{evaluateStatus,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      want_invoice = #{wantInvoice,jdbcType=VARCHAR},
+      invoice_json = #{invoiceJson,jdbcType=VARCHAR},
+      delivery_json = #{deliveryJson,jdbcType=VARCHAR},
+      express_json = #{expressJson,jdbcType=VARCHAR},
+      invoice_account = #{invoiceAccount,jdbcType=VARCHAR},
+      erp_storeid = #{erpStoreid,jdbcType=VARCHAR},
+      storename = #{storename,jdbcType=VARCHAR},
+      store_phone = #{storePhone,jdbcType=VARCHAR},
+      store_deliveryid = #{storeDeliveryid,jdbcType=VARCHAR},
+      store_deliveryname = #{storeDeliveryname,jdbcType=VARCHAR},
+      can_return = #{canReturn,jdbcType=VARCHAR},
+      can_exchange = #{canExchange,jdbcType=VARCHAR},
+      can_divide = #{canDivide,jdbcType=VARCHAR},
+      cancel_type = #{cancelType,jdbcType=VARCHAR},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where seq_order_id = #{seqOrderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

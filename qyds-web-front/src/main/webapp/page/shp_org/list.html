@@ -1,0 +1,172 @@
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            店铺组织
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">店铺管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#">店铺组织</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet grey box">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-cogs"></i>店铺组织</div>
+                <div class="tools" style="margin-top: auto;">
+                    <div id="button-groups">
+                        <a id="editBtn" href="javascript:;"   class="btn btn-xs purple" >查看 <i class="icon-edit"></i></a>
+                        <a id="upBtn" href="javascript:;" class="btn btn-xs blue">上移 <i class="icon-long-arrow-up"></i></a>
+                        <a id="downBtn" href="javascript:;" class="btn btn-xs yellow">下移 <i class="icon-long-arrow-down"></i></a>
+                        <!--<a id="delBtn" href="javascript:;" class="btn btn-xs red">删除 <i class="icon-remove"></i></a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="orgTree" class="ztree">
+
+                </div>
+                <div id="alertMsg" class="alert alert-danger" style="display: none;">
+                    数据取得失败
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 编辑modal start -->
+<div id="editModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">店铺组织编辑</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <input type="hidden" style="display: none;" id="operationFlag" value="">
+                        <form action="" class="form-horizontal" id="orgForm">
+                            <input type="hidden" style="display: none;" id="orgId" name="orgId" value="">
+                            <input type="hidden" style="display: none;" id="orgidParent" name="orgidParent" value="">
+                            <div class="form-body">
+                                <div class="form-group" id="parentOrgDiv">
+                                    <label  class="col-md-3 control-label">上级店铺组织</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="parentName" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">组织类型<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <select type="text" id="orgType" name="orgType" class="form-control">
+                                            <option value=""></option>
+                                            <option value="10">电商</option>
+                                            <option value="20">门店</option>
+                                            <option value="90">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">组织代码<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="orgCode" name="orgCode" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">ERP门店ID<span id="erpStoreIdRequired" class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="erpStoreId" name="erpStoreId" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">组织简称<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="orgShortName" name="orgShortName" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">组织名称<span class="required">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="orgName" name="orgName" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label  class="col-md-3 control-label">说明</label>
+                                    <div class="col-md-8">
+                                        <textarea type="text" id="comment" name="comment" class="form-control" >
+                                            </textarea>
+                                    </div>
+                                </div>
+
+
+
+                                <!--<div class="form-group">-->
+                                <!--<label  class="col-md-3 control-label">菜单序号<span class="required">*</span></label>-->
+                                <!--<div class="col-md-8">-->
+                                <!--<input type="text" id="sort" name="sort" class="form-control">-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+
+                                <input type="hidden" id="sort" name="sort" style="display: none;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" id="saveBtn" class="btn green">保存</button>-->
+                <button type="button" data-dismiss="modal" class="btn default">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑modal end -->
+
+
+<!--TODO 共通modal start -->
+<div id="confirmModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>Would you like to continue with some arbitrary task?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn blue" id="confirmBtn">确定</button>
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 共通modal end -->
+<!-- END PAGE CONTENT-->
+
+<!-- START PAGE LEVEL SCRIPTS -->
+<script src="../page/shp_org/shp_org.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<script>
+    jQuery(document).ready(function() {
+
+        App.initScroller();
+        zTree.init();
+
+    });
+</script>

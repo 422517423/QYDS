@@ -1,0 +1,91 @@
+<ion-view cache-view="false">
+    <ion-content class='bg-light'>
+
+        <!--抽奖-->
+        <div class="custom-full-width" style="margin: auto">
+
+            <!--抽奖机会 -->
+            <div class="row" style="margin-left: 0px;margin-right: 0px">
+                <div class="titleBox" style=" padding:0;text-align: center;margin-top: 10px;">
+                    <span id=""
+                          style="background-color: #666666;color: #ffffff;text-align: center; font-size: 12px;padding: 2px 5px;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;">
+                        您还有{{oppCount}}次抽奖机会,活动开始于{{startTime}} 将在{{endTime}}结束</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-70" style="text-align:center;padding:0 10px;font-size: 12px;margin-top: 10px;float: right; ">
+                    <span style="float: right;">可用{{exchangePoint}}积分兑换抽奖机会</span>
+                </div>
+                <div class="col col-40" style="text-align:center;padding:0 10px;margin-top: 6px; ">
+                    <button type="button" class="button button-dark button-block" style="font-size: 12px;min-width: 50px; float: left;min-height: 20px;line-height:20px;margin-top:0px;width:20px;" ng-click="exchangePrizeWithPoint();">
+                        兑换
+                    </button>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px;border: 1px solid #f2f2f2;padding-top:10px;padding-bottom:10px;">
+                <div style="padding: 0;margin-top: 10px;margin: 0 auto;">
+                    <div class="prize-draw-wrapper typo" id="wrapper">
+                        <section id="turntable-phone" class="gb-turntable-phone"
+                                 style="box-sizing: initial;-webkit-box-sizing: initial;margin: 0px auto">
+                            <div id="turntable-container-phone" class="gb-turntable-container">
+                                <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+                            </div>
+                            <div class="gb-turntable-btn" style="cursor: pointer;margin-left: -10px;">抽奖</div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"  style="padding: 0;margin-top: 10px">
+                <span>中奖纪录:</span>
+            </div>
+
+            <div class="row"  style="padding: 0;margin-top: 10px">
+                <div class="prizeDrawList" ng-if="allRecord == null || allRecord.length == 0">
+                    <ul style="height: 60px;">
+                        <li>还没有人抽奖哦</li>
+                    </ul>
+                </div>
+
+                <div class="prizeDrawList" ng-if="allRecord != null && allRecord.length > 0" >
+                    <ul id="list-phone"  >
+                        <li ng-repeat="item in allRecord" >{{item.telephone | formattelphone}}于{{item.insertTime | formatdate:'yyyy-MM-dd'}} 抽中了{{item.prizeName}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row"  style="padding: 0;margin-top: 10px">
+                <span style="margin-top: 10px;">我的奖品:</span>
+            </div>
+
+            <div class="row"  style="padding: 0;margin-top: 10px">
+
+                <div class="prizeDrawList_my" ng-if="winList == null || winList.length == 0" >
+                    <ul style="height: 60px;">
+                        <li>您还没有抽中哦</li>
+                    </ul>
+                </div>
+                <div class="prizeDrawList_my" ng-if="winList != null && winList.length > 0" >
+                    <ul id="list1-phone" >
+                        <li ng-repeat="item in winList" >您于{{item.insertTime | formatdate:'yyyy-MM-dd'}},抽取了{{item.prizeName}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--海报-->
+            <div class="row vertical-align">
+                <!-- 海报展示 -->
+                 <div style="padding:0;"> 
+                <!--<img src="./image/miaosha.jpg" style="float:left;padding-top:10px;" -->
+                <!--class="img-responsive" width="100%">-->
+                <img ng-if="playbill.imageUrl != null && playbill.imageUrl.length > 0" ng-src="{{playbill.imageUrl | imgPath:''}}" style="float:left;padding-top:10px;" 
+                     class="img-responsive" width="100%">
+                 </div>
+            </div>
+
+
+        </div>
+        </ion-content>
+    </ion-view>

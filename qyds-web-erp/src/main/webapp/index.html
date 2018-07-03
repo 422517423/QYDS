@@ -1,0 +1,405 @@
+<html>
+<body>
+<h2>千业电商ERP接口测试</h2>
+<br>
+<form action="erp_bank_record/input.json" method="post" target="result">
+    库存导入接口<br>
+    参数说明:支持多件导入<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "erpGoodsCode":"D16111D03",
+      "erpSku":"D16111D0300110",
+      "erpStoreid":"011001",
+      "inoutCount":"100",
+      "inoutTime":"2016-07-20 20:00:00"
+    },
+    {
+      "erpGoodsCode":"D16111D03",
+      "erpSku":"D16111D0300110",
+      "erpStoreid":"011001",
+      "inoutCount":"-100",
+      "inoutTime":"2016-07-20 20:00:00"
+    }
+]
+    </textarea>
+</form>
+<br>
+<form action="erp_store/input.json" method="post" target="result">
+    门店导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "storeCode":"9011001",
+      "storeNameEn":"",
+      "storeNameCn":"大连广场",
+      "address":"辽宁省大连市高新园区黄埔路502号高新万达广场2F",
+      "phone":"0411-39021318",
+        "storeId":"5888",
+        "storesubId":"5274",
+        "operator":"11015"
+
+    },
+    {
+      "style":"20",
+      "storeCode":"9011002",
+      "storeNameEn":"",
+      "storeNameCn":"大连广场",
+      "address":"辽宁省大连市高新园区黄埔路502号高新万达广场2F",
+      "phone":"0411-39021318",
+        "storeId":"5888",
+        "storesubId":"5274",
+        "operator":"11015"
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="erp_brand/input.json" method="post" target="result">
+    品牌导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "brandCode":"C",
+      "brandNameCn":"CAPE HORN",
+      "brandNameEn":"CAPE HORN"
+    },
+    {
+      "style":"20",
+      "brandCode":"Z",
+      "brandNameCn":"其他",
+      "brandNameEn":"OTHER"
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="erp_produce_line/input.json" method="post" target="result">
+    产品线导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "lineCode":"B",
+      "lineNameEn":"BASIC",
+      "lineNameCn":"BASIC"
+    },
+    {
+      "style":"20",
+      "lineCode":"O",
+      "lineNameEn":"Other",
+      "lineNameCn":"Other"
+    }
+]
+    </textarea>
+    <div>
+        说明:
+
+    </div>
+</form>
+<hr>
+<form action="erp_color/input.json" method="post" target="result">
+    颜色导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "colorCode":"001",
+      "helpcode":"PB",
+      "colorNameEn":"white",
+      "colorNameCn":"漂白"
+    },
+    {
+      "style":"20",
+      "helpcode":"BP",
+      "colorCode":"002",
+      "colorNameEn":"half-white",
+      "colorNameCn":"半漂"
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="erp_goods_size/input.json" method="post" target="result">
+    尺码导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "sizeTypeCode":"111",
+      "sizeCode":"10",
+      "sort":"1",
+      "typeName":"裤子",
+      "sizeNameEn":"28R",
+      "sizeNameCn":"28R",
+      "sizeFullNameEn":"XS 165/72A (W28/R)",
+      "sizeFullNameCn":"XS 165/72A (W28/R)",
+    },
+    {
+      "style":"20",
+      "sizeTypeCode":"111",
+      "sizeCode":"20",
+      "sort":"2",
+      "typeName":"裤子",
+      "sizeNameEn":"28",
+      "sizeNameCn":"28",
+      "sizeFullNameEn":"XS 165/72A (W28/R)",
+      "sizeFullNameCn":"XS 165/72A (W28/R)",
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="erp_goods/input.json" method="post" target="result">
+    商品导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "sku":"D16111D0300110",
+      "goodsCode":"D16111D03",
+      "styleName":"Ancona D Shirt L/S",
+      "goodsNameCn":"长袖衬衫",
+      "brandCode":"D",
+      "lineCode":"O",
+      "colorCode":"733",
+      "sizeTypeCode":"2",
+      "sizeCode":"10",
+      "sellYear":"2016",
+      "seasonCode":"4",
+      "price":"1299",
+      "face":"100%锦纶",
+      "material":"白鸭绒90%绒毛10%长羽毛",
+      "filler":""
+    },
+    {
+      "style":"20",
+      "sku":"D16111D0300120",
+      "goodsCode":"D16111D03",
+      "styleName":"Ancona D Shirt L/S",
+      "goodsNameCn":"长袖衬衫",
+      "brandCode":"D",
+      "lineCode":"O",
+      "colorCode":"001",
+      "sizeTypeCode":"2",
+      "sizeCode":"10",
+      "sellYear":"2016",
+      "seasonCode":"4",
+      "price":"1299",
+      "face":"100%锦纶",
+      "material":"白鸭绒90%绒毛10%长羽毛",
+      "filler":""
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="erp_member/input.json" method="post" target="result">
+    会员导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    sexCode(性别编码):1,男;2,女;0,未知<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "memberCode":"13624083452",
+      "memberName":"鲍云威",
+      "sexCode":"1",
+      "mobil":"13624083452",
+      "birthday":"1979-11-02",
+      "provinceCode":"210000",
+      "provinceName":"辽宁省",
+      "cityCode":"210200",
+      "cityName":"大连市",
+      "districtCode":"210202",
+      "districtName":"中山区",
+      "email":"bao@qianye.com",
+      "storeCode":"010001",
+      "sellerName":"店员甲",
+      "profession":"职员",
+      "address":"人民路35号1701",
+      "postCode":"116001",
+      "checked":"",
+      "income":"5K-8K",
+      "registTime":"2016-01-01",
+      "memberGrade":"普通会员"
+    },
+    {
+      "style":"20",
+      "memberCode":"13624083455",
+      "memberName":"鲍云威",
+      "sexCode":"1",
+      "mobil":"13624083455",
+      "birthday":"1979-11-02",
+      "provinceCode":"210000",
+      "provinceName":"辽宁省",
+      "cityCode":"210200",
+      "cityName":"大连市",
+      "districtCode":"210202",
+      "districtName":"中山区",
+      "email":"bao@qianye.com",
+      "storeCode":"010001",
+      "storeName":"总部",
+      "sellerName":"店员甲",
+      "profession":"职员",
+      "address":"人民路35号1701",
+      "postCode":"116001",
+      "checked":"",
+      "income":"5K-8K",
+      "registTime":"2016-01-01",
+      "memberGrade":"普通会员"
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="erp_goods_type/input.json" method="post" target="result">
+    商品分类导入接口<br>
+    参数说明:支持多件导入<BR>
+    batch(批量方式):0,更新导入;1,全部导入,先清除原有数据<BR>
+    style(更新方式,batch为0时有效):10,新增;20,更新;30,删除<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    批量方式<select name="batch">
+        <option value="0" selected="selected">更新导入</option>
+        <option value="1">全部导入</option>
+    </select>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "style":"20",
+      "typeCode":"111",
+      "topTypeCode":"SHIRT",
+      "topTypeNameEn":"SHIRT",
+      "topTypeNameCn":"衬衫",
+      "typeNameEn":"SHIRT L/S",
+      "typeNameCn":"长袖衬衫",
+     },
+    {
+      "style":"20",
+      "typeCode":"112",
+      "topTypeCode":"SHIRT",
+      "topTypeNameEn":"SHIRT",
+      "topTypeNameCn":"衬衫",
+      "typeNameEn":"SHIRT L/S",
+      "typeNameCn":"长袖衬衫"
+    }
+]
+    </textarea>
+</form>
+<hr>
+<form action="order/sent.json" method="post" target="result">
+    订单发货通知接口<br>
+    参数说明:支持多件导入<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "orderId":"1111111111",
+      "subOrderId":"2222222222",
+      "sku":"333333",
+      "deliverStatus":"20",
+      "deliverTime":"2016-07-22 20:00:00",
+      "expressId":"SF",
+      "expressName":"顺丰快递",
+      "expressNo":"33333333333",
+      "erpStoreId":"11001",
+      "storeName":"大连广场",
+      "storePhone":"1234567",
+      "storeDeliveryName":"发货店员姓名"
+    }
+]
+    </textarea>
+</form>
+<br>
+<form action="erp_point_record/input.json" method="post" target="result">
+    会员积分履历导入接口<br>
+    参数说明:支持多件导入<br>
+    结果说明:resultCode:00,正常;99,异常<br>
+    <input type="submit"><br>
+    <textarea name = "data" cols=50 rows=10>
+[
+    {
+      "memberCode":"13624083452",
+      "amount":"100",
+      "inoutPoint":"100",
+      "inoutTime":"2016-07-20 20:00:00"
+    },
+    {
+      "memberCode":"13624083452",
+      "amount":"0",
+      "inoutPoint":"-20",
+      "inoutTime":"2016-07-21 20:00:00"
+    }
+]
+    </textarea>
+</form>
+</body>
+</html>

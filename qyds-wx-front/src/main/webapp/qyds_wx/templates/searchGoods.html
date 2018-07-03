@@ -1,0 +1,30 @@
+<ion-view>
+    <!--<ion-header-bar align-title="center" class="bar-light" style="border-bottom: 1px solid #CCCCCC;">-->
+        <!--<button class="button no-animation button-icon icon ion-ios-arrow-back" ng-click="goBack()"></button>-->
+        <!--<div class="h1 title" style="font-size:24px;">搜索</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content class='bg-light'>
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" class="noCheck" maxlength="11" name="search" placeholder="请输入商品关键字"  ng-model='searchGoods.search'  placeholder="请输入商品关键字">
+            </label>
+            <button class="button button-clear" ng-click="goGoodsSearch()" style="font-size: 16px;">
+                搜索
+            </button>
+        </div>
+        <div style="margin:15px 10px 0px 10px;">
+            <div ng-repeat="good in goodsList" ng-click="goProdocutDetail(good.goodsId)">
+                <div style="font-size:15px;margin:15px 0;">{{good.goodsName}}</div>
+                <div class="divider_gray"></div>
+            </div>
+
+
+        </div>
+        <!--<div style="margin:25px 10px 10px 10px;">其他热门搜索</div>-->
+        <!--<div style="margin:0 10px;"><span ng-repeat="hotSearch in hotSearchList" style="display:inline-block;margin:5px 5px 0 0;padding:5px 10px;border: 1px solid #CCCCCC;">-->
+                                        <!--{{hotSearch.name}}-->
+                                    <!--</span>-->
+        <!--</div>-->
+    </ion-content>
+</ion-view>

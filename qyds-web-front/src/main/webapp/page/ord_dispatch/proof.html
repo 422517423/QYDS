@@ -1,0 +1,52 @@
+<!-- /.modal -->
+<div id="proofArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <!--<h4 class="modal-title">到店取货发货凭证</h4>-->
+            </div>
+            <div class="modal-body">
+                <div class="scroller" id="proofContent" style="height:300px;overflow-y: scroll;" data-always-visible="1"
+                     data-rail-visible1="1">
+                    <h4>千业电商</h4>
+                    <h5>发货凭证</h5>
+                    <hr><h5>
+                    订单ID: <label id="order_id"></label><BR>
+                    订单CODE: <label id="order_code"></label><BR>
+                    购买时间: <label id="order_time"></label>
+                    <hr>
+                    订单明细</h5>
+                    <h6 id = "detail"></h6>
+                    <!--商品:<label id="order_wwid" name="order_wwid"><BR>-->
+                    <!--颜色:<label id="order_wwid" name="order_wwid"><BR>-->
+                    <!--尺码:<label id="order_wwid" name="order_wwid"><BR>-->
+                    <!--价格:<BR>-->
+                    <!--收货时间:<BR>-->
+                    <!--收货人:<BR>-->
+                    <hr>
+                    <h5>合计: <label id="price_discount"></label></h5>
+                    <hr>
+                    <h6>以上订单商品本店已发货,特此证明!<BR><BR>
+                    门店名称: <label id="store_name"></label><BR>
+                    门店地址: <label id="store_addr"></label><BR>
+                    联系电话: <label id="store_tel"></label><BR>
+                    打印时间: <label id="print_time"></label>
+                    <hr>
+                    备注:<BR>
+                    此凭证仅可作为千业电商订单的发货凭证使用.<BR>
+                    最终解释权归千业电商所有.</h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="proof_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn_print" class="btn blue">打印</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/ord_dispatch/proof.js"></script>

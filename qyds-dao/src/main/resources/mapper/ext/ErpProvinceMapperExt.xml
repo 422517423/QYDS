@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpProvinceMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpProvince">
+        <result column="pcode" property="pcode" jdbcType="VARCHAR"/>
+        <result column="pname" property="pname" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="queryAllProvince" resultMap="BaseResultMap">
+    select pcode, pname
+    FROM public.erp_province
+    ORDER BY pcode
+  </select>
+</mapper>

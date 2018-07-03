@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ActMemberMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ActMember" >
+        <id column="act_member_id" property="actMemberId" jdbcType="VARCHAR" />
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+        <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+        <result column="member_type" property="memberType" jdbcType="VARCHAR" />
+        <result column="member_id" property="memberId" jdbcType="VARCHAR" />
+        <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    act_member_id, shop_id, activity_id, member_type, member_id, deleted, update_user_id,
+    update_time, insert_user_id, insert_time
+  </sql>
+    <select id="selectByActivityId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ActMember">
+        select
+        <include refid="Base_Column_List"/>
+        from public.act_member WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+    </select>
+
+    <update id="deleteByActivityId" parameterType="net.dlyt.qyds.common.dto.ActMember">
+        DELETE FROM public.act_member WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+    </update>
+
+    <resultMap id="SelectMemberGroupResultMap" type="net.dlyt.qyds.common.form.ActMemberForm">
+        <result column="member_id" property="memberId" jdbcType="VARCHAR"/>
+        <result column="member_name" property="memberName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectMemberGroupByActivityId" resultMap="SelectMemberGroupResultMap" parameterType="net.dlyt.qyds.common.dto.ActMember">
+        SELECT
+        am.member_id AS member_id,mg.group_name AS member_name
+        FROM act_member am
+        LEFT JOIN mmb_group mg ON am.member_id = mg.group_id
+        WHERE am.activity_id = #{activityId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectMemberLevelByActivityId" resultMap="SelectMemberGroupResultMap" parameterType="net.dlyt.qyds.common.dto.ActMember">
+        SELECT
+        am.member_id AS member_id,code1.display_cn AS member_name
+        FROM act_member am
+        LEFT JOIN com_code code1 ON code1.code = 'MEMBER_LEVEL' and am.member_id = code1.value
+        WHERE am.activity_id = #{activityId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

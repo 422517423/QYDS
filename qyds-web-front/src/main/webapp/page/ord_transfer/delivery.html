@@ -1,0 +1,81 @@
+<!-- /.modal -->
+<div id="deliverArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">调货发货</h4>
+            </div>
+            <div class="modal-body">
+                <!--<div class="scroller" id="proofContent" style="height:300px;overflow-y: scroll;" data-always-visible="1"-->
+                     <!--data-rail-visible1="1">-->
+                <form id="deliverForm1" class="form-horizontal validator">
+                    <div class="form-body">
+                        <div class="form-group row">
+                            <label  class="col-md-2 control-label">联系人</label>
+                            <div class="col-md-8">
+                                <input type="text" id="delivery_contactor" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-md-2 control-label">联系电话</label>
+                            <div class="col-md-8">
+                                <input type="text" id="delivery_phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-md-2 control-label">邮编</label>
+                            <div class="col-md-8">
+                                <input type="text" id="delivery_postcode" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-md-2 control-label">地址</label>
+                            <div class="col-md-8">
+                                <input type="text" id="delivery_address" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-md-2 control-label">快递代码</label>
+                            <div class="col-md-8">
+                                <input type="text" id="express_id" class="form-control" value="YTO">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label  class="col-md-2 control-label">快递名称</label>
+                            <div class="col-md-8">
+                                <input type="text" id="express_name" class="form-control" value="圆通快递公司">
+                            </div>
+                        </div>
+                        <!--style="display: none"-->
+                        <div class="form-group row" id="mailNoDiv1">
+                            <label  class="col-md-2 control-label" style="width: 95px;margin-left: -4px;">快递单号<span class="required">*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" id="express_no" name="express_no" class="form-control" data-required="1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">选择快递</label>
+                            <div class="col-md-8">
+                                <select id="expressChoose1" class="form-control" name="express_type">
+                                    <option value="0">圆通快递</option>
+                                    <option value="1"  selected="selected">其他快递</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+               <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <div id="proof_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn_delivery" class="btn blue">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/ord_transfer/delivery.js"></script>

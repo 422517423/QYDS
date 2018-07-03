@@ -1,0 +1,97 @@
+<div class="modal-dialog">
+    <div>
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">选择颜色尺码</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div id="swiper-container" class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" ng-repeat="img in skuImage">
+                                <img ng-src="{{img | imgPath:'0' }}" style="width: 100%"/>
+                            </div>
+                        </div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next" style="background-color:white;background-image: url(images/arrow_right.png);right: 0"></div>
+                        <div class="swiper-button-prev" style="background-color:white;background-image: url(images/arrow_left.png);left: 0"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="row" style="font-size:16px;">{{productDetailData.goodsName}}</div>
+                    <div class="row" style="margin-top: 10px">
+                        <span style="font-size: 12px;color:#666666;padding: 0px">原价:</span>
+                        <span>
+                            {{skuPrice}}
+                        </span>
+                    </div>
+                    <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px">
+                        <div class="col-xs-12" style="font-size: 12px;color:#666666;padding: 0px">颜色:</div>
+                        <div class="col-xs-12" style="padding: 0px;margin-left: -5px">
+                            <div class="sku-select-item col-xs-6 col-sm-4 col-md-3"
+                                 ng-repeat="color in productDetailData.colorList"
+                                 ng-click="setColor(color.key,color.name)"
+                                 style="cursor: pointer;">
+                                <div class="sku-select-name" ng-class="getColorClass(color.key)">{{color.value}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px">
+                        <div style="padding: 0px;" ng-if="productDetailData.type != 30">
+                            <div class="col-xs-12" style="font-size: 12px;color:#666666;padding: 0px">
+                                <span>尺码:</span>
+                            </div>
+                            <div class="col-xs-12" style="padding: 0px;margin-left: -5px">
+                                <div class="sku-select-item col-xs-6 col-sm-4 col-md-3"
+                                     ng-repeat="size in productDetailData.sizeList"
+                                     ng-click="setSize(size.key,size.name)"
+                                     style="cursor: pointer;">
+                                    <div class="sku-select-name" ng-class="getSizeClass(size.key)">{{size.value |
+                                        sizeFilter}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;margin-left: 0px;margin-right: 0px">
+                        <div ng-if="storeInit==false&&newCount != null">
+                            <div class="subTitle col-xs-12" style="font-size: 12px;color:#666666;padding: 0px">
+                                <span>库存:</span>
+                                <span ng-if=" newCount <= 0 " style="color:red;font-size: 12px;">
+                                    无货
+                                </span>
+                                <span ng-if=" newCount  > 0 && newCountDisplay == 1"
+                                      style="color: #E4B34C;font-size: 12px;">
+                                    <!--有货{{newCount[index]}}件-->
+                                    货少 (如无货，自动退款)
+                            </span>
+                                <span ng-if=" newCount  > 0 && newCountDisplay != 1"
+                                      style="color: #333333;font-size: 12px;">
+                                    <!--有货{{newCount[index]}}件-->
+                                    有货
+                            </span>
+                            </div>
+                        </div>
+                        <div style="padding:0;"
+                             ng-if="storeInit==true ||newCount == null">
+                            <div class="subTitle col-xs-12" style="font-size: 12px;color:#666666;padding: 0px">
+                                <span>库存:</span>
+                                <span style="color:#666666">请先选择颜色和尺码</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button type="submit" class="btn btn-default hvr-outline-out-dark"
+                        ng-click="confirm()">确定
+                </button>
+                <button type="submit" class="btn btn-default hvr-outline-out-light" ng-click="close()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

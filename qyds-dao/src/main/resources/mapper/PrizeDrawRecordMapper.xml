@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.PrizeDrawRecordMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.PrizeDrawRecord" >
+    <id column="prize_draw_record_id" property="prizeDrawRecordId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="prize_draw_id" property="prizeDrawId" jdbcType="VARCHAR" />
+    <result column="is_win" property="isWin" jdbcType="CHAR" />
+    <result column="is_notify" property="isNotify" jdbcType="CHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="prize_goods_id" property="prizeGoodsId" jdbcType="VARCHAR" />
+    <result column="prize_draw_oppo_id" property="prizeDrawOppoId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prize_draw_record_id, user_id, prize_draw_id, is_win, is_notify, comment, deleted, 
+    update_user_id, update_time, insert_user_id, insert_time, prize_goods_id, prize_draw_oppo_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.prize_draw_record
+    where prize_draw_record_id = #{prizeDrawRecordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.prize_draw_record
+    where prize_draw_record_id = #{prizeDrawRecordId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.PrizeDrawRecord" >
+    insert into public.prize_draw_record (prize_draw_record_id, user_id, prize_draw_id, 
+      is_win, is_notify, comment, 
+      deleted, update_user_id, update_time, 
+      insert_user_id, insert_time, prize_goods_id, 
+      prize_draw_oppo_id)
+    values (#{prizeDrawRecordId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{prizeDrawId,jdbcType=VARCHAR}, 
+      #{isWin,jdbcType=CHAR}, #{isNotify,jdbcType=CHAR}, #{comment,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, #{prizeGoodsId,jdbcType=VARCHAR}, 
+      #{prizeDrawOppoId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.PrizeDrawRecord" >
+    insert into public.prize_draw_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prizeDrawRecordId != null" >
+        prize_draw_record_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="prizeDrawId != null" >
+        prize_draw_id,
+      </if>
+      <if test="isWin != null" >
+        is_win,
+      </if>
+      <if test="isNotify != null" >
+        is_notify,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="prizeGoodsId != null" >
+        prize_goods_id,
+      </if>
+      <if test="prizeDrawOppoId != null" >
+        prize_draw_oppo_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prizeDrawRecordId != null" >
+        #{prizeDrawRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeDrawId != null" >
+        #{prizeDrawId,jdbcType=VARCHAR},
+      </if>
+      <if test="isWin != null" >
+        #{isWin,jdbcType=CHAR},
+      </if>
+      <if test="isNotify != null" >
+        #{isNotify,jdbcType=CHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prizeGoodsId != null" >
+        #{prizeGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeDrawOppoId != null" >
+        #{prizeDrawOppoId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.PrizeDrawRecord" >
+    update public.prize_draw_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeDrawId != null" >
+        prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR},
+      </if>
+      <if test="isWin != null" >
+        is_win = #{isWin,jdbcType=CHAR},
+      </if>
+      <if test="isNotify != null" >
+        is_notify = #{isNotify,jdbcType=CHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prizeGoodsId != null" >
+        prize_goods_id = #{prizeGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="prizeDrawOppoId != null" >
+        prize_draw_oppo_id = #{prizeDrawOppoId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where prize_draw_record_id = #{prizeDrawRecordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.PrizeDrawRecord" >
+    update public.prize_draw_record
+    set user_id = #{userId,jdbcType=VARCHAR},
+      prize_draw_id = #{prizeDrawId,jdbcType=VARCHAR},
+      is_win = #{isWin,jdbcType=CHAR},
+      is_notify = #{isNotify,jdbcType=CHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      prize_goods_id = #{prizeGoodsId,jdbcType=VARCHAR},
+      prize_draw_oppo_id = #{prizeDrawOppoId,jdbcType=VARCHAR}
+    where prize_draw_record_id = #{prizeDrawRecordId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.CouponGoodsMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.CouponGoods">
+        <id column="coupon_goods_id" property="couponGoodsId" jdbcType="VARCHAR"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        coupon_goods_id, shop_id, coupon_id, goods_type, goods_id, sku_id, deleted, update_user_id,
+        update_time, insert_user_id, insert_time
+    </sql>
+    <select id="selectByCouponId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        select
+        <include refid="Base_Column_List"/>
+        from public.coupon_goods WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+    </select>
+
+    <update id="deleteByCouponId" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        DELETE FROM public.coupon_goods WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+    </update>
+
+    <resultMap id="SelectGoodsTypeResultMap" type="net.dlyt.qyds.common.form.CouponGoodsForm">
+        <result column="coupon_goods_id" property="couponGoodsId" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectGoodsTypeByCouponId" resultMap="SelectGoodsTypeResultMap" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        SELECT
+        ag.coupon_goods_id AS coupon_goods_id,ag.goods_id AS goods_id,gt.goods_type_name_cn AS goods_name
+        FROM coupon_goods ag
+        LEFT JOIN gds_type gt ON ag.goods_id = gt.goods_type_id
+        WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+        AND ag.goods_type = '20'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+    <select id="selectGoodsBrandByCouponId" resultMap="SelectGoodsTypeResultMap" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        SELECT
+        ag.coupon_goods_id AS coupon_goods_id,
+        ag.goods_id AS goods_id,gb.brand_name AS goods_name
+        FROM coupon_goods ag
+        LEFT JOIN gds_brand gb ON ag.goods_id = gb.brand_id
+        WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+        AND ag.goods_type = '30'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+    <select id="selectGoodsByCouponId" resultMap="SelectGoodsTypeResultMap" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        SELECT
+        ag.coupon_goods_id AS coupon_goods_id,
+        ag.goods_id AS goods_id,gm.goods_name AS goods_name,gm.goods_code as goods_code
+        FROM coupon_goods ag
+        LEFT JOIN gds_master gm ON ag.goods_id = gm.goods_id
+        WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+        AND ag.goods_type = '40'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+
+    <resultMap id="SelectGoodsSkuResultMap" type="net.dlyt.qyds.common.form.CouponGoodsForm">
+        <result column="coupon_goods_id" property="couponGoodsId" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="sku_id" property="skuId" jdbcType="VARCHAR"/>
+        <result column="color_name" property="colorName" jdbcType="VARCHAR"/>
+        <result column="size_name" property="sizeName" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="skucontent" property="skucontent" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectSkuByCouponId" resultMap="SelectGoodsSkuResultMap" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        SELECT
+        ag.coupon_goods_id AS coupon_goods_id,
+        ag.goods_id AS goods_id,
+        vos.goods_name AS goods_name,
+        vos.goods_code AS goods_code,
+        ag.sku_id AS sku_id,
+        vos.color_name AS color_name,
+        vos.size_name AS size_name,
+        vos.type AS type,
+        vos.skucontent AS skucontent
+        FROM coupon_goods ag
+        LEFT JOIN view_onsell_sku_new vos ON ag.goods_id = vos.goods_id AND ag.sku_id = vos.skuid
+        WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+        AND ag.goods_type = '50'
+        AND ag.goods_type_value is NULL
+        ORDER BY ag.insert_time
+    </select>
+    <select id="selectInfoByCouponId" resultMap="SelectGoodsSkuResultMap" parameterType="net.dlyt.qyds.common.dto.CouponGoods">
+        SELECT
+        ag.coupon_goods_id AS coupon_goods_id,
+        ag.goods_id AS goods_id,
+        vos.goods_name AS goods_name,
+        vos.goods_code AS goods_code,
+        ag.sku_id AS sku_id,
+        vos.color_name AS color_name,
+        vos.size_name AS size_name,
+        vos.type AS type,
+        vos.skucontent AS skucontent
+        FROM coupon_goods ag
+        LEFT JOIN view_onsell_sku_new vos ON ag.goods_id = vos.goods_id AND ag.sku_id = vos.skuid
+        WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+        AND ag.goods_type = '50'
+        ORDER BY ag.insert_time
+    </select>
+    <select id="selectByCouponIdS" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        FROM coupon_goods
+        WHERE coupon_id = #{couponId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectSKUByYearAndSeason" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.CouponMasterExt" >
+        select master.goods_id,erp.sku from view_erp_goods erp
+        left join gds_master master
+        on erp.goods_code = master.goods_code
+        where erp.sell_year = #{activityGoodsSellYear}
+        <if test="activityGoodsSeasonCode!=null and activityGoodsSeasonCode!='' ">
+            AND season_code = #{activityGoodsSeasonCode,jdbcType=VARCHAR}
+        </if>
+        and master.is_onsell = '0'
+        and master.deleted = '0'
+    </select>
+
+    <select id="selectSKUByErpBrand" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.CouponMasterExt" >
+        select master.goods_id,erp.sku from view_erp_goods erp
+        left join gds_master master
+        on erp.goods_code = master.goods_code
+        where erp.brand_code = #{activityGoodsErpBrand}
+        and master.is_onsell = '0'
+        and master.deleted = '0'
+    </select>
+
+    <select id="selectSKUByLineCode" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.CouponMasterExt" >
+        select master.goods_id,erp.sku from view_erp_goods erp
+        left join gds_master master
+        on erp.goods_code = master.goods_code
+        where erp.line_code = #{activityGoodsLineCode}
+        and master.is_onsell = '0'
+        and master.deleted = '0'
+    </select>
+
+</mapper>

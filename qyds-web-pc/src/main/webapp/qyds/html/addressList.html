@@ -1,0 +1,126 @@
+<div class="container-fluid" style="background-color: white;">
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px">
+            <h4>我的收货地址</h4>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="addressList" style="font-size:16px;">
+            <div class="title">
+                <div ng-if="addressList.length>0" class="row">
+                    <div class="col col-sm-12 col-xs-12">
+                        <button class="btn btn-default btn-xs pull-right" type="button" ng-click="addAddress();">
+                            添加收货地址
+                        </button>
+                    </div>
+                </div>
+                <div ng-if="addressList.length==0" class="row vertical-align">
+                    <div class="col-xs-10 col-xs-offset-1" style="text-align: center">
+                        <img src="./images/empty.png" width="50%">
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1"
+                         style="text-align: center;margin-top: 16px;margin-bottom: 16px;">
+                        您还没有收货地址
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1"
+                         style="text-align:center;font-size:17px;margin-bottom: 16px;">
+                        <button class="button button-block button-dark button-small" ng-click="addAddress()">
+                            添加收货地址
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="addressList.length>0" class="hidden-xs">
+                <table class="table addressTable">
+                    <thead>
+                    <tr>
+                        <th>联系人</th>
+                        <th>手机号码</th>
+                        <th>所在区域</th>
+                        <th>详细地址</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="address in addressList">
+                        <td>{{address.contactor}}</td>
+                        <td>{{address.phone}}</td>
+                        <td>
+                            {{address.districtidProvinceName}}-{{address.districtidCityName}}-{{address.districtidDistrictName}}
+                            <!-- 街道不显示 -->
+                            <!--<span ng-if="address.districtidStreetName">-{{address.districtidStreetName}}</span>-->
+                            <!-- 街道不显示 -->
+                        </td>
+                        <td>{{address.address}}</td>
+                        <td>
+                            <div class="container-fluid">
+                                <div class="">
+                                    <a class="edit" href="javascript:;" role="button"
+                                       ng-click="modifyAddress(address.addressId);">修改</a> <a class="delete"
+                                                                                              href="javascript:;"
+                                                                                              role="button"
+                                                                                              ng-click="deleteAddress(address.addressId);">删除</a>
+                                </div>
+                                <div style="margin-top: 2px;">
+                                    <span ng-if="address.isDefault == 0"
+                                          class="label label-default label-danger">默认地址</span>
+                                    <a ng-if="address.isDefault != 0" href="javascript:void(0);"
+                                       ng-click="changeDefault(address.addressId);"><span class="label label-default">设为默认</span></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div ng-if="addressList.length>0" class="visible-xs addressList-xs" style="padding:0 10px;">
+                <table class="table table-condensed inner-table" ng-repeat="address in addressList">
+                    <tr>
+                        <td style="text-align: left;">
+                            <div style="color:#333;">联系人:<span style="margin-left:10px;">{{address.contactor}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <div style="color:#333;">手机号码:<span style="margin-left:10px;">{{address.phone}}</span></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <div style="color:#333;">所在区域:
+                                <span style="margin-left:10px;">{{address.districtidProvinceName}}-{{address.districtidCityName}}-{{address.districtidDistrictName}}</span>
+                                <!-- 街道不显示 -->
+                                <!--<span ng-if="address.districtidStreetName">-{{address.districtidStreetName}}</span>-->
+                                <!-- 街道不显示 -->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <div style="color:#333;">详细地址:<span style="margin-left:10px;">{{address.address}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">
+                            <div style="color:#333;">
+                                <a class="edit" href="javascript:;" role="button"
+                                   ng-click="modifyAddress(address.addressId);">修改</a>
+                                <a class="delete" href="javascript:;" role="button"
+                                   ng-click="deleteAddress(address.addressId);">删除</a>
+                                <span ng-if="address.isDefault == 0" class="label label-default label-danger"
+                                      style="margin-left: 10px;">默认地址</span>
+                                <a ng-if="address.isDefault != 0" href="javascript:void(0);"
+                                   ng-click="changeDefault(address.addressId);"><span class="label label-default"
+                                                                                      style="margin-left: 10px;">设为默认</span></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

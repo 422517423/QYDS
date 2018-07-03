@@ -1,0 +1,192 @@
+<!-- ERP会员列表画面 开始-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 标题 -->
+                <h3 class="page-title">
+                    库存列表
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#">ERP管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">库存列表</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 检索条件 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-search"></i>查询条件</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="x_content">
+                            <!-- 查询条件 -->
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="erp_sku_in" class="col-sm-2 control-label">SKU</label>
+                                    <div class="col-sm-3">
+                                        <input id="erp_sku_in" class="form-control" />
+                                    </div>
+                                    <label for="goods_name_cn_in" class="col-sm-2 control-label">商品名称</label>
+                                    <div class="col-sm-3">
+                                        <input id="goods_name_cn_in" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="color_name_in" class="col-sm-2 control-label">颜色</label>
+                                    <div class="col-sm-3">
+                                        <input id="color_name_in" class="form-control" />
+                                    </div>
+                                    <label for="size_name_in" class="col-sm-2 control-label">尺码</label>
+                                    <div class="col-sm-3">
+                                        <input id="size_name_in" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="store_name_cn_in" class="col-sm-2 control-label">门店名称</label>
+                                    <div class="col-sm-3">
+                                        <input id="store_name_cn_in" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-8 col-sm-4">
+                                        <button type="button" class="btn btn-success"
+                                                style="width: 100px" id="btn_search">查询</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 列表-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-edit"></i>列表管理</div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- 列表项目-->
+                        <table class="table table-striped table-hover table-bordered" id="list_table">
+                            <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>商品名称</th>
+                                <th>颜色</th>
+                                <th>尺码</th>
+                                <th>门店</th>
+                                <th>库存</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- 会员列表画面 结束-->
+
+<!-- /.modal -->
+<div id="editArea" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">库存记录</h4>
+            </div>
+            <div class="modal-header">
+                <form class="form-horizontal">
+                    <input type="hidden" id="erp_sku_record" class="form-control" />
+                    <input type="hidden" id="erp_storeid_record" class="form-control" />
+                    <div class="form-group">
+                        <!--<div class="col-md-8">-->
+                            <!--<div class="input-group date date-picker" data-date="2012-12-02" data-date-format="yyyy-mm-dd" data-date-viewmode="years">-->
+                                <!--<input type="text" class="form-control" id="accessStart" name="accessStart" readonly>-->
+                                                    <!--<span class="input-group-btn">-->
+                                                        <!--<button class="btn default" type="button"><i class="icon-calendar"></i></button>-->
+                                                    <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <label for="start_date" class="col-sm-2 control-label">开始日期</label>
+                        <div class="col-sm-4">
+                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <input type="text" class="form-control" id="start_date" name="start_date">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <label for="end_date" class="col-sm-2 control-label">结束日期</label>
+                        <div class="col-sm-4">
+                            <div class="input-group date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                <input type="text" class="form-control" id="end_date" name="end_date">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="icon-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <!--<div class="col-sm-offset-9 col-sm-4">-->
+                            <!--<button type="button" class="btn btn-success"-->
+                                    <!--style="width: 100px" id="btn_record">查询</button>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-9 col-sm-4">
+                            <button type="button" class="btn btn-success"
+                                    style="width: 100px" id="btn_record">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <!--<div class="scroller" style="height:300px;overflow-y: scroll;" data-always-visible="1" data-rail-visible1="1">-->
+                    <!-- 列表-->
+                    <!--<div class="row">-->
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <!--<div class="portlet box grey">-->
+                                <!--<div class="portlet-title">-->
+                                    <!--<div class="caption"><i class="icon-edit"></i>库存记录</div>-->
+                                    <!--<div class="tools">-->
+                                        <!--<a href="javascript:;" class="collapse"></a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="portlet-body">
+                                    <!-- 列表项目-->
+                                    <table class="table table-striped table-hover table-bordered" id="record_table">
+                                        <thead>
+                                        <tr>
+                                            <th>入出库时间</th>
+                                            <th>入出库数量</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            <!--</div>-->
+                        </div>
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn default" data-dismiss="modal">关闭</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../page/erp_bank_record/list.js"></script>

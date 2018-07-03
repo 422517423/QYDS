@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.BnkMasterMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.BnkMasterExt">
+        <id column="bank_id" property="bankId" jdbcType="INTEGER"/>
+        <result column="shop_id" property="shopId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="login_id" property="loginId" jdbcType="VARCHAR"/>
+        <result column="goods_type" property="goodsType" jdbcType="VARCHAR"/>
+        <result column="type_type" property="typeType" jdbcType="VARCHAR"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="erp_goods_code" property="erpGoodsCode" jdbcType="VARCHAR"/>
+        <result column="sku" property="sku" jdbcType="VARCHAR"/>
+        <result column="erp_sku" property="erpSku" jdbcType="VARCHAR"/>
+        <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR"/>
+        <result column="bank_type" property="bankType" jdbcType="VARCHAR"/>
+        <result column="new_count" property="newCount" jdbcType="INTEGER"/>
+        <result column="last_count" property="lastCount" jdbcType="INTEGER"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="deleted" property="deleted" jdbcType="VARCHAR"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR"/>
+        <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP"/>
+        <result column="goods_type_name" property="goodsTypeName" jdbcType="VARCHAR"/>
+        <result column="gds_type_name" property="gdsTypeName" jdbcType="VARCHAR"/>
+        <result column="bank_type_name" property="bankTypeName" jdbcType="VARCHAR"/>
+        <result column="store_name_cn" property="storeNameCn" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="BaseResultMapCount" type="java.lang.Integer">
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bm.bank_id, bm.shop_id, bm.goods_type, bm.type_type, bm.goods_id, bm.goods_code, bm.erp_goods_code,
+        bm.sku, bm.erp_sku, bm.erp_store_id, bm.bank_type, bm.new_count, bm.last_count, bm.comment, bm.deleted, bm.update_user_id,
+        bm.update_time, bm.insert_user_id, bm.insert_time
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.BnkMasterExt">
+        select
+        bm.bank_id, bm.shop_id, bm.goods_type, bm.type_type, bm.goods_id, bm.goods_code, bm.erp_goods_code,
+        bm.sku, bm.erp_sku, st.store_name_cn erp_store_id, bm.bank_type, bm.new_count, bm.last_count, bm.comment, bm.deleted, bm.update_user_id,
+        bm.update_time, bm.insert_user_id, bm.insert_time, ccgoods.display_cn as goods_type_name,
+        ccgds.display_cn as gds_type_name,ccbank.display_cn as bank_type_name
+        from public.bnk_master bm
+        left join erp_store st on bm.erp_store_id = st.store_code
+        left join com_code ccgoods on ccgoods.value = bm.goods_type and ccgoods.code = 'GOODS_TYPE'
+        left join com_code ccgds on ccgds.value = bm.type_type and ccgds.code = 'GDS_TYPE'
+        left join com_code ccbank on ccbank.value = bm.bank_type and ccbank.code = 'BANK_IO_TYPE'
+        where bm.deleted = '0'
+        <if test="goodsType != null and !goodsType.isEmpty()">
+            and bm.goods_type = #{goodsType,jdbcType=VARCHAR}
+        </if>
+        <if test="bankType != null and !bankType.isEmpty()">
+            and bm.bank_type = #{bankType,jdbcType=VARCHAR}
+        </if>
+        <if test="sku!=null and sku!='' ">
+            AND bm.sku LIKE CONCAT('%', #{sku},'%')
+        </if>
+        <if test="erpStoreId!=null and erpStoreId!='' ">
+            AND bm.erp_store_id = #{erpStoreId}
+        </if>
+        order by bm.sku,st.district_code DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAllDataCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.BnkMasterExt">
+        select count(*) as count
+        from public.bnk_master bm
+        LEFT JOIN PUBLIC.sys_user sys
+        ON sys.login_id = bm.insert_user_id
+        and sys.is_valid = '0'
+        where bm.deleted='0'
+        <if test="goodsType != null and !goodsType.isEmpty()">
+            and bm.goods_type = #{goodsType,jdbcType=VARCHAR}
+        </if>
+        <if test="bankType != null and !bankType.isEmpty()">
+            and bm.bank_type = #{bankType,jdbcType=VARCHAR}
+        </if>
+        <if test="sku!=null and sku!='' ">
+            AND bm.sku LIKE CONCAT('%', #{sku},'%')
+        </if>
+        <if test="erpStoreId!=null and erpStoreId!='' ">
+            AND bm.erp_store_id = #{erpStoreId}
+        </if>
+    </select>
+
+
+    <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.BnkMaster" useGeneratedKeys="true" keyProperty="bankId">
+        insert into public.bnk_master
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="bankId != null" >
+                bank_id,
+            </if>
+            <if test="shopId != null" >
+                shop_id,
+            </if>
+            <if test="goodsType != null" >
+                goods_type,
+            </if>
+            <if test="typeType != null" >
+                type_type,
+            </if>
+            <if test="goodsId != null" >
+                goods_id,
+            </if>
+            <if test="goodsCode != null" >
+                goods_code,
+            </if>
+            <if test="erpGoodsCode != null" >
+                erp_goods_code,
+            </if>
+            <if test="sku != null" >
+                sku,
+            </if>
+            <if test="erpSku != null" >
+                erp_sku,
+            </if>
+            <if test="erpStoreId != null" >
+                erp_store_id,
+            </if>
+            <if test="bankType != null" >
+                bank_type,
+            </if>
+            <if test="newCount != null" >
+                new_count,
+            </if>
+
+            <if test="lastCount != null" >
+                lastCount,
+            </if>
+            <if test="comment != null" >
+                comment,
+            </if>
+            <if test="deleted != null" >
+                deleted,
+            </if>
+            <if test="updateUserId != null" >
+                update_user_id,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="insertUserId != null" >
+                insert_user_id,
+            </if>
+            <if test="insertTime != null" >
+                insert_time,
+            </if>
+            bank_id
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="shopId != null" >
+                #{shopId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsType != null" >
+                #{goodsType,jdbcType=VARCHAR},
+            </if>
+            <if test="typeType != null" >
+                #{typeType,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null" >
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCode != null" >
+                #{goodsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="erpGoodsCode != null" >
+                #{erpGoodsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sku != null" >
+                #{sku,jdbcType=VARCHAR},
+            </if>
+            <if test="erpSku != null" >
+                #{erpSku,jdbcType=VARCHAR},
+            </if>
+            <if test="erpStoreId != null" >
+                #{erpStoreId,jdbcType=VARCHAR},
+            </if>
+            <if test="bankType != null" >
+                #{bankType,jdbcType=VARCHAR},
+            </if>
+            <if test="newCount != null" >
+                #{newCount,jdbcType=VARCHAR},
+            </if>
+            <if test="lastCount != null" >
+                #{lastCount,jdbcType=VARCHAR},
+            </if>
+            <if test="comment != null" >
+                #{comment,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUserId != null" >
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="insertUserId != null" >
+                #{insertUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="insertTime != null" >
+                #{insertTime,jdbcType=VARCHAR},
+            </if>
+            nextval('bnk_master_bank_id_seq')
+        </trim>
+    </insert>
+
+    <select id="getOrgList" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.ErpStoreExt">
+        select t.* from view_erp_store t
+        where t.bank_only = '0'
+        <if test="provinceCode!=null and !provinceCode.isEmpty() ">
+            AND t.province_code = #{provinceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="cityCode!=null and !cityCode.isEmpty() ">
+            AND t.city_code = #{cityCode, jdbcType=VARCHAR}
+        </if>
+        <if test="districtCode!=null and !districtCode.isEmpty() ">
+            AND t.district_code = #{districtCode, jdbcType=VARCHAR}
+        </if>
+        order by  province_code, city_code, district_code,store_code
+    </select>
+
+    <select id="getOrgAllList" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.ErpStoreExt">
+        select t.* from view_erp_store t
+        where 1=1
+        <if test="provinceCode!=null and !provinceCode.isEmpty() ">
+            AND t.province_code = #{provinceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="cityCode!=null and !cityCode.isEmpty() ">
+            AND t.city_code = #{cityCode, jdbcType=VARCHAR}
+        </if>
+        <if test="districtCode!=null and !districtCode.isEmpty() ">
+            AND t.district_code = #{districtCode, jdbcType=VARCHAR}
+        </if>
+        order by  province_code, city_code, district_code,store_code
+    </select>
+
+    <select id="getQyantityBySkuId" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.ErpStoreExt">
+        select t.*, bank.new_count
+        from view_erp_store t
+        left join bnk_master bank
+        on bank.erp_store_id = t.store_code
+        and bank.sku = #{sku,jdbcType=VARCHAR}
+        and bank.deleted = '0'
+        where  t.bank_only = '0'
+        <if test="provinceCode!=null and !provinceCode.isEmpty() ">
+            AND t.province_code = #{provinceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="cityCode!=null and !cityCode.isEmpty() ">
+            AND t.city_code = #{cityCode, jdbcType=VARCHAR}
+        </if>
+        <if test="districtCode!=null and !districtCode.isEmpty() ">
+            AND t.district_code = #{districtCode, jdbcType=VARCHAR}
+        </if>
+        <if test="storeCode!=null and !storeCode.isEmpty() ">
+            AND t.store_code = #{storeCode, jdbcType=VARCHAR}
+        </if>
+
+
+
+        ORDER  by province_code, city_code, district_code,store_code
+
+    </select>
+
+    <select id="getQyantityAllBySkuId" resultType="java.util.HashMap" parameterType="net.dlyt.qyds.common.dto.ext.ErpStoreExt">
+        select t.*, bank.new_count
+        from view_erp_store t
+        left join bnk_master bank
+        on bank.erp_store_id = t.store_code
+        and bank.sku = #{sku,jdbcType=VARCHAR}
+        and bank.deleted = '0'
+        where  1=1
+        <if test="provinceCode!=null and !provinceCode.isEmpty() ">
+            AND t.province_code = #{provinceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="cityCode!=null and !cityCode.isEmpty() ">
+            AND t.city_code = #{cityCode, jdbcType=VARCHAR}
+        </if>
+        <if test="districtCode!=null and !districtCode.isEmpty() ">
+            AND t.district_code = #{districtCode, jdbcType=VARCHAR}
+        </if>
+        <if test="storeCode!=null and !storeCode.isEmpty() ">
+            AND t.store_code = #{storeCode, jdbcType=VARCHAR}
+        </if>
+
+
+
+        ORDER  by province_code, city_code, district_code,store_code
+
+    </select>
+
+    <select id="selectByGoodSkuId" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.BnkMaster">
+        select
+        bank_id, shop_id, goods_type, type_type, goods_id, goods_code, erp_goods_code, sku,
+        erp_sku, erp_store_id, bank_type, new_count, last_count, comment, deleted, update_user_id,
+        update_time, insert_user_id, insert_time
+        from public.bnk_master
+        where 1=1
+        <!--<if test="goodsId!=null and !goodsId.isEmpty() ">-->
+            <!--AND goods_id = #{goodsId, jdbcType=VARCHAR}-->
+        <!--</if>-->
+        <if test="sku!=null and !sku.isEmpty() ">
+            AND sku = #{sku, jdbcType=VARCHAR}
+        </if>
+        <if test="erpStoreId!=null and !erpStoreId.isEmpty() ">
+            AND erp_store_id = #{erpStoreId, jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <update id="cancelOrderAddBank" parameterType="net.dlyt.qyds.common.dto.BnkMasterExt" >
+        update public.bnk_master
+        set
+        new_count = #{newCount,jdbcType=VARCHAR},
+        last_count = #{lastCount,jdbcType=VARCHAR},
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+        update_time = now()
+        where bank_id = #{bankId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="getByErp" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.ErpBankRecord" >
+        select bank_id,new_count
+        from bnk_master
+        where erp_sku = #{erpSku,jdbcType=VARCHAR}
+        and erp_store_id = #{erpStoreid,jdbcType=VARCHAR}
+        and deleted = '0'
+    </select>
+
+    <insert id="insertByErp" parameterType="net.dlyt.qyds.common.dto.ErpBankRecord" >
+        insert into bnk_master (shop_id, goods_type,
+        goods_id, goods_code,
+        erp_goods_code, sku, erp_sku,
+        erp_store_id, new_count, last_count,update_user_id,insert_user_id)
+        values ('00000000', '10',
+        #{erpGoodsCode,jdbcType=VARCHAR}, #{erpGoodsCode,jdbcType=VARCHAR},
+        #{erpGoodsCode,jdbcType=VARCHAR}, #{erpSku,jdbcType=VARCHAR}, #{erpSku,jdbcType=VARCHAR},
+        #{erpStoreid,jdbcType=VARCHAR}, #{inoutCount,jdbcType=INTEGER}, 0,'ERP','ERP')
+    </insert>
+
+    <update id="updateCountById" parameterType="net.dlyt.qyds.common.dto.BnkMaster" >
+        update bnk_master
+        set new_count = #{newCount,jdbcType=INTEGER},
+        last_count = #{lastCount,jdbcType=INTEGER},
+        update_user_id = 'ERP',
+        update_time = now()
+        where bank_id = #{bankId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getReportBank" resultMap="BaseResultMap">
+        select erp_goods_code, erp_store_id, sum(new_count) new_count
+        from
+        (select erp_goods_code, erp_store_id, new_count from bnk_master
+        where goods_type = '10'
+        union ALL
+        select s.goods_code erp_goods_code,r.rex_store_id erp_store_id,-1 new_count
+        from ord_sub_list s,ord_return_exchange r
+        where s.sub_order_id = r.sub_order_id
+        and r.rex_status='40'
+        union ALL
+        select s.goods_code erp_goods_code,s.erp_store_id erp_store_id,-1 new_count
+        from ord_sub_list s,ord_master m
+        where s.order_id = m.order_id
+        and m.deliver_status in('10','19')
+        and s.deliver_status='20'
+        ) s
+        group by erp_goods_code, erp_store_id
+        order by erp_goods_code, erp_store_id
+    </select>
+
+    <select id="getSkuStoreList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.BnkMasterExt">
+        select s.store_code erp_store_id,s.store_name_cn,b.new_count,s.phone
+        from erp_store s
+        left join bnk_master b
+        on b.erp_store_id=s.store_code
+        <if test="sku != null and !sku.isEmpty()">
+            and b.sku = #{sku,jdbcType=VARCHAR}
+        </if>
+        and b.deleted = '0'
+        and b.new_count > 0
+        where s.deleted = '0'
+        <if test="provinceCode!=null and !provinceCode.isEmpty() ">
+            AND s.province_code = #{provinceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="cityCode!=null and !cityCode.isEmpty() ">
+            AND s.city_code = #{cityCode, jdbcType=VARCHAR}
+        </if>
+        <if test="districtCode!=null and !districtCode.isEmpty() ">
+            AND s.district_code = #{districtCode, jdbcType=VARCHAR}
+        </if>
+        order by b.new_count desc nulls last,s.store_code
+    </select>
+</mapper>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ShpOrgMapperExt" >
+  <resultMap id="ShpOrgResultMap" type="net.dlyt.qyds.common.dto.ShpOrg" >
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="orgid_parent" property="orgidParent" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="SMALLINT" />
+    <result column="org_type" property="orgType" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="org_short_name" property="orgShortName" jdbcType="VARCHAR" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="mchid" property="mchid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    org_id,shop_id, orgid_parent, sort, org_type, org_code, erp_store_id, org_short_name, org_name,comment,mchid
+  </sql>
+
+
+  <select id="getOrg" resultMap="ShpOrgResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from public.shp_org
+    where deleted = '0'
+    order by orgid_parent,sort
+  </select>
+
+  <select id="getChildOrg" resultMap="ShpOrgResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from public.shp_org
+    where deleted = '0' and org_id not in (select orgid_parent from public.shp_org where deleted = '0')
+    order by orgid_parent,sort
+  </select>
+
+  <select id="selectByStoresubid" resultMap="ShpOrgResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    from public.shp_org
+    where deleted = '0' AND storesubid = #{storesubid,jdbcType=VARCHAR}
+  </select>
+
+
+  <insert id="addOrg"  parameterType="net.dlyt.qyds.common.dto.ShpOrg" >
+
+    insert into public.shp_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="orgidParent != null" >
+        orgid_parent,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="orgType != null" >
+        org_type,
+      </if>
+      <if test="orgCode != null" >
+        org_code,
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id,
+      </if>
+      <if test="orgShortName != null" >
+        org_short_name,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      update_time,
+      insert_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgidParent != null" >
+        #{orgidParent,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="orgType != null" >
+        #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgShortName != null" >
+        #{orgShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <update id="updateSortForDel" parameterType="net.dlyt.qyds.common.dto.ShpOrg">
+    UPDATE public.shp_org set sort = sort -1 where orgid_parent = #{orgidParent,jdbcType=VARCHAR} and sort > #{sort} and deleted = '0'
+  </update>
+  <update id="deleteOrg" parameterType="net.dlyt.qyds.common.dto.ShpOrg">
+    update public.shp_org set deleted = '1',update_time = now(),update_user_id = #{updateUserId,jdbcType=VARCHAR}
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateSort" parameterType="net.dlyt.qyds.common.dto.ShpOrg">
+    UPDATE public.shp_org set sort = #{sort,jdbcType=SMALLINT},update_time = now() where org_id = #{orgId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="editOrg" parameterType="net.dlyt.qyds.common.dto.ShpOrg" >
+    update public.shp_org
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgidParent != null" >
+        orgid_parent = #{orgidParent,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=SMALLINT},
+      </if>
+      <if test="orgType != null" >
+        org_type = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCode != null" >
+        org_code = #{orgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgShortName != null" >
+        org_short_name = #{orgShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+      update_time =  now()
+    </set>
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteAllStore" >
+    delete from public.shp_org
+    where org_type = '20'
+  </delete>
+
+  <update id="updateStoreName" parameterType="net.dlyt.qyds.common.dto.ShpOrg" >
+    update public.shp_org
+    set org_short_name = #{orgShortName,jdbcType=VARCHAR},
+    org_name = #{orgName,jdbcType=VARCHAR},
+    comment = #{comment,jdbcType=VARCHAR},
+    update_user_id = 'ERP',
+    update_time = now(),
+    operate = #{operate,jdbcType=VARCHAR},
+    storeid = #{storeid,jdbcType=VARCHAR},
+    storesubid = #{storesubid,jdbcType=VARCHAR},
+    mchid= #{mchid,jdbcType=VARCHAR}
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertStore" parameterType="net.dlyt.qyds.common.dto.ShpOrg" >
+  insert into public.shp_org (org_id, shop_id, orgid_parent,
+  sort, org_type, org_code,
+  erp_store_id, org_short_name, org_name,
+  comment, update_user_id,insert_user_id,
+  operate, storeid, storesubid,mchid
+  )
+  values (#{orgId,jdbcType=VARCHAR}, '00000000', 'store',
+  (select max(sort) + 1 from shp_org where orgid_parent = 'store'), '20', #{orgCode,jdbcType=VARCHAR},
+  #{erpStoreId,jdbcType=VARCHAR}, #{orgShortName,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR},
+  #{comment,jdbcType=VARCHAR}, 'ERP','ERP',
+  #{operate,jdbcType=VARCHAR}, #{storeid,jdbcType=VARCHAR}, #{storesubid,jdbcType=VARCHAR},#{mchid,jdbcType=VARCHAR}
+  )
+  </insert>
+</mapper>

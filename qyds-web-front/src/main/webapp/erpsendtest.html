@@ -1,0 +1,65 @@
+<html>
+<body>
+<h2>千业电商ERP接口再发送测试</h2>
+<br>
+<form action="erp_send/sendGoodsTypeById.json" method="post" target="result">
+    发送指定的商品分类
+    <input type="submit"><br>
+    商品ID<input type="text" name = "goodId">
+</form>
+<br>
+<form action="erp_send/sendMemberById.json" method="post" target="result">
+    发送指定的会员信息
+    <input type="submit"><br>
+    会员ID<input type="text" name = "memberId">
+</form>
+<br>
+<form action="erp_send/sendPointRecordById.json" method="post" target="result">
+    发送指定的会员积分记录
+    <input type="submit"><br>
+    积分编号<input type="text" name = "recordNo">
+</form>
+<br>
+<form action="erp_send/sendOrderById.json" method="post" target="result">
+    发送指定的新订单
+    <input type="submit"><br>
+    订单ID<input type="text" name = "orderId">
+</form>
+<br>
+<form action="erp_send/sendReturnOrderByOrderId.json" method="post" target="result">
+    发送指定的退货订单
+    <input type="submit"><br>
+    订单ID<input type="text" name = "orderId">
+</form>
+<br>
+<form action="erp_send/sendReturnOrderBySubOrderId.json" method="post" target="result">
+    发送指定的退货子订单
+    <input type="submit"><br>
+    子订单ID<input type="text" name = "subOrderId">
+</form>
+<br>
+<form action="erp_send/sendCouponById.json" method="post" target="result">
+    发送指定的优惠券
+    <input type="submit"><br>
+    优惠劵ID<input type="text" name = "couponId">
+</form>
+<br>
+<form action="erp_send/sendCouponSkuById.json" method="post" target="result">
+    发送指定的优惠券绑定SKU
+    <input type="submit"><br>
+    优惠券商品ID<input type="text" name = "couponGoodsId">
+</form>
+<br>
+<form action="erp_send/sendCouponMemberById.json" method="post" target="result">
+    发送指定的会员优惠券
+    <input type="submit"><br>
+    优惠券会员ID<input type="text" name = "couponMemberId">
+</form>
+<br>
+<form action="erp_send/sendCouponUsedById.json" method="post" target="result">
+    发送指定的已使用优惠券
+    <input type="submit"><br>
+    优惠券会员ID<input type="text" name = "couponMemberId">
+</form>
+</body>
+</html>

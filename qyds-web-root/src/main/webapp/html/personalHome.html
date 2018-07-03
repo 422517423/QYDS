@@ -1,0 +1,315 @@
+<div class="personalHome container-fluid">
+    <div class="col-xs-12" style="font-size:16px;background:#fff;">
+        <div class="row" style="padding:20px 0px 20px 10px">
+            <div class="col-xs-12 col-sm-2">
+                <img ng-if="userInfo.memberPic" class="headImg" ng-src="{{userInfo.memberPic | imgPath:'480'}}"
+                     style="float:left;height: 80px;">
+                <img ng-if="!userInfo.memberPic" class="headImg" src="./images/dress.png"
+                     style="float:left;height: 80px;">
+                <div style="float:left;margin-top:15px;margin-left:10px;" class="visible-xs">
+                    <div style="line-height:150%;">hi <span style="color:#CC0001;">{{userInfo.memberName}}</span><img
+                            style="width:30px;" class="headImg" src="images/V1.png"></div>
+                    <div style="line-height:150%;">积分:<span style="color:#CC0001;">{{userInfo.point}}</span>分</div>
+                    <div style="line-height:100%;">
+                     <span style="display:inline-block;margin-left:5px;font-size:11px;color:#999999">(积分会在消费1个月后生效)</span>
+                    </div>
+                </div>
+                <div style="float:right;margin-top:15px;margin-left:10px;" class="visible-xs">
+                    <img src="images/percent.png" width="25px">
+                    <span style="display:inline-block;margin-left:5px;font-weight:bold">优惠券</span>
+                    <span class="hidden-xs hidden-sm"
+                          style="display:inline-block;margin-left:5px;font-size:13px;color:#999999">(使用优惠券会省钱哦)</span>
+                    <span style="display:inline-block;margin-left:5px;font-size:28px;color:#CC0001"
+                          ng-model="couponCountData">{{couponCountData}}</span>
+                    <span style="display:inline-block;margin-left:5px;color:#999999">张</span>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-4 col-md-3 welcome">
+                <div style="line-height:150%;">hi <span style="color:#CC0001;">{{userInfo.memberName}}</span>
+                    <img ng-if="userInfo.memberLevelId == 10" class="headImg" src="images/V1.png">
+                    <img ng-if="userInfo.memberLevelId == 20" class="headImg" src="images/V2.png">
+                    <img ng-if="userInfo.memberLevelId == 30" class="headImg" src="images/V3.png">
+                </div>
+                <div style="line-height:150%;">积分:<span style="color:#CC0001;">{{userInfo.point}}</span>分</div>
+                <div style="line-height:100%;">
+                    <span style="display:inline-block;font-size:11px;color:#999999">(积分会在消费1个月后生效)</span>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-6 col-md-7 note text-center">
+                <div><img src="images/percent.png" width="25px">
+                    <span style="display:inline-block;margin-left:5px;font-weight:bold">优惠券</span>
+                    <span class="hidden-xs hidden-sm"
+                          style="display:inline-block;margin-left:5px;font-size:13px;color:#999999">(使用优惠券会省钱哦)</span>
+                    <span style="display:inline-block;margin-left:5px;font-size:28px;color:#CC0001"
+                          ng-model="couponCountData">{{couponCountData}}</span>
+                    <span style="display:inline-block;margin-left:5px;color:#999999">张</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="!orderList || orderList.length==0" class="row vertical-align" style="background:#fff;margin-top:20px;">
+        <div class="col-xs-10 col-xs-offset-1" style="text-align: center">
+            <img src="./images/empty.png" width="50%">
+        </div>
+        <div class="col-xs-10 col-xs-offset-1" style="text-align:center;font-size:17px;margin-bottom: 16px;">
+            <button class="button button-block button-dark button-small" ng-click="goShopping()">
+                去逛逛
+            </button>
+        </div>
+    </div>
+
+    <form id="ordMaster" name="ordMaster">
+        <div class="col-xs-12" style="font-size:16px;background:#fff;margin-top:20px;" ng-if="orderList.length > 0">
+            <div class="row" style="padding:20px 10px;">
+                <div class="hidden-xs col-sm-3" style="padding:0;font-weight: bold;">
+                    交易提醒
+                </div>
+            </div>
+
+            <div class="hidden-xs orderList" style="padding:0 10px;">
+                <table class="table table-condensed inner-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 50%;font-size:13px;">商品</th>
+                        <th style="width: 8%;font-size:13px;">数量</th>
+                        <th style="font-size:13px;">订单金额</th>
+                        <th style="width: 15%;font-size:13px;">交易状态</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="order in orderList" style="font-size:12px;">
+                        <td colspan="4" style="text-align: left;">
+                            <div class="panel panel-default" style="font-size: 12px;border-radius: 0px;">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <span>订单编号:{{order.orderCode}}</span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <button class="btn btn-default btn-sm hvr-outline-out-dark  pull-right"
+                                                    style="margin-left: 4px;" ng-click="orderDetail(order.orderId);">
+                                                查看详情
+                                            </button>
+
+                                            <button ng-if="order.orderStatusCode == 90"
+                                                    class="btn btn-default btn-sm pull-right"
+                                                    style="font-size:12px;width: 60px;margin-left: 4px;"
+                                                    ng-click="refunds(order);">
+                                                退货
+                                            </button>
+                                            <!-- 90.订单完成 or 11.订单取消-->
+                                            <button ng-if="order.orderStatusCode == 90 || order.orderStatusCode == 11"
+                                                    class="btn btn-default btn-sm pull-right" style="margin-left: 4px;"
+                                                    ng-click="deleteOrder(order.orderId);">
+                                                删除订单
+                                            </button>
+
+                                            <!-- 10.订单未完成 and (10.未付款 or 21.付款失败) -->
+                                            <button ng-if="order.orderStatusCode == 10 && (order.payStatusCode == 10 || order.payStatusCode == 21)"
+                                                    class="btn btn-default btn-sm pull-right" style="margin-left: 4px;"
+                                                    ng-click="cancelOrder(order.orderId);">
+                                                取消订单
+                                            </button>
+                                            <button ng-if="order.orderStatusCode == 10 && (order.payStatusCode == 10 || order.payStatusCode == 21)"
+                                                    class="btn btn-default btn-sm pull-right" style="margin-left: 4px;"
+                                                    ng-click="doPay(order.orderId)">
+                                                付款
+                                            </button>
+
+                                            <!-- 10.订单未完成 and 20.付款成功 and 20.全部发货 -->
+                                            <button ng-if="order.orderStatusCode == 10 && order.payStatusCode == 20 && order.deliverStatusCode == 20"
+                                                    class="btn btn-default btn-sm pull-right" style="margin-left: 4px;"
+                                                    ng-click="confirmReceiptInMaster(order.orderId);">
+                                                确认收货
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table class="table table-condensed ">
+                                    <tr ng-repeat="sku in order.ordList">
+                                        <td style="text-align: left;width: 50%;border-bottom: 1px lightgray solid !important;"
+                                            ng-click="goGoodsDetail(sku.goodsId)">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img class="img-responsive center-left"
+                                                         src="{{sku.imageUrlJson | imgPath:'480'}}">
+                                                </div>
+                                                <div style="color:#333;" class="col-xs-9">{{sku.goodsName}}</div>
+                                            </div>
+
+                                        </td>
+                                        <td style="text-align: center;width: 8%;border-bottom: 1px lightgray solid !important;">
+                                            {{sku.quantity}}
+                                        </td>
+                                        <td style="border-bottom: 1px lightgray solid !important;">
+                                            <div>
+                                                <div ng-if="sku.priceDiscount == null" style="font-weight:bold;">
+                                                    {{sku.price |
+                                                    currency : '￥'}}
+                                                </div>
+                                                <div ng-if="sku.priceDiscount != null" style="font-weight:bold;">
+                                                    {{sku.priceDiscount
+                                                    | currency : '￥'}}
+                                                </div>
+                                                <div ng-if="sku.priceDiscount != null"
+                                                     style="color:#999999;text-decoration:line-through">
+                                                    {{sku.price | currency : '￥'}}
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td style="border-left: 1px solid lightgray !important;width: 15%;border-bottom: 1px lightgray solid !important;"
+                                            ng-if="$index == 0" rowspan="{{order.ordList.length}}">
+                                            <div>{{order.orderStatus}}</div>
+                                            <div><a ng-if="order.payStatusCode == 20"
+                                                    ng-click="goLogisticsList(order.orderId)">查看物流</a></div>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="4" style="text-align: right;">
+                                            总计：¥{{order.payInfact}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <button class="btn btn-default btn-block hvr-outline-out-dark" ng-click="goOrderList()">加载更多
+                    </button>
+                </div>
+            </div>
+            <div class="visible-xs orderList-xs" style="padding:0 10px;">
+                <table class="table table-condensed inner-table" style="font-size:13px" ng-repeat="order in orderList">
+                    <tr>
+                        <td>
+                            <div class="panel panel-default" style="font-size: 12px;">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">
+                                    <div class="row" style="text-align: left;">
+                                        <span style="margin-left: 5px;">订单编号:{{order.orderCode}}</span>
+                                    </div>
+                                    <div class="row" style="text-align: left;">
+                                        <span style="color: red;margin-left: 5px;">{{order.orderStatus}}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Table -->
+                                <table class="table">
+                                    <tbody>
+                                    <tr style="border-bottom: 1px lightgray solid !important;"
+                                        ng-repeat="sku in order.ordList" ng-click="goGoodsDetail(sku.goodsId)">
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <img class="img-responsive center-left"
+                                                         src="{{sku.imageUrlJson | imgPath:'480'}}">
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div style="text-align: left;"><span
+                                                            style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;">{{sku.goodsName}}</span>
+                                                    </div>
+                                                    <div style="text-align: left;">
+                                                        <span style="color:gray;">数量:x{{sku.quantity}}</span>
+                                                    </div>
+                                                    <div style="text-align: left;">
+                                                        <div style="text-align: left;">
+                                                            <div ng-if="sku.priceDiscount == null"
+                                                                 style="font-weight:bold;">{{sku.price |
+                                                                currency : '￥'}}
+                                                            </div>
+                                                            <div ng-if="sku.priceDiscount != null"
+                                                                 style="font-weight:bold;">
+                                                                {{sku.priceDiscount
+                                                                | currency : '￥'}}
+                                                            </div>
+                                                            <div ng-if="sku.priceDiscount != null"
+                                                                 style="color:#999999;text-decoration:line-through">
+                                                                {{sku.price | currency : '￥'}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="border-bottom: 1px lightgray solid !important;">
+                                        <td style="text-align: right;">
+                                            总计：¥{{order.payInfact}}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <button class="btn btn-default btn-sm hvr-outline-out-dark btn-xs pull-right"
+                                                            style="margin-left: 4px;"
+                                                            ng-click="orderDetail(order.orderId);">查看详情
+                                                    </button>
+
+                                                    <button ng-if="order.orderStatusCode == 90"
+                                                            class="btn btn-default btn-sm pull-right btn-xs"
+                                                            style="font-size:12px;width: 60px;margin-left: 4px;"
+                                                            ng-click="refunds(order);">
+                                                        退货
+                                                    </button>
+                                                    <!-- 90.订单完成 or 11.订单取消-->
+                                                    <button ng-if="order.orderStatusCode == 90 || order.orderStatusCode == 11"
+                                                            class="btn btn-default btn-sm pull-right btn-xs"
+                                                            style="margin-left: 4px;"
+                                                            ng-click="deleteOrder(order.orderId);">
+                                                        删除订单
+                                                    </button>
+
+                                                    <!-- 10.订单未完成 and (10.未付款 or 21.付款失败) -->
+                                                    <button ng-if="order.orderStatusCode == 10 && (order.payStatusCode == 10 || order.payStatusCode == 21)"
+                                                            class="btn btn-default btn-sm pull-right btn-xs"
+                                                            style="margin-left: 4px;"
+                                                            ng-click="cancelOrder(order.orderId);">
+                                                        取消订单
+                                                    </button>
+                                                    <button ng-if="order.orderStatusCode == 10 && (order.payStatusCode == 10 || order.payStatusCode == 21)"
+                                                            class="btn btn-default btn-sm pull-right btn-xs"
+                                                            style="margin-left: 4px;"
+                                                            ng-click="doPay(order.orderId)">
+                                                        付款
+                                                    </button>
+
+                                                    <!-- 10.订单未完成 and 20.付款成功 and 20.全部发货 -->
+                                                    <button ng-if="order.orderStatusCode == 10 && order.payStatusCode == 20 && order.deliverStatusCode == 20"
+                                                            class="btn btn-default btn-sm pull-right btn-xs"
+                                                            style="margin-left: 4px;" w
+                                                            ng-click="confirmReceiptInMaster(order.orderId);">
+                                                        确认收货
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div ng-if="orderList && orderList.length > 0">
+                    <button class="btn btn-default btn-block hvr-outline-out-dark" ng-click="goOrderList()">查看更多订单信息
+                    </button>
+                </div>
+            </div>
+        </div>
+        <input type="text" id="orderId" name="orderId" hidden>
+    </form>
+</div>

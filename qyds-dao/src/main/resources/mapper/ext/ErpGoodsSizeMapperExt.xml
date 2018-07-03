@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpGoodsSizeMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    <id column="size_type_code" property="sizeTypeCode" jdbcType="VARCHAR" />
+    <id column="size_code" property="sizeCode" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="size_name_en" property="sizeNameEn" jdbcType="VARCHAR" />
+    <result column="size_name_cn" property="sizeNameCn" jdbcType="VARCHAR" />
+    <result column="size_full_name_en" property="sizeFullNameEn" jdbcType="VARCHAR" />
+    <result column="size_full_name_cn" property="sizeFullNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="bnk_no_limit" property="bnkNoLimit" jdbcType="SMALLINT" />
+    <result column="bnk_less_limit" property="bnkLessLimit" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    size_type_code, size_code, sort, type_name, size_name_en, size_name_cn, size_full_name_en, 
+    size_full_name_cn, comment, deleted, update_user_id, update_time, insert_user_id, 
+    insert_time,bnk_no_limit,bnk_less_limit
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_goods_size
+    ORDER BY cast(size_type_code as integer),sort
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_goods_size
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpGoodsSize" >
+    update public.erp_goods_size
+    set sort = #{sort,jdbcType=INTEGER},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      size_name_en = #{sizeNameEn,jdbcType=VARCHAR},
+      size_name_cn = #{sizeNameCn,jdbcType=VARCHAR},
+      size_full_name_en = #{sizeFullNameEn,jdbcType=VARCHAR},
+      size_full_name_cn = #{sizeFullNameCn,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = now()
+    where size_type_code = #{sizeTypeCode,jdbcType=VARCHAR}
+      and size_code = #{sizeCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

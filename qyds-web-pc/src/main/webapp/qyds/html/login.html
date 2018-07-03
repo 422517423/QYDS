@@ -1,0 +1,403 @@
+<div ng-if="type=='login'">
+    <form role="form" name="loginValidForm" ng-class="{'have-error':loginValidForm.$invalid && submitted_login}"
+          class="form-horizontal" novalidate>
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">登录</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-horizontal col-xs-10 col-xs-offset-1">
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></div>
+                            <!--ng-pattern="/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/"-->
+                            <input type="tel" id="loginTel" name="loginTel" class="form-control"
+                                   required
+                                   maxlength="11"
+                                   ng-model="loginForm.tel" placeholder="请输入用户名/手机号">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginTel.$error.required && submitted_login">手机号不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginTel.$error.pattern && submitted_login">手机号格式不正确
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></div>
+                            <input ng-if="!showPassword" type="password"
+                                   ng-model="loginForm.password" class="form-control" required
+                                   id="loginPwd" name="loginPwd"
+                                   maxlength="20" ng-pattern=""
+                                   placeholder="请输入密码">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginPwd.$error.required && submitted_login">密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="loginValidForm.loginPwd.$error.pattern && submitted_login">密码格式不正确
+                    </div>
+                    <br>
+                    <div class="input-prepend">
+                        <label>还没有账号?<a ng-click="goRegister()" href="javascript:void(0);"
+                                        id="btn_register">立即注册</a></label>
+
+                        <label class="remember" style="float: right"><a ng-click="goRestPassword();"
+                                                                        href="javascript:void(0);"
+                                                                        id="btn_forget_password">老会员绑定/忘记密码</a></label>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button type="submit" class="btn btn-default btn-block hvr-outline-out-dark"
+                        ng-click="login(loginValidForm.$valid);">登录
+                </button>
+            </div>
+            <!--<div class="col-sm-10 col-sm-offset-1 text-center">-->
+            <!--<label style="margin-top: 8px;">还没有账号?<a ng-click="goRegister()" href="javascript:void(0);"-->
+            <!--id="btn_register">立即注册</a></label>-->
+            <!--</div>-->
+        </div>
+
+    </form>
+</div>
+<div ng-if="type=='register'">
+    <form role="form" name="registerValidForm"
+          ng-class="{'have-error':registerValidForm.$invalid && submitted_register}"
+          class="form-horizontal" novalidate>
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">注册</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row" style="font-size:16px;">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="form-group col-xs-12" style="padding:0;margin:0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">手机号</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0;"
+                             ng-class="{'have-error':registerValidForm.$invalid && submitted_captcha}">
+                            <input type="text" class="form-control"
+                                   id="regTel" name="regTel"
+                                   ng-pattern="/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/" required
+                                   maxlength="11"
+                                   ng-model="registerInfo.tel" placeholder="请输入手机号码">
+                        </div>
+                    </div>
+
+                    <div ng-class="{'have-error':registerValidForm.$invalid && submitted_captcha}">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="registerValidForm.regTel.$error.required && (submitted_register || submitted_captcha)">
+                            手机号不能为空
+                        </div>
+                        <div class="col-xs-12 error_msg"
+                             ng-show="registerValidForm.regTel.$error.pattern && (submitted_register || submitted_captcha)">
+                            手机号格式不正确
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">验证码</label>
+                        <div class="col-xs-6 col-sm-5" style="padding:0;margin:0;">
+                            <input type="text" class="form-control" ng-model="registerInfo.captcha"
+                                   id="regCaptcha" name="regCaptcha"
+                                   maxlength="6" required ng-pattern="/^\d{6}$/"
+                                   placeholder="请输入验证码">
+                        </div>
+                        <div class="col-xs-4 col-sm-4" style="padding:0 0 0 10px;margin:0;">
+
+                            <button id="captcha_reg_btn" type="submit" class="btn btn-default hvr-outline-out-dark"
+                                    ng-click="getRegisterVerifyCode(registerValidForm.regTel.$valid);">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regCaptcha.$error.required && submitted_register">验证码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regCaptcha.$error.pattern && submitted_register">验证码格式不正确
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">姓名</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <input type="text" class="form-control"
+                                   id="regName" name="regName"
+                                   maxlength="20" required
+                                   ng-model="registerInfo.name" placeholder="请输入姓名">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regName.$error.required && submitted_register">昵称不能为空
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">性别</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <select class="form-control" ng-model="registerInfo.sex"
+                                    id="regSex" name="regSex" required
+                                    ng-options="x for (x, y) in genderList">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="(registerValidForm.regSex.$error.required || registerInfo.sex==0) && submitted_register">
+                        请选择性别
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">生日</label>
+                        <div class="col-xs-12 col-sm-9 input-group" style="padding:0;margin:0">
+                            <input type="text" readonly class="form-control" style="background-color:#ffffff;"
+                                   ng-model="personalInfo.birthdate" placeholder="请填写生日"
+                                   id="inputBirthDate" name="inputBirthDate" required ng-Update-Input>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default"
+                                        onClick="$('#inputBirthDate').trigger('focus')">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.inputBirthDate.$error.required  && submitted_register">请填写生日
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">密码</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <input type="password" class="form-control" ng-model="registerInfo.password"
+                                   id="regPwd" name="regPwd"
+                                   required maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                                   placeholder="请输入密码">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regPwd.$error.required && submitted_register">密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regPwd.$error.pattern && submitted_register">密码格式不正确(密码为6-20位字母数字混合)
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">确认密码</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0;">
+                            <input type="password" class="form-control" ng-model="registerInfo.rePassword"
+                                   id="regRePwd" name="regRePwd" pw-check="regPwd"
+                                   required maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                                   placeholder="请再次输入密码">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regRePwd.$error.required && submitted_register">确认密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regRePwd.$error.repeat && submitted_register">两次输入的密码不一致
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:0;">
+                        <div class="col-sm-offset-0 col-sm-11" style="margin-top:10px;">
+                            <div class="checkbox">
+                                <label style="font-size:14px;">
+                                    <input type="checkbox" ng-model="registerInfo.agree"
+                                           id="regAgree" name="regAgree" required
+                                           ng-ckecked="registerInfo.agree==true" ng-click="registerAgree();">我已阅读并同意<a
+                                        href="javascript:void(0);" ng-click="showPrivacy()">《dealuna网络协议》</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.regAgree.$error.required && submitted_register">阅读并同意《dealuna网络协议》
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button ng-click="register(registerValidForm.$valid);" type="submit"
+                        class="btn btn-default btn-block hvr-outline-out-dark">立即注册
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-if="type=='restPassword'">
+    <form role="form" name="resetValidForm"
+          ng-class="{'have-error':resetValidForm.$invalid && submitted_reset}"
+          class="form-horizontal" novalidate>
+        <div class="modal-header">
+            <h3 class="modal-title" style="text-align: center">重置密码</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row" style="font-size:16px;">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="form-group col-xs-12" style="padding:0;margin:0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">手机号</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0;"
+                             ng-class="{'have-error':resetValidForm.$invalid && submitted_captcha}">
+                            <input type="text" class="form-control"
+                                   id="resetTel" name="resetTel"
+                                   ng-pattern="/^(13[0-9]|14[5-9]|15[012356789]|166|17[0-8]|18[0-9]|19[8-9])[0-9]{8}$/" required
+                                   maxlength="11"
+                                   ng-model="restForm.tel" placeholder="请输入手机号码">
+                        </div>
+                    </div>
+
+                    <div ng-class="{'have-error':resetValidForm.$invalid && submitted_captcha}">
+                        <div class="col-xs-12 error_msg"
+                             ng-show="resetValidForm.resetTel.$error.required && (submitted_reset || submitted_captcha)">
+                            手机号不能为空
+                        </div>
+                        <div class="col-xs-12 error_msg"
+                             ng-show="resetValidForm.resetTel.$error.pattern && (submitted_reset || submitted_captcha)">
+                            手机号格式不正确
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">验证码</label>
+                        <div class="col-xs-6 col-sm-5" style="padding:0;margin:0;">
+                            <input type="text" class="form-control"
+                                   id="resetCaptcha" name="resetCaptcha"
+                                   maxlength="6" required ng-pattern="/^\d{6}$/"
+                                   ng-model="restForm.captcha"
+                                   placeholder="请输入验证码">
+                        </div>
+                        <div class="col-xs-4 col-sm-4" style="padding:0 0 0 10px;margin:0;">
+                            <button id="captcha_reset_btn" type="submit" class="btn btn-default hvr-outline-out-dark"
+                                    ng-click="getRestVerifyCode(resetValidForm.resetTel.$valid);">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetCaptcha.$error.required && submitted_reset">验证码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetCaptcha.$error.pattern && submitted_reset">验证码格式不正确
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">密码</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <input type="password" class="form-control"
+                                   id="resetPwd" name="resetPwd"
+                                   required maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                                   ng-model="restForm.password"
+                                   placeholder="请输入密码">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetPwd.$error.required && submitted_reset">密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetPwd.$error.pattern && submitted_reset">密码格式不正确(密码为6-20位字母数字混合)
+                    </div>
+
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">确认密码</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0;">
+                            <input type="password" class="form-control"
+                                   id="resetRePwd" name="resetRePwd" pw-check="resetPwd"
+                                   required maxlength="20" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/"
+                                   ng-model="restForm.rePassword"
+                                   placeholder="请再次输入密码">
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetRePwd.$error.required && submitted_reset">确认密码不能为空
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="resetValidForm.resetRePwd.$error.repeat && submitted_reset">两次输入的密码不一致
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-xs-12" style="padding: 0px 0px 0px 0px;">
+                <button ng-click="restPassword(resetValidForm.$valid);" type="submit"
+                        class="btn btn-default btn-block hvr-outline-out-dark">
+                    重置密码
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-if="type=='privacy'">
+    <div class="modal-header">
+        <h3 class="modal-title" style="text-align: center">法律条款</h3>
+    </div>
+    <div class="modal-body" style="max-height: 350px;overflow: scroll">
+        <div class="row" style="padding: 10px">
+            <div style="font-size: 14px;font-weight: bold">隐私政策</div>
+            <div>
+                <p>简介</p><br>
+                <p>当您使用我们的服务时，dealuna会确保您的隐私受到保护。为此，我们制定了政策，并规定了应如何处理并保护您的个人数据。有关本《隐私政策》的任何变动，请访问我们的网站进行了解。</p><br>
+                <p>本《隐私政策》仅针对使用 dealuna网上服务的客户及用户。如果您正在申请 dealuna职位，则本《隐私政策》不适用。有关申请者的隐私政策，请访问我们的招聘网站。</p><br>
+                <p>谁需为您的个人信息数据负责？ </p><br>
+                <p>辽宁千业商贸有限公司是您向我们所提交数据的控制者，并根据适用的国家数据保护法律对您的个人数据负责。</p><br>
+                <p>我们收集哪些个人数据？ </p><br>
+                <p>我们会收集您在下订单、联系我们的客户服务、参加活动等情况下向我们提交的个人数据，此类数据可能包括联系信息、出生日期、付款信息等。此外，我们还可能从外部收集信用信息、地址更新等部分个人数据。</p><br>
+                <p>我们如何使用您的个人数据？ </p><br>
+                <p>我们可能将您的个人数据用于以下目的：</p><br>
+                <p>• 在 dealuna创建并管理您的个人账户</p><br>
+                <p>• 通过在线服务处理您的订单及退货</p><br>
+                <p>• 发送有关投递状态的信息通知</p><br>
+                <p>• 在您的单品投递过程中发生问题时与您进行联系</p><br>
+                <p>• 为您解答疑问，并通知您有关新服务或变更服务的信息</p><br>
+                <p>• 发送新闻、产品目录等市场活动信息</p><br>
+                <p>• 通知网络比赛活动获胜者</p><br>
+                <p>• 通过信用审核管理您的账户</p><br>
+                <p>• 进行分析，以便为您提供相关市场活动和信息</p><br>
+                <p>• 确认您符合网上购物的法定年龄</p><br>
+                <p>• 向您发送问卷调查，以便您为我们的产品和服务提供建议</p><br>
+                <p>• 测试并完善我们的服务系统</p><br>
+                <p>• 防止滥用或不当使用我们的服务</p><br>
+                <p>• 计算您作为俱乐部成员所获得的俱乐部积分</p><br>
+                <p>• 在门店内为您提供 WiFi 服务</p><br>
+                <p>为了达成上述目的或符合法律规定，我们将根据需要决定您的数据储存时长。在此之后，您的个人数据将被删除。</p><br>
+                <p>您拥有哪些权利？ </p><br>
+                <p>无论何时，您有权向请求查看我们所保留的、关于您的信息（每年可免费查看一次）。如果您的数据有误、不完整或不相关，您可要求更正或移除信息。如有法定储存规定（如记账规定）或其他可保留数据的合法条件（如存在未清债务），我们将无法移除您的数据。您可随时取消对我们使用该数据进行营销的认可。您可通过向我们写信（大连市中山区人民路35号纺织大厦
+                dealuna 客户服务中心 ），或发送电子邮件（contact-us@dealuna.com）联系我们。</p><br>
+                <p>谁可访问您的个人数据？ </p><br>
+                <p>您的数据可能在本公司内共享。我们绝不会为了营销而将您的数据传输、出售或交换至本公司以外的第三方。转发至第三方的数据仅用于为您提供上述服务，如涉及商品物流的送货代理商、发送新闻的媒体公司、核实信用等级、身份和债款收回等情况的信用调查及债款收回公司。</p><br>
+                <p>我们如何保护您的个人数据？ </p><br>
+                <p>我们已采取技术和组织措施来保护您的数据免受遗失、操纵和未经授权访问。我们不断根据技术进步和发展情况调整安全措施。当您完成订单并确认付款后，我们会带您前往相关的相关付款合作伙伴，以便您在那里输入相关付款信息。所有在跳转后地方输入的信息均被加密。这意味着信息通过安全连接传输，您的个人数据不会被外部各方读取。当您确认付款后，我们有权开展身份核实。</p><br>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="goRegister();"
+                class="btn btn-default hvr-outline-out-dark">
+            返回注册
+        </button>
+    </div>
+</div>

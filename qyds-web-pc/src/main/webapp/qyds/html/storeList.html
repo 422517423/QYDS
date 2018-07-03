@@ -1,0 +1,57 @@
+<div class="container-fluid col-xs-12 col-sm-8 col-sm-offset-2" style="background-color: white;">
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px">
+            <h4>门店信息</h4>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0" style="margin-top:20px;font-size: 10px;">
+            <select id="selectProvince" class="form-control" ng-model="info.provinceCd"
+                    ng-init="info.provinceCd='0'" ng-change="changeArea('0',info.provinceCd)">
+                <option value="0">--全国--</option>
+                <option ng-repeat="province in provincesList" value="{{province.pcode}}"
+                        ng-selected="info.provinceCd == province.pcode">{{province.pname}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0" style="margin-top:20px;font-size: 10px;">
+            <select ng-model="info.cityCd" class="form-control"
+                    ng-init="info.cityCd='0'"
+                    ng-change="changeArea('1',info.cityCd)">
+                <option value="0">--请选择--</option>
+                <option ng-repeat="city in citiesList" value="{{city.ccode}}"
+                        ng-selected="info.cityCd == city.ccode">{{city.cname}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-0" style="margin-top:20px;font-size: 10px;">
+            <select ng-model="info.areaCd" class="form-control"
+                    ng-init="info.areaCd='0'" id="area_selected"
+                    ng-change="getData()">
+                <option value="0">--请选择--</option>
+                <option ng-repeat="area in areasList" value="{{area.dcode}}"
+                        ng-selected="info.areaCd == area.dcode">{{area.dname}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row" style="font-size: 14px;">
+        <div ng-repeat="store in storeList" class="col-xs-12" ng-if="store.store_code != '010001'">
+            <div class="">
+                <h3>
+                    {{store.store_name_cn}}
+                </h3>
+                <p ng-if="store.address" style="margin-left: 8px;">
+                    地址:{{store.address}}
+                </p>
+                <p ng-if="store.phone" style="margin-left: 8px;">
+                    电话:{{store.phone}}
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>

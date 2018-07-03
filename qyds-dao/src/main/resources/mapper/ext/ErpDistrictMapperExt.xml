@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpDistrictMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpDistrict">
+        <result column="dcode" property="dcode" jdbcType="VARCHAR"/>
+        <result column="ccode" property="ccode" jdbcType="VARCHAR"/>
+        <result column="dname" property="dname" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="querypDistrictOfCity" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select dcode, ccode, dname
+    FROM public.erp_district
+    where ccode = #{ccode, jdbcType=VARCHAR}
+    ORDER BY dcode
+  </select>
+</mapper>

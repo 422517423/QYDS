@@ -1,0 +1,189 @@
+<!-- 商品上架信息编辑画面 start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- 标题 & 面包屑-->
+                    <h3 class="page-title">
+                        上架信息画面
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="#">商品管理</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#" onclick="gotoListPage();">商品列表</a><i class="icon-angle-right"></i></li>
+                        <li><a href="#">上架信息</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption">上架信息</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <form id="gds_sell_form" class="form-horizontal validator">
+                                <input type="hidden" value="" name="goods_id" id="goods_id" />
+                                <div class="col-md-12">
+                                    <div class="form-body">
+
+
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-2 control-label">限购件数<span class="required">*</span></label>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input type="number" id="limit_count" name="limit_count" data-required="1" class="form-control">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">安全库存<span class="required">*</span></label>
+                                            <div class="col-md-4">
+                                                <input type="number" id="safe_bank" name="safe_bank" data-required="1" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="form-group act_bank">-->
+                                            <!--<label  class="col-md-2 control-label">实际库存<span class="required">*</span></label>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<input type="number" id="act_bank" name="act_bank" data-required="1" class="form-control">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">相关推荐</label>
+                                            <div class="col-md-4">
+                                                <li id="icon-plus-sign-sku-tj-add" class="icon-plus-sign" style="margin-top: 10px;"></li>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="portlet box grey">
+                                                    <div class="portlet-title">
+                                                        <div class="caption"><i class="icon-edit"></i>已选择商品</div>
+                                                        <div class="tools">
+                                                            <a href="javascript:;" class="collapse"></a>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="" name="recommend_goods_id" id="recommend_goods_id" />
+                                                    <div class="portlet-body">
+                                                        <table class="table table-striped table-hover table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>商品类型</th>
+                                                                <th>商品品牌</th>
+                                                                <th>ERP商品品牌</th>
+                                                                <th>商品分类</th>
+                                                                <th>商品代码</th>
+                                                                <th>商品名称</th>
+                                                                <th>ERP款号</th>
+                                                                <th>ERP款名</th>
+                                                                <th>操作</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="body_tj">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">配套商品</label>
+                                            <div class="col-md-4">
+                                                <li id="icon-plus-sign-sku-pt-add" class="icon-plus-sign" style="margin-top: 10px;"></li>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="portlet box grey">
+                                                    <div class="portlet-title">
+                                                        <div class="caption"><i class="icon-edit"></i>已选择商品</div>
+                                                        <div class="tools">
+                                                            <a href="javascript:;" class="collapse"></a>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="" name="mating_goods_id" id="mating_goods_id" />
+                                                    <div class="portlet-body">
+                                                        <table class="table table-striped table-hover table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>商品类型</th>
+                                                                <th>商品品牌</th>
+                                                                <th>商品分类</th>
+                                                                <th>ERP分类款号编码</th>
+                                                                <th>商品代码</th>
+                                                                <th>商品名称</th>
+                                                                <th>ERP款号</th>
+                                                                <th>ERP款名</th>
+                                                                <th>操作</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="body_pt">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 规格型号 克隆用 -->
+                                        <div class="form-group" id="property_group" style="display: none">
+                                            <label  class="col-md-2 control-label">规格参数</label>
+                                            <div class="col-md-3">
+                                                <input type="text" data-required="1" class="form-control specification">
+                                            </div>
+
+                                            <label  class="col-md-2 control-label">规格参数值</label>
+                                            <div class="col-md-3">
+                                                <input type="text" data-required="1" class="form-control specification_value">
+                                            </div>
+
+                                            <li class="col-md-2 icon-remove" onclick="removeSpecification(this);" style="margin-top: 10px;"></li>
+                                        </div>
+                                        <!-- 规格型号 克隆用 -->
+
+                                        <div class="form-group">
+                                            <label  class="col-md-2 control-label">销售属性</label>
+                                            <div class="col-md-4">
+                                                <li id="icon-plus-sign" class="icon-plus-sign" style="margin-top: 10px;"></li>
+                                            </div>
+                                        </div>
+                                        <div id="property_define">
+
+                                        </div>
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label  class="col-md-2 control-label">下架原因</label>-->
+                                            <!--<div class="col-md-10">-->
+                                                <!--<textarea id = "offsell_reason" name="offsell_reason" class="form-control" style="resize: none;" placeholder="下架原因..."></textarea>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div id="suitlist_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" id="cancel_btn" class="btn default" >取消</button>
+                <button type="button" id="save_btn" class="btn blue">上架</button>
+            </div>
+<!-- 商品编辑画面 end -->
+<script src="../page/gds_master/master_sell.js"></script>

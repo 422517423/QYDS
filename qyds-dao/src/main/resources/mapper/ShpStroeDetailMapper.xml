@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ShpStroeDetailMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ShpStroeDetail" >
+    <id column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="erp_store_id" property="erpStoreId" jdbcType="VARCHAR" />
+    <result column="search_key" property="searchKey" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="contactor" property="contactor" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="districtid_province" property="districtidProvince" jdbcType="VARCHAR" />
+    <result column="districtid_city" property="districtidCity" jdbcType="VARCHAR" />
+    <result column="districtid_district" property="districtidDistrict" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="introduce_html" property="introduceHtml" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    org_id, erp_store_id, search_key, image_url, contactor, phone, districtid_province, 
+    districtid_city, districtid_district, address, longitude, latitude, introduce_html, 
+    deleted, update_user_id, update_time, insert_user_id, insert_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.shp_stroe_detail
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from public.shp_stroe_detail
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.ShpStroeDetail" >
+    insert into public.shp_stroe_detail (org_id, erp_store_id, search_key, 
+      image_url, contactor, phone, 
+      districtid_province, districtid_city, districtid_district, 
+      address, longitude, latitude, 
+      introduce_html, deleted, update_user_id, 
+      update_time, insert_user_id, insert_time
+      )
+    values (#{orgId,jdbcType=VARCHAR}, #{erpStoreId,jdbcType=VARCHAR}, #{searchKey,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{contactor,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{districtidProvince,jdbcType=VARCHAR}, #{districtidCity,jdbcType=VARCHAR}, #{districtidDistrict,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{introduceHtml,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ShpStroeDetail" >
+    insert into public.shp_stroe_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="erpStoreId != null" >
+        erp_store_id,
+      </if>
+      <if test="searchKey != null" >
+        search_key,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="contactor != null" >
+        contactor,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="districtidProvince != null" >
+        districtid_province,
+      </if>
+      <if test="districtidCity != null" >
+        districtid_city,
+      </if>
+      <if test="districtidDistrict != null" >
+        districtid_district,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="introduceHtml != null" >
+        introduce_html,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="erpStoreId != null" >
+        #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="searchKey != null" >
+        #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="contactor != null" >
+        #{contactor,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidProvince != null" >
+        #{districtidProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidCity != null" >
+        #{districtidCity,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidDistrict != null" >
+        #{districtidDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="introduceHtml != null" >
+        #{introduceHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.dlyt.qyds.common.dto.ShpStroeDetail" >
+    update public.shp_stroe_detail
+    <set >
+      <if test="erpStoreId != null" >
+        erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="searchKey != null" >
+        search_key = #{searchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="contactor != null" >
+        contactor = #{contactor,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidProvince != null" >
+        districtid_province = #{districtidProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidCity != null" >
+        districtid_city = #{districtidCity,jdbcType=VARCHAR},
+      </if>
+      <if test="districtidDistrict != null" >
+        districtid_district = #{districtidDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="introduceHtml != null" >
+        introduce_html = #{introduceHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertUserId != null" >
+        insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.dlyt.qyds.common.dto.ShpStroeDetail" >
+    update public.shp_stroe_detail
+    set erp_store_id = #{erpStoreId,jdbcType=VARCHAR},
+      search_key = #{searchKey,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      contactor = #{contactor,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      districtid_province = #{districtidProvince,jdbcType=VARCHAR},
+      districtid_city = #{districtidCity,jdbcType=VARCHAR},
+      districtid_district = #{districtidDistrict,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      introduce_html = #{introduceHtml,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      insert_user_id = #{insertUserId,jdbcType=VARCHAR},
+      insert_time = #{insertTime,jdbcType=TIMESTAMP}
+    where org_id = #{orgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

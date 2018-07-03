@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.ErpBrandMapperExt" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ErpBrand" >
+    <id column="brand_code" property="brandCode" jdbcType="VARCHAR" />
+    <result column="brand_name_en" property="brandNameEn" jdbcType="VARCHAR" />
+    <result column="brand_name_cn" property="brandNameCn" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    brand_code, brand_name_en, brand_name_cn, comment, deleted, update_user_id, update_time, 
+    insert_user_id, insert_time
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from public.erp_brand
+    ORDER BY brand_code
+  </select>
+  <delete id="deleteAll" >
+    delete from public.erp_brand
+  </delete>
+  <update id="updateNoTime" parameterType="net.dlyt.qyds.common.dto.ErpBrand" >
+    update public.erp_brand
+    set brand_name_en = #{brandNameEn,jdbcType=VARCHAR},
+    brand_name_cn = #{brandNameCn,jdbcType=VARCHAR},
+    update_user_id = #{updateUserId,jdbcType=VARCHAR},
+    update_time = now()
+    where brand_code = #{brandCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

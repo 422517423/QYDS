@@ -1,0 +1,262 @@
+<!-- 商品ERP颜色编辑画面 start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- 标题 & 面包屑-->
+                    <h3 class="page-title">
+                        ERP商品颜色编辑画面
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="#">商品管理</a>
+                            <i class="icon-angle-right"></i>
+                        </li>
+                        <li><a href="#" onclick="gotoListPage();">商品列表</a><i class="icon-angle-right"></i></li>
+                        <li><a href="#">ERP商品颜色编辑</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="portlet box grey">
+                <div class="portlet-title">
+                    <div class="caption">ERP商品颜色编辑</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                        <div class="row">
+                            <form id="gds_master_form" class="form-horizontal validator">
+                                <input type="hidden" value="" name="goods_id" id="goods_id" />
+                                <div class="col-md-12">
+                                    <div class="form-body">
+                                        <h3 class="form-section">商品详细信息</h3>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">商品类型:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="type"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">商品品牌:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="brand_id"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">商品分类:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="goods_type"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-4">ERP分类款号编码:</label>-->
+                                                    <!--<div class="col-md-8">-->
+                                                        <!--<p class="form-control-static" id="erp_style_no"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">商品代码:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="goodsCode"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">商品名称:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="goods_name"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">ERP款号:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="erp_goods_code"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">ERP款名:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="erp_goods_name"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">维护状态:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="maintain_status"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                        <div class="row">
+
+                                            <!--/span-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">是否上架:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="is_onsell"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-4">是否废弃:</label>-->
+                                                    <!--<div class="col-md-8">-->
+                                                        <!--<p class="form-control-static" id="is_waste"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">检索主key:</label>
+                                                    <div class="col-md-8">
+                                                        <p class="form-control-static" id="search_key"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+
+                                        <!--<div class="row">-->
+
+                                            <!--&lt;!&ndash;/span&ndash;&gt;-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-4">检索主key:</label>-->
+                                                    <!--<div class="col-md-8">-->
+                                                        <!--<p class="form-control-static" id="search_key"></p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;/span&ndash;&gt;-->
+                                        <!--</div>-->
+                                        <!--/row-->
+
+                                        <h3 class="form-section">颜色配置</h3>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped table-hover table-bordered" id="skuTable">
+                                                    <thead>
+                                                    <tr id="title">
+                                                        <th>颜色CODE</th>
+                                                        <th>颜色名称</th>
+                                                        <th>配置</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="body">
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" id="cancel_btn" class="btn default" >取消</button>-->
+                <!--<button type="button" id="save_btn" class="btn blue">保存</button>-->
+            <!--</div>-->
+<!-- 商品ERP颜色编辑画面 end -->
+
+
+<!-- 颜色配置画面 start-->
+<div class="modal fade" style="height: 600px;" id="colorManage" tabindex="-1" role="basic" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">颜色配置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="colorForm" class="form-horizontal validator">
+                        <input type="hidden" value="" name="goods_colore_id" id="goods_colore_id" />
+                        <div class="col-md-12">
+
+
+                            <!-- 图片克隆用 -->
+                            <div class="form-group img_clone" id="img_clone"  style="display: none">
+                                <label  class="col-md-4 control-label">颜色图片</label>
+                                <div class="col-md-3">
+                                    <img id="logo_img" style="width:80px;height:80px;border: 1px solid #d4d4d4" src=""/>
+                                    <input type="file" id="logo_img_file" style="display: none">
+                                    <input type="text" id="logo_url" hidden>
+                                </div>
+                                <div class="col-md-2">
+                                    <li class="col-md-2 icon-remove" onclick="removeSpecification(this);" style="margin-top: 10px;"></li>
+                                </div>
+                            </div>
+                            <!-- 图片克隆用 -->
+
+                            <div class="form-group">
+                                <label  class="col-md-4 control-label">颜色图片上传<span class="required">*</span></label>
+                                <div class="col-md-4">
+                                    <li id="icon-plus-sign-sku" class="icon-plus-sign" style="margin-top: 10px;"></li>
+                                </div>
+                            </div>
+                            <div id="sku_image_div">
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="sku_edit_tip"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" id="cancel_btn">取消</button>
+                <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 颜色配置画面 end -->
+
+<script src="../page/gds_master/erp_sku_edit.js"></script>

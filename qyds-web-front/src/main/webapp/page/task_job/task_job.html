@@ -1,0 +1,62 @@
+<div id="task_job">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <h3 class="page-title">
+                定时任务手动
+            </h3>
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <i class="icon-home"></i>
+                    <a href="#">定时任务</a>
+                    <i class="icon-angle-right"></i>
+                </li>
+                <li><a href="#">定时任务手动</a></li>
+            </ul>
+            <!-- END PAGE TITLE & BREADCRUMB-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet grey box">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-cogs"></i>定时任务手动</div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-top: 7px;">
+                            <div class="progress progress-striped progress-success active">
+                                <div id="task_job_progress" class="progress-bar task-job-progress"
+                                     style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-default task-job-btn"
+                                    id="task_job_btn_send_birthday_coupon">生日劵发放
+                            </button>
+                            <button type="button" class="btn btn-default task-job-btn"
+                                    id="task_job_btn_confirm_receive">15天未收货->确认收货
+                            </button>
+                            <button type="button" class="btn btn-default task-job-btn"
+                                    id="task_job_btn_finish_order">收货7天未退货->订单完成
+                            </button>
+                            <button type="button" class="btn btn-default task-job-btn"
+                                    id="task_job_btn_close_order">订单完成30天->交易完成/关闭
+                            </button>
+                        </div>
+                    </div>
+                    <div style="border: 1px #cccccc solid;margin-top: 10px">
+                        <div style="padding: 10px;border-bottom: 1px #cccccc solid;">日志<a id="task_job_btn_clear_log" style="float: right;" href="">清除日志</a></div>
+                        <div style="height: 200px;overflow: scroll;padding:10px;background: #eeeeee" id="task_job_log"
+                             class="bordered">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="../page/task_job/task_job.js"></script>
+</div>

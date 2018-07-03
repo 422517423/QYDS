@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.DashboardMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.form.EchartsForm">
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="NUMERIC"/>
+        <result column="count" property="count" jdbcType="NUMERIC"/>
+        <result column="quantity" property="quantity" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="queryMemberGroupByLevel" resultMap="BaseResultMap">
+    select master.count, display_cn as title
+    from (
+          select
+         count(member_id) count, member_level_id
+          from mmb_master
+        where deleted = '0' and is_valid = '0'
+       group by member_level_id
+       order by member_level_id
+     ) master
+  left join com_code cc on cc.code = 'MEMBER_LEVEL' and cc.value = master.member_level_id and cc.deleted = '0';
+
+  </select>
+
+    <select id="queryMemberGroupByYearMonth" resultMap="BaseResultMap">
+        select
+        count(member_id) count, to_char(insert_time, 'yyyy-MM') AS title
+        from mmb_master
+        where deleted = '0' and is_valid = '0'
+        and to_char(now() + interval '-1 years', 'yyyy-MM') &lt; to_char(insert_time, 'yyyy-MM')
+        group by title
+        order by title
+    </select>
+
+    <select id="queryOrderGroupByYearMonth" resultMap="BaseResultMap">
+        select
+        count(order_id) count, sum(amount_totle) amount, to_char(pay_time, 'yyyy-MM') AS title
+        from ord_master
+        where deleted = '0' and pay_status = '20'
+        and to_char(now() + interval '-1 years', 'yyyy-MM') &lt; to_char(pay_time, 'yyyy-MM')
+        group by title
+        order by title
+    </select>
+
+    <select id="queryGoodsOrderByQuantity" resultMap="BaseResultMap">
+        select
+        goods.count, gds.goods_name title, gds.goods_code code
+        from
+        (
+            select sum(sub.quantity) count, sub.goods_id goods_id
+            from ord_sub_list sub
+            INNER join ord_master master on sub.order_id = master.order_id and master.pay_status = '20' and master.deleted = '0'
+            where sub.deleted = '0'
+            group by sub.goods_id
+            order by count DESC
+            limit 10
+        ) goods
+        left join gds_master gds on gds.goods_id = goods.goods_id
+    </select>
+
+
+</mapper>

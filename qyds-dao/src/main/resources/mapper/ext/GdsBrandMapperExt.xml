@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.GdsBrandMapperExt" >
+
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    <id column="brand_id" property="brandId" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="display_cn" property="typeName" jdbcType="VARCHAR" />
+    <result column="user_name" property="loginUserName" jdbcType="VARCHAR" />
+    <result column="brand_code" property="brandCode" jdbcType="VARCHAR" />
+    <result column="erp_brand_code" property="erpBrandCode" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="introduce_html" property="introduceHtml" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
+    <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapCount" type="java.lang.Integer" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    gds.brand_id, gds.shop_id, gds.type,code.display_cn, gds.brand_code, gds.erp_brand_code, gds.brand_name,
+    gds.logo_url, gds.comment,gds.introduce_html, gds.deleted, gds.update_user_id,
+    gds.update_time, gds.insert_user_id,sys.user_name, gds.insert_time
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    <include refid="Base_Column_List" />
+    from public.gds_brand gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GDS_BRAND_TYPE'
+    and gds.type = code.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    where gds.deleted = '0' and code.deleted = '0' and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    <if test="brandName != null and !brandName.isEmpty()" >
+      and gds.brand_name LIKE '%' || #{brandName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by type,brand_code,brand_name DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="getAllList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    <include refid="Base_Column_List" />
+    from public.gds_brand gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GDS_BRAND_TYPE'
+    and gds.type = code.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    where gds.deleted = '0' and code.deleted = '0'  and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+    order by type,brand_code,brand_name
+  </select>
+
+
+  <select id="getAllDataCount" resultMap="BaseResultMapCount" parameterType="net.dlyt.qyds.common.dto.GdsBrandExt" >
+    select
+    count(*) as count
+    from public.gds_brand gds
+    LEFT JOIN public.com_code code
+    ON code.code = 'GDS_BRAND_TYPE'
+    and gds.type = code.value
+    LEFT JOIN PUBLIC.sys_user sys
+    ON sys.login_id = gds.insert_user_id
+    and sys.is_valid = '0'
+    where gds.deleted = '0' and code.deleted = '0' and gds.shop_id = #{shopId,jdbcType=VARCHAR}
+    <if test="brandName != null and !brandName.isEmpty()" >
+      and gds.brand_name LIKE '%' || #{brandName,jdbcType=VARCHAR} || '%'
+    </if>
+    <if test="type != null and !type.isEmpty()" >
+      and gds.type = #{type,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <delete id="deleteAllErp" >
+    delete from public.gds_brand
+    where type = '10'
+  </delete>
+
+  <update id="updateErpName" parameterType="net.dlyt.qyds.common.dto.GdsBrand" >
+    update public.gds_brand
+    set brand_name = #{brandName,jdbcType=VARCHAR},
+    update_user_id = 'ERP',
+    update_time = now()
+    where brand_id = #{brandId,jdbcType=VARCHAR}
+  </update>
+</mapper>

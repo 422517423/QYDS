@@ -1,0 +1,65 @@
+<!--搜索弹窗-->
+<ion-popover-view style="width: 97%;height: 460px">
+    <ion-content style="color: #333333" overflow-scroll="false">
+        <div style="padding:10px">
+            <div style="position: relative">
+                <div id="swiper-container-phone2" class="swiper-container-phone">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" ng-repeat="img in skuImages">
+                            <img ng-src="{{img | imgPath:'0' }}" style="width: 100%"/>
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <!--<div class="swiper-pagination"></div>-->
+                </div>
+                <img src="image/button_close.png"
+                     style="position: absolute;width: 25px;height: 25px;right: 10px;top: 10px;"
+                     ng-click="closePopover()">
+            </div>
+            <div style="margin-top: 10px;font-size:15px;">{{productDetailData.goodsName}}</div>
+            <div style="margin-top: 10px">
+                <span style="font-size: 12px;">原价:</span>
+                <span style="font-size: 15px;">¥{{skuPrice}}</span>
+            </div>
+            <div style="margin-top: 10px">
+                <span style="font-size: 12px;">库存:</span>
+                <span ng-if="newCount == null || newCount <= 0 " style="font-size: 12px;color:red">无货</span>
+                <span ng-if="newCount != null && newCount > 0 && newCountDisplay == 1"
+                      style="font-size: 12px;color: #E4B34C">货少 (如无货，自动退款)</span>
+                <span ng-if="newCount != null && newCount > 0 && newCountDisplay != 1"
+                      style="font-size: 12px;color: #333333">有货</span>
+                <!--<span ng-if="newCount != null && newCount > 0 " style="font-size: 14px;">有货{{newCount}}件</span>-->
+            </div>
+            <div style="margin-top:10px;font-size: 12px;">颜色:</div>
+            <div style="overflow: hidden;text-align: center;padding: 5px;">
+                <div ng-repeat="color in productDetailData.colorList" style="width: 25%;float: left;padding: 5px">
+                    <div style="padding: 4px 0px;font-size: 12px;"
+                         class="bordered"
+                         ng-click="setColor(color.key,color.name)"
+                         ng-class="getColorClass(color.key)">
+                        {{color.value}}
+                    </div>
+                </div>
+            </div>
+            <div style="font-size: 12px;">尺码:</div>
+            <div style="overflow: hidden;text-align: center;padding:5px 5px 0 5px">
+                <div ng-repeat="size in productDetailData.sizeList" style="width: 25%;float: left;padding: 5px">
+                    <div style="padding: 4px 0px;font-size: 12px;"
+                         class="bordered"
+                         ng-click="setSize(size.key,size.name)"
+                         ng-class="getSizeClass(size.key)">
+                        {{size.value | sizeFilter2}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 0 10px">
+            <button ng-if="newCount == null || newCount <= 0 " class="button button-block button-dark button-small"
+                    style="border-radius: 0;font-size: 16px;" disabled>确定
+            </button>
+            <button ng-if="newCount != null && newCount > 0 " class="button button-block button-dark button-small"
+                    style="border-radius: 0;font-size: 16px;" ng-click="confirmPopover()">确定
+            </button>
+        </div>
+    </ion-content>
+</ion-popover-view>

@@ -1,0 +1,505 @@
+<!-- 订单详情页面开始 -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- 标题 & 面包屑-->
+        <h3 class="page-title">
+            订单详细
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#">订单管理</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li><a href="#" onclick="gotoListPage();">退款收货</a><i class="icon-angle-right"></i></li>
+            <li><a href="#">订单详细</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">基本信息</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">订单编码</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="order_code" name="order_code" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">订单状态</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="order_status" name="order_status" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">订单类型</label>
+                                <div class="col-md-4">
+                                    <select type="text" id="type" name="type" class="form-control" disabled>
+                                        <option value="0"></option>
+                                    </select>
+                                </div>
+                                <label  class="col-md-2 control-label">实付价格</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="pay_infact" name="pay_infact" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">下单时间</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="order_time" name="order_time" readonly="readonly" class="form-control">
+                                </div>
+                                <label  class="col-md-2 control-label">客户留言</label>
+                                <div class="col-md-4">
+                                    <textarea id="message" name="message" readonly="readonly" class="form-control" style="resize: none;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">收货信息</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">发货方式</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="deliver_type" readonly="readonly" name="deliver_type" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">收货姓名</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="delivery_contactor" readonly="readonly" name="delivery_contactor" class="form-control">
+                                </div>
+                                <label  class="col-md-2 control-label">收货电话</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="delivery_phone" readonly="readonly" name="delivery_phone" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group deliver_type_10">
+                                <label  class="col-md-2 control-label">邮编</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="delivery_postcode" readonly="readonly" name="delivery_postcode" class="form-control">
+                                </div>
+                                <label  class="col-md-2 control-label">收货地址</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="delivery_address" readonly="readonly" name="delivery_address" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group deliver_type_20">
+                                <label  class="col-md-2 control-label">门店名称</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="store_name" readonly="readonly" name="store_name" class="form-control">
+                                </div>
+                                <label  class="col-md-2 control-label">门店联系电话</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="store_phone" readonly="readonly" name="store_phone" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group deliver_type_20">
+                                <label  class="col-md-2 control-label">门店发货人姓名</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="store_delivery_name" readonly="readonly" name="store_delivery_name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">活动和优惠券</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">活动名称</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_name" name="activity_name" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">活动规则</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_temp_name" name="activity_temp_name" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group delivery_free_yes">
+
+                                <label  class="col-md-2 control-label">活动需扣积分</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_need_point" name="activity_need_point" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">活动需扣金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_need_fee" name="activity_need_fee" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">活动优惠</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_discount" name="activity_discount" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">是否允许退货</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="activity_can_return" name="activity_can_return" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">优惠券名称</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="coupon_name" name="coupon_name" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">优惠金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="coupon_worth" name="coupon_worth" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">结算信息</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">商品总价</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amount_totle" name="amount_totle" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">运费</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="delivery_fee" name="delivery_fee" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">活动减免</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amount_discount" name="amount_discount" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">优惠劵</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="amount_coupon" name="amount_coupon" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">实付金额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="pay_infact2" name="pay_infact2" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">发票信息</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">是否开发票</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="want_invoice" name="want_invoice" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group want_invoice_yes">
+                                <label  class="col-md-2 control-label">发票抬头</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="invoice_title" name="invoice_title" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group want_invoice_yes">
+                                <label  class="col-md-2 control-label">发票地址</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="invoice_address" name="invoice_address" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group want_invoice_yes">
+                                <label  class="col-md-2 control-label">发票电话</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="invoice_tel" name="invoice_tel" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group want_invoice_yes">
+                                <label  class="col-md-2 control-label">发票税号</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="invoice_taxno" name="invoice_taxno" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group want_invoice_yes">
+                                <label  class="col-md-2 control-label">发票开户行</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="invoice_bank" name="invoice_bank" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group want_invoice_yes">
+                                <label  class="col-md-2 control-label">发票账号</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="invoice_account" name="invoice_account" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box grey">
+    <div class="portlet-title">
+        <div class="caption">其他信息</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+            <div class="row">
+                <form class="form-horizontal validator">
+                    <div class="col-md-12">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label  class="col-md-2 control-label">是否允许退货</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="can_return" name="can_return" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">是否允许拆单退货</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="can_divide" name="can_divide" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="refundTotalDiv" style="display: none">
+                                <label  class="col-md-2 control-label">是否有退货</label>
+                                <div class="col-md-4">
+                                    <input type="text" value="是" name="can_return" class="form-control" disabled>
+                                </div>
+                                <label  class="col-md-2 control-label">退款总额</label>
+                                <div class="col-md-4">
+                                    <input type="text" id="refund_total" name="refund_total" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 订单商品列表开始-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption">订单商品明细</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="ord_goods_table">
+                    <thead>
+                    <tr>
+                        <th>商品类型</th>
+                        <th>商品代码</th>
+                        <th>商品名称</th>
+                        <th>商品SKU</th>
+                        <th>件数</th>
+                        <th>原价金额</th>
+                        <th>优惠后金额</th>
+                        <th>活动名称</th>
+                    </tr>
+                    </thead>
+                    <!--<tbody>-->
+                    <!--</tbody>-->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 订单商品列表  结束-->
+<!-- 子订单列表   开始-->
+<div class="row" id="ordSubInfo">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey">
+            <div class="portlet-title">
+                <div class="caption">子订单明细</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!-- 列表项目-->
+                <table class="table table-striped table-hover table-bordered" id="ord_sub_table">
+                    <thead>
+                    <tr>
+                        <th>操作</th>
+                        <th>商品类型</th>
+                        <th>商品代码</th>
+                        <th>商品名称</th>
+                        <th>商品SKU</th>
+                        <th>件数</th>
+                        <th>原价金额</th>
+                        <th>优惠后金额</th>
+                        <th>优惠分摊后金额</th>
+                        <th>活动名称</th>
+                        <th>发货状态</th>
+                        <th>发货时间</th>
+                        <th>发货方式</th>
+                        <th>快递公司名称</th>
+                        <th>快递单号</th>
+                        <th>发货门店</th>
+                        <th>门店联系电话</th>
+                        <th>门店发货人姓名</th>
+                        <th>退货状态</th>
+                        <th>退货门店</th>
+                    </tr>
+                    </thead>
+                    <!--<tbody>-->
+                    <!--</tbody>-->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 子订单列表  结束-->
+<!-- 订单详情页面结束 -->
+<div class="modal-footer">
+    <button type="button" id="return_btn" class="btn default" >返回</button>
+</div>
+
+<div class="modal fade" id="reject_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">申请驳回</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">驳回理由</label>
+                                <div class="col-md-8">
+                                    <textarea type="text" style="resize: none" id="reject_dialog_approve_content" class="form-control" placeholder="请输入驳回原因(可选)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="reject_dialog_btn_reject" class="btn blue">驳回</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="refund_dialog" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">退款确认</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal validator">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">退款金额</label>
+                                <div class="col-md-8">
+                                    <textarea type="text" style="resize: none" id="refund_dialog_content" class="form-control" placeholder="请输入退款金额"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="refund_dialog_tip"style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="refund_dialog_btn" class="btn blue">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../page/ord_return_goods/goods_receive.js"></script>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/net.dlyt.qyds.iml" filepath="$PROJECT_DIR$/net.dlyt.qyds.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-config/qyds-config.iml" filepath="$PROJECT_DIR$/qyds-config/qyds-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-dao/qyds-dao.iml" filepath="$PROJECT_DIR$/qyds-dao/qyds-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-interface/qyds-interface.iml" filepath="$PROJECT_DIR$/qyds-interface/qyds-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-service/qyds-service.iml" filepath="$PROJECT_DIR$/qyds-service/qyds-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-service-api/qyds-service-api.iml" filepath="$PROJECT_DIR$/qyds-service-api/qyds-service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-tool-area/qyds-tool-area.iml" filepath="$PROJECT_DIR$/qyds-tool-area/qyds-tool-area.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-utils/qyds-utils.iml" filepath="$PROJECT_DIR$/qyds-utils/qyds-utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-web-erp/qyds-web-erp.iml" filepath="$PROJECT_DIR$/qyds-web-erp/qyds-web-erp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-web-file/qyds-web-file.iml" filepath="$PROJECT_DIR$/qyds-web-file/qyds-web-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-web-front/qyds-web-front.iml" filepath="$PROJECT_DIR$/qyds-web-front/qyds-web-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-web-pc/qyds-web-pc.iml" filepath="$PROJECT_DIR$/qyds-web-pc/qyds-web-pc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-web-root/qyds-web-root.iml" filepath="$PROJECT_DIR$/qyds-web-root/qyds-web-root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qyds-wx-front/qyds-wx-front.iml" filepath="$PROJECT_DIR$/qyds-wx-front/qyds-wx-front.iml" />
+    </modules>
+  </component>
+</project>
