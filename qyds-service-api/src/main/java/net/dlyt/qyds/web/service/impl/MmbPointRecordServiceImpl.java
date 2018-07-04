@@ -2,10 +2,12 @@ package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.MmbLevelRuleExt;
 import net.dlyt.qyds.common.dto.ext.MmbPointRecordExt;
 import net.dlyt.qyds.common.form.ErpPointRecordForm;
+import net.dlyt.qyds.common.form.MmbLevelManagerForm;
 import net.dlyt.qyds.common.form.MmbLevelRuleForm;
 import net.dlyt.qyds.common.form.MmbPointRecordForm;
 import net.dlyt.qyds.dao.MmbLevelRuleMapper;
@@ -13,6 +15,7 @@ import net.dlyt.qyds.dao.MmbMasterMapper;
 import net.dlyt.qyds.dao.MmbPointRecordMapper;
 import net.dlyt.qyds.dao.MmbPointRuleMapper;
 import net.dlyt.qyds.dao.ext.MmbLevelRuleMapperExt;
+import net.dlyt.qyds.dao.ext.MmbMasterMapperExt;
 import net.dlyt.qyds.dao.ext.MmbPointRecordMapperExt;
 import net.dlyt.qyds.dao.ext.MmbPointRuleMapperExt;
 import net.dlyt.qyds.web.service.MmbPointRecordService;
@@ -32,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +66,8 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
     private MmbLevelRuleMapperExt mmbLevelRuleMapperExt;
     @Autowired
     private MmbPointRuleMapperExt mmbPointRuleMapperExt;
+    @Autowired
+    private MmbMasterMapperExt mmbMasterMapperExt;
 
     /**
      * 列表查询
@@ -158,7 +164,7 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
 
 
             if (form.getExchangeId() != null && "60".equals(form.getExchangeId())) {
-                if( form.getExchangePoint() == null||form.getExchangePoint() == 0){
+                if (form.getExchangePoint() == null || form.getExchangePoint() == 0) {
                     throw new ExceptionErrorParam("缺少参数换购积分");
                 }
             }
@@ -244,7 +250,7 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
                 mmbPointRecordMapper.insertSelective(record_exc);
                 // ERP接口调用
 //                sendErpPoint(record_exc);
-                ErpSendUtil.VIPPointUpdate(record_exc,mmbPointRecordMapper,mmbMasterMapper);
+                ErpSendUtil.VIPPointUpdate(record_exc, mmbPointRecordMapper, mmbMasterMapper);
 
                 // 按照倒叙检索最近的三十六个月积分,进行积分抵值扣除处理
                 List<MmbPointRecordExt> sublist = mmbPointRecordMapperExt.selectSubPointList(form);
@@ -340,7 +346,7 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
                 mmbPointRecordMapper.insertSelective(record_sub);
                 // ERP接口调用
 //                sendErpPoint(record_sub);
-                ErpSendUtil.VIPPointUpdate(record_sub,mmbPointRecordMapper,mmbMasterMapper);
+                ErpSendUtil.VIPPointUpdate(record_sub, mmbPointRecordMapper, mmbMasterMapper);
 
                 // 按照倒叙检索最近的三十六个月积分,进行积分抵值扣除处理
                 List<MmbPointRecordExt> sublist = mmbPointRecordMapperExt.selectSubPointList(form);
@@ -389,7 +395,7 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
                 for (MmbPointRecord item : historyList) {
 
                     // 如果订单包含赠送积分，则需要把赠送的积分也退还
-                    if("21".equals(item.getType())){
+                    if ("21".equals(item.getType())) {
                         point_return = point_return + item.getPoint();
                         item.setPoint(0);
                     } else {
@@ -839,10 +845,53 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
                 // 更新积分记录
                 mmbPointRecordMapper.updateByPrimaryKeySelective(item);
 
+                //会员自动升级
+                if (null != master && "0".equals(master.getDeleted())) {
+                    if (!StringUtil.isEmpty(master.getTelephone()) &&
+                            !StringUtil.isEmpty(master.getNickName()) &&
+                            !StringUtil.isEmpty(master.getSex()) &&
+                            !StringUtil.isEmpty(String.valueOf(master.getBirthdate())) &&
+                            !StringUtil.isEmpty(master.getProvinceCode()) &&
+                            !StringUtil.isEmpty(master.getCityCode()) &&
+                            !StringUtil.isEmpty(master.getDistrictCode())
+                            ) {
+                        MmbMaster masterForApproval = mmbMasterMapper.selectByPrimaryKey(item.getMemberId());
+                        MmbLevelManagerForm form = new MmbLevelManagerForm();
+                        form.setTelephone(masterForApproval.getTelephone());
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss     ");
+                        String dDate = "01-15";
+                        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                        String str = formatter.format(curDate);
+                        if (StringUtils.isNotBlank(str) && StringUtils.isNotBlank(str.substring(5, 10))) {
+                            int result = str.substring(5, 10).compareTo(dDate);
+                            if (result < 0) {
+                                System.out.println("小于");
+                                // 查询当年和前一年的数据
+                                form.setYearNum("1");
+                            } else {
+                                System.out.println("大于等于");
+                                // 查询当年的数据
+                                form.setYearNum("0");
+                            }
+                            ;
+                        }
+                        List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+                        if (list1 != null && list1.size() != 0) {
+                            masterForApproval.setMemberLevelId("30");
+                            masterForApproval.setUpdateTime(new Date());
+
+                            mmbMasterMapper.updateByPrimaryKeySelective(master);
+
+                            //erp接口调用
+                            ErpSendUtil.VIPUpdateById(master.getMemberId(), mmbMasterMapperExt, mmbMasterMapper);
+                        }
+                    }
+                }
+
                 if (!"ERP".equals(item.getInsertUserId()) && 0 != item.getPoint()) {
                     // ERP接口调用
 //                    sendErpPoint(item);
-                    ErpSendUtil.VIPPointUpdate(item,mmbPointRecordMapper,mmbMasterMapper);
+                    ErpSendUtil.VIPPointUpdate(item, mmbPointRecordMapper, mmbMasterMapper);
                 }
             }
 
@@ -862,17 +911,17 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
      * @param form
      * @return
      */
-    public JSONObject selectRecordByPage(MmbPointRecordForm form){
+    public JSONObject selectRecordByPage(MmbPointRecordForm form) {
         JSONObject json = new JSONObject();
-        try{
+        try {
             List<MmbPointRecordExt> list = (List<MmbPointRecordExt>) mmbPointRecordMapperExt.selectRecordByPage(form);
             int countAll = mmbPointRecordMapperExt.getRecordCountByPage(form);
             json.put("aaData", list);
-            json.put("sEcho",form.getsEcho());
-            json.put("iTotalRecords",countAll);
-            json.put("iTotalDisplayRecords",countAll);
+            json.put("sEcho", form.getsEcho());
+            json.put("iTotalRecords", countAll);
+            json.put("iTotalDisplayRecords", countAll);
             json.put("resultCode", Constants.NORMAL);
-        }catch(Exception e){
+        } catch (Exception e) {
             json.put("resultCode", Constants.FAIL);
             json.put("message", e.getMessage());
         }
