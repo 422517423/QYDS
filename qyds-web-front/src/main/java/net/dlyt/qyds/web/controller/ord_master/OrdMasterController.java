@@ -85,6 +85,7 @@ public class OrdMasterController {
             ordMasterExt.setHelpBuy(form.getHelpBuy());
             ordMasterExt.setSalerId(form.getSalerId());
             ordMasterExt.setSalerName(form.getSalerName());
+            ordMasterExt.setSalerTelephone(form.getSalerTelephone());
             //获取订单数据
             List<OrdMasterExt> list = ordMasterService.getAllDatas(ordMasterExt);
             //获取订单条数

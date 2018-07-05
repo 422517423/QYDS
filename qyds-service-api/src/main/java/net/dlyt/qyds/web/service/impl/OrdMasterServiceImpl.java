@@ -129,6 +129,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     MmbSaler mmbSaler = mmbSalerMapper.selectByPrimaryKey(ome.getSalerId());
                     if (mmbSaler!=null&&!StringUtil.isEmpty(mmbSaler.getMemberName())){
                         ome.setSalerName(mmbSaler.getMemberName());
+                        ome.setSalerTelephone(mmbSaler.getTelephone());
                     }
                 }
                 //传递前台显示订单状态

@@ -844,50 +844,6 @@ public class MmbPointRecordServiceImpl implements MmbPointRecordService {
 
                 // 更新积分记录
                 mmbPointRecordMapper.updateByPrimaryKeySelective(item);
-
-                //会员自动升级
-                if (null != master && "0".equals(master.getDeleted())) {
-                    if (!StringUtil.isEmpty(master.getTelephone()) &&
-                            !StringUtil.isEmpty(master.getNickName()) &&
-                            !StringUtil.isEmpty(master.getSex()) &&
-                            !StringUtil.isEmpty(String.valueOf(master.getBirthdate())) &&
-                            !StringUtil.isEmpty(master.getProvinceCode()) &&
-                            !StringUtil.isEmpty(master.getCityCode()) &&
-                            !StringUtil.isEmpty(master.getDistrictCode())
-                            ) {
-                        MmbMaster masterForApproval = mmbMasterMapper.selectByPrimaryKey(item.getMemberId());
-                        MmbLevelManagerForm form = new MmbLevelManagerForm();
-                        form.setTelephone(masterForApproval.getTelephone());
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss     ");
-                        String dDate = "01-15";
-                        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-                        String str = formatter.format(curDate);
-                        if (StringUtils.isNotBlank(str) && StringUtils.isNotBlank(str.substring(5, 10))) {
-                            int result = str.substring(5, 10).compareTo(dDate);
-                            if (result < 0) {
-                                System.out.println("小于");
-                                // 查询当年和前一年的数据
-                                form.setYearNum("1");
-                            } else {
-                                System.out.println("大于等于");
-                                // 查询当年的数据
-                                form.setYearNum("0");
-                            }
-                            ;
-                        }
-                        List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
-                        if (list1 != null && list1.size() != 0) {
-                            masterForApproval.setMemberLevelId("30");
-                            masterForApproval.setUpdateTime(new Date());
-
-                            mmbMasterMapper.updateByPrimaryKeySelective(master);
-
-                            //erp接口调用
-                            ErpSendUtil.VIPUpdateById(master.getMemberId(), mmbMasterMapperExt, mmbMasterMapper);
-                        }
-                    }
-                }
-
                 if (!"ERP".equals(item.getInsertUserId()) && 0 != item.getPoint()) {
                     // ERP接口调用
 //                    sendErpPoint(item);

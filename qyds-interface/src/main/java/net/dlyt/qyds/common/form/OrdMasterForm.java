@@ -34,6 +34,16 @@ public class OrdMasterForm extends OrdMaster{
 
     private String salerName;
 
+    private String salerTelephone;
+
+    public String getSalerTelephone() {
+        return salerTelephone;
+    }
+
+    public void setSalerTelephone(String salerTelephone) {
+        this.salerTelephone = salerTelephone;
+    }
+
     public String getSalerName() {
         return salerName;
     }

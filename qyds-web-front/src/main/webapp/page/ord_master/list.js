@@ -160,7 +160,7 @@ function initTable(){
             aoData.push({"name": "couponId", "value": $("#couppon").val()});
             aoData.push({"name": "helpBuy", "value": $("#helpBuy").val()});
             aoData.push({"name": "salerName", "value": $("#salerName").val()});
-            aoData.push({"name": "salerId", "value": $("#salerId").val()});
+            aoData.push({"name": "salerTelephone", "value": $("#salerTelephone").val()});
         },
         "aoColumns": [
             {"mData": "orderCode"},
@@ -200,7 +200,7 @@ function initTable(){
                 }
             },
             {"mData": "salerName"},
-            {"mData": "salerId"},
+            {"mData": "salerTelephone"},
             {
                 "mData": null,
                 "fnRender": function (rowData) {
@@ -234,7 +234,7 @@ function setSessionValue(){
     sessionStorage.setItem("telephone",$('#telephone').val());
     sessionStorage.setItem("memberName",$('#memberName').val());
     sessionStorage.setItem("helpBuy",$('#helpBuy').val());
-    sessionStorage.setItem("salerId",$('#salerId').val());
+    sessionStorage.setItem("salerTelephone",$('#salerTelephone').val());
     sessionStorage.setItem("salerName",$('#salerName').val());
 //
 //     sessionStorage.setItem("sEcho",oTable.fnSettings()._iDisplayStart);

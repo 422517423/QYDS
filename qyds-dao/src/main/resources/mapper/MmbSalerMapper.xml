@@ -57,6 +57,12 @@
       <include refid="Base_Column_List" />
       from public.mmb_saler
     </select>
+    <select id="selectBySalerId" resultType="net.dlyt.qyds.common.dto.MmbSaler">
+      select
+      <include refid="Base_Column_List" />
+      from public.mmb_saler
+      where telephone = #{salerId,jdbcType=VARCHAR}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from public.mmb_saler
     where member_id = #{memberId,jdbcType=VARCHAR}

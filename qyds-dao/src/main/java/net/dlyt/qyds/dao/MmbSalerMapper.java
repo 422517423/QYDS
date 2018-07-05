@@ -17,6 +17,8 @@ public interface MmbSalerMapper {
 
     MmbSaler selectByPrimaryKey(String memberId);
 
+    List<MmbSaler> selectBySalerId(String salerId);
+
     int updateByPrimaryKeySelective(MmbSaler record);
 
     int updateByPrimaryKey(MmbSaler record);

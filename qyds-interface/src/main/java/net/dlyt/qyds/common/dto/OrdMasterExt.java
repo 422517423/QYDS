@@ -141,6 +141,16 @@ public class OrdMasterExt extends OrdMaster {
 
     private String salerName;
 
+    public String getSalerTelephone() {
+        return salerTelephone;
+    }
+
+    public void setSalerTelephone(String salerTelephone) {
+        this.salerTelephone = salerTelephone;
+    }
+
+    private String salerTelephone;
+
     public String getSalerName() {
         return salerName;
     }

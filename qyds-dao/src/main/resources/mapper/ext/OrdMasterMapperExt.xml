@@ -234,6 +234,9 @@
     <if test="salerName != null and !salerName.isEmpty()" >
       and om.saler_id in (select member_id from mmb_saler where member_name LIKE CONCAT('%', #{salerName,jdbcType=VARCHAR},'%'))
     </if>
+    <if test="salerTelephone != null and !salerTelephone.isEmpty()" >
+      and om.saler_id in (select member_id from mmb_saler where telephone = #{salerTelephone,jdbcType=VARCHAR})
+    </if>
     <if test="orderId == null or orderId.isEmpty()" >
       order by om.update_time DESC
       limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
@@ -267,6 +270,9 @@
     </if>
     <if test="salerName != null and !salerName.isEmpty()" >
       and om.saler_id in (select member_id from mmb_saler where member_name LIKE CONCAT('%', #{salerName,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="salerTelephone != null and !salerTelephone.isEmpty()" >
+      and om.saler_id in (select member_id from mmb_saler where telephone = #{salerTelephone,jdbcType=VARCHAR})
     </if>
     <if test="orderStatus != null and !orderStatus.isEmpty()" >
       and om.order_status = #{orderStatus,jdbcType=VARCHAR}
