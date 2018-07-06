@@ -2640,6 +2640,7 @@ angular.module('dealuna.controllers', [])
                     "orderStatus": '',
                     "payStatus": '',
                     "deliverStatus": '',
+                    "noReturn": '',
                     "type": '1'
                 };
 

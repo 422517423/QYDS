@@ -791,6 +791,23 @@
     order by om.insert_time DESC limit #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
   </select>
 
+  <select id="getOrderByMemberId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="getOrderByMemberIdList" />
+    from public.ord_master om
+    left join com_code cc on cc.code = 'ORDER_TYPE' and cc.value = om.order_type
+    left join com_code cc1 on cc1.code = 'ORDER_STATUS' and cc1.value = om.order_status
+    left join shp_master sm on sm.shop_id = om.shop_id
+    left join com_code cc2 on cc2.code = 'PAY_TPYE' and cc2.value = om.pay_type
+    left join com_code cc3 on cc3.code = 'DELIVER_STATUS' and cc3.value = om.deliver_status
+    left join com_code cc4 on cc4.code = 'EVALUTE_STATUS' and cc4.value = om.evaluate_status
+    left join com_code cc5 on cc5.code = 'DELIVER_TYPE' and cc5.value = om.deliver_type
+    left join com_code cc6 on cc6.code = 'CANCEL_TYPE' and cc6.value = om.cancel_type
+    where
+    om.deleted = '0'
+    and om.member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+
   <select id="getWaitPayCountByMemberId" resultType="java.lang.Integer" parameterType="java.lang.String">
     select count(1)
     from public.ord_master om

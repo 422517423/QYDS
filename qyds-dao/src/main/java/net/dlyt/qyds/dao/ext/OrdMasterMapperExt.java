@@ -210,6 +210,8 @@ public interface OrdMasterMapperExt {
 
     List<OrdMasterExt> getAllOrderByMemberId(OrdMasterExt memberId);
 
+    List<OrdMasterExt> getOrderByMemberId(String  memberId);
+
     List<OrdMasterExt> getWaitPayOrderByMemberId(OrdMasterExt memberId);
 
     List<OrdMasterExt> getWaitDeliveryOrderByMemberId(OrdMasterExt memberId);

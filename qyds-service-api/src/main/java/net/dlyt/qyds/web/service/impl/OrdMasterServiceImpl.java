@@ -3,15 +3,16 @@ package net.dlyt.qyds.web.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sun.xml.internal.bind.v2.TODO;
 import net.dlyt.qyds.common.dto.*;
-import net.dlyt.qyds.common.dto.ComCode;
 import net.dlyt.qyds.common.dto.ext.*;
 import net.dlyt.qyds.common.form.*;
 import net.dlyt.qyds.dao.*;
 import net.dlyt.qyds.dao.ext.*;
 import net.dlyt.qyds.web.service.*;
-import net.dlyt.qyds.web.service.common.*;
+import net.dlyt.qyds.web.service.common.Constants;
+import net.dlyt.qyds.web.service.common.DataUtils;
+import net.dlyt.qyds.web.service.common.ErpSendUtil;
+import net.dlyt.qyds.web.service.common.StringUtil;
 import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorData;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
@@ -123,11 +124,11 @@ public class OrdMasterServiceImpl implements OrdMasterService {
 
         List<OrdMasterExt> list = ordMasterMapperExt.getAllDatas(ordMasterExt);
         //为前台准备数据
-        if (list!=null&&list.size()!=0){
+        if (list != null && list.size() != 0) {
             for (OrdMasterExt ome : list) {
-                if (ome.getSalerId()!=null&&!StringUtil.isEmpty(ome.getSalerId())){
+                if (ome.getSalerId() != null && !StringUtil.isEmpty(ome.getSalerId())) {
                     MmbSaler mmbSaler = mmbSalerMapper.selectByPrimaryKey(ome.getSalerId());
-                    if (mmbSaler!=null&&!StringUtil.isEmpty(mmbSaler.getMemberName())){
+                    if (mmbSaler != null && !StringUtil.isEmpty(mmbSaler.getMemberName())) {
                         ome.setSalerName(mmbSaler.getMemberName());
                         ome.setSalerTelephone(mmbSaler.getTelephone());
                     }
@@ -286,16 +287,16 @@ public class OrdMasterServiceImpl implements OrdMasterService {
     }
 
 
-    public JSONObject getActivityCouponList(String data){
+    public JSONObject getActivityCouponList(String data) {
         JSONObject result = new JSONObject();
         try {
             OrdMasterExt ordMasterExt = (OrdMasterExt) JSON.parseObject(data, OrdMasterExt.class);
             //获得满足条件的活动
-            List<HashMap> activitylist =  actMasterMapperExt.getActiveIdAndList(ordMasterExt);
+            List<HashMap> activitylist = actMasterMapperExt.getActiveIdAndList(ordMasterExt);
             //获得满足条件的优惠劵
-            List<HashMap> coupponlist =  actMasterMapperExt.getCoupponIdAndList(ordMasterExt);
-            result.put("activitylist",activitylist);
-            result.put("coupponlist",coupponlist);
+            List<HashMap> coupponlist = actMasterMapperExt.getCoupponIdAndList(ordMasterExt);
+            result.put("activitylist", activitylist);
+            result.put("coupponlist", coupponlist);
             //执行结束返回成功
             result.put("resultCode", Constants.NORMAL);
         } catch (Exception e) {
@@ -513,9 +514,9 @@ public class OrdMasterServiceImpl implements OrdMasterService {
 
             // 获取订单关联的秒杀活动商品
             List<ActGoods> actGoodsList = actGoodsMapperExt.selectSecKillGoodsByOrderId(ordMaster.getOrderId());
-            for(ActGoods actItem : actGoodsList){
+            for (ActGoods actItem : actGoodsList) {
                 ActGoods actGoods = actGoodsMapper.selectByPrimaryKey(actItem.getActGoodsId());
-                if(actGoods != null){
+                if (actGoods != null) {
                     // 如果是参加秒杀活动，需要恢复秒杀活动商品数量
                     actGoods.setSurplus(actGoods.getSurplus() + actItem.getQuantity());
                     actGoodsMapper.updateByPrimaryKeySelective(actGoods);
@@ -895,7 +896,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 ordConfirmGoodsExt.setOrdConfirmOrderUnitExtList(ordConfirmOrderUnitExtList);
                 goodsInfo.add(ordConfirmGoodsExt);
                 // 获取商品级别优惠
-                goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(), ordMasterExt.getTelephone(),false);
+                goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(), ordMasterExt.getTelephone(), false);
                 ordConfirmExt.setGoodsInfo(goodsInfo);
                 ordConfirmExt.setGoodsTotalPrice(getGoodsToatalPrice(goodsInfo));
                 // 调用接口获取该笔订单能用的优惠
@@ -981,7 +982,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         ordConfirmGoodsExt.setOrdConfirmOrderUnitExtList(ordConfirmOrderUnitExtList);
         goodsInfo.add(ordConfirmGoodsExt);
         // 获取商品级别优惠
-        goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), false);
+        goodsInfo = actMasterService.bindActivityForOrderConfirm(goodsInfo, ordMasterExt.getMemberId(), ordMasterExt.getTelephone(), false);
         ordConfirmExt.setGoodsInfo(goodsInfo);
         ordConfirmExt.setGoodsTotalPrice(getGoodsToatalPrice(goodsInfo));
         // 调用接口获取该笔订单能用的优惠
@@ -1303,7 +1304,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             }
 
             // 获取商品级别优惠
-            list = actMasterService.bindActivityForOrderConfirm(list, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), true);
+            list = actMasterService.bindActivityForOrderConfirm(list, ordMasterExt.getMemberId(), ordMasterExt.getTelephone(), true);
             // 20180109返回购物车编号
             ordConfirmExt.setBagNoArray(ordMasterExt.getBagNoArray());
             ordConfirmExt.setGoodsInfo(list);
@@ -1339,7 +1340,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             }
 
             if (goodsList.get(i).getActivity() != null) {
-                goodsPrice =  goodsList.get(i).getActivity().getNewPrice();
+                goodsPrice = goodsList.get(i).getActivity().getNewPrice();
             }
             goodsTotalPrice = goodsTotalPrice + goodsPrice * goodsList.get(i).getQuantity();
         }
@@ -1358,14 +1359,14 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         // 代买的情况，需要验证验证码
         String newMemberId = null;
         String helpBuyId = null;
-        String tempForMIFW= null;
+        String tempForMIFW = null;
         //店员提供的二维码上他自己的id
         String memberIdForWX = null;
-        if (!StringUtil.isEmpty(ordMasterExt.getMemberIdForWx())){
+        if (!StringUtil.isEmpty(ordMasterExt.getMemberIdForWx())) {
             tempForMIFW = ordMasterExt.getMemberIdForWx();
-            int indexOfTempStart = tempForMIFW.indexOf("memberIdForWx")+14;
+            int indexOfTempStart = tempForMIFW.indexOf("memberIdForWx") + 14;
             int indexOfTempEnd = tempForMIFW.indexOf("&code=");
-            memberIdForWX = tempForMIFW.substring(indexOfTempStart,indexOfTempEnd);
+            memberIdForWX = tempForMIFW.substring(indexOfTempStart, indexOfTempEnd);
         }
         if (!StringUtil.isEmpty(ordMasterExt.getNewmemberId())) {
             if (StringUtil.isEmpty(ordMasterExt.getCaptcha())) {
@@ -1446,7 +1447,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             ordConfirmGoodsExtList.add(ordConfirmGoodsExt);
         }
         //调用获取优惠信息
-        ordConfirmGoodsExtList = actMasterService.bindActivityForOrderConfirm(ordConfirmGoodsExtList, ordMasterExt.getMemberId(),ordMasterExt.getTelephone(), true);
+        ordConfirmGoodsExtList = actMasterService.bindActivityForOrderConfirm(ordConfirmGoodsExtList, ordMasterExt.getMemberId(), ordMasterExt.getTelephone(), true);
 
         //商品级优惠校验
         for (OrdConfirmGoodsExt ole : ordConfirmGoodsExtList) {
@@ -1463,7 +1464,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     //027:没有活动，但是取新价格
                     BigDecimal price = new BigDecimal(String.valueOf(ole.getActivity().getNewPrice()));
                     // 单价四舍五入
-                    price = price.setScale(2,RoundingMode.HALF_UP);
+                    price = price.setScale(2, RoundingMode.HALF_UP);
                     // 获取数量
                     BigDecimal quantity = new BigDecimal(ole.getQuantity());
 
@@ -1486,7 +1487,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     //027：
                     BigDecimal suitPrice = new BigDecimal(String.valueOf(ole.getActivity().getNewPrice()));
                     // 单价四舍五入
-                    suitPrice = suitPrice.setScale(2,RoundingMode.HALF_UP);
+                    suitPrice = suitPrice.setScale(2, RoundingMode.HALF_UP);
                     // 获取数量
                     BigDecimal quantity = new BigDecimal(ole.getQuantity());
                     goodsSum = goodsSum.add(suitPrice.multiply(quantity));
@@ -1496,7 +1497,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 // 获取单价
                 BigDecimal newPrice = new BigDecimal(String.valueOf(ole.getActivity().getNewPrice()));
                 // 单价四舍五入
-                newPrice = newPrice.setScale(2,RoundingMode.HALF_UP);
+                newPrice = newPrice.setScale(2, RoundingMode.HALF_UP);
                 // 获取数量
                 BigDecimal quantity = new BigDecimal(ole.getQuantity());
 
@@ -1504,7 +1505,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 exchangePointCount += ole.getActivity().getPoint() * ole.getQuantity();
                 goodsCount += ole.getQuantity();
             }
-            goodsSum =  goodsSum.setScale(2,RoundingMode.HALF_UP);
+            goodsSum = goodsSum.setScale(2, RoundingMode.HALF_UP);
         }
 
         if (ordMasterExt.getAmountTotle().compareTo(goodsSum) != 0) {
@@ -1520,7 +1521,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 throw new ExceptionBusiness("该优惠不存在,请重新选择优惠!");
             } else {
                 actionDiscount = new BigDecimal(actMasterForm.getCutPrice());
-                actionDiscount = actionDiscount.setScale(2,RoundingMode.HALF_UP);
+                actionDiscount = actionDiscount.setScale(2, RoundingMode.HALF_UP);
                 if (actMasterForm.getNeedFee() != null) {
                     //activityNeedFee = actMasterForm.getNeedFee().floatValue();
                 }
@@ -1567,12 +1568,12 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 } else {
                     //折扣
                     BigDecimal noCouponPrice = goodsSum.subtract(actionDiscount);
-                    BigDecimal couponedPrice = noCouponPrice.multiply(couponMasterExt.getDiscount()).divide(new BigDecimal(10),2,RoundingMode.HALF_UP);
+                    BigDecimal couponedPrice = noCouponPrice.multiply(couponMasterExt.getDiscount()).divide(new BigDecimal(10), 2, RoundingMode.HALF_UP);
 
                     couponDiscount = noCouponPrice.subtract(couponedPrice);
                 }
             }
-            couponDiscount = couponDiscount.setScale(2,RoundingMode.HALF_UP);
+            couponDiscount = couponDiscount.setScale(2, RoundingMode.HALF_UP);
             if (ordMasterExt.getAmountCoupon().compareTo(couponDiscount) != 0) {
                 throw new ExceptionBusiness("所选择的优惠券价格有变动,请重新选择优惠券");
             }
@@ -1715,7 +1716,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         } else {
             ordMaster.setCanDivide("1");
         }
-        if (!StringUtil.isEmpty(memberIdForWX)){
+        if (!StringUtil.isEmpty(memberIdForWX)) {
             oldMemberId = memberIdForWX;
             ordMaster.setSalerId(oldMemberId);
         }
@@ -2001,15 +2002,15 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         List<OrdSubList> subLists = ordSubListMapperExt.selectSubOrderByOrderId(ordMaster.getOrderId());
         // 获取订单关联的秒杀活动商品
         List<ActGoods> actGoodsList = actGoodsMapperExt.selectSecKillGoodsByOrderId(ordMaster.getOrderId());
-        for(ActGoods actItem : actGoodsList){
+        for (ActGoods actItem : actGoodsList) {
             ActGoods actGoods = actGoodsMapper.selectByPrimaryKey(actItem.getActGoodsId());
-            if(actGoods != null){
+            if (actGoods != null) {
                 // 秒杀活动商品数量减去购买数量
                 actGoods.setSurplus(actGoods.getSurplus() - actItem.getQuantity());
                 actGoodsMapper.updateByPrimaryKeySelective(actGoods);
             }
         }
-        if (discountSharePrice.compareTo(new BigDecimal(0))>0) {
+        if (discountSharePrice.compareTo(new BigDecimal(0)) > 0) {
             // 按照价格从高到底排序
             Collections.sort(subLists, new Comparator<OrdSubList>() {
                 public int compare(OrdSubList o1, OrdSubList o2) {
@@ -2044,7 +2045,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     } else {
                         price = subLists.get(i).getPrice();
                     }
-                    BigDecimal sharePrice = price.divide(goodsSum,2,RoundingMode.HALF_UP).multiply(discountSharePrice);
+                    BigDecimal sharePrice = price.divide(goodsSum, 2, RoundingMode.HALF_UP).multiply(discountSharePrice);
                     if (price.subtract(sharePrice).compareTo(new BigDecimal(1)) < 0) {
                         //如果价格减去分摊的价格小于1元,则不分摊了
                         subLists.get(i).setPriceShare(price);
@@ -2101,34 +2102,35 @@ public class OrdMasterServiceImpl implements OrdMasterService {
 
     /**
      * 支付前校验秒杀活动商品信息
+     *
      * @param orderId
      * @param orderCode
      * @return
      */
     @Override
-    public void checkSecActivityOrderInfo(String orderId, String orderCode){
+    public void checkSecActivityOrderInfo(String orderId, String orderCode) {
 
-        if(StringUtil.isEmpty(orderId) && StringUtil.isEmpty(orderCode)){
+        if (StringUtil.isEmpty(orderId) && StringUtil.isEmpty(orderCode)) {
             throw new ExceptionBusiness("订单参数为空!");
         }
 
         OrdMaster ordMaster;
 
         // 订单主表信息
-        if(null == orderId){
+        if (null == orderId) {
             ordMaster = ordMasterMapperExt.selectByOrderCode(orderCode);
         } else {
             ordMaster = ordMasterMapper.selectByPrimaryKey(orderId);
         }
 
-        if(ordMaster == null){
+        if (ordMaster == null) {
             throw new ExceptionBusiness("订单信息已更新!");
         }
 
         // 查找该订单所有参加了秒杀活动的子订单信息
         List<OrdSubList> subLists = ordSubListMapperExt.selectSecKillActivityOrdSubList(ordMaster.getOrderId());
 
-        for(OrdSubList item : subLists){
+        for (OrdSubList item : subLists) {
 
             ActGoods goodsForm = new ActGoods();
             goodsForm.setActivityId(item.getActionId());
@@ -2136,18 +2138,18 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             goodsForm.setSkuId(item.getSkuId());
             List<ActGoods> list = actGoodsMapperExt.selectActGoodsInfo(goodsForm);
             ActGoods actGoods;
-            if(list != null && list.size() == 1){
+            if (list != null && list.size() == 1) {
                 actGoods = list.get(0);
             } else {
                 throw new ExceptionBusiness("秒杀活动不存在");
             }
 
             // 比较当前活动剩余数量是否满足购买数量
-            if(actGoods.getSurplus() < item.getQuantity()) {
+            if (actGoods.getSurplus() < item.getQuantity()) {
                 throw new ExceptionBusiness("秒杀商品数量不足");
             }
 
-            if(null != actGoods.getBuyMax() && actGoods.getBuyMax() > 0){
+            if (null != actGoods.getBuyMax() && actGoods.getBuyMax() > 0) {
                 OrdSubList subList = new OrdSubList();
                 subList.setSkuId(item.getSkuId());
                 subList.setActionId(item.getActionId());
@@ -2156,7 +2158,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 int count = ordSubListMapperExt.countMemberSecKillGoods(subList);
 
                 // 比较已经购买数量加上当前订单数量是否超过购买限制
-                if(count + item.getQuantity() > actGoods.getBuyMax()) {
+                if (count + item.getQuantity() > actGoods.getBuyMax()) {
                     throw new ExceptionBusiness("秒杀商品数量超过购买限制");
                 }
             }
@@ -2572,9 +2574,9 @@ public class OrdMasterServiceImpl implements OrdMasterService {
 
         // 获取订单关联的秒杀活动商品
         List<ActGoods> actGoodsList = actGoodsMapperExt.selectSecKillGoodsByOrderId(ordMaster.getOrderId());
-        for(ActGoods actItem : actGoodsList){
+        for (ActGoods actItem : actGoodsList) {
             ActGoods actGoods = actGoodsMapper.selectByPrimaryKey(actItem.getActGoodsId());
-            if(actGoods != null){
+            if (actGoods != null) {
                 actGoods.setSurplus(actGoods.getSurplus() + actItem.getQuantity());
                 actGoodsMapper.updateByPrimaryKeySelective(actGoods);
             }
@@ -3486,7 +3488,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             System.out.println(goodsId);
             GdsMaster gdsMaster = gdsMasterMapper.selectByPrimaryKey(goodsId);
             int sales = gdsMaster.getSales();
-            if (sales>0){
+            if (sales > 0) {
                 gdsMaster.setSales(--sales);
                 gdsMasterMapper.updateByPrimaryKeySelective(gdsMaster);
             }
@@ -3499,7 +3501,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             bnkRecords.setGoodsId(bnkMasterExt.getGoodsId());
             bnkRecords.setGoodsCode(bnkMasterExt.getGoodsCode());
             bnkRecords.setSku(bnkMasterExt.getSku());
-            if(!StringUtil.isEmpty(bnkMaster.getErpStoreId())){
+            if (!StringUtil.isEmpty(bnkMaster.getErpStoreId())) {
                 bnkRecords.setErpStoreId(bnkMaster.getErpStoreId());
             }
             bnkRecords.setBankType(bnkMasterExt.getBankType());
@@ -3644,15 +3646,15 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             List<MmbMasterExt> list = null;
             if (!StringUtil.isTelephone(ext.getTelephone())) {
                 MmbSalerExt mmbSalerExt = new MmbSalerExt();
-                BeanUtils.copyProperties(ext,mmbSalerExt);
+                BeanUtils.copyProperties(ext, mmbSalerExt);
                 List<MmbSalerExt> salerlist = mmbSalerMapperExt.selectAllByTel(mmbSalerExt);
                 list = new ArrayList<MmbMasterExt>();
-                for(MmbSalerExt item : salerlist){
+                for (MmbSalerExt item : salerlist) {
                     MmbMasterExt mmbMasterExt = new MmbMasterExt();
-                    BeanUtils.copyProperties(item,mmbMasterExt);
+                    BeanUtils.copyProperties(item, mmbMasterExt);
                     list.add(mmbMasterExt);
                 }
-            }else{
+            } else {
                 list = mmbMasterMapperExt.selectAllByTel(ext);
             }
             //List<MmbMasterExt> list = mmbMasterMapperExt.selectAllByTel(ext);
@@ -3857,6 +3859,34 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     }
                 }
             }
+            //定义一个标志位,判断升级后是否有新订单(即是否在升级高级会员后享受过优惠活动)
+            int flag = 0;
+            //获取下订单的会员的详情
+            MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(ordMasterExt.getMemberId());
+            //判断是否是高级会员
+            if ("30".equals(mmbMaster.getMemberLevelId())) {
+                //如果是高级会员，遍历这个会员的所有订单，并判断是否有订单时间大于升级时间的订单
+                List<OrdMasterExt> orderByMemberIdList = ordMasterMapperExt.getOrderByMemberId(mmbMaster.getMemberId());
+                for (OrdMasterExt orderMasterById :
+                        orderByMemberIdList) {
+                    Date orderTime = orderMasterById.getOrderTime();
+                    //如果有这种订单，说明享受了会员折扣，则跳出循环，并将标志位置1
+                    if (orderTime.compareTo(mmbMaster.getUpdateTime()) > 0) {
+                        flag = 1;
+                        break;
+                    }
+                }
+                //如果升级后有新订单，使升级之前的订单的noreturn标志位置1
+                if (flag == 1) {
+                    for (OrdMasterExt orderMasterForList :
+                            list) {
+                        Date orderTime = orderMasterForList.getOrderTime();
+                        if (orderTime.compareTo(mmbMaster.getUpdateTime()) < 0) {
+                            orderMasterForList.setNoReturn(1);
+                        }
+                    }
+                }
+            }
             result.put("totalPage", totalPage);
             result.put("allCount", allCount);
             result.put("waitPayCount", waitPayCount);
@@ -4057,7 +4087,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             //合计金额
             master.setAmount(amountTotle);
             master.setAmountDiscount(amountDiscount);
-            result.put("rexPrice",rexPrice);
+            result.put("rexPrice", rexPrice);
             result.put("store", erpStore);
             result.put("master", master);
             result.put("sublist", subDetail);
@@ -4244,8 +4274,8 @@ public class OrdMasterServiceImpl implements OrdMasterService {
     @Override
     public List<OrdMasterExt> excelExport(OrdMasterExt form) {
         List<OrdMasterExt> list = ordMasterMapperExt.excelExport(form);
-        if(list != null && list.size() > 0){
-            for(int i=0;i<list.size();i++){
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
                 List<OrdSubListExt> subList = ordSubListMapperExt.excelSubExport(list.get(i).getOrderId());
                 list.get(i).setOrdSubListExtList(subList);
             }

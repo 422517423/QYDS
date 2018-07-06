@@ -3,9 +3,7 @@ package net.dlyt.qyds.common.dto;
 import net.dlyt.qyds.common.form.ActMasterForm;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Created by wenxuechao on 16/7/23.
@@ -140,6 +138,16 @@ public class OrdMasterExt extends OrdMaster {
     private BigDecimal rexInfactPrice;
 
     private String salerName;
+
+    private int noReturn;
+
+    public int getNoReturn() {
+        return noReturn;
+    }
+
+    public void setNoReturn(int noReturn) {
+        this.noReturn = noReturn;
+    }
 
     public String getSalerTelephone() {
         return salerTelephone;

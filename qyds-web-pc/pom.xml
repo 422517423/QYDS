@@ -106,7 +106,11 @@
             <artifactId>terracotta-toolkit-runtime</artifactId>
             <version>4.3.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.apache.shiro</groupId>-->
             <!--<artifactId>shiro-spring</artifactId>-->
