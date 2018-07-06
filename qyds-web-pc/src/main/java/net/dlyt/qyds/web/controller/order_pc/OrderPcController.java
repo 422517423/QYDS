@@ -18,7 +18,6 @@ import net.dlyt.qyds.web.service.OrdMasterService;
 import net.dlyt.qyds.web.service.common.StringUtil;
 import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -338,8 +337,6 @@ public class OrderPcController {
                 jsonMaster.put("payStatus", list.get(0).getPayStatus());
                 jsonMaster.put("deliverStatus", list.get(0).getDeliverStatus());
                 jsonMaster.put("orderTime",list.get(0).getOrderTime());
-                jsonMaster.put("payStatus",list.get(0).getPayStatus());
-                jsonMaster.put("deliverStatus",list.get(0).getDeliverStatus());
                 jsonMaster.put("deliverTime",list.get(0).getDeliverTime());
                 jsonMaster.put("receiptTime",list.get(0).getReceiptTime());
                 jsonMaster.put("evaluateStatus",list.get(0).getEvaluateStatus());
@@ -365,6 +362,7 @@ public class OrderPcController {
                 jsonMaster.put("canDivide",list.get(0).getCanDivide());
                 jsonMaster.put("cancelType",list.get(0).getCancelType());
                 jsonMaster.put("comment",list.get(0).getComment());
+                jsonMaster.put("noReturn",list.get(0).getNoReturn());
                 //整理商品信息数据
                 for(OrdList ol : list.get(0).getOrdList()){
                     JSONObject jsonObject = new JSONObject();
