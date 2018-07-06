@@ -168,7 +168,7 @@
                 付款
             </button>
             <button class="button button-small" style="margin-top: 0px;float: right;margin-left: 10px"
-                    ng-if="orderDetail.orderStatus == 10 && orderDetail.deliverStatus == 10 && orderDetail.payStatus == 20"
+                    ng-if="orderDetail.orderStatus == 10 && orderDetail.deliverStatus == 10 && orderDetail.payStatus == 20 && orderDetail.noReturn!=1"
                     ng-click="applyRefund()">
                 申请退款
             </button>
@@ -181,7 +181,7 @@
 
             <!-- 90.订单完成 -->
             <button class="button button-small" style="margin-top: 0px;float: right;margin-left: 10px"
-                    ng-if="(orderDetail.orderStatus == 10 || orderDetail.orderStatus == 23) && orderDetail.deliverStatus == 21 && orderDetail.payStatus == 20"
+                    ng-if="(orderDetail.orderStatus == 10 || orderDetail.orderStatus == 23) && orderDetail.deliverStatus == 21 && orderDetail.payStatus == 20 && orderDetail.noReturn!=1"
                     ng-click="refunds(orderDetail);">
                 申请退货
             </button>

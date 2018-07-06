@@ -280,7 +280,6 @@ public class OrdWechatController {
                 jsonMaster.put("deliverStatus", list.get(0).getDeliverStatus());
                 jsonMaster.put("orderTime",list.get(0).getOrderTime());
                 jsonMaster.put("payStatus",list.get(0).getPayStatus());
-                jsonMaster.put("deliverStatus",list.get(0).getDeliverStatus());
                 jsonMaster.put("deliverTime",list.get(0).getDeliverTime());
                 jsonMaster.put("evaluateStatus",list.get(0).getEvaluateStatus());
                 jsonMaster.put("wantInvoice",list.get(0).getWantInvoice());
@@ -305,6 +304,7 @@ public class OrdWechatController {
                 jsonMaster.put("canDivide",list.get(0).getCanDivide());
                 jsonMaster.put("cancelType",list.get(0).getCancelType());
                 jsonMaster.put("comment",list.get(0).getComment());
+                jsonMaster.put("noReturn",list.get(0).getNoReturn());
                 //整理商品信息数据
                 for(OrdList ol : list.get(0).getOrdList()){
                     JSONObject jsonObject = new JSONObject();
