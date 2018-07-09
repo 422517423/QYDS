@@ -24,7 +24,7 @@ function getDetail() {
             $("#sex").val(data.data.sexName);
 
             $("#telephone").val(data.data.telephone);
-            $("#oldphone").val(data.data.oldphone);
+            // $("#oldphone").val(data.data.oldphone);
             if (data.data.birthdate) {
                 $("#birthdate").val(new Date(data.data.birthdate).Format("yyyy-MM-dd"));
             }

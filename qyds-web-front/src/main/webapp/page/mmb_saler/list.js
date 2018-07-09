@@ -36,14 +36,14 @@ function initTable() {
             // 设置参数
             aoData.push({"name": "telephone", "value": $("#cond_telephone").val()});
             aoData.push({"name": "memberName", "value": $("#cond_member_name").val()});
-            aoData.push({"name": "oldphone", "value": $("#cond_oldphone").val()});
+            // aoData.push({"name": "oldphone", "value": $("#cond_oldphone").val()});
             aoData.push({"name": "deleted", "value": $("#cond_deleted").val()});
         },
         "aoColumns": [
             {"mData": "telephone"},
             {"mData": "memberName"},
             {"mData": "sexName"},
-            {"mData": "oldphone"},
+            // {"mData": "oldphone"},
             {"mData": "email"},
             {
                 "mData": null,
