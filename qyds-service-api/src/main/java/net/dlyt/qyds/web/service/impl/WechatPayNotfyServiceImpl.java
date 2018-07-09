@@ -1,17 +1,24 @@
 package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.ComSetting;
+import net.dlyt.qyds.common.dto.MmbMaster;
 import net.dlyt.qyds.common.dto.OrdHistory;
 import net.dlyt.qyds.common.dto.OrdMaster;
 import net.dlyt.qyds.common.dto.ext.CouponMemberExt;
+import net.dlyt.qyds.common.form.MmbLevelManagerForm;
 import net.dlyt.qyds.common.form.MmbPointRecordForm;
 import net.dlyt.qyds.dao.ComSettingMapper;
+import net.dlyt.qyds.dao.MmbMasterMapper;
 import net.dlyt.qyds.dao.OrdMasterMapper;
+import net.dlyt.qyds.dao.ext.MmbLevelRuleMapperExt;
+import net.dlyt.qyds.dao.ext.MmbMasterMapperExt;
 import net.dlyt.qyds.dao.ext.OrdHistoryMapperExt;
 import net.dlyt.qyds.dao.ext.OrdMasterMapperExt;
 import net.dlyt.qyds.web.service.*;
 import net.dlyt.qyds.web.service.common.ComCode;
+import net.dlyt.qyds.web.service.common.ErpSendUtil;
 import net.dlyt.qyds.web.service.common.StringUtil;
 import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import org.slf4j.LoggerFactory;
@@ -20,6 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -57,6 +67,17 @@ public class WechatPayNotfyServiceImpl implements WechatPayNotfyService {
 
     @Autowired
     private PrizeDrawService prizeDrawService;
+
+
+    @Autowired
+    private MmbMasterMapper mmbMasterMapper;
+
+    @Autowired
+    private MmbMasterMapperExt mmbMasterMapperExt;
+
+    @Autowired
+    private MmbLevelRuleMapperExt mmbLevelRuleMapperExt;
+
 
     @Override
     public void paySuccess(Map<String, String> mParam) {
@@ -96,6 +117,54 @@ public class WechatPayNotfyServiceImpl implements WechatPayNotfyService {
         ordHistory.setInsertUserId(ordHistory.getMemberId());
         //主订单操作历史信息插入
         ordHistoryMapperExt.insertSelective(ordHistory);
+        //会员自动升级
+        MmbMaster master = mmbMasterMapper.selectByPrimaryKey(ordMaster.getMemberId());
+        if (null != master && "0".equals(master.getDeleted())) {
+            if (!StringUtil.isEmpty(master.getTelephone()) &&
+                    !StringUtil.isEmpty(master.getMemberName()) &&
+                    !master.getMemberName().contains("先生")&&
+                    !master.getMemberName().contains("女士")&&
+                    !master.getMemberName().contains("小姐")&&
+                    !StringUtil.isEmpty(master.getSex()) &&
+                    !StringUtil.isEmpty(String.valueOf(master.getBirthdate())) &&
+                    !StringUtil.isEmpty(master.getAddress()) &&
+                    !StringUtil.isEmpty(master.getProvinceCode()) &&
+                    !StringUtil.isEmpty(master.getCityCode()) &&
+                    !StringUtil.isEmpty(master.getDistrictCode())
+                    ) {
+                MmbMaster masterForApproval = mmbMasterMapper.selectByPrimaryKey(ordMaster.getMemberId());
+                MmbLevelManagerForm form = new MmbLevelManagerForm();
+                form.setTelephone(masterForApproval.getTelephone());
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss     ");
+                String dDate = "01-15";
+                Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                String str = formatter.format(curDate);
+                if (StringUtils.isNotBlank(str) && StringUtils.isNotBlank(str.substring(5, 10))) {
+                    int result = str.substring(5, 10).compareTo(dDate);
+                    if (result < 0) {
+                        System.out.println("小于");
+                        // 查询当年和前一年的数据
+                        form.setYearNum("1");
+                    } else {
+                        System.out.println("大于等于");
+                        // 查询当年的数据
+                        form.setYearNum("0");
+                    }
+                    ;
+                }
+                List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+                if (list1 != null && list1.size() != 0) {
+                    masterForApproval.setMemberLevelId("30");
+                    masterForApproval.setUpdateTime(new Date());
+
+                    mmbMasterMapper.updateByPrimaryKeySelective(masterForApproval);
+
+                    //erp接口调用
+                    ErpSendUtil.VIPUpdateById(masterForApproval.getMemberId(), mmbMasterMapperExt, mmbMasterMapper);
+                }
+            }
+        }
+
         //付款增加积分信息
         MmbPointRecordForm mmbPointRecordForm = new MmbPointRecordForm();
         mmbPointRecordForm.setMemberId(ordMaster.getMemberId());

@@ -3,6 +3,7 @@ package net.dlyt.qyds.web.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.*;
 import net.dlyt.qyds.common.form.*;
@@ -27,6 +28,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -118,6 +120,8 @@ public class OrdMasterServiceImpl implements OrdMasterService {
     private ErpOrderSubMapperExt erpOrderSubMapperExt;
     @Autowired
     private SysSmsCaptchaMapperExt sysSmsCaptchaMapperExt;
+    @Autowired
+    private MmbLevelRuleMapperExt mmbLevelRuleMapperExt;
 
 
     public List<OrdMasterExt> getAllDatas(OrdMasterExt ordMasterExt) {
@@ -3217,6 +3221,43 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             //更新主订单状态
             ordMasterMapper.updateByPrimaryKeySelective(master);
 
+            //会员自动降级
+            MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(master.getMemberId());
+            if (null != mmbMaster && "0".equals(mmbMaster.getDeleted())) {
+                    MmbMaster masterForApproval = mmbMasterMapper.selectByPrimaryKey(master.getMemberId());
+                    MmbLevelManagerForm form = new MmbLevelManagerForm();
+                    form.setTelephone(masterForApproval.getTelephone());
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss     ");
+                    String dDate = "01-15";
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    String str = formatter.format(curDate);
+                    if (StringUtils.isNotBlank(str) && StringUtils.isNotBlank(str.substring(5, 10))) {
+                        int result1 = str.substring(5, 10).compareTo(dDate);
+                        if (result1 < 0) {
+                            System.out.println("小于");
+                            // 查询当年和前一年的数据
+                            form.setYearNum("1");
+                        } else {
+                            System.out.println("大于等于");
+                            // 查询当年的数据
+                            form.setYearNum("0");
+                        }
+                        ;
+                    }
+                    List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+                    //如果查不出，则降级
+                    if (list1 != null && list1.size() == 0) {
+                        masterForApproval.setMemberLevelId("10");
+                        masterForApproval.setUpdateTime(new Date());
+
+                        mmbMasterMapper.updateByPrimaryKeySelective(masterForApproval);
+
+                        //erp接口调用
+                        ErpSendUtil.VIPUpdateById(master.getMemberId(), mmbMasterMapperExt, mmbMasterMapper);
+                    }
+
+            }
+
             //主订单操作历史信息插入
             OrdHistory history = new OrdHistory();
             history = this.masterToHistory(master);
@@ -3608,6 +3649,42 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                 //主订单操作历史信息插入
                 ordHistoryMapperExt.insertSelective(ordHistory);
 
+                //会员自动降级
+                MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(ordMaster.getMemberId());
+                if (null != mmbMaster && "0".equals(mmbMaster.getDeleted())) {
+                    MmbMaster masterForApproval = mmbMasterMapper.selectByPrimaryKey(ordMaster.getMemberId());
+                    MmbLevelManagerForm form = new MmbLevelManagerForm();
+                    form.setTelephone(masterForApproval.getTelephone());
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss     ");
+                    String dDate = "01-15";
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    String str = formatter.format(curDate);
+                    if (StringUtils.isNotBlank(str) && StringUtils.isNotBlank(str.substring(5, 10))) {
+                        int result1 = str.substring(5, 10).compareTo(dDate);
+                        if (result1 < 0) {
+                            System.out.println("小于");
+                            // 查询当年和前一年的数据
+                            form.setYearNum("1");
+                        } else {
+                            System.out.println("大于等于");
+                            // 查询当年的数据
+                            form.setYearNum("0");
+                        }
+                        ;
+                    }
+                    List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+                    //如果查不出，则降级
+                    if (list1 != null && list1.size() == 0) {
+                        masterForApproval.setMemberLevelId("10");
+                        masterForApproval.setUpdateTime(new Date());
+
+                        mmbMasterMapper.updateByPrimaryKeySelective(masterForApproval);
+
+                        //erp接口调用
+                        ErpSendUtil.VIPUpdateById(ordMaster.getMemberId(), mmbMasterMapperExt, mmbMasterMapper);
+                    }
+
+                }
                 //发送ERP
 //                sendReturnOrder(ordMaster.getOrderId());
 //                ErpSendUtil.getInstance().ReturnInputById(ordMaster.getOrderId());
