@@ -10,6 +10,16 @@ import java.util.List;
  */
 public class OrdConfirmGoodsExt implements Serializable {
 
+    private boolean isNew;
+
+    public boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(boolean isNew) {
+        this.isNew = isNew;
+    }
+
     private boolean flag;
 
     public boolean isFlag() {

@@ -2520,6 +2520,13 @@ public class ActMasterServiceImpl implements ActMasterService {
     //来自购物车判断
     //看goodslist,memberid
     private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId, String memberPhone) {
+        //设置新用户默认折扣是不打折
+        float newMemberDiscount = 1;
+        List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
+        if (orderByMemberId==null||orderByMemberId.size()==0){
+            newMemberDiscount = 0.9f;
+        }
+
         //添加memberDiscount
         float memberDiscount = 1;
 
@@ -2549,7 +2556,6 @@ public class ActMasterServiceImpl implements ActMasterService {
                         memberDiscount = mmbMasterMapperExt.selectMemberDiscount(memberId).floatValue();
                     }
                     ActMasterForm actMasterForm = new ActMasterForm();
-//                    actMasterForm.setActivityName("会员折扣");
                     float orginPrice = getOrginPrice(goods.get(i));
                     int count = mmbGoodsMapper.selectBrandExistByGoodsId(goods.get(i).getGoodsId());
                     if (count == 0) {
@@ -2560,6 +2566,15 @@ public class ActMasterServiceImpl implements ActMasterService {
                     goods.get(i).setFlag(false);
                     if (memberDiscount < 1) {
                         goods.get(i).setFlag(true);
+                    }else {
+                        ActMasterForm actMasterForm1 = new ActMasterForm();
+                        float orginPrice1 = getOrginPrice(goods.get(i));
+                        actMasterForm1.setNewPrice(getDiscountPrice(orginPrice1, newMemberDiscount * 10));
+                        goods.get(i).setActivity(actMasterForm1);
+                        goods.get(i).setIsNew(false);
+                        if (newMemberDiscount < 1) {
+                            goods.get(i).setIsNew(true);
+                        }
                     }
                     newGoodsList.add(goods.get(i));
 
@@ -2618,6 +2633,12 @@ public class ActMasterServiceImpl implements ActMasterService {
                                     newPrice = getDiscountPrice(newPrice, memberDiscount * 10);
                                     if (memberDiscount < 1) {
                                         goods.get(i).setFlag(true);
+                                    }
+                                }
+                                if (count == 0 && b > 5.6) {
+                                    newPrice = getDiscountPrice(newPrice, newMemberDiscount * 10);
+                                    if (newMemberDiscount < 1) {
+                                        goods.get(i).setIsNew(true);
                                     }
                                 }
                             }
@@ -2695,6 +2716,12 @@ public class ActMasterServiceImpl implements ActMasterService {
                                     goods2.get(i).setFlag(true);
                                 }
                             }
+                            if (count == 0 &&((discount1 * 10) / 100) > 0.56){
+                                newPrice1 = getDiscountPrice(newPrice1, newMemberDiscount * 10);
+                                if (newMemberDiscount < 1) {
+                                    goods2.get(i).setIsNew(true);
+                                }
+                            }
 //                            if (((discount1 * 10) / 100)>0.57){
 //                                newPrice1 = getDiscountPrice(newPrice1,memberDiscount*10);
 //                                if (memberDiscount<1){
@@ -2711,6 +2738,12 @@ public class ActMasterServiceImpl implements ActMasterService {
                                 newPrice2 = getDiscountPrice(newPrice2, memberDiscount * 10);
                                 if (memberDiscount < 1) {
                                     goods2.get(goods2.size() - i - 1).setFlag(true);
+                                }
+                            }
+                            if (count2 == 0 && ((discount2 * 10) / 100) > 0.56) {
+                                newPrice2 = getDiscountPrice(newPrice2, newMemberDiscount * 10);
+                                if (newMemberDiscount < 1) {
+                                    goods2.get(goods2.size() - i - 1).setIsNew(true);
                                 }
                             }
 //                            if (((discount2 * 10) / 100)>0.57){
@@ -2739,6 +2772,11 @@ public class ActMasterServiceImpl implements ActMasterService {
                                 if (memberDiscount < 1) {
                                     goods2.get(middleIndex).setFlag(true);
                                 }
+                            }else {
+                                newPrice3 = getDiscountPrice(newPrice3, newMemberDiscount * 10);
+                                if (newMemberDiscount < 1) {
+                                    goods2.get(middleIndex).setIsNew(true);
+                                }
                             }
                             activity3.setNewPrice(newPrice3);
                             goods2.get(middleIndex).setActivity(activity3);
@@ -2761,6 +2799,11 @@ public class ActMasterServiceImpl implements ActMasterService {
                                 if (memberDiscount < 1) {
                                     goods.get(i).setFlag(true);
                                 }
+                            } else if (count == 0 && newPrice / orginPrice > 0.56) {
+                                newPrice = getDiscountPrice(newPrice, newMemberDiscount * 10);
+                                if (newMemberDiscount < 1) {
+                                    goods.get(i).setIsNew(true);
+                                }
                             }
                             activity1.setNewPrice(newPrice);
                             goods.get(i).setActivity(activity1);
@@ -2782,6 +2825,11 @@ public class ActMasterServiceImpl implements ActMasterService {
                                 newPrice = getDiscountPrice(newPrice, memberDiscount * 10);
                                 if (memberDiscount < 1) {
                                     goods.get(i).setFlag(true);
+                                }
+                            }else if(count == 0 && newPrice / orginPrice > 0.56) {
+                                newPrice = getDiscountPrice(newPrice, newMemberDiscount * 10);
+                                if (newMemberDiscount < 1) {
+                                    goods.get(i).setIsNew(true);
                                 }
                             }
                             activity1.setNewPrice(newPrice);
