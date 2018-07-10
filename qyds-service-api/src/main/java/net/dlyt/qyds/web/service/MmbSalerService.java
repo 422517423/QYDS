@@ -3,6 +3,8 @@ package net.dlyt.qyds.web.service;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonObject;
 import net.dlyt.qyds.common.dto.MmbSaler;
+import net.dlyt.qyds.common.dto.SysUser;
+import net.dlyt.qyds.common.dto.SysUserExt;
 import net.dlyt.qyds.common.dto.ext.MmbSalerExt;
 import net.dlyt.qyds.common.form.MmbSalerForm;
 
@@ -43,4 +45,6 @@ public interface MmbSalerService {
     JSONObject selectReport();
 
     JSONObject makeQrCodeForAllSaler();
+
+    SysUserExt getSalerByLoginId(String loginId);
 }

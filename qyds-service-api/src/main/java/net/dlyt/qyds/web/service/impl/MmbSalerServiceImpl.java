@@ -50,6 +50,8 @@ public class MmbSalerServiceImpl implements MmbSalerService {
     private ErpProvinceMapperExt erpProvinceMapperExt;
     @Autowired
     private ErpDistrictMapperExt erpDistrictMapperExt;
+    @Autowired
+    private SysUserMapperExt sysUserMapperExt;
 
     public List<MmbSalerExt> selectAll(MmbSalerExt ext) {
         return mmbSalerMapperExt.selectAll(ext);
@@ -634,5 +636,16 @@ public class MmbSalerServiceImpl implements MmbSalerService {
             json.put("resultMessage", e.getMessage());
         }
         return json;
+    }
+
+    @Override
+    public SysUserExt getSalerByLoginId(String loginId) {
+        SysUser sysUser = sysUserMapperExt.selectByLoginId(loginId);
+        if (sysUser!=null){
+            SysUserExt sysUserExt = sysUserMapperExt.selectByPrimaryKey(sysUser.getUserId());
+            return sysUserExt;
+        }else {
+            return null;
+        }
     }
 }

@@ -3,9 +3,12 @@ package net.dlyt.qyds.web.controller.mmb_master;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import net.dlyt.qyds.common.dto.MmbSaler;
+import net.dlyt.qyds.common.dto.SysUser;
+import net.dlyt.qyds.common.dto.SysUserExt;
 import net.dlyt.qyds.common.dto.ext.MmbSalerExt;
 import net.dlyt.qyds.common.form.MmbSalerForm;
 import net.dlyt.qyds.web.common.Constants;
+import net.dlyt.qyds.web.context.PamsDataContext;
 import net.dlyt.qyds.web.service.MmbSalerService;
 import net.dlyt.qyds.web.service.exception.ExceptionErrorParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,15 @@ public class MmbSalerController {
     JSONObject getList(MmbSalerForm form) {
         JSONObject json = new JSONObject();
         try {
+            //取出登录者的id,是sys_user的loginId
+            //userId是六位员工编码，对应员工表的六位
+            String userId = (String) PamsDataContext.get("loginId");
+            //如果这个人是店员，根据角色判断
+            SysUserExt salerByLoginId = mmbSalerService.getSalerByLoginId(userId);
+            if (salerByLoginId!=null&&salerByLoginId.getRoleId()==10066){
+                form.setTelephone(userId);
+                return mmbSalerService.getListByPhone(form);
+            }
             MmbSalerExt ext = new MmbSalerExt();
             ext.setNeedColumns(Integer.parseInt(form.getiDisplayLength()));
             ext.setStartPoint(Integer.parseInt(form.getiDisplayStart()));
