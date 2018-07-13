@@ -7,6 +7,7 @@ import net.dlyt.qyds.common.dto.SysUser;
 import net.dlyt.qyds.common.dto.SysUserExt;
 import net.dlyt.qyds.common.dto.ext.MmbSalerExt;
 import net.dlyt.qyds.common.form.MmbSalerForm;
+import net.dlyt.qyds.dao.SysUserMapper;
 import net.dlyt.qyds.web.common.Constants;
 import net.dlyt.qyds.web.context.PamsDataContext;
 import net.dlyt.qyds.web.service.MmbSalerService;
@@ -31,21 +32,24 @@ public class MmbSalerController {
     @Autowired
     private MmbSalerService mmbSalerService;
 
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
     @RequestMapping("getList")
     public
     @ResponseBody
     JSONObject getList(MmbSalerForm form) {
         JSONObject json = new JSONObject();
         try {
-            //取出登录者的id,是sys_user的loginId
-            //userId是六位员工编码，对应员工表的六位
-            String userId = (String) PamsDataContext.get("loginId");
-            //如果这个人是店员，根据角色判断
-            SysUserExt salerByLoginId = mmbSalerService.getSalerByLoginId(userId);
-            if (salerByLoginId!=null&&salerByLoginId.getRoleId()==10066){
-                form.setTelephone(userId);
-                return mmbSalerService.getListByPhone(form);
-            }
+//            //取出登录者的id,是sys_user的loginId
+//            //userId是六位员工编码，对应员工表的六位
+//            String userId = (String) PamsDataContext.get("loginId");
+//            //如果这个人是店员，根据角色判断
+//            SysUserExt salerByLoginId = mmbSalerService.getSalerByLoginId(userId);
+//            if (salerByLoginId!=null&&salerByLoginId.getRoleId()==10066){
+//                form.setTelephone(userId);
+//                return mmbSalerService.getListByPhone(form);
+//            }
             MmbSalerExt ext = new MmbSalerExt();
             ext.setNeedColumns(Integer.parseInt(form.getiDisplayLength()));
             ext.setStartPoint(Integer.parseInt(form.getiDisplayStart()));
@@ -128,6 +132,33 @@ public class MmbSalerController {
         JSONObject json = new JSONObject();
         try {
             mmbSalerService.makeQrCodeForAllSaler();
+        } catch (Exception e) {
+            json.put("resultCode", Constants.FAIL);
+            json.put("resultMessage", e.getMessage());
+        }
+
+        return json;
+
+    }
+
+    @RequestMapping("info")
+    public
+    @ResponseBody
+    JSONObject info(String data) {
+
+        JSONObject json = new JSONObject();
+        try {
+            JSONObject param = JSONObject.parseObject(data);
+
+            if (param == null) {
+                throw new ExceptionErrorParam("参数为空");
+            }
+            SysUser sysUser=new SysUser();
+            sysUser=sysUserMapper.selectByPrimaryKey(Integer.valueOf(param.getString("userid")));
+            MmbSaler mmbSaler = new MmbSaler();
+            mmbSaler.setTelephone(sysUser.getLoginId());
+            json = mmbSalerService.selectBySelective(mmbSaler);
+
         } catch (Exception e) {
             json.put("resultCode", Constants.FAIL);
             json.put("resultMessage", e.getMessage());
