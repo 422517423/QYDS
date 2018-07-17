@@ -281,30 +281,30 @@ public class OrdMasterServiceImpl implements OrdMasterService {
                     list.get(0).setStoreAddress(store.getAddress());
                 }
             }
-        }
-        //定义一个标志位,判断升级后是否有新订单(即是否在升级高级会员后享受过优惠活动)
-        int flag = 0;
-        //获取下订单的会员的详情
-        MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(ordMasterExt.getMemberId());
-        //判断是否是高级会员
-        if ("30".equals(mmbMaster.getMemberLevelId())) {
-            //如果是高级会员，遍历这个会员的所有订单，并判断是否有订单时间大于升级时间的订单
-            List<OrdMasterExt> orderByMemberIdList = ordMasterMapperExt.getOrderByMemberId(mmbMaster.getMemberId());
-            for (OrdMasterExt orderMasterById :
-                    orderByMemberIdList) {
-                Date orderTime = orderMasterById.getOrderTime();
-                //如果有这种订单，说明享受了会员折扣，则跳出循环，并将标志位置1
-                if (orderTime.compareTo(mmbMaster.getUpdateTime()) > 0) {
-                    flag = 1;
-                    break;
+            //定义一个标志位,判断升级后是否有新订单(即是否在升级高级会员后享受过优惠活动)
+            int flag = 0;
+            //获取下订单的会员的详情
+            MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(list.get(0).getMemberId());
+            //判断是否是高级会员
+            if ("30".equals(mmbMaster.getMemberLevelId())) {
+                //如果是高级会员，遍历这个会员的所有订单，并判断是否有订单时间大于升级时间的订单
+                List<OrdMasterExt> orderByMemberIdList = ordMasterMapperExt.getOrderByMemberId(mmbMaster.getMemberId());
+                for (OrdMasterExt orderMasterById :
+                        orderByMemberIdList) {
+                    Date orderTime = orderMasterById.getOrderTime();
+                    //如果有这种订单，说明享受了会员折扣，则跳出循环，并将标志位置1
+                    if (orderTime.compareTo(mmbMaster.getUpdateTime()) > 0) {
+                        flag = 1;
+                        break;
+                    }
                 }
-            }
-            //如果升级后有新订单,判断这一单的详情,并将noReturn设置一下
-            if (flag == 1) {
-                Date orderTime = list.get(0).getOrderTime();
-                if (orderTime.compareTo(mmbMaster.getUpdateTime()) < 0) {
+                //如果升级后有新订单,判断这一单的详情,并将noReturn设置一下
+                if (flag == 1) {
+                    Date orderTime = list.get(0).getOrderTime();
+                    if (orderTime.compareTo(mmbMaster.getUpdateTime()) < 0) {
                         list.get(0).setNoReturn(1);
                     }
+                }
             }
         }
         return list;
@@ -1391,7 +1391,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
         String tempForMIFW = null;
         //店员提供的二维码上他自己的id
         String memberIdForWX = null;
-        if (!StringUtil.isEmpty(ordMasterExt.getMemberIdForWx())) {
+        if (ordMasterExt.getMemberIdForWx()!=null&&ordMasterExt.getMemberIdForWx().contains("memberIdForWx")) {
             tempForMIFW = ordMasterExt.getMemberIdForWx();
             int indexOfTempStart = tempForMIFW.indexOf("memberIdForWx") + 14;
             int indexOfTempEnd = tempForMIFW.indexOf("&code=");

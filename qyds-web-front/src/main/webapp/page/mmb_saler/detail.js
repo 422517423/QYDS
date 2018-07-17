@@ -13,6 +13,23 @@ $(document).ready(function () {
     }
 });
 
+function oDownLoad(url,id) {
+    if (myBrowser()==="IE" || myBrowser()==="Edge"){
+        var oPop = window.open(url,"","width=1, height=1, top=5000, left=5000");
+        for(; oPop.document.readyState != "complete"; )
+        {
+            if (oPop.document.readyState == "complete")break;
+        }
+        oPop.document.execCommand("SaveAs");
+        oPop.close();
+    }else{
+        //!IE
+        var odownLoad=document.getElementById(id);
+        odownLoad.href=url;
+        odownLoad.download="";
+    }
+}
+
 function getDetail() {
     var url = "/mmb_saler/detail.json";
     var param = {
@@ -41,6 +58,7 @@ function getDetail() {
             $("#districtName").val(data.data.districtName);
             $("#qr_image").attr("src", displayUri + orignal +data.data.qrCodeUrl);
             $("#deleted").val(data.data.deleted=="1"?"已删除":"未删除");
+            $("#downloadQR").attr("onclick",oDownLoad(displayUri + orignal +data.data.qrCodeUrl,'downloadQR'));
         } else {
             $("#mmbMasterDetailArea").modal('hide');
             showAlert('取得失败,原因:' + data.resultMessage);
