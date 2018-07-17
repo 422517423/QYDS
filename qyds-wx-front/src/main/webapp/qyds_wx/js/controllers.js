@@ -4913,15 +4913,21 @@ angular.module('dealnua.controllers', [])
             });
 
         $jq('#actList').hide();
+        //点击分类一级菜单跳转的方法
         $scope.displayNext = function (type) {
             for (var index = 0; index < $scope.levelRootList.length; index++) {
                 var goodsTypeId = $scope.levelRootList[index].goodsTypeId;
                 if (type == goodsTypeId) {
-                    $scope.levelRootList = $scope.levelRootList[index].secondTypeList;
-                    if ($scope.levelRootList == null || $scope.levelRootList.length == 0) {
+                    if ($scope.levelRootList[index].goodsTypeId=='6acd07b1-e0c7-4661-85dd-6044373f370e'){
+                        if($scope.levelRootList[index].secondTypeList.length == 1){
+                            $scope.levelRootList = $scope.levelRootList[index].secondTypeList[0].secondTypeList;
+                            if ($scope.levelRootList == null || $scope.levelRootList.length == 0) {
+                                $scope.goGoodsList(type);
+                            }
+                        }
+                    }else{
                         $scope.goGoodsList(type);
                     }
-                    break;
                 }
             }
             $jq('#actTitle').hide();
@@ -5044,7 +5050,7 @@ angular.module('dealnua.controllers', [])
         //    //$ionicScrollDelegate.$getByHandle('rightScroll').resize();
         //};
         $scope.goGoodsList = function (type) {
-            $state.go("goodsList", {"type": type});
+            $state.go("goodsList", {"firstGoodsTypeId": type});
         };
 
         $scope.goSaleList = function (type) {
