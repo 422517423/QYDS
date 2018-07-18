@@ -455,9 +455,13 @@ public class MmbMasterServiceImpl implements MmbMasterService {
             //会员自动升级
             if ("0".equals(master.getDeleted())) {
                 if (!StringUtil.isEmpty(master.getTelephone()) &&
-                        !StringUtil.isEmpty(master.getNickName()) &&
+                        !StringUtil.isEmpty(master.getMemberName()) &&
+                        !master.getMemberName().contains("先生")&&
+                        !master.getMemberName().contains("女士")&&
+                        !master.getMemberName().contains("小姐")&&
                         !StringUtil.isEmpty(master.getSex()) &&
                         !StringUtil.isEmpty(String.valueOf(master.getBirthdate())) &&
+                        !StringUtil.isEmpty(master.getAddress()) &&
                         !StringUtil.isEmpty(master.getProvinceCode()) &&
                         !StringUtil.isEmpty(master.getCityCode()) &&
                         !StringUtil.isEmpty(master.getDistrictCode())
