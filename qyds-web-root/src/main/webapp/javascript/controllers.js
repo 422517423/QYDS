@@ -7194,7 +7194,8 @@ angular.module('dealuna.controllers', [])
                 cityCode:$('#selectCity  option:selected').val(),
                 cityName:$('#selectCity  option:selected').text(),
                 districtCode:$('#area_selected  option:selected').val(),
-                districtName:$('#area_selected  option:selected').text()
+                districtName:$('#area_selected  option:selected').text(),
+                address:$scope.registerInfo.adress
             };
 
             new authService(param).register()
@@ -7270,7 +7271,7 @@ angular.module('dealuna.controllers', [])
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
 
-            $scope.registerInfo = {tel: '', captcha: '', password: '', rePassword: '', name: '', agree: false, sex:'0', birthdate:''};
+            $scope.registerInfo = {tel: '', captcha: '', password: '', rePassword: '', name: '', agree: false, sex:'0', birthdate:'', adress:''};
 
             $scope.type = 'register';
 

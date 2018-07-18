@@ -68,6 +68,7 @@ public class LoginController {
             String cityName=inJson.getString("cityName");
             String districtCode=inJson.getString("districtCode");
             String districtName=inJson.getString("districtName");
+            String address=inJson.getString("address");
             // TODO: 2017/12/26 加上省份城市的key
 
             if (StringUtils.isEmpty(telephone)
@@ -76,6 +77,7 @@ public class LoginController {
                     || StringUtils.isEmpty(memberName)
                     || StringUtils.isEmpty(sex)
                     || StringUtils.isEmpty(birthdate)
+                    || StringUtils.isEmpty(address)
                     ) {
                 json.put("resultCode", Constants.FAIL);
                 json.put("resultMessage", "提交的注册信息不足");
@@ -109,6 +111,7 @@ public class LoginController {
             sysUser.setCityName(cityName);
             sysUser.setDistrictCode(districtCode);
             sysUser.setDistrictName(districtName);
+            sysUser.setAddress(address);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             sysUser.setBirthdate(sdf.parse(birthdate));
 

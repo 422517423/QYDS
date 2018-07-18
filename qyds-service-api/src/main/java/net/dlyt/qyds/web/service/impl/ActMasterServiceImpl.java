@@ -2524,7 +2524,7 @@ public class ActMasterServiceImpl implements ActMasterService {
         float newMemberDiscount = 1;
         List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
         if (orderByMemberId==null||orderByMemberId.size()==0){
-            newMemberDiscount = 0.9f;
+            newMemberDiscount = 0.95f;
         }
 
         //添加memberDiscount

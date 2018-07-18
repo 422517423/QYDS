@@ -8,6 +8,7 @@ import net.dlyt.qyds.common.dto.ext.CouponMemberExt;
 import net.dlyt.qyds.common.dto.ext.MmbGroupMemberExt;
 import net.dlyt.qyds.common.dto.ext.MmbMasterExt;
 import net.dlyt.qyds.common.dto.ext.MmbSalerExt;
+import net.dlyt.qyds.common.form.MmbLevelManagerForm;
 import net.dlyt.qyds.common.form.MmbMasterForm;
 import net.dlyt.qyds.config.FileServerConfig;
 import net.dlyt.qyds.dao.*;
@@ -76,6 +77,9 @@ public class MmbMasterServiceImpl implements MmbMasterService {
     private WxMpService wxMpService;
     @Autowired
     private PrizeDrawService prizeDrawService;
+    @Autowired
+    private MmbLevelRuleMapperExt mmbLevelRuleMapperExt;
+
     // TODO: 2017/12/15 临时
     @Autowired
     private OrdMasterMapperExt ordMasterMapperExt;
@@ -448,6 +452,49 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                 json.put("resultCode", Constants.FAIL);
                 json.put("resultMessage", "ERP数据连接异常");
             }
+            //会员自动升级
+            if ("0".equals(master.getDeleted())) {
+                if (!StringUtil.isEmpty(master.getTelephone()) &&
+                        !StringUtil.isEmpty(master.getNickName()) &&
+                        !StringUtil.isEmpty(master.getSex()) &&
+                        !StringUtil.isEmpty(String.valueOf(master.getBirthdate())) &&
+                        !StringUtil.isEmpty(master.getProvinceCode()) &&
+                        !StringUtil.isEmpty(master.getCityCode()) &&
+                        !StringUtil.isEmpty(master.getDistrictCode())
+                        ) {
+                    MmbMaster masterForApproval = master;
+                    MmbLevelManagerForm form = new MmbLevelManagerForm();
+                    form.setTelephone(masterForApproval.getTelephone());
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd   HH:mm:ss     ");
+                    String dDate = "01-15";
+                    Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                    String str = formatter.format(curDate);
+                    if (me.chanjar.weixin.common.util.StringUtils.isNotBlank(str) && me.chanjar.weixin.common.util.StringUtils.isNotBlank(str.substring(5, 10))) {
+                        int result = str.substring(5, 10).compareTo(dDate);
+                        if (result < 0) {
+                            System.out.println("小于");
+                            // 查询当年和前一年的数据
+                            form.setYearNum("1");
+                        } else {
+                            System.out.println("大于等于");
+                            // 查询当年的数据
+                            form.setYearNum("0");
+                        }
+                        ;
+                    }
+                    List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+                    if (list1 != null && list1.size() != 0) {
+                        masterForApproval.setMemberLevelId("30");
+                        masterForApproval.setUpdateTime(new Date());
+
+                        mmbMasterMapper.updateByPrimaryKeySelective(master);
+
+                        //erp接口调用
+                        ErpSendUtil.VIPUpdateById(master.getMemberId(), mmbMasterMapperExt, mmbMasterMapper);
+                    }
+                }
+            }
+
         } else {
             json.put("resultCode", Constants.FAIL);
             json.put("resultMessage", "用户信息不存在");

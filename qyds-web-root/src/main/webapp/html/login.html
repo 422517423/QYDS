@@ -233,6 +233,19 @@
 
                     <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
                         <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">详细地址</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <input type="text" class="form-control"
+                                   id="adress" name="adress"
+                                   maxlength="20" required
+                                   ng-model="registerInfo.adress" placeholder="请输入详细地址">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.adress.$error.required && submitted_register">详细地址不能为空
+                    </div>
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
                                style="text-indent:5px;padding:0;margin:0;line-height:230%">密码</label>
                         <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
                             <input type="password" class="form-control" ng-model="registerInfo.password"
