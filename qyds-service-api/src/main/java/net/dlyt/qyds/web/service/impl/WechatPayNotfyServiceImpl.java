@@ -152,7 +152,7 @@ public class WechatPayNotfyServiceImpl implements WechatPayNotfyService {
                     }
                     ;
                 }
-                List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwo(form);
+                List<MmbLevelManagerForm> list1 = mmbLevelRuleMapperExt.selectApprovalUpMemberListInTwoForAuto(form);
                 if (list1 != null && list1.size() != 0) {
                     masterForApproval.setMemberLevelId("30");
                     masterForApproval.setUpdateTime(new Date());

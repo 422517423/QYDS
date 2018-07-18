@@ -34,6 +34,8 @@ public interface MmbLevelRuleMapperExt {
 
     List<MmbLevelManagerForm> selectApprovalUpMemberListInTwo(MmbLevelManagerForm form);
 
+    List<MmbLevelManagerForm> selectApprovalUpMemberListInTwoForAuto(MmbLevelManagerForm form);
+
     int countApprovalUpMemberList(MmbLevelManagerForm form);
 
     int countApprovalUpMemberListInTwo(MmbLevelManagerForm form);
