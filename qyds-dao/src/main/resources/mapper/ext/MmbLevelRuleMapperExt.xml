@@ -201,23 +201,19 @@
     <select id="selectApprovalUpMemberListInTwoForAuto"  resultMap="MmbLevelManagerResultMapInTwo"
             parameterType="net.dlyt.qyds.common.form.MmbLevelManagerForm">
         select member.*, cc.display_cn current_level_name, cc1.display_cn approval_level_name
-        from view_approval_up_memberintwo member
+        from view_approval_up_memberinthree member
         inner join (select
         member_id,
         max(approval_level_id) max_approval_level_id
-        from view_approval_up_memberintwo group by member_id) ma
+        from view_approval_up_memberinthree group by member_id) ma
         on ma.member_id = member.member_id and member.approval_level_id = ma.max_approval_level_id
         left join com_code cc on cc.code = 'MEMBER_LEVEL' and cc.value = member.current_level_id
         left join com_code cc1 on cc1.code = 'MEMBER_LEVEL' and cc1.value = member.approval_level_id
 
         where member.approval_level_id > member.current_level_id
-        <if test="currentLevelId!= null and !currentLevelId.isEmpty() ">
-            AND member.current_level_id = #{currentLevelId}
-        </if>
         /*添加手机号搜索功能*/
         <if test="telephone!= null and !telephone.isEmpty() ">
-
-            and member.telephone like CONCAT('%', #{telephone,jdbcType=VARCHAR}, '%')
+            and member.telephone = #{telephone,jdbcType=VARCHAR}
         </if>
         /*添加了年份标识判断*/
         /*当yearNum=0时，查询当年消费*/

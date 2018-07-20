@@ -2525,6 +2525,20 @@ public class ActMasterServiceImpl implements ActMasterService {
         List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
         if (orderByMemberId==null||orderByMemberId.size()==0){
             newMemberDiscount = 0.95f;
+        }else if(orderByMemberId!=null){
+            for (OrdMasterExt ordMasterExt:
+                 orderByMemberId) {
+                newMemberDiscount =0.95f;
+//                if (ordMasterExt.getOrderStatus().equals("10")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
+//                    continue;
+//                }else
+                if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
+                    continue;
+                }else {
+                    newMemberDiscount = 1.00f;
+                    break;
+                }
+            }
         }
 
         //添加memberDiscount
@@ -2635,7 +2649,7 @@ public class ActMasterServiceImpl implements ActMasterService {
                                         goods.get(i).setFlag(true);
                                     }
                                 }
-                                if (count == 0 && b > 5.6) {
+                                if (b > 5.6) {
                                     newPrice = getDiscountPrice(newPrice, newMemberDiscount * 10);
                                     if (newMemberDiscount < 1) {
                                         goods.get(i).setIsNew(true);
