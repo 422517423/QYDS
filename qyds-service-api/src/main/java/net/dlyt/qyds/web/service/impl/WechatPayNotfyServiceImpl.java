@@ -2,24 +2,21 @@ package net.dlyt.qyds.web.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import me.chanjar.weixin.common.util.StringUtils;
-import net.dlyt.qyds.common.dto.ComSetting;
-import net.dlyt.qyds.common.dto.MmbMaster;
-import net.dlyt.qyds.common.dto.OrdHistory;
-import net.dlyt.qyds.common.dto.OrdMaster;
+import net.dlyt.qyds.common.dto.*;
 import net.dlyt.qyds.common.dto.ext.CouponMemberExt;
 import net.dlyt.qyds.common.form.MmbLevelManagerForm;
 import net.dlyt.qyds.common.form.MmbPointRecordForm;
+import net.dlyt.qyds.config.SmsCaptchaConfig;
 import net.dlyt.qyds.dao.ComSettingMapper;
 import net.dlyt.qyds.dao.MmbMasterMapper;
 import net.dlyt.qyds.dao.OrdMasterMapper;
-import net.dlyt.qyds.dao.ext.MmbLevelRuleMapperExt;
-import net.dlyt.qyds.dao.ext.MmbMasterMapperExt;
-import net.dlyt.qyds.dao.ext.OrdHistoryMapperExt;
-import net.dlyt.qyds.dao.ext.OrdMasterMapperExt;
+import net.dlyt.qyds.dao.ext.*;
 import net.dlyt.qyds.web.service.*;
 import net.dlyt.qyds.web.service.common.ComCode;
 import net.dlyt.qyds.web.service.common.ErpSendUtil;
+import net.dlyt.qyds.web.service.common.SmsSendUtil;
 import net.dlyt.qyds.web.service.common.StringUtil;
+import net.dlyt.qyds.web.service.erp.SmsSend;
 import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -77,6 +74,11 @@ public class WechatPayNotfyServiceImpl implements WechatPayNotfyService {
 
     @Autowired
     private MmbLevelRuleMapperExt mmbLevelRuleMapperExt;
+    @Autowired
+    private MmbPointRecordMapperExt mmbPointRecordMapperExt;
+    @Autowired
+    private static SmsCaptchaConfig smsCaptchaConfig;
+
 
 
     @Override
@@ -251,6 +253,13 @@ public class WechatPayNotfyServiceImpl implements WechatPayNotfyService {
             }
         } catch (Exception e) {
             System.out.println("发放优惠券失败,原因:" + e.getMessage());
+        }
+
+        // 发送支付成功短信提示
+        List<MmbPointRecord> mmbPointRecords = mmbPointRecordMapperExt.selectPointRecordByScoreSource(ordMaster.getOrderId());
+        if (mmbPointRecords!=null&&mmbPointRecords.size()!=0){
+            MmbPointRecord mmbPointRecord = mmbPointRecords.get(0);
+            SmsSendUtil.sendPaymentNotice(mmbPointRecord,ordMaster,master,smsCaptchaConfig);
         }
 
         // 发放抽奖机会

@@ -7,11 +7,9 @@ import net.dlyt.qyds.common.dto.ext.CouponMemberExt;
 import net.dlyt.qyds.common.form.MmbLevelManagerForm;
 import net.dlyt.qyds.common.form.MmbPointRecordForm;
 import net.dlyt.qyds.common.form.PayForm;
+import net.dlyt.qyds.config.SmsCaptchaConfig;
 import net.dlyt.qyds.dao.*;
-import net.dlyt.qyds.dao.ext.MmbLevelRuleMapperExt;
-import net.dlyt.qyds.dao.ext.MmbMasterMapperExt;
-import net.dlyt.qyds.dao.ext.OrdHistoryMapperExt;
-import net.dlyt.qyds.dao.ext.OrdMasterMapperExt;
+import net.dlyt.qyds.dao.ext.*;
 import net.dlyt.qyds.web.service.*;
 import net.dlyt.qyds.web.service.common.*;
 import net.dlyt.qyds.web.service.exception.ExceptionBusiness;
@@ -79,6 +77,12 @@ public class OrdAliPayServiceImpl implements OrdAliPayService {
 
     @Autowired
     private MmbLevelRuleMapperExt mmbLevelRuleMapperExt;
+
+    @Autowired
+    private MmbPointRecordMapperExt mmbPointRecordMapperExt;
+
+    @Autowired
+    private static SmsCaptchaConfig smsCaptchaConfig;
 
     @Override
     public String checkOrderInfo(String orderId) {
@@ -323,6 +327,13 @@ public class OrdAliPayServiceImpl implements OrdAliPayService {
             prizeDrawService.addPrizeDrawOppo(ordMaster.getMemberId(), null, net.dlyt.qyds.web.service.common.ComCode.PrizeDrawOppoType.ORDER, ordMaster.getPayInfact());
         } catch (Exception e) {
             System.out.println("发放抽奖活动失败,原因:" + e.getMessage());
+        }
+
+        // 发送支付成功短信提示
+        List<MmbPointRecord> mmbPointRecords = mmbPointRecordMapperExt.selectPointRecordByScoreSource(ordMaster.getOrderId());
+        if (mmbPointRecords!=null&&mmbPointRecords.size()!=0){
+            MmbPointRecord mmbPointRecord = mmbPointRecords.get(0);
+            SmsSendUtil.sendPaymentNotice(mmbPointRecord,ordMaster,master,smsCaptchaConfig);
         }
 
         //扫码支付的时候 回调回来的订单号和我们的订单号不一致要更新

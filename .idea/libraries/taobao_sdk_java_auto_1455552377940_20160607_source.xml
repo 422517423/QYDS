@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="taobao-sdk-java-auto_1455552377940-20160607-source">
-    <CLASSES />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/qyds-web-front/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar!/" />
+      <root url="jar://$PROJECT_DIR$/qyds-web-front/src/main/webapp/WEB-INF/lib/ueditor-build.jar!/" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/qyds-wx-front/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607-source.jar!/" />
+      <root url="jar://$PROJECT_DIR$/qyds-web-front/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607-source.jar!/" />
     </SOURCES>
   </library>
 </component>

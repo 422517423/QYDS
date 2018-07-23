@@ -3094,6 +3094,9 @@ public class ActMasterServiceImpl implements ActMasterService {
         accordActMap.putAll(allActMap);
         //登录会员的会员信息 member_level_id
         MmbMaster member = mmbMasterMapper.selectByPrimaryKey(memberId);
+        if(member==null){
+            return allActMap;
+        }
         //该会员的会员组信息
         List<MmbGroupMember> mmbGroupMembers = mmbGroupMemberMapper.selectByMemberId(member.getMemberId());
         if (mmbActMap.keySet().size() > 0) {

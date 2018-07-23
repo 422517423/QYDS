@@ -15,7 +15,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -76,7 +76,6 @@
     <orderEntry type="library" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom2:2.0.6" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:tools:RELEASE" level="project" />
     <orderEntry type="module" module-name="qyds-interface" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:3.2.16.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.2" level="project" />
@@ -97,5 +96,18 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0-rc2" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjtools:1.7.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.3.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="taobao-sdk-java-auto_1455552377940-20160607-source">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../qyds-web-front/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar!/" />
+          <root url="jar://$MODULE_DIR$/../qyds-web-front/src/main/webapp/WEB-INF/lib/ueditor-build.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../qyds-web-front/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607-source.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-20160607" level="project" />
   </component>
 </module>

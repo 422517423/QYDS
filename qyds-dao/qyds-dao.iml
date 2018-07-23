@@ -53,5 +53,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:3.2.16.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:3.2.16.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.3.0" level="project" />
+    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-20160607-source" level="project" />
+    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-20160607" level="project" />
   </component>
 </module>
