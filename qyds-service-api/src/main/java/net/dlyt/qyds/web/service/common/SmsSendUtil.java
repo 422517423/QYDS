@@ -85,7 +85,7 @@ public class SmsSendUtil {
             req.setExtend(mmbMaster.getTelephone());
             req.setRecNum(mmbMaster.getTelephone());
             // 模板编号
-            req.setSmsTemplateCode("SMS_140115086");
+            req.setSmsTemplateCode("SMS_140115454");
             req.setSmsParamString("{\"payInfact\":\"" + ordMaster.getPayInfact() + "\",\"orderCode\":\"" + ordMaster.getOrderCode() + "\",\"point\":\""+mmbPointRecord.getPoint()+"\",\"pointSurplus\":\""+mmbPointRecord.getPointSurplus()+"\"}");
             //短信发送
             rsp = client.execute(req);

@@ -2522,24 +2522,6 @@ public class ActMasterServiceImpl implements ActMasterService {
     private List<OrdConfirmGoodsExt> bindActivityForGoodsList(List<OrdConfirmGoodsExt> goodsList, String memberId, String memberPhone) {
         //设置新用户默认折扣是不打折
         float newMemberDiscount = 1;
-        List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
-        if (orderByMemberId==null||orderByMemberId.size()==0){
-            newMemberDiscount = 0.95f;
-        }else if(orderByMemberId!=null){
-            for (OrdMasterExt ordMasterExt:
-                 orderByMemberId) {
-                newMemberDiscount =0.95f;
-//                if (ordMasterExt.getOrderStatus().equals("10")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
-//                    continue;
-//                }else
-                if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
-                    continue;
-                }else {
-                    newMemberDiscount = 1.00f;
-                    break;
-                }
-            }
-        }
 
         //添加memberDiscount
         float memberDiscount = 1;
@@ -2548,6 +2530,27 @@ public class ActMasterServiceImpl implements ActMasterService {
         if (StringUtils.isNotBlank(memberPhone)) {
             //根据memberphone获取会员的等级id
             memberDiscount = mmbMasterMapperExt.selectMemberDiscountByPhone(memberPhone).floatValue();
+            MmbMasterExt mmbMasterExt = new MmbMasterExt();
+            mmbMasterExt.setTelephone(memberPhone);
+            List<MmbMasterExt> mmbMasterExts = mmbMasterMapperExt.selectAllByTel(mmbMasterExt);
+            if(mmbMasterExts!=null&&mmbMasterExts.size()!=0){
+                memberId = mmbMasterExts.get(0).getMemberId();
+            }
+            List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
+            if (orderByMemberId==null||orderByMemberId.size()==0){
+                newMemberDiscount = 0.95f;
+            }else if(orderByMemberId!=null){
+                for (OrdMasterExt ordMasterExt:
+                        orderByMemberId) {
+                    newMemberDiscount =0.95f;
+                    if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
+                        continue;
+                    }else {
+                        newMemberDiscount = 1.00f;
+                        break;
+                    }
+                }
+            }
         }
 
         if (mmbMasterMapperExt.selectMemberDiscount(memberId) != null) {
