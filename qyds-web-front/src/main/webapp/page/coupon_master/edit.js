@@ -264,6 +264,12 @@ function showHideByCouponType() {
     } else {
         $("#div_member_level").hide();
     }
+    
+    if ("40" == $("#coupon_type").val()) {
+        $("#couponDiscount").hide();
+    }else {
+        $("#couponDiscount").show();
+    }
 }
 
 function showHideByCouponStyle() {
