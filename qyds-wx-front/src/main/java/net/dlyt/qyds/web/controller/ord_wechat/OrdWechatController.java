@@ -250,6 +250,7 @@ public class OrdWechatController {
                 //物流信息JSON
                 JSONArray arraySub = new JSONArray();
                 //整理订单主信息
+                jsonMaster.put("couponMasterList",list.get(0).getCouponMasterList());
                 jsonMaster.put("orderId",list.get(0).getOrderId());
                 jsonMaster.put("orderCode",list.get(0).getOrderCode());
                 jsonMaster.put("orderType",list.get(0).getOrderType());

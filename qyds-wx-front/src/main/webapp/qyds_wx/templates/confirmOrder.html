@@ -228,7 +228,7 @@
             <div ng-if="couponList!=null&&couponList.length>0" class="light-bg">
                 <div style="font-size: 14px;margin-top: 10px" class="padding border-bottom">优惠券</div>
                 <div>
-                    <div ng-repeat="coupon in couponList" ng-click="setSelectedCoupon(coupon.couponMemberId)"
+                    <div ng-repeat='coupon in couponList|filter: {couponType:"!40"}' ng-click="setSelectedCoupon(coupon.couponMemberId)"
                          style="padding: 0px 10px">
                         <div style="overflow: hidden;padding: 10px 0px 10px 5px">
                             <input type="radio" style="float: left;margin-right: 10px;margin-top: 3px"
@@ -240,6 +240,24 @@
                             </div>
                         </div>
                         <div style="border-bottom: 1px #dddddd solid"></div>
+                    </div>
+                    <div ng-repeat='coupon in couponList|filter: {couponType:"40"}|limitTo:1'
+                         style="padding: 0px 10px" id="redPacketUse">
+                        <div style="overflow: hidden;padding: 10px 0px 10px 5px" ng-click="setSelectedCoupon(-2)">
+                            <input type="radio" ng-value="-2" id="redPacketRadio"
+                                   ng-model="selectedCoupon.id" style="float: left;margin-right: 10px;margin-top: 3px">
+                            <span style="font-size:12px ">使用红包</span>
+                        </div>
+                    </div>
+                    <div ng-repeat='coupon in couponList|filter: {couponType:"40"}'
+                         style="padding: 0px 10px" id="redPacketCheckBox">
+                        <div style="overflow: hidden;padding: 10px 0px 10px 5px">
+                            <input type="checkbox" ng-value="coupon.couponMemberId" ng-model="coupon.isChecked" ng-change="setSelectedCoupons()"
+                                   style="float: left;margin-right: 10px;margin-top: 3px" >
+                            <span style="font-size:12px">{{coupon.couponName}}</span>
+                            <span ng-if="coupon.couponStyle==0" style="float: right;font-size:12px;" class="assertive">- ¥{{coupon.worth}}</span>
+                            <span ng-if="coupon.couponStyle==1" style="float: right;font-size:12px;" class="assertive">{{coupon.discount}}折 - ¥{{coupon.discountPrice}}</span>
+                        </div>
                     </div>
                     <div class="padding border-bottom"
                          style="overflow: hidden" ng-click="setSelectedCoupon(-1)">

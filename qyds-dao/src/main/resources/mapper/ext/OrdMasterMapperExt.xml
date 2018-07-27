@@ -98,6 +98,7 @@
 
     <!--2018.1.22 代买-->
     <result column="help_buy" property="helpBuy" jdbcType="VARCHAR" />
+    <result column="red_packet" property="redPacket" jdbcType="VARCHAR" />
     <result column="saler_id" property="salerId" jdbcType="VARCHAR" />
 
   </resultMap>
@@ -161,7 +162,7 @@
     om.express_no, deliver_type, om.erp_store_id, om.store_name, om.store_phone,
     om.store_delivery_id, om.store_delivery_name, om.can_return, om.can_exchange, om.can_divide,
     om.comment, om.deleted, om.update_user_id, om.update_time, om.insert_user_id, om.insert_time,
-    mm.telephone,mm.member_name,
+    mm.telephone,mm.member_name,om.red_packet,
     (select ore.rex_mode from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_mode,ore.rex_status limit 1) as rex_mode,
     (select ore.rex_status from ord_return_exchange ore where ore.order_id = om.order_id order by ore.rex_status limit 1) as rex_status
     from public.ord_master om
@@ -228,6 +229,9 @@
     <if test="helpBuy != null and !helpBuy.isEmpty()" >
       and om.help_buy = #{helpBuy,jdbcType=VARCHAR}
     </if>
+    <if test="redPacket != null and !redPacket.isEmpty()" >
+      and om.red_packet = #{redPacket,jdbcType=VARCHAR}
+    </if>
     <if test="salerId != null and !salerId.isEmpty()" >
       and om.saler_id = #{salerId,jdbcType=VARCHAR}
     </if>
@@ -264,6 +268,9 @@
     </if>
     <if test="helpBuy != null and !helpBuy.isEmpty()" >
       and om.help_buy = #{helpBuy,jdbcType=VARCHAR}
+    </if>
+    <if test="redPacket != null and !redPacket.isEmpty()" >
+      and om.red_packet = #{redPacket,jdbcType=VARCHAR}
     </if>
     <if test="salerId != null and !salerId.isEmpty()" >
       and om.saler_id = #{salerId,jdbcType=VARCHAR}
@@ -1070,6 +1077,9 @@
     </if>
     <if test="helpBuy != null and !helpBuy.isEmpty()" >
       and om.help_buy = #{helpBuy,jdbcType=VARCHAR}
+    </if>
+    <if test="redPacket != null and !redPacket.isEmpty()" >
+      and om.red_packet = #{redPacket,jdbcType=VARCHAR}
     </if>
     <if test="salerId != null and !salerId.isEmpty()" >
       and om.saler_id = #{salerId,jdbcType=VARCHAR}

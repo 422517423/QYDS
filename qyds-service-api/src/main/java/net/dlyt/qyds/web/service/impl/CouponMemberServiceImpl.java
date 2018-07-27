@@ -210,7 +210,7 @@ public class CouponMemberServiceImpl implements CouponMemberService {
                 cm.setInsertTime(new Date());
                 cm.setStatus(ComCode.CouponStatus.UNUSE);
                 cm.setSendTime(new Date());
-                if (ComCode.CouponType.NORMAL.equals(coupon.getCouponType())) {
+                if (ComCode.CouponType.NORMAL.equals(coupon.getCouponType())||ComCode.CouponType.RED_PACKET.equals(coupon.getCouponType())) {
                     // 普通优惠券
                     // 如果有使用期限天数限制，优先级高于开始时间和结束时间
                     if(coupon.getValidDays()!=null&&coupon.getValidDays()>0){

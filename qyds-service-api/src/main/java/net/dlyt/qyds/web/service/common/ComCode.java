@@ -65,9 +65,11 @@ ComCode {
         //"10";"代金券"
         //"20";"生日劵"
         //"30";"注册劵"
+        //"40":"红包"
         public static final String NORMAL = "10";
         public static final String BIRTHDAY_SEND = "20";
         public static final String REGIST_SEND = "30";
+        public static final String RED_PACKET = "40";
     }
 
     public class CouponDistributeType {

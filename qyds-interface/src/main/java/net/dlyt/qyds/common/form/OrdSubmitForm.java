@@ -24,6 +24,16 @@ public class OrdSubmitForm extends OrdMaster {
     private String cname;
     private String ctel;
 
+    private String selectedCoupons;
+
+    public String getSelectedCoupons() {
+        return selectedCoupons;
+    }
+
+    public void setSelectedCoupons(String selectedCoupons) {
+        this.selectedCoupons = selectedCoupons;
+    }
+
     public List<OrdList> getOrdList() {
         return ordList;
     }

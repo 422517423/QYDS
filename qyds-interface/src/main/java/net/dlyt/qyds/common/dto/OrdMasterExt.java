@@ -61,6 +61,16 @@ public class OrdMasterExt extends OrdMaster {
     //商品信息JSON
     private String ordListJson;
 
+    private String selectedCoupons;
+
+    public String getSelectedCoupons() {
+        return selectedCoupons;
+    }
+
+    public void setSelectedCoupons(String selectedCoupons) {
+        this.selectedCoupons = selectedCoupons;
+    }
+
     //提交订单传递的商品信息
     private List<OrdListExt> ordListExtList;
 
@@ -95,6 +105,16 @@ public class OrdMasterExt extends OrdMaster {
     private ActMasterForm activity = null;
 
     private CouponMaster coupon = null;
+
+    private List<CouponMaster> couponMasterList;
+
+    public List<CouponMaster> getCouponMasterList() {
+        return couponMasterList;
+    }
+
+    public void setCouponMasterList(List<CouponMaster> couponMasterList) {
+        this.couponMasterList = couponMasterList;
+    }
 
     private int allCount;
     private int waitPayCount;

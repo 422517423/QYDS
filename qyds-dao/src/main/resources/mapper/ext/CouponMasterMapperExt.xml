@@ -287,7 +287,8 @@
 
         FROM coupon_master cm
 
-        WHERE cm.coupon_type = '10'
+        WHERE (cm.coupon_type = '10'
+        OR cm.coupon_type = '40')
         AND (cm.distribute_type = '30' or cm.distribute_type = '60')
         AND cm.send_start_time &lt;= now()
         AND cm.send_end_time &gt;= now()

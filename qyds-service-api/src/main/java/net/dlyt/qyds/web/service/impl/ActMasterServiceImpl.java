@@ -2525,6 +2525,21 @@ public class ActMasterServiceImpl implements ActMasterService {
 
         //添加memberDiscount
         float memberDiscount = 1;
+        List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
+        if (orderByMemberId==null||orderByMemberId.size()==0){
+            newMemberDiscount = 0.95f;
+        }else if(orderByMemberId!=null){
+            for (OrdMasterExt ordMasterExt:
+                    orderByMemberId) {
+                newMemberDiscount =0.95f;
+                if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
+                    continue;
+                }else {
+                    newMemberDiscount = 1.00f;
+                    break;
+                }
+            }
+        }
 
         //根据传递的memberDiscount获取到
         if (StringUtils.isNotBlank(memberPhone)) {
@@ -2536,12 +2551,12 @@ public class ActMasterServiceImpl implements ActMasterService {
             if(mmbMasterExts!=null&&mmbMasterExts.size()!=0){
                 memberId = mmbMasterExts.get(0).getMemberId();
             }
-            List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
-            if (orderByMemberId==null||orderByMemberId.size()==0){
+            List<OrdMasterExt> orderByMemberIds = ordMasterMapperExt.getOrderByMemberId(memberId);
+            if (orderByMemberIds==null||orderByMemberIds.size()==0){
                 newMemberDiscount = 0.95f;
-            }else if(orderByMemberId!=null){
+            }else if(orderByMemberIds!=null){
                 for (OrdMasterExt ordMasterExt:
-                        orderByMemberId) {
+                        orderByMemberIds) {
                     newMemberDiscount =0.95f;
                     if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
                         continue;

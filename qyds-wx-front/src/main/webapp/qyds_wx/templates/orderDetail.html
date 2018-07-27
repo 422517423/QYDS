@@ -143,10 +143,17 @@
                 <span>{{orderDetail.actionName}}</span>
                 <span style="color:#FF0000;float: right">-{{orderDetail.amountDiscount | currency : '￥'}}</span>
             </div>
-            <div ng-if="orderDetail.amountCoupon != null" class="item padding" style="overflow:hidden;font-size:13px;">
+            <div ng-if="orderDetail.amountCoupon != null&&orderDetail.couponMasterList==null" class="item padding" style="overflow:hidden;font-size:13px;">
                 <sapn>优惠券：</sapn>
                 <span>{{orderDetail.coupon.couponName}}</span>
                 <span style="color:#FF0000;float: right">-{{orderDetail.amountCoupon | currency : '￥'}}</span>
+            </div>
+            <div ng-if="orderDetail.couponMasterList!=null" class="item padding" style="overflow:hidden;font-size:13px;">
+                <div ng-repeat="coupon in orderDetail.couponMasterList">
+                    <sapn>红包：</sapn>
+                    <span>{{coupon.couponName}}</span>
+                    <span style="color:#FF0000;float: right">-{{coupon.worth | currency : '￥'}}</span>
+                </div>
             </div>
             <div ng-if="orderDetail.amountPoint != 0" class="item padding" style="overflow:hidden;font-size:13px;">
                 <sapn>会员积分：</sapn>

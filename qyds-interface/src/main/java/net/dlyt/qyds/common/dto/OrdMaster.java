@@ -153,6 +153,16 @@ public class OrdMaster implements Serializable {
 
     private String salerId;
 
+    private String redPacket;
+
+    public String getRedPacket() {
+        return redPacket;
+    }
+
+    public void setRedPacket(String redPacket) {
+        this.redPacket = redPacket;
+    }
+
     public String getSalerId() {
         return salerId;
     }

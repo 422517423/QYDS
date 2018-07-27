@@ -8241,6 +8241,8 @@ angular.module('dealuna.controllers', [])
         $scope.selectedOrderActivity = {
             id:-1
         };
+        $scope.selectedCoupons = [];
+
         $scope.selectedCoupon = {};
         // 商品总价
         $scope.goodsTotalPrice = 0.00;
@@ -8617,6 +8619,17 @@ angular.module('dealuna.controllers', [])
             // todo
             // 先算优惠券
             if($scope.couponList!=null&&$scope.couponList.length>0){
+                angular.forEach($scope.selectedCoupons, function (coupon) {
+                    coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
+                        // 选中的优惠券
+                        if(coupon.couponStyle =="0") {
+                            // 抵值
+                            orderDiscount = orderDiscount - coupon.worth;
+                        }else if(coupon.couponStyle =="1"){
+                            // 打折
+                            orderDiscount = orderDiscount - parseFloat(coupon.discountPrice);
+                        }
+                });
                 angular.forEach($scope.couponList, function (coupon) {
                     coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
                     if($scope.selectedCoupon.id == coupon.couponMemberId){
@@ -8664,9 +8677,48 @@ angular.module('dealuna.controllers', [])
             $scope.getCouponList();
         };
         $scope.setSelectedCoupon = function(id){
-            $scope.selectedCoupon.id = id;
+            //点击的单选按钮，如果不是“使用红包”单选按钮的时候，将红包数组置空，并全部取消选中
+            if (id!=-2){
+                angular.forEach($scope.couponList, function (coupon, index) {
+                    coupon.isChecked=false;
+                });
+                $scope.selectedCoupons=[];
+                $scope.selectedCoupon.id = id;
+            }else {
+                angular.forEach($scope.couponList, function (coupon, index) {
+                    if (coupon.couponType=='40'){
+                         coupon.isChecked=true;
+                        $scope.setSelectedCoupons();
+                    }
+                });
+            }
             $scope.setOrderFinalPrice();
         };
+
+        $scope.setSelectedCoupons = function(){
+            //每次点击多选按钮进入方法，所以要初始化这个数组
+            $scope.selectedCoupons=[];
+            //点击多选按钮的时候默认选中“使用红包”的单选按钮
+            $scope.selectedCoupon.id=-1;
+            angular.forEach($scope.couponList, function (coupon, index) {
+                if(coupon.isChecked){
+                    $scope.selectedCoupons.push(coupon);
+                    $scope.selectedCoupon.id=-2;
+                }
+            });
+            var temID="";
+            for (var i = 0; i < $scope.selectedCoupons.length;i++) {
+                if (temID =="") {
+                    temID = $scope.selectedCoupons[i].couponMemberId;
+                } else {
+                    temID = $scope.selectedCoupons[i].couponMemberId + "," + temID;
+                }
+            }
+            $scope.couponMemberIds = temID;
+            console.log($scope.couponMemberIds);
+            $scope.setOrderFinalPrice();
+        };
+
 
         $scope.selectTab = function (index) {
             $scope.selectedDeliveryTab = index;
@@ -8739,7 +8791,7 @@ angular.module('dealuna.controllers', [])
             //优惠券
             var couponMemberId = null;
             var amountCoupon = null;
-            if($scope.selectedCoupon.id != -1) {
+            if($scope.selectedCoupon.id != -1&&$scope.selectedCoupon.id != -2) {
                 angular.forEach($scope.couponList, function (coupon) {
                     if (coupon.couponMemberId == $scope.selectedCoupon.id) {
                         couponMemberId = coupon.couponMemberId;
@@ -8751,6 +8803,17 @@ angular.module('dealuna.controllers', [])
                             amountCoupon = coupon.discountPrice;
                         }
                     }
+                });
+            }else if($scope.selectedCoupon.id == -2){
+                angular.forEach($scope.selectedCoupons, function (coupon) {
+                        couponMemberId = coupon.couponMemberId;
+                        if(coupon.couponStyle =="0") {
+                            // 抵值
+                            amountCoupon = coupon.worth;
+                        }else if(coupon.couponStyle =="1"){
+                            // 打折
+                            amountCoupon = coupon.discountPrice;
+                        }
                 });
             }
             var orderListJsonStr = JSON.stringify(orderListJson);
@@ -8829,6 +8892,7 @@ angular.module('dealuna.controllers', [])
                 actionName:actionName,
                 amountDiscount:$scope.discountPrice,
                 couponMemberId:couponMemberId,
+                selectedCoupons:$scope.couponMemberIds,
                 amountCoupon:amountCoupon,
                 exchangePointCount:$scope.exchangePointCount,
                 pointCount:0,

@@ -311,12 +311,21 @@
                     <span style="color:#FF0000;float: right">- ￥{{orderDetail.amountDiscount}}</span>
                 </div>
             </div>
-            <div class="col-xs-12" ng-if="orderDetail.amountCoupon != null"
+            <div class="col-xs-12" ng-if="orderDetail.amountCoupon != null&&orderDetail.couponMasterList==null"
                  style="margin-top: 10px">
                 <div style="padding: 6px;background: #eeeeee;">
                     <sapn>优惠券：</sapn>
                     <span>{{orderDetail.coupon.couponName}}</span>
                     <span style="color:#FF0000;float: right">- ￥{{orderDetail.amountCoupon}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12" ng-if="orderDetail.couponMasterList!=null" style="margin-top: 10px">
+                <div ng-repeat="coupon in orderDetail.couponMasterList">
+                    <div style="padding: 6px;background: #eeeeee;">
+                        <sapn>红包：</sapn>
+                        <span>{{coupon.couponName}}</span>
+                        <span style="color:#FF0000;float: right">- ￥{{coupon.worth}}</span>
+                    </div>
                 </div>
             </div>
             <div ng-if="orderDetail.amountPoint != 0" class="col-xs-12 text-right" style="font-size:13px;">
