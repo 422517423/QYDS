@@ -170,11 +170,11 @@ $(document).ready(function() {
 		if (!customerCheck()){
 			return;
 		}
-
+        $('#brand_id').removeAttr("disabled");
 		var json = {};
 		json.type = $("#type").val();
 		json.goodsId = goodsId;
-		json.brandId = $("#brand_id").val();
+		json.brandId = $("#valForBrand").val();
 		json.goodsTypeIdPath = $("#goods_type_id_path").val();
 		json.goodsTypeId = $("#goods_type_id").val();
 		json.goodsTypeCodePath = $("#goods_type_code_path").val();
@@ -845,6 +845,7 @@ function eidtSuccessFn(data){
 
 		getBrandList();
 		$('#brand_id').val(item.brand_id);
+		$('#valForBrand').val(item.brand_id);
 		//商品品牌选择
 		$('.select2-chosen').text(item.brandName);
 		$('#goods_type_id').val(item.goods_type_id);
