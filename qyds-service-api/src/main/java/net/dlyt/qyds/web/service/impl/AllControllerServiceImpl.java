@@ -45,7 +45,11 @@ public class AllControllerServiceImpl implements AllControllerService {
         try {
             if (allController != null) {
                 // 获取信息
-                AllControllerExt rAllController = allControllerMapperExt.selectBySelective(allController);
+                AllControllerExt rAllController = null;
+                List<AllControllerExt> allControllerExts = allControllerMapperExt.selectBySelective(allController);
+                if (allControllerExts!=null&&allControllerExts.size()!=0){
+                     rAllController = allControllerExts.get(0);
+                }
                 if (rAllController == null) {
                     json.put("resultCode", Constants.FAIL);
                     json.put("resultMessage", "全局控制信息不存在");

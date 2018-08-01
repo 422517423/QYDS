@@ -12,5 +12,5 @@ public interface AllControllerMapperExt {
 
     int getAllDataCount(AllControllerExt ext);
 
-    AllControllerExt selectBySelective(AllController allController);
+    List<AllControllerExt> selectBySelective(AllController allController);
 }

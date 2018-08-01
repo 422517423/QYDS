@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.ArrayListMultimap;
 import me.chanjar.weixin.common.util.StringUtils;
 import net.dlyt.qyds.common.dto.*;
-import net.dlyt.qyds.common.dto.ext.CouponMasterExt;
-import net.dlyt.qyds.common.dto.ext.MmbGroupMemberExt;
-import net.dlyt.qyds.common.dto.ext.MmbMasterExt;
-import net.dlyt.qyds.common.dto.ext.MmbShoppingBagExt;
+import net.dlyt.qyds.common.dto.ext.*;
 import net.dlyt.qyds.common.form.*;
 import net.dlyt.qyds.dao.*;
 import net.dlyt.qyds.dao.ext.*;
@@ -85,6 +82,8 @@ public class ActMasterServiceImpl implements ActMasterService {
     private CatcheRemoveService catcheRemoveService;
     @Autowired
     private MmbGoodsMapper mmbGoodsMapper;
+    @Autowired
+    private AllControllerMapperExt allControllerMapperExt;
 
     /**
      * 将订单里的商品按照单品活动分组 key是activityId,value是goodsList
@@ -2523,15 +2522,27 @@ public class ActMasterServiceImpl implements ActMasterService {
         //设置新用户默认折扣是不打折
         float newMemberDiscount = 1;
 
+        float newMemberDiscountForController = 1;
+        AllController allController = new AllController();
+        allController.setType("00");
+        List<AllControllerExt> allControllerExts = allControllerMapperExt.selectBySelective(allController);
+        if (allControllerExts!=null && allControllerExts.size()!=0){
+            for (AllControllerExt allControllerExt:allControllerExts) {
+                if (allControllerExt.getStatus()==1){
+                    newMemberDiscountForController = Float.parseFloat(allControllerExt.getParamOne());
+                }
+            }
+        }
+
         //添加memberDiscount
         float memberDiscount = 1;
         List<OrdMasterExt> orderByMemberId = ordMasterMapperExt.getOrderByMemberId(memberId);
         if (orderByMemberId==null||orderByMemberId.size()==0){
-            newMemberDiscount = 0.95f;
+            newMemberDiscount = newMemberDiscountForController;
         }else if(orderByMemberId!=null){
             for (OrdMasterExt ordMasterExt:
                     orderByMemberId) {
-                newMemberDiscount =0.95f;
+                newMemberDiscount =newMemberDiscountForController;
                 if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
                     continue;
                 }else {
@@ -2553,11 +2564,11 @@ public class ActMasterServiceImpl implements ActMasterService {
             }
             List<OrdMasterExt> orderByMemberIds = ordMasterMapperExt.getOrderByMemberId(memberId);
             if (orderByMemberIds==null||orderByMemberIds.size()==0){
-                newMemberDiscount = 0.95f;
+                newMemberDiscount = newMemberDiscountForController;
             }else if(orderByMemberIds!=null){
                 for (OrdMasterExt ordMasterExt:
                         orderByMemberIds) {
-                    newMemberDiscount =0.95f;
+                    newMemberDiscount =newMemberDiscountForController;
                     if (ordMasterExt.getOrderStatus().equals("11")&&ordMasterExt.getPayStatus().equals("10")&&ordMasterExt.getDeliverStatus().equals("10")){
                         continue;
                     }else {
