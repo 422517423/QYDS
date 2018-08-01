@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.taobao:taobao-sdk-java-auto:RELEASE">
+    <CLASSES>
+      <root url="jar://D:/maven/localware/com/taobao/taobao-sdk-java-auto/RELEASE/taobao-sdk-java-auto-RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven/localware/com/taobao/taobao-sdk-java-auto/RELEASE/taobao-sdk-java-auto-RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven/localware/com/taobao/taobao-sdk-java-auto/RELEASE/taobao-sdk-java-auto-RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

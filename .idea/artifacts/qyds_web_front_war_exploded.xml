@@ -38,6 +38,7 @@
           <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.10" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.16" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.16.RELEASE" />
+          <element id="library" level="project" name="Maven: org.mybatis.generator:mybatis-generator-core:1.3.4" />
           <element id="archive" name="qyds-service-api-1.0.jar">
             <element id="module-output" name="qyds-service-api" />
           </element>
@@ -49,6 +50,7 @@
           <element id="library" level="project" name="Maven: xpp3:xpp3_min:1.1.4c" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.2.2" />
           <element id="library" level="project" name="Maven: org.jdom:jdom2:2.0.6" />
+          <element id="library" level="project" name="Maven: com.alibaba:tools:RELEASE" />
           <element id="archive" name="qyds-interface-1.0.jar">
             <element id="module-output" name="qyds-interface" />
           </element>
@@ -82,7 +84,6 @@
           <element id="library" level="project" name="Maven: com.google.guava:guava:19.0-rc2" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjtools:1.7.4" />
           <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
-          <element id="library" level="project" name="taobao-sdk-java-auto_1455552377940-20160607-source" />
         </element>
       </element>
       <element id="directory" name="META-INF">

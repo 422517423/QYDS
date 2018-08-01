@@ -22,20 +22,20 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.7">
-      <module name="net.dlyt.qyds" target="7" />
-      <module name="qyds-config" target="7" />
-      <module name="qyds-dao" target="7" />
-      <module name="qyds-interface" target="7" />
-      <module name="qyds-service" target="7" />
-      <module name="qyds-service-api" target="7" />
-      <module name="qyds-tool-area" target="7" />
-      <module name="qyds-utils" target="7" />
-      <module name="qyds-web-erp" target="7" />
-      <module name="qyds-web-file" target="7" />
-      <module name="qyds-web-front" target="7" />
-      <module name="qyds-web-pc" target="7" />
-      <module name="qyds-web-root" target="7" />
-      <module name="qyds-wx-front" target="7" />
+      <module name="net.dlyt.qyds" target="1.5" />
+      <module name="qyds-config" target="1.5" />
+      <module name="qyds-dao" target="1.7" />
+      <module name="qyds-interface" target="1.5" />
+      <module name="qyds-service" target="1.5" />
+      <module name="qyds-service-api" target="1.7" />
+      <module name="qyds-tool-area" target="1.5" />
+      <module name="qyds-utils" target="1.5" />
+      <module name="qyds-web-erp" target="1.5" />
+      <module name="qyds-web-file" target="1.5" />
+      <module name="qyds-web-front" target="1.6" />
+      <module name="qyds-web-pc" target="1.5" />
+      <module name="qyds-web-root" target="1.5" />
+      <module name="qyds-wx-front" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

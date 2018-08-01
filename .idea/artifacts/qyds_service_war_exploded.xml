@@ -55,7 +55,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.3" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.0" />
           <element id="library" level="project" name="Maven: com.google.zxing:core:3.3.0" />
-          <element id="library" level="project" name="taobao-sdk-java-auto_1455552377940-20160607-source" />
         </element>
       </element>
       <element id="directory" name="META-INF">

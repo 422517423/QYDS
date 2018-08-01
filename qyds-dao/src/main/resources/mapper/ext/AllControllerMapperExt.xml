@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.ext.AllControllerMapperExt">
+    <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.ext.AllControllerExt" >
+        <result column="all_controller_id" property="allControllerId" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="param_one" property="paramOne" jdbcType="VARCHAR" />
+        <result column="param_two" property="paramTwo" jdbcType="VARCHAR" />
+        <result column="param_three" property="paramThree" jdbcType="VARCHAR" />
+        <result column="param_four" property="paramFour" jdbcType="VARCHAR" />
+        <result column="param_five" property="paramFive" jdbcType="VARCHAR" />
+        <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+        <result column="comment" property="comment" jdbcType="VARCHAR" />
+        <result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+        <result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+        <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="selectAll" parameterType="net.dlyt.qyds.common.dto.ext.AllControllerExt" resultMap="BaseResultMap">
+        select
+        ac.* , suc.user_name as create_user_name , suu.user_name as update_user_name,
+        cc.display_cn as type_name
+        from all_controller ac
+        left join sys_user suc on cast(suc.user_id as varchar) = ac.create_user_id
+        left join sys_user suu on cast(suu.user_id as varchar) = ac.update_user_id
+        left join com_code cc on cc.code = 'ALL_CONTROLLER_TYPE' and cc.value = ac.type
+        where status != 2
+        <if test="name != null and !name.isEmpty()" >
+            and ac.name LIKE '%' || #{name,jdbcType=VARCHAR} || '%'
+        </if>
+        <if test="type != null and !type.isEmpty()" >
+            and ac.type = #{type,jdbcType=VARCHAR}
+        </if>
+        order by ac.name
+        LIMIT #{needColumns,jdbcType=INTEGER} offset #{startPoint,jdbcType=INTEGER}
+    </select>
+    <select id="getAllDataCount" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.dto.ext.AllControllerExt">
+        select
+        count(*) as count
+        from all_controller
+        where  status != 2
+        <if test="name != null and !name.isEmpty()" >
+            and name LIKE '%' || #{name,jdbcType=VARCHAR} || '%'
+        </if>
+        <if test="type != null and !type.isEmpty()" >
+            and type = #{type,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="selectBySelective" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.AllController">
+        select
+        ac.* , suc.user_name as create_user_name , suu.user_name as update_user_name,
+        cc.display_cn as type_name
+        from all_controller ac
+        left join sys_user suc on cast(suc.user_id as varchar) = ac.create_user_id
+        left join sys_user suu on cast(suu.user_id as varchar) = ac.update_user_id
+        left join com_code cc on cc.code = 'ALL_CONTROLLER_TYPE' and cc.value = ac.type
+        where status != 2
+        <if test="allControllerId != null and !allControllerId.isEmpty()" >
+            and ac.all_controller_id = #{allControllerId,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null and !name.isEmpty()" >
+            and ac.name LIKE '%' || #{name,jdbcType=VARCHAR} || '%'
+        </if>
+        <if test="type != null and !type.isEmpty()" >
+            and ac.type = #{type,jdbcType=VARCHAR}
+        </if>
+        order by ac.name
+    </select>
+</mapper>

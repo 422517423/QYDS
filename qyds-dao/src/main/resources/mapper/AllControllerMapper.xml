@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.dlyt.qyds.dao.AllControllerMapper" >
+  <resultMap id="BaseResultMap" type="net.dlyt.qyds.common.dto.AllController" >
+    <result column="all_controller_id" property="allControllerId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="param_one" property="paramOne" jdbcType="VARCHAR" />
+    <result column="param_two" property="paramTwo" jdbcType="VARCHAR" />
+    <result column="param_three" property="paramThree" jdbcType="VARCHAR" />
+    <result column="param_four" property="paramFour" jdbcType="VARCHAR" />
+    <result column="param_five" property="paramFive" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="net.dlyt.qyds.common.dto.AllController" >
+    insert into public.all_controller (all_controller_id, type, name, 
+      param_one, param_two, param_three, 
+      param_four, param_five, create_user_id, 
+      update_user_id, comment, create_time, 
+      update_time,status)
+    values (#{allControllerId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{paramOne,jdbcType=VARCHAR}, #{paramTwo,jdbcType=VARCHAR}, #{paramThree,jdbcType=VARCHAR}, 
+      #{paramFour,jdbcType=VARCHAR}, #{paramFive,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP},#{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.AllController" >
+    insert into public.all_controller
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="allControllerId != null" >
+        all_controller_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="paramOne != null" >
+        param_one,
+      </if>
+      <if test="paramTwo != null" >
+        param_two,
+      </if>
+      <if test="paramThree != null" >
+        param_three,
+      </if>
+      <if test="paramFour != null" >
+        param_four,
+      </if>
+      <if test="paramFive != null" >
+        param_five,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="allControllerId != null" >
+        #{allControllerId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="paramOne != null" >
+        #{paramOne,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTwo != null" >
+        #{paramTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="paramThree != null" >
+        #{paramThree,jdbcType=VARCHAR},
+      </if>
+      <if test="paramFour != null" >
+        #{paramFour,jdbcType=VARCHAR},
+      </if>
+      <if test="paramFive != null" >
+        #{paramFive,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective">
+    update all_controller
+    <set>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="paramOne != null" >
+        param_one = #{paramOne,jdbcType=VARCHAR},
+      </if>
+      <if test="paramTwo != null" >
+        param_two = #{paramTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="paramThree != null" >
+        param_three = #{paramThree,jdbcType=VARCHAR},
+      </if>
+      <if test="paramFour != null" >
+        param_four = #{paramFour,jdbcType=VARCHAR},
+      </if>
+      <if test="paramFive != null" >
+        param_five = #{paramFive,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+       create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where all_controller_id = #{allControllerId,jdbcType=VARCHAR}
+  </update>
+</mapper>
