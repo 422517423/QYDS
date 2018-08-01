@@ -49,10 +49,10 @@
                 <span class='col-xs-12 title'>
                     <p style="color: #333;text-decoration: none;">SALE</p>
                 </span>
-                <span class="col-xs-12 second">
+                <span class="col-xs-12 second" ng-click="fun()">
                     <a href="javascript:void(0);" ng-click="getGoodsList();">全部</a>
                 </span>
-                <span class="col-xs-12 second" ng-if="activityTypeList.length > 0">
+                <span class="col-xs-12 second" ng-if="activityTypeList.length > 0" ng-show="showForAct">
                      <span class="col-xs-12 third" ng-repeat="thirdMenu in activityTypeList"
                            ng-click="getDataByActId(thirdMenu.activityId,thirdMenu.activityName)">
                         <a href="javascript:void(0);">{{thirdMenu.activityName}}</a>
@@ -70,8 +70,8 @@
 
                 <span ng-click="selectClassify('2',secondMenu.goodsTypeId,secondMenu.goodsTypeNameCn);$event.stopPropagation();"
                           class="col-xs-12 second" ng-repeat="secondMenu in levelRootList">
-                    <a href="javascript:void(0);">{{secondMenu.goodsTypeNameCn}}</a>
-                    <span class="col-xs-12 third" ng-repeat="thirdMenu in secondMenu.secondTypeList"
+                    <a href="javascript:void(0);" ng-click="func(secondMenu.goodsTypeId)">{{secondMenu.goodsTypeNameCn}}</a>
+                    <span class="col-xs-12 third" ng-repeat="thirdMenu in secondMenu.secondTypeList" ng-show="funct(secondMenu.goodsTypeId)"
                           ng-click="selectClassify('3',secondMenu.goodsTypeId+'_'+thirdMenu.goodsTypeId,secondMenu.goodsTypeNameCn,thirdMenu.goodsTypeNameCn);$event.stopPropagation();">
                         <a href="javascript:void(0);">{{thirdMenu.goodsTypeNameCn}}</a>
                         <span class="col-xs-12 last" ng-repeat="lastMenu in thirdMenu.secondTypeList"

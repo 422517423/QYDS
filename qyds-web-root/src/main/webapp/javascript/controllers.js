@@ -4173,7 +4173,19 @@ angular.module('dealuna.controllers', [])
     // 活动列表
     .controller('saleListCtrl', ["$scope", "$state", "$stateParams",  "goodsListService", "activityTypeListService","$rootScope", "$modal", "getAlltypesService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsListService,activityTypeListService, $rootScope, $modal, getAlltypesService,brandtypeService,localStorageService,popupService) {
-
+            $scope.showForRepeat=false;
+            $scope.showForAct=false;
+            $scope.fun=function () {
+                $scope.showForAct=true;
+                $scope.showForRepeat=false;
+            };
+            $scope.func=function (obj) {
+                $scope.showForRepeat=obj;
+                $scope.showForAct=false;
+            };
+            $scope.funct=function (obj) {
+                return $scope.showForRepeat==obj;
+            };
             //数据集合
             $scope.goodsListClass = "col-xs-12 col-sm-12";
             $scope.goodsTypeAllGoodsListData = [];
@@ -4728,6 +4740,19 @@ angular.module('dealuna.controllers', [])
     // 商品列表
     .controller('goodsListCtrl', ["$scope", "$state", "$stateParams", "goodsTypeIndexService", "goodsListService", "activityTypeListService","getNewDataService","$rootScope", "$modal", "typeService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsTypeIndexService, goodsListService,activityTypeListService,getNewDataService, $rootScope, $modal, typeService,brandtypeService,localStorageService,popupService) {
+            $scope.showForRepeat=false;
+            $scope.showForAct=false;
+            $scope.fun=function () {
+                $scope.showForAct=true;
+                $scope.showForRepeat=false;
+            };
+            $scope.func=function (obj) {
+                $scope.showForRepeat=obj;
+                $scope.showForAct=false;
+            };
+            $scope.funct=function (obj) {
+                return $scope.showForRepeat==obj;
+            };
 
             //数据集合
             $scope.goodsListClass = "col-xs-12 col-sm-12";
@@ -5411,7 +5436,19 @@ angular.module('dealuna.controllers', [])
 
     .controller('goodsListDisplayCtrl', ["$scope", "$state", "$stateParams",  "goodsListService", "goodsListDisplayService", "activityTypeListService","$rootScope", "$modal", "getAlltypesService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsListService,goodsListDisplayService,activityTypeListService, $rootScope, $modal, getAlltypesService,brandtypeService,localStorageService,popupService) {
-
+            $scope.showForRepeat=false;
+            $scope.showForAct=false;
+            $scope.fun=function () {
+                $scope.showForAct=true;
+                $scope.showForRepeat=false;
+            };
+            $scope.func=function (obj) {
+                $scope.showForRepeat=obj;
+                $scope.showForAct=false;
+            };
+            $scope.funct=function (obj) {
+                return $scope.showForRepeat==obj;
+            };
             //数据集合
             $scope.goodsListClass = "col-xs-12 col-sm-12";
             $scope.goodsTypeAllGoodsListData = [];
