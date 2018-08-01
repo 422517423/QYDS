@@ -5,6 +5,7 @@ import net.dlyt.qyds.common.dto.CmsMaster;
 import net.dlyt.qyds.common.dto.ext.CmsItemsExt;
 import net.dlyt.qyds.common.dto.ext.CmsMasterExt;
 import net.dlyt.qyds.common.form.CmsMsterForm;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface CmsMasterMapperExt {
     List<CmsMasterExt> selectAllCmsMasterGoods();
 
     // 获取栏目下的cms
-    List<CmsMasterExt> selectCmsMasterByItemCode(String itemCode);
+    List<CmsMasterExt> selectCmsMasterByItemCode(@Param(value="itemCode") String itemCode);
 
     // 获取栏目下的cms
     List<CmsMasterExt> selectCmsMasterByItemId(String itemId);

@@ -8,7 +8,7 @@
         </div>
         <span class="magazine-type" ng-repeat="item in magazineListDataTypes"  ng-click="getOtherType(item.itemCode)" >{{item.itemName}}</span>
     </div>
-    <div ng-repeat="magazine in magazineListData" class="col-xs-12">
+    <div ng-repeat="magazine in magazineListData|orderBy:'-insertTime'" class="col-xs-12">
         <div class="hidden-xs" style="width: 844px;margin: 0px auto">
             <!--模板二-->
             <div class="row" style="margin-top:30px;margin-left: 0;margin-right: 0" ng-if="($index%2) == 0">

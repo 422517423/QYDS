@@ -149,7 +149,20 @@
     left join cms_items ci on ci.item_id = cm.item_id
     where ci.item_code = #{itemCode}
     and cm.deleted = '0'
-    order by cm.sort
+    <choose>
+      <when test='itemCode == "magazine_index_0"'>
+        order by cm.insert_time desc
+      </when>
+      <when test='itemCode == "magazine_index_1"'>
+        order by cm.insert_time desc
+      </when>
+      <when test='itemCode == "magazine_index_2"'>
+        order by cm.insert_time desc
+      </when>
+      <otherwise>
+        order by cm.sort
+      </otherwise>
+    </choose>
   </select>
 
   <select id="selectCmsMasterByItemId" resultMap="BaseResultMapExt" parameterType="java.lang.String">
