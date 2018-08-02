@@ -17,6 +17,7 @@ function initTable() {
     oTable = $('#gds_schedule').dataTable({
         "aoColumns": [
             { "mData": "goodsName" },
+            { "mData": "goodsCode" },
             { "mData": "userName" },
             { "mData": "telephone"},
             { "mData": "comment"},

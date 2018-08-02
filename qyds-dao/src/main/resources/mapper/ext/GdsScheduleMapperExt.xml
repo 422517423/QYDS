@@ -5,6 +5,7 @@
     <id column="schedule_id" property="scheduleId" jdbcType="VARCHAR" />
     <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
     <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="comment" property="comment" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    s.schedule_id, s.goods_id, s.telephone, s.user_name, s.comment,s.update_time, s.insert_time, m.goods_name
+    s.schedule_id, s.goods_id, s.telephone, s.user_name, s.comment,s.update_time, s.insert_time, m.goods_name ,m.goods_code
   </sql>
   <select id="getGoodsOrderList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.dto.GdsMasterExt" >
     select 
