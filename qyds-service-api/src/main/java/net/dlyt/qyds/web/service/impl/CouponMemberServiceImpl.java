@@ -389,7 +389,10 @@ public class CouponMemberServiceImpl implements CouponMemberService {
                 } else if (ComCode.CouponOriginPriceType.MUST_DISCOUNT_PRICE.equals(list.get(i).getIsOriginPrice())) {
                     // 要求折扣价参与计算
                     validGoods1 = getGoodsInDiscountPrice(form.getGoodsInfo());
-                } else {
+                } else if (ComCode.CouponOriginPriceType.MUST_FIVE_DISCOUNT.equals(list.get(i).getIsOriginPrice())) {
+                    // 要求折扣价参与计算
+                    validGoods1 =getGoodsInFiveDiscount(form.getGoodsInfo());
+                }else {
                     validGoods1 = form.getGoodsInfo();
                 }
                 // 1.2 通过要求优惠商品分类过滤
@@ -521,6 +524,27 @@ public class CouponMemberServiceImpl implements CouponMemberService {
                 continue;
             } else {
                 validGoods.add(goodsInfo.get(j));
+            }
+        }
+        return validGoods;
+    }
+
+    private List<OrdConfirmGoodsExt> getGoodsInFiveDiscount(List<OrdConfirmGoodsExt> goodsInfo) {
+        List<OrdConfirmGoodsExt> validGoods = new ArrayList<OrdConfirmGoodsExt>();
+        for (int j = 0; j < goodsInfo.size(); j++) {
+            // 没有活动,就认为是正价
+            if (goodsInfo.get(j).getActivity() == null || goodsInfo.get(j).getActivity().getActivityId() == null || goodsInfo.get(j).getActGoodsId() == null) {
+                validGoods.add(goodsInfo.get(j));
+            } else if (goodsInfo.get(j).getActivity() != null ){
+                float newPrice = goodsInfo.get(j).getActivity().getNewPrice();
+                float originPrice = goodsInfo.get(j).getActivity().getOriginPrice();
+                if (originPrice!=0f&&newPrice/originPrice>5){
+                    validGoods.add(goodsInfo.get(j));
+                }else if (originPrice==0f){
+                    validGoods.add(goodsInfo.get(j));
+                }
+            }else {
+                continue;
             }
         }
         return validGoods;

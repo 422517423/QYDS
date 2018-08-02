@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import me.chanjar.weixin.mp.api.WxMpService;
 import net.dlyt.qyds.common.dto.*;
-import net.dlyt.qyds.common.dto.ext.CouponMemberExt;
-import net.dlyt.qyds.common.dto.ext.MmbGroupMemberExt;
-import net.dlyt.qyds.common.dto.ext.MmbMasterExt;
-import net.dlyt.qyds.common.dto.ext.MmbSalerExt;
+import net.dlyt.qyds.common.dto.ext.*;
 import net.dlyt.qyds.common.form.MmbLevelManagerForm;
 import net.dlyt.qyds.common.form.MmbMasterForm;
 import net.dlyt.qyds.config.FileServerConfig;
@@ -188,17 +185,19 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                 try {
                     // TODO @崔 注册券发送调用在此处
                     // 获取注册劵
-                    CouponMaster regCoupon = couponMasterMapperExt.selectRegisterCoupon();
-                    if (regCoupon == null) {
-                        throw new ExceptionErrorData("注册劵不存在!");
+                    List<CouponMasterExt> couponMasterExts = couponMasterMapperExt.selectRegisterCoupon();
+                    for (CouponMaster regCoupon :
+                            couponMasterExts) {
+                        if (regCoupon == null) {
+                            throw new ExceptionErrorData("注册劵不存在!");
+                        }
+                        if (regCoupon.getSendStartTime().compareTo(new Date()) > 0 || regCoupon.getSendEndTime().compareTo(new Date()) < 0) {
+                            throw new ExceptionErrorData("当前不在发放期间内!");
+                        }
+                        CouponMemberExt form1 = new CouponMemberExt();
+                        form1.setMemberId(user.getMemberId());
+                        couponMemberService.addRegisterCouponsForUser(form1, regCoupon);
                     }
-                    if (regCoupon.getSendStartTime().compareTo(new Date()) > 0 || regCoupon.getSendEndTime().compareTo(new Date()) < 0) {
-                        throw new ExceptionErrorData("当前不在发放期间内!");
-                    }
-                    CouponMemberExt form1 = new CouponMemberExt();
-                    form1.setMemberId(user.getMemberId());
-                    couponMemberService.addRegisterCouponsForUser(form1, regCoupon);
-
                     if (null != user.getBirthdate() && checkBirthdate(user.getBirthdate())) {
                         // 获取生日劵
                         if (StringUtil.isEmpty(user.getMemberLevelId())) {

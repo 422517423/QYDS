@@ -93,6 +93,7 @@ ComCode {
         public static final String ALL = "0";
         public static final String MUST_ORIGIN_PRICE = "1";
         public static final String MUST_DISCOUNT_PRICE = "2";
+        public static final String MUST_FIVE_DISCOUNT = "3";
     }
 
     public class CouponStyle {
