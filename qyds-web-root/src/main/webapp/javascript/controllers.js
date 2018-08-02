@@ -4861,7 +4861,7 @@ angular.module('dealuna.controllers', [])
             });
 
             // 活动列表获取(折扣和特价两种活动)
-            new activityTypeListService({"memberId":memberId})
+            new activityTypeListService({"memberId":memberId,"firstGoodsTypeId":firstGoodsTypeId})
                 .then(function (res) {
                     if (res.resultCode == "00") {
                         $scope.activityTypeList = res.data;

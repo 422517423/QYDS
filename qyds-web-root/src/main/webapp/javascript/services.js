@@ -402,7 +402,9 @@ angular.module('dealuna.services', [])
             var defer = $q.defer();
             var json = {};
             var memberId = params.memberId;
+            var firstGoodsTypeId = params.firstGoodsTypeId;
             json.memberId = memberId;
+            json.firstGoodsTypeId=firstGoodsTypeId;
             $http.post("/qyds-web-pc/gds_master_pc_api/activityTypeListService.json",$.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);

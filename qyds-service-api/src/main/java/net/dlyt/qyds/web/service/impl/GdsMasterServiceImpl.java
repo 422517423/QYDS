@@ -2231,22 +2231,78 @@ public class GdsMasterServiceImpl implements GdsMasterService {
     //活动种类列表获取
     @Override
     @Transactional(readOnly = false)
-    public JSONObject activityTypeListService(String memberId){
+    public JSONObject activityTypeListService(String date){
 
         JSONObject json = new JSONObject();
 
         try{
-            JSONObject jsonObject = JSON.parseObject(memberId);
-            memberId = (String) jsonObject.get("memberId");
-            ActMasterForm form = new ActMasterForm();
-            form.setShopId(Constants.ORGID);
-            List<ActMasterForm> list = actMasterMapperExt.selectAllActList(form);
+            JSONObject jsonObject = JSON.parseObject(date);
+            String firstGoodsTypeId = (String)jsonObject.get("firstGoodsTypeId");
+            String memberId = (String) jsonObject.get("memberId");
+            ActMasterForm actMasterForm = new ActMasterForm();
+            actMasterForm.setShopId(Constants.ORGID);
+            List<ActMasterForm> list = actMasterMapperExt.selectAllActList(actMasterForm);
 
             List<ActMasterForm> activities = new ArrayList<ActMasterForm>();
             for (int i = 0; i < list.size(); i++) {
-                ActMasterForm activity = list.get(i);
-                if (activity != null && isContainsMember(activity, memberId)) {
-                    activities.add(activity);
+                String activityId = list.get(i).getActivityId();
+                GdsMasterExt gdsMasterExt = new GdsMasterExt();
+                gdsMasterExt.setActivityId(activityId);
+                gdsMasterExt.setFirstGoodsTypeId(firstGoodsTypeId);
+                ActMasterForm form = new ActMasterForm();
+                form.setActivityId(gdsMasterExt.getActivityId());
+                ActMasterForm activity = actMasterMapperExt.selectById(form);
+                if (activity == null) {
+                    throw new ExceptionErrorData("活动不存在");
+                }
+                List<ActGoodsForm> goodsList = null;
+                ActGoods goods = new ActGoods();
+                goods.setActivityId(form.getActivityId());
+                if ("10".equals(activity.getGoodsType())) {
+                    //全部商品
+                } else if ("20".equals(activity.getGoodsType())) {
+                    // 按分类
+                    goodsList = actGoodsMapperExt.selectGoodsTypeByActivityId(goods);
+                } else if ("30".equals(activity.getGoodsType())) {
+                    // 按品牌
+                    goodsList = actGoodsMapperExt.selectGoodsBrandByActivityId(goods);
+                } else if ("40".equals(activity.getGoodsType())) {
+                    // 按商品
+                    goodsList = actGoodsMapperExt.selectGoodsByActivityId(goods);
+                } else if ("50".equals(activity.getGoodsType())) {
+                    // 按SKU
+                    goodsList = actGoodsMapperExt.selectSkuByActivityIdUp(goods);
+                }
+
+                //in 条件做成
+                String searchKey = "";
+                if (!"10".equals(activity.getGoodsType())) {
+                    for (ActGoodsForm actGoodsForm : goodsList) {
+                        searchKey = searchKey + "," + actGoodsForm.getGoodsId();
+                    }
+                    if (searchKey.startsWith(",")) {
+                        searchKey = searchKey.substring(1, searchKey.length());
+                    }
+                    if (searchKey.endsWith(",")) {
+                        searchKey = searchKey.substring(0, searchKey.length() - 1);
+                    }
+
+                    if (!StringUtil.isEmpty(searchKey)) {
+                        gdsMasterExt.setActivitySearchKey(searchKey);
+                        gdsMasterExt.setActivityType(activity.getGoodsType());
+                    }
+                }
+
+                if (!StringUtil.isEmpty(gdsMasterExt.getSizeCode())) {
+                    gdsMasterExt.setSizeTypeCode(gdsMasterExt.getSizeCode().split("_")[0]);
+                    gdsMasterExt.setSizeCode(gdsMasterExt.getSizeCode().split("_")[1]);
+                }
+                List<GdsMasterExt> pList = gdsMasterMapperExt.selectProductsByParameterUp(gdsMasterExt);
+                if (pList!=null && pList.size()!=0){
+                    ActMasterForm activity1 = list.get(i);
+                    if (activity1 != null && isContainsMember(activity1, memberId)) {
+                        activities.add(activity1);
+                    }
                 }
             }
             json.put("data", activities);
