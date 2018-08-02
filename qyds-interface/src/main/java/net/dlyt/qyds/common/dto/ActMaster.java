@@ -43,6 +43,15 @@ public class ActMaster implements Serializable {
     private Integer sort;
     private String isValid;
     private String goodsTypeValue;
+    private Integer showFront;
+
+    public Integer getShowFront() {
+        return showFront;
+    }
+
+    public void setShowFront(Integer showFront) {
+        this.showFront = showFront;
+    }
 
     public String getActivityId() {
         return activityId;

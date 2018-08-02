@@ -59,8 +59,8 @@
     <schema id="15" parent="2" name="public">
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
-      <IntrospectionTimestamp>2018-08-02.10:01:22.051</IntrospectionTimestamp>
-      <IntrospectionStateNumber>18160160</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-08-02.13:49:35.318</IntrospectionTimestamp>
+      <IntrospectionStateNumber>18167231</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -1428,10 +1428,10 @@
     </column>
     <column id="284" parent="39" name="show_front">
       <Position>39</Position>
-      <Comment>前台活动显示控制字段</Comment>
+      <Comment>前台活动显示控制字段:1显示，0不显示</Comment>
       <DataType>integer|0s</DataType>
-      <StateNumber>18160159</StateNumber>
-      <DefaultExpression>0</DefaultExpression>
+      <StateNumber>18167230</StateNumber>
+      <DefaultExpression>1</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
     <index id="285" parent="39" name="act_master_pkey">

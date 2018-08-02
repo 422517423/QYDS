@@ -954,6 +954,7 @@ function initForm(data) {
     $("#can_return").val(data.canReturn);
     $("#has_sub_activity").val(data.hasSubActivity);
     $("#can_exchange").val(data.canExchange);
+    $("#show_front").val(data.showFront);
     $("#limit_count").val(data.limitCount);
     $("#comment").val(data.comment);
     $("#apply_user_name").val(data.applyUserName);
@@ -1003,6 +1004,7 @@ function save() {
         startDateTimeStr: $("#start_datetime").val(),
         endDateTimeStr: $("#end_datetime").val(),
         canExchange: $("#can_exchange").val(),
+        showFront: $("#show_front").val(),
         canReturn: $("#can_return").val(),
         limitCount: $("#limit_count").val(),
         comment: $("#comment").val(),

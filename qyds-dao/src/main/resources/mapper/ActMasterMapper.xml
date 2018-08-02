@@ -37,6 +37,7 @@
     <result column="need_point" property="needPoint" jdbcType="INTEGER" />
     <result column="need_fee" property="needFee" jdbcType="NUMERIC" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="show_front" property="showFront" jdbcType="INTEGER" />
     <result column="is_valid" property="isValid" jdbcType="CHAR" />
     <result column="goods_type_value" property="goodsTypeValue" jdbcType="VARCHAR" />
   </resultMap>
@@ -46,7 +47,7 @@
     can_return, can_exchange, limit_count, apply_user_id, apply_time, apply_content, 
     approve_user_id, approve_time, approve_content, approve_status, deleted, update_user_id, 
     update_time, insert_user_id, insert_time, activity_name, is_member_activity, need_point, 
-    need_fee, sort, is_valid, goods_type_value
+    need_fee, sort,show_front, is_valid, goods_type_value
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -70,7 +71,7 @@
       approve_status, deleted, update_user_id, 
       update_time, insert_user_id, insert_time, 
       activity_name, is_member_activity, need_point, 
-      need_fee, sort, is_valid, 
+      need_fee, sort,show_front, is_valid,
       goods_type_value)
     values (#{activityId,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{tempId,jdbcType=VARCHAR}, 
       #{tempName,jdbcType=VARCHAR}, #{activityCode,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, 
@@ -83,7 +84,7 @@
       #{approveStatus,jdbcType=VARCHAR}, #{deleted,jdbcType=VARCHAR}, #{updateUserId,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{insertUserId,jdbcType=VARCHAR}, #{insertTime,jdbcType=TIMESTAMP}, 
       #{activityName,jdbcType=VARCHAR}, #{isMemberActivity,jdbcType=VARCHAR}, #{needPoint,jdbcType=INTEGER}, 
-      #{needFee,jdbcType=NUMERIC}, #{sort,jdbcType=INTEGER}, #{isValid,jdbcType=CHAR}, 
+      #{needFee,jdbcType=NUMERIC}, #{sort,jdbcType=INTEGER}, #{showFront,jdbcType=INTEGER}, #{isValid,jdbcType=CHAR},
       #{goodsTypeValue,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.dlyt.qyds.common.dto.ActMaster" >
@@ -193,6 +194,9 @@
       </if>
       <if test="sort != null" >
         sort,
+      </if>
+      <if test="showFront != null" >
+        show_front,
       </if>
       <if test="isValid != null" >
         is_valid,
@@ -307,6 +311,9 @@
       <if test="sort != null" >
         #{sort,jdbcType=INTEGER},
       </if>
+      <if test="showFront != null" >
+        #{showFront,jdbcType=INTEGER},
+      </if>
       <if test="isValid != null" >
         #{isValid,jdbcType=CHAR},
       </if>
@@ -420,6 +427,9 @@
       <if test="sort != null" >
         sort = #{sort,jdbcType=INTEGER},
       </if>
+      <if test="showFront != null" >
+        show_front = #{showFront,jdbcType=INTEGER},
+      </if>
       <if test="isValid != null" >
         is_valid = #{isValid,jdbcType=CHAR},
       </if>
@@ -475,6 +485,7 @@
       need_point = #{needPoint,jdbcType=INTEGER},
       need_fee = #{needFee,jdbcType=NUMERIC},
       sort = #{sort,jdbcType=INTEGER},
+      show_front = #{showFront,jdbcType=INTEGER},
       is_valid = #{isValid,jdbcType=CHAR},
       goods_type_value = #{goodsTypeValue,jdbcType=VARCHAR}
     where activity_id = #{activityId,jdbcType=VARCHAR}

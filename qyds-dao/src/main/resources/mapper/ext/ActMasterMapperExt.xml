@@ -44,6 +44,7 @@
         <result column="approve_status_cn" property="approveStatusCn" jdbcType="VARCHAR"/>
         <result column="approve_status_en" property="approveStatusEn" jdbcType="VARCHAR"/>
         <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="show_front" property="showFront" jdbcType="INTEGER" />
         <result column="goods_type_value" property="goodsTypeValue" jdbcType="VARCHAR" />
     </resultMap>
 
@@ -63,7 +64,7 @@
         select master.* from act_master master
         left join act_template templ
         on master.temp_id = templ.temp_id
-        where master.deleted = '0'
+        where master.deleted = '0' and master.show_front = '1'
         <if test="shopId != null and !shopId.isEmpty()" >
             and master.shop_id = #{shopId,jdbcType=VARCHAR}
         </if>
@@ -75,7 +76,6 @@
     </select>
 
     <select id="selectAllActListByMember" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
-
         select master.* from act_master master
         left join act_template templ
         on master.temp_id = templ.temp_id
@@ -86,7 +86,6 @@
         and master.approve_status = '20'
         and  master.start_time &lt;= now() and master.end_time >= now()
         ORDER  by master.sort,master.update_time desc
-
     </select>
 
     <select id="selectSecKillActivityList" resultMap="BaseResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
@@ -303,6 +302,7 @@
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
         <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
         <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="show_front" property="showFront" jdbcType="INTEGER" />
         <!-- 20180103-->
         <!--<result column="param_value" property="paramValue" jdbcType="VARCHAR"/>-->
     </resultMap>
