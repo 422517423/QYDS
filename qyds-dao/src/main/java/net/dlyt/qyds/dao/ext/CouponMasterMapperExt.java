@@ -55,7 +55,7 @@ public interface CouponMasterMapperExt {
 
     CouponMasterExt selectBirthdayCoupon(String memberLevel);
 
-    CouponMasterExt selectRegisterCoupon();
+    List<CouponMasterExt> selectRegisterCoupon();
 
 
     void setOnlyCoupon(CouponMaster coupon);
