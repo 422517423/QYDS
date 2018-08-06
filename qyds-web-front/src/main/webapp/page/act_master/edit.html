@@ -133,6 +133,9 @@
                                 <div class="col-md-1">
                                     <a class="btn btn-info" id="btn_select_goods">选择</a>
                                 </div>
+                                <div class="col-md-1">
+                                    <a class="btn btn-info" id="btn_select_goods_delete">删除选中</a>
+                                </div>
                             </div>
                             <div class="form-group" style="display: none;" id="sell_year_area">
                                 <label class="col-md-2 control-label">年份<span class="required">*</span></label>
@@ -240,28 +243,42 @@
                             </div>
                             <div class="form-group" id="div_selected_skus" style="display: none;">
                                 <div class="col-md-offset-2 col-md-10 col-sm-10">
-                                    <table class="table table-striped table-hover table-bordered">
+                                    <table class="table table-striped table-hover table-bordered"
+                                           id="sku_select_table1">
                                         <thead>
                                         <tr>
-                                            <th width="10%">序号</th>
-                                            <th width="40%">商品款号</th>
-                                            <th width="20%">颜色</th>
-                                            <th width="20%">尺码</th>
-                                            <th width="10%">操作</th>
+                                            <th><input type="checkbox" class="allCheck" onchange="setAllCheckboxs()"/>&nbsp;全选</th>
+                                            <th>商品款号</th>
+                                            <th>颜色</th>
+                                            <th>尺码</th>
+                                            <th>操作</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="skuList">
-                                        <tr class="template sku-item">
-                                            <td class="sku-item-index"></td>
-                                            <td class="sku-item-name"></td>
-                                            <td class="sku-item-color"></td>
-                                            <td class="sku-item-size"></td>
-                                            <td>
-                                                <a class="sku-item-delete">删除</a>
-                                            </td>
-                                        </tr>
+                                        <tbody>
                                         </tbody>
                                     </table>
+                                    <!--<table class="table table-striped table-hover table-bordered">-->
+                                        <!--<thead>-->
+                                        <!--<tr>-->
+                                            <!--<th width="10%">序号</th>-->
+                                            <!--<th width="40%">商品款号</th>-->
+                                            <!--<th width="20%">颜色</th>-->
+                                            <!--<th width="20%">尺码</th>-->
+                                            <!--<th width="10%">操作</th>-->
+                                        <!--</tr>-->
+                                        <!--</thead>-->
+                                        <!--<tbody id="skuList">-->
+                                        <!--<tr class="template sku-item">-->
+                                            <!--<td class="sku-item-index"></td>-->
+                                            <!--<td class="sku-item-name"></td>-->
+                                            <!--<td class="sku-item-color"></td>-->
+                                            <!--<td class="sku-item-size"></td>-->
+                                            <!--<td>-->
+                                                <!--<a class="sku-item-delete">删除</a>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                        <!--</tbody>-->
+                                    <!--</table>-->
                                 </div>
                             </div>
                             <div class="form-group" id="div_selected_sec" style="display: none;">

@@ -2130,6 +2130,25 @@ public class ActMasterServiceImpl implements ActMasterService {
         return viewOnsellSkus;
     }
 
+    @Override
+    public JSONObject deleteGoodsById(String actGoodsId) {
+        JSONObject json = new JSONObject();
+        try {
+            if (StringUtil.isEmpty(actGoodsId)) {
+                throw new ExceptionBusiness("缺少参数");
+            }
+            actGoodsMapper.deleteByPrimaryKey(actGoodsId);
+            json.put("resultCode", Constants.NORMAL);
+        } catch (ExceptionBusiness e) {
+            json.put("resultCode", e.resultCd);
+            json.put("resultMessage", e.getMessage());
+        } catch (Exception e) {
+            json.put("resultCode", Constants.FAIL);
+            json.put("resultMessage", Constants.FAIL_MESSAGE);
+        }
+        return json;
+    }
+
     /**
      * 购物车的活动列表，单品活动
      *
@@ -3597,18 +3616,17 @@ public class ActMasterServiceImpl implements ActMasterService {
     /**
      * 删除活动相关商品
      *
-     * @param form
+     * @param
      * @return
      */
     @Override
-    public JSONObject deleteGoods(ActMasterForm form) {
+    public JSONObject deleteGoods(String[] params) {
         JSONObject json = new JSONObject();
         try {
-            if (form.getGoodsList() == null || form.getGoodsList().size() == 0) {
-                throw new ExceptionBusiness("缺少参数");
-            }
-            for (int i = 0; i < form.getGoodsList().size(); i++) {
-                actGoodsMapper.deleteByPrimaryKey(form.getGoodsList().get(i).getActGoodsId());
+            if (params!=null&&params.length!=0){
+                for (int i = 0; i < params.length; i++) {
+                    actGoodsMapper.deleteByPrimaryKey(params[i]);
+                }
             }
             json.put("resultCode", Constants.NORMAL);
         } catch (ExceptionBusiness e) {
@@ -3693,5 +3711,37 @@ public class ActMasterServiceImpl implements ActMasterService {
         }
         return json;
     }
-}
 
+
+    @Override
+    public JSONObject getGoodsListForSku(ActMasterForm form) {
+        JSONObject json = new JSONObject();
+        try {
+            if (StringUtil.isEmpty(form.getActivityId())) {
+                throw new ExceptionBusiness("缺少参数");
+            }
+            if (StringUtil.isEmpty(form.getGoodsType())) {
+                throw new ExceptionBusiness("缺少参数");
+            }
+            int allCount =0;
+            List<ActGoodsForm> goodsList = null;
+            if (ComCode.ActivityGoodsType.SKU.equals(form.getGoodsType())) {
+                // 按SKU
+                goodsList = actGoodsMapperExt.selectSkuByActivityIdForOne(form);
+                allCount = actGoodsMapperExt.selectSkuCountByActivityIdForOne(form);
+            }
+            json.put("resultCode", Constants.NORMAL);
+            json.put("aaData", goodsList);
+            json.put("sEcho", form.getsEcho());
+            json.put("iTotalRecords", allCount);
+            json.put("iTotalDisplayRecords", allCount);
+        } catch (ExceptionBusiness e) {
+            json.put("resultCode", e.resultCd);
+            json.put("resultMessage", e.getMessage());
+        } catch (Exception e) {
+            json.put("resultCode", Constants.FAIL);
+            json.put("resultMessage", Constants.FAIL_MESSAGE);
+        }
+        return json;
+    }
+}

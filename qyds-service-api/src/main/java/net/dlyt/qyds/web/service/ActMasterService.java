@@ -112,11 +112,15 @@ public interface ActMasterService {
 
     JSONObject addGoods(ActMasterForm form);
 
-    JSONObject deleteGoods(ActMasterForm form);
+    JSONObject deleteGoods(String[] params);
 
     JSONObject editGoods(ActMasterForm form);
 
     JSONObject getGoodsList(ActMasterForm form);
 
+    JSONObject getGoodsListForSku(ActMasterForm form);
+
     List<ViewOnsellSku> getNewPricesBySku(Map<String,SkuForm> skuFormMap, List<ViewOnsellSku> viewOnsellSkuList);
+
+    JSONObject deleteGoodsById(String actGoodsId);
 }

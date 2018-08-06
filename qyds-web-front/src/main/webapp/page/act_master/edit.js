@@ -7,6 +7,7 @@ var memberList = [];
 var subActivityList = [];
 var tempId;
 var actionType;
+var tableSkuSelect;
 $(document).ready(function () {
     // 审批部分不可编辑
     $("#act_master_approve_form input").attr("disabled", true);
@@ -552,6 +553,7 @@ function refreshActivityGoodsList() {
             $("#activity_goods_line_code").val('');
 
             refreshSkuList();
+            initTableForSku();
             break;
         }
         case "60"://年份季节
@@ -1274,22 +1276,41 @@ function editGoods(editGoods) {
     axse(url, {"data": JSON.stringify(param)}, success, error);
 }
 
+function deleteGoodsChecked(deleteGoods) {
+    showConfirm("确定要删除吗？",function(){
+        var url = "/act_master/deleteGoods.json";
+        var param = {
+            "params": deleteGoods
+        };
+        console.log(param);
+        var success = function (data) {
+            if (data.resultCode == '00') {
+                tableSkuSelect.fnDraw();
+            } else {
+                showAlert('详细数据获取失败');
+            }
+        };
+        var error = function () {
+            showAlert('网络异常');
+        };
+        axse(url, param, success, error);
+    });
+}
+
+
 /**
  * 删除关联商品
  */
-function deleteGoods(deleteGoods) {
+function deleteGoods(actGoodsId) {
     showConfirm("确定要删除吗？",function(){
-        var deleteGoodsList = [];
-        deleteGoodsList.push(deleteGoods);
-        var url = "/act_master/deleteGoods.json";
+        var url = "/act_master/deleteGoodsById.json";
         var param = {
-            "activityId": activityId,
-            "goodsType": $("#activity_goods_type").val(),
-            "goodsList": deleteGoodsList
+            "actGoodsId": actGoodsId
         };
         var success = function (data) {
             if (data.resultCode == '00') {
-                getGoodsList();
+                // getGoodsList();
+                tableSkuSelect.fnDraw();
             } else {
                 showAlert('详细数据获取失败');
             }
@@ -1474,3 +1495,128 @@ function getSellerSeasons(year) {
     };
     axse(url, {"data": year}, success, error);
 }
+
+
+function initTableForSku() {
+    var tableOption = {
+        "bLengthChange": false,
+        "bAutoWidth": false,    //关闭自适应列宽，导致列表后半部空白。IE8下现象
+        "bProcessing": false,
+        "bServerSide": true,
+        "fnServerData": fnServerData,
+        "bFilter": false,
+        "bSort": false,
+        "sAjaxSource": "../act_master/getGoodsListForSku.json",
+        "fnServerParams": function (aoData) {
+            // 设置参数
+            aoData.push({"name": "activityId", "value": activityId});
+            aoData.push({"name": "goodsType", "value": $("#activity_goods_type").val()});
+        },
+        "fnDrawCallback": function() {
+            $('.allCheck').removeAttr('checked');
+        },
+        "aoColumns": [
+            {
+                "mData": null,
+                "fnRender": function (rowData) {
+                    var $radio = $('<input>')
+                        .attr('name', 'select_sku_checkbox')
+                        .attr('type', 'checkbox')
+                        .attr('value', rowData.aData.actGoodsId);
+                    var $div = $('<div></div>');
+                    $radio.appendTo($div);
+                    return $div.html();
+                }
+            },
+            {"mData": "goodsCode"},
+            {
+                "mData": null,// 颜色
+                "fnRender": function (rowData) {
+                    if (rowData.aData.type == "10") {
+                        return rowData.aData.colorName
+                    }else{
+                        // 黑色_M 175/96A_
+                        if(rowData.aData.skucontent&&rowData.aData.skucontent.length>0){
+                            var sku = JSON.parse(rowData.aData.skucontent);
+                            if(sku&&sku.sku_value){
+                                return sku.sku_value.split("_")[0];
+                            }else{
+                                return "";
+                            }
+                        }else{
+                            return "";
+                        }
+
+                    }
+                }
+            },
+            {
+                "mData": null,//尺码
+                "fnRender": function (rowData) {
+                    if (rowData.aData.type == "10") {
+                        return rowData.aData.sizeName
+                    }else{
+                        var sku = JSON.parse(rowData.aData.skucontent);
+                        if(sku&&sku.sku_value){
+                            return sku.sku_value.split("_")[1];
+                        }else{
+                            return "";
+                        }
+                    }
+                }
+            },
+            {
+                "mData": null,
+                "fnRender": function (rowData) {
+                    console.log(rowData);
+                    if (null != rowData.aData.goodsCode && ""!=rowData.aData.goodsCode && editable != "0") {
+                        return '<a onclick=deleteGoods("'+rowData.aData.actGoodsId+'");>删除</a>';
+                    }else if (null != rowData.aData.goodsCode && "" != rowData.aData.goodsCode && editable == "0") {
+                        return ' ';
+                    }
+                }
+            }
+        ]
+    };
+    tableSkuSelect = $('#sku_select_table1').dataTable(tableOption);
+}
+
+
+
+function setAllCheckboxs(){
+    var status = $('.allCheck').prop('checked');
+    var checkboxs = $('#sku_select_table1 tbody input[type="checkbox"]');
+    if(status){
+        $.each(checkboxs,function(i,v){
+            $(this).attr('checked','checked');
+        });
+    }else{
+        $.each(checkboxs,function(i,v){
+            $(this).removeAttr('checked');
+        });
+    }
+}
+
+$("#btn_select_goods_delete").click(function () {
+    var selectedSkuIds = [];
+    $("input[name='select_sku_checkbox']:checked").each(function () {
+        selectedSkuIds.push($(this).val());
+    });
+    if (selectedSkuIds.length > 0) {
+        // $("#sku_select_dialog").modal('hide');
+        // // 这个方法在弹出选择模板的画面实现
+        // var selectedRows = [];
+        // $.each(selectedSkuIds, function (index, selectId) {
+        //     $.each(tableSkuSelect.fnGetData(), function (index2, row) {
+        //         if (selectId == row.actGoodsId) {
+        //             selectedRows.push(row.actGoodsId);
+        //         }
+        //     });
+        // });
+        // console.log(selectedRows);
+        console.log(selectedSkuIds);
+        deleteGoodsChecked(selectedSkuIds);
+    } else {
+        showTip("请先选择一个商品");
+    }
+});

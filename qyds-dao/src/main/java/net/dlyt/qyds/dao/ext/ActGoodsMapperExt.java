@@ -28,6 +28,10 @@ public interface ActGoodsMapperExt {
 
     List<ActGoodsForm> selectSkuByActivityId(ActGoods goods);
 
+    List<ActGoodsForm> selectSkuByActivityIdForOne(ActMasterForm goods);
+
+    int selectSkuCountByActivityIdForOne(ActMasterForm goods);
+
     List<ActGoodsForm> selectSkuByActivityIdUp(ActGoods goods);
 
     void deleteByActGoodsId(String actGoodsId);

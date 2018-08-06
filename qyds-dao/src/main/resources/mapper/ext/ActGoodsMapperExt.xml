@@ -139,6 +139,57 @@ WHERE activity_id = #{activityId,jdbcType=VARCHAR}
 ORDER BY ag.insert_time;
     </select>
 
+
+    <select id="selectSkuByActivityIdForOne" resultMap="SelectGoodsSkuResultMap" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+       SELECT
+  ag.act_goods_id AS act_goods_id,
+  ag.goods_id AS goods_id,
+  vos.goods_name AS goods_name,
+  ag.sku_id AS sku_id,
+  vos.color_name AS color_name,
+  vos.size_name AS size_name,
+  vos.goods_code AS goods_code,
+  vos.type AS type,
+  vos.skucontent AS skucontent,
+  ag.quantity AS quantity,
+  ag.buy_max AS buy_max,
+  ag.act_price AS act_price,
+  voss.new_count AS new_count
+FROM act_goods ag
+  LEFT JOIN view_onsell_sku_new vos ON ag.goods_id = vos.goods_id AND ag.sku_id = vos.skuid
+  LEFT JOIN (select master.goods_id, erpgoods.price, erpgoods.sku as skuid ,sum(bnk.new_count)as new_count from
+    (erp_goods erpgoods JOIN bnk_master bnk ON bnk.sku=erpgoods.sku
+      JOIN gds_master master  on master.goods_code = erpgoods.goods_code)
+  where bnk.deleted= '0' and master.deleted='0'
+        and master.goods_id in (SELECT ag.goods_id from act_goods ag where ag.activity_id =  #{activityId,jdbcType=VARCHAR} )
+        and erpgoods.sku in (SELECT ag.sku_id from act_goods ag where ag.activity_id =  #{activityId,jdbcType=VARCHAR} )
+  GROUP BY  master.goods_id, erpgoods.price , erpgoods.sku) voss
+ ON ag.goods_id = voss.goods_id AND ag.sku_id = voss.skuid
+WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+      AND ag.goods_type = '50'
+      AND ag.goods_type_value is NULL
+ORDER BY ag.insert_time
+limit #{iDisplayLength,jdbcType=INTEGER} offset #{iDisplayStart,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSkuCountByActivityIdForOne" resultType="java.lang.Integer" parameterType="net.dlyt.qyds.common.form.ActMasterForm">
+SELECT
+count(*)
+FROM act_goods ag
+  LEFT JOIN view_onsell_sku_new vos ON ag.goods_id = vos.goods_id AND ag.sku_id = vos.skuid
+  LEFT JOIN (select master.goods_id, erpgoods.price, erpgoods.sku as skuid ,sum(bnk.new_count)as new_count from
+    (erp_goods erpgoods JOIN bnk_master bnk ON bnk.sku=erpgoods.sku
+      JOIN gds_master master  on master.goods_code = erpgoods.goods_code)
+  where bnk.deleted= '0' and master.deleted='0'
+        and master.goods_id in (SELECT ag.goods_id from act_goods ag where ag.activity_id =  #{activityId,jdbcType=VARCHAR} )
+        and erpgoods.sku in (SELECT ag.sku_id from act_goods ag where ag.activity_id =  #{activityId,jdbcType=VARCHAR} )
+  GROUP BY  master.goods_id, erpgoods.price , erpgoods.sku) voss
+ ON ag.goods_id = voss.goods_id AND ag.sku_id = voss.skuid
+WHERE activity_id = #{activityId,jdbcType=VARCHAR}
+      AND ag.goods_type = '50'
+      AND ag.goods_type_value is NULL;
+    </select>
+
     <select id="selectSkuByActivityIdUp" resultMap="SelectGoodsSkuResultMap" parameterType="net.dlyt.qyds.common.dto.ActGoods">
         SELECT
         ag.goods_id AS goods_id,

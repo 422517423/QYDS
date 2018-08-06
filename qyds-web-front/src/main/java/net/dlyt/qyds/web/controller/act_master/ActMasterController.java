@@ -23,6 +23,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -519,6 +520,12 @@ public class ActMasterController {
         return actMasterService.getGoodsList(form);
     }
 
+    @RequestMapping("getGoodsListForSku")
+    public @ResponseBody
+    JSONObject getOnsellSkuList(ActMasterForm form){
+        return actMasterService.getGoodsListForSku(form);
+    }
+
     /**
      * 添加活动相关的商品，根据goodsType的不同
      *
@@ -548,13 +555,26 @@ public class ActMasterController {
     /**
      * 删除活动相关的商品，根据goodsType的不同
      *
-     * @param data
+     * @param
      * @return
      */
     @RequestMapping("deleteGoods")
     @ResponseBody
-    public JSONObject deleteGoods(String data) {
-        ActMasterForm form = (ActMasterForm) JSON.parseObject(data, ActMasterForm.class);
-        return actMasterService.deleteGoods(form);
+    public JSONObject deleteGoods(@RequestParam("params[]") String[] params ) {
+        return actMasterService.deleteGoods(params);
+    }
+
+    /**
+     * 删除活动相关的商品
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("deleteGoodsById")
+    @ResponseBody
+    public JSONObject deleteGoodsById(String data) {
+        ActGoodsForm form = (ActGoodsForm) JSON.parseObject(data,ActGoodsForm.class);
+        String actGoodsId = form.getActGoodsId();
+        return actMasterService.deleteGoodsById(actGoodsId);
     }
 }
