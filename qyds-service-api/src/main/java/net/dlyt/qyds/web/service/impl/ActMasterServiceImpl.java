@@ -3620,13 +3620,40 @@ public class ActMasterServiceImpl implements ActMasterService {
      * @return
      */
     @Override
-    public JSONObject deleteGoods(String[] params) {
+    public JSONObject deleteGoodsNew(String[] params) {
         JSONObject json = new JSONObject();
         try {
             if (params!=null&&params.length!=0){
                 for (int i = 0; i < params.length; i++) {
                     actGoodsMapper.deleteByPrimaryKey(params[i]);
                 }
+            }
+            json.put("resultCode", Constants.NORMAL);
+        } catch (ExceptionBusiness e) {
+            json.put("resultCode", e.resultCd);
+            json.put("resultMessage", e.getMessage());
+        } catch (Exception e) {
+            json.put("resultCode", Constants.FAIL);
+            json.put("resultMessage", Constants.FAIL_MESSAGE);
+        }
+        return json;
+    }
+
+    /**
+     * 删除活动相关商品
+     *
+     * @param form
+     * @return
+     */
+    @Override
+    public JSONObject deleteGoods(ActMasterForm form) {
+        JSONObject json = new JSONObject();
+        try {
+            if (form.getGoodsList() == null || form.getGoodsList().size() == 0) {
+                throw new ExceptionBusiness("缺少参数");
+            }
+            for (int i = 0; i < form.getGoodsList().size(); i++) {
+                actGoodsMapper.deleteByPrimaryKey(form.getGoodsList().get(i).getActGoodsId());
             }
             json.put("resultCode", Constants.NORMAL);
         } catch (ExceptionBusiness e) {

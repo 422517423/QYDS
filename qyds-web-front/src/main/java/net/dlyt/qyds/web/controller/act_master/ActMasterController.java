@@ -561,7 +561,7 @@ public class ActMasterController {
     @RequestMapping("deleteGoods")
     @ResponseBody
     public JSONObject deleteGoods(@RequestParam("params[]") String[] params ) {
-        return actMasterService.deleteGoods(params);
+        return actMasterService.deleteGoodsNew(params);
     }
 
     /**

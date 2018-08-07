@@ -186,17 +186,20 @@ public class MmbMasterServiceImpl implements MmbMasterService {
                     // TODO @崔 注册券发送调用在此处
                     // 获取注册劵
                     List<CouponMasterExt> couponMasterExts = couponMasterMapperExt.selectRegisterCoupon();
-                    for (CouponMaster regCoupon :
-                            couponMasterExts) {
-                        if (regCoupon == null) {
-                            throw new ExceptionErrorData("注册劵不存在!");
+                    if (couponMasterExts!=null && couponMasterExts.size()!=0){
+                        for (CouponMaster regCoupon :
+                                couponMasterExts) {
+                            if (regCoupon == null) {
+                                continue;
+                            }
+                            if (regCoupon.getSendStartTime().compareTo(new Date()) > 0 || regCoupon.getSendEndTime().compareTo(new Date()) < 0) {
+                                System.out.println("注册券:"+regCoupon.getCouponName()+"---不在发放时间内");
+                                continue;
+                            }
+                            CouponMemberExt form1 = new CouponMemberExt();
+                            form1.setMemberId(user.getMemberId());
+                            couponMemberService.addRegisterCouponsForUser(form1, regCoupon);
                         }
-                        if (regCoupon.getSendStartTime().compareTo(new Date()) > 0 || regCoupon.getSendEndTime().compareTo(new Date()) < 0) {
-                            throw new ExceptionErrorData("当前不在发放期间内!");
-                        }
-                        CouponMemberExt form1 = new CouponMemberExt();
-                        form1.setMemberId(user.getMemberId());
-                        couponMemberService.addRegisterCouponsForUser(form1, regCoupon);
                     }
                     if (null != user.getBirthdate() && checkBirthdate(user.getBirthdate())) {
                         // 获取生日劵

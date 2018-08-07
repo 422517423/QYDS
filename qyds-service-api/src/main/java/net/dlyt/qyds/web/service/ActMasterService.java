@@ -112,7 +112,9 @@ public interface ActMasterService {
 
     JSONObject addGoods(ActMasterForm form);
 
-    JSONObject deleteGoods(String[] params);
+    JSONObject deleteGoodsNew(String[] params);
+
+    JSONObject deleteGoods(ActMasterForm form);
 
     JSONObject editGoods(ActMasterForm form);
 
