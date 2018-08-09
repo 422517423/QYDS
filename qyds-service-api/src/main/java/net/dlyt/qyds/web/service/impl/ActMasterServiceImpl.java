@@ -3317,6 +3317,20 @@ public class ActMasterServiceImpl implements ActMasterService {
                         }
 
                         break;
+                    //"45";"订单每满减";
+                    case ComCode.ActivityType.EVERY_FULL_CUT:
+
+                        if (oldPrice.compareTo(new BigDecimal(tempParam.get(activityTemp.get(activityId)).get(0).getParamCondition())) >= 0) {
+                            BigDecimal times = newPrice.divide(new BigDecimal(tempParam.get(activityTemp.get(activityId)).get(0).getParamCondition()));
+                            times=times.setScale( 0, BigDecimal.ROUND_DOWN );
+                            newPrice = newPrice.subtract
+                                    (new BigDecimal(tempParam.get(activityTemp.get(activityId)).get(0).getParamValue()).multiply(times));
+                            setActivityPrice(viewOnsellSkuMap.get(skuid),
+                                    Float.valueOf(newPrice.toString()),
+                                    actMasterForms.get(activityId).getActivityType(), actMasterForms.get(activityId).getActivityName());
+                        }
+
+                        break;
                     //"42";"订单满送货品"
                     case ComCode.ActivityType.FULL_SEND_GOODS:
                         //do nothing
@@ -3423,6 +3437,27 @@ public class ActMasterServiceImpl implements ActMasterService {
             if (j >= 0) {
                 // 原价-优惠价
                 newPrice = oldPrice.subtract(new BigDecimal(template.getParamList().get(j).getParamValue()));
+            } else {
+                newPrice = oldPrice;
+            }
+        }else if (ComCode.ActivityType.EVERY_FULL_CUT.equals(template.getActitionType())) {
+            // 前提是要求从paramCondition小到大排序
+            // 满减
+            int j = -1;
+            for (int i = 0; i < template.getParamList().size(); i++) {
+                // price是否大于等于所有优惠条件中的件数
+                if (price >= Float.valueOf(template.getParamList().get(i).getParamCondition())) {
+                    j = i;
+                } else {
+                    break;
+                }
+            }
+            if (j >= 0) {
+                // 原价-优惠价
+                int times = (int) (price/Float.valueOf(template.getParamList().get(j).getParamCondition()));
+                BigDecimal discountOne = new BigDecimal(template.getParamList().get(j).getParamValue());
+                BigDecimal discountAll = discountOne.multiply(BigDecimal.valueOf(times));
+                newPrice = oldPrice.subtract(discountAll);
             } else {
                 newPrice = oldPrice;
             }

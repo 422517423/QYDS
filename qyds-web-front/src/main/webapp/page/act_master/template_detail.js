@@ -156,6 +156,12 @@ function setLableText(acttype) {
             valueLable = "立减:";
             valueUnitLabel = "元。";
             break;
+        case "45": // "45";"每满减"
+            conditionLable = "每满";
+            conditionUnitLabel = "元，";
+            valueLable = "立减:";
+            valueUnitLabel = "元。";
+            break;
         case "42": // "42";"满送"
             conditionLable = "满";
             conditionUnitLabel = "元，";

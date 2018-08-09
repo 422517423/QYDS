@@ -345,6 +345,14 @@ function setLableText(acttype) {
             $("#div_selected_skus").hide();
             maxParamsCount = 1;
             break;
+        case "45": // "45";"每满减"
+            conditionLable = "每满";
+            conditionUnitLabel = "元，";
+            valueLable = "立减:";
+            valueUnitLabel = "元。";
+            $("#div_selected_skus").hide();
+            maxParamsCount = 1;
+            break;
         case "42": // "42";"满送"
             conditionLable = "满";
             conditionUnitLabel = "元，";
@@ -539,6 +547,7 @@ function checkParams() {
             case "31": // "31";"代金券"
             case "40": // "40";"满送"
             case "41": // "41";"满减"
+            case "45": // "45";"每满减"
             case "42": // "42";"满送货品"
             case "43": // "43";"满送积分"
             case "44": // "44";"满折"

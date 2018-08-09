@@ -27,6 +27,7 @@ ComCode {
         public static final String FULL_SEND_GOODS = "42";
         public static final String FULL_SEND_POINT = "43";
         public static final String FULL_DISCOUNT = "44";
+        public static final String EVERY_FULL_CUT = "45";
     }
 
     /**
