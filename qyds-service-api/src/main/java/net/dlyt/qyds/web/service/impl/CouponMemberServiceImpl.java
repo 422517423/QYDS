@@ -538,7 +538,7 @@ public class CouponMemberServiceImpl implements CouponMemberService {
             } else if (goodsInfo.get(j).getActivity() != null ){
                 float newPrice = goodsInfo.get(j).getActivity().getNewPrice();
                 float originPrice = goodsInfo.get(j).getActivity().getOriginPrice();
-                if (originPrice!=0f&&newPrice/originPrice>5){
+                if (originPrice!=0f&&newPrice/originPrice>0.5f){
                     validGoods.add(goodsInfo.get(j));
                 }else if (originPrice==0f){
                     validGoods.add(goodsInfo.get(j));
@@ -965,10 +965,14 @@ public class CouponMemberServiceImpl implements CouponMemberService {
         cm.setStartTime(startTime.getTime());
 
         // 结束日期
-        Calendar endTime = Calendar.getInstance();
-        endTime.setTime(startTime.getTime());
-        endTime.add(Calendar.DAY_OF_MONTH, coupon.getValidDays());
-        cm.setEndTime(endTime.getTime());
+        if(coupon.getEndTime()!=null){
+            cm.setEndTime(coupon.getEndTime());
+        }else {
+            Calendar endTime = Calendar.getInstance();
+            endTime.setTime(startTime.getTime());
+            endTime.add(Calendar.DAY_OF_MONTH, coupon.getValidDays());
+            cm.setEndTime(endTime.getTime());
+        }
         couponMemberMapper.insertSelective(cm);
         // 更新领取个数
         coupon.setDistributedCount(distributedCount + 1);
