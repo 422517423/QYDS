@@ -1840,7 +1840,7 @@ angular.module('dealnua.controllers', [])
                         }
                     });
                     $scope.productDetailData.colorList = validColorList;
-
+                    console.log(validColorList)
                     $scope.skuList = $scope.productDetailData.skulist;
                     $scope.skuImage = $scope.productDetailData.skulist[0].imgs[0];
                     $scope.skuImages = $scope.productDetailData.imageUrlJsonPc;
@@ -1909,13 +1909,14 @@ angular.module('dealnua.controllers', [])
                         }
                     };
 
-                    $scope.refreshSkuPrice();
+                    // $scope.refreshSkuPrice();
 
                     $ionicPopover.fromTemplateUrl('templates/selectGiftPopover.html', {
                         scope: $scope
                     }).then(function (popover) {
                         $scope.popover = popover;
-                        $scope.popover.show($jq("#submitOrder"));
+                        $scope.popover.show($event);
+                        console.log(popover);
                         var swiper = new Swiper('.swiper-container-phone', {
                             // pagination: '.swiper-pagination',
                             slidesPerView: 'auto',
