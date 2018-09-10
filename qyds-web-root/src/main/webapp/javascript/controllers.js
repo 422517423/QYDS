@@ -2460,6 +2460,7 @@ angular.module('dealuna.controllers', [])
                 goodsInfo.goodsId = $scope.productDetailData.goodsId;
                 goodsInfo.goodsName = $scope.productDetailData.goodsName;
                 goodsInfo.imageUrlJson = $scope.productDetailData.imageUrlJson;
+                goodsInfo.gdsColoreimageList = $scope.productDetailData.gdsColoreimageList;
                 goodsInfo.quantity = 1;
                 goodsInfo.type = $scope.productDetailData.type;
                 goodsInfo.isGift = "1";
@@ -4173,18 +4174,28 @@ angular.module('dealuna.controllers', [])
     // 活动列表
     .controller('saleListCtrl', ["$scope", "$state", "$stateParams",  "goodsListService", "activityTypeListService","$rootScope", "$modal", "getAlltypesService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsListService,activityTypeListService, $rootScope, $modal, getAlltypesService,brandtypeService,localStorageService,popupService) {
-            $scope.showForRepeat=false;
+            $scope.showForRepeat=[];
+            $scope.showForRepeatStatue=false;
             $scope.showForAct=false;
             $scope.fun=function () {
-                $scope.showForAct=true;
-                $scope.showForRepeat=false;
+                $scope.showForAct=!$scope.showForAct;
             };
             $scope.func=function (obj) {
-                $scope.showForRepeat=obj;
-                $scope.showForAct=false;
+                var index = $scope.showForRepeat.indexOf(obj);
+                if (index>-1){
+                    $scope.showForRepeat.splice(index,1);
+                }else {
+                    $scope.showForRepeat.push(obj);
+                }
             };
             $scope.funct=function (obj) {
-                return $scope.showForRepeat==obj;
+                var showForFunct = $scope.showForRepeat;
+                for (var i = 0; i < showForFunct.length; i++) {
+                    if(showForFunct[i]===obj){
+                        return true
+                    }
+                }
+                return false;
             };
             //数据集合
             $scope.goodsListClass = "col-xs-12 col-sm-12";
@@ -4740,18 +4751,28 @@ angular.module('dealuna.controllers', [])
     // 商品列表
     .controller('goodsListCtrl', ["$scope", "$state", "$stateParams", "goodsTypeIndexService", "goodsListService", "activityTypeListService","getNewDataService","$rootScope", "$modal", "typeService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsTypeIndexService, goodsListService,activityTypeListService,getNewDataService, $rootScope, $modal, typeService,brandtypeService,localStorageService,popupService) {
-            $scope.showForRepeat=false;
+            $scope.showForRepeat=[];
+            $scope.showForRepeatStatue=false;
             $scope.showForAct=false;
             $scope.fun=function () {
-                $scope.showForAct=true;
-                $scope.showForRepeat=false;
+                $scope.showForAct=!$scope.showForAct;
             };
             $scope.func=function (obj) {
-                $scope.showForRepeat=obj;
-                $scope.showForAct=false;
+                var index = $scope.showForRepeat.indexOf(obj);
+                if (index>-1){
+                    $scope.showForRepeat.splice(index,1);
+                }else {
+                    $scope.showForRepeat.push(obj);
+                }
             };
             $scope.funct=function (obj) {
-                return $scope.showForRepeat==obj;
+                var showForFunct = $scope.showForRepeat;
+                for (var i = 0; i < showForFunct.length; i++) {
+                    if(showForFunct[i]===obj){
+                        return true
+                    }
+                }
+                return false;
             };
 
             //数据集合
@@ -4861,7 +4882,7 @@ angular.module('dealuna.controllers', [])
             });
 
             // 活动列表获取(折扣和特价两种活动)
-            new activityTypeListService({"memberId":memberId,"firstGoodsTypeId":firstGoodsTypeId})
+            new activityTypeListService({"memberId":memberId})
                 .then(function (res) {
                     if (res.resultCode == "00") {
                         $scope.activityTypeList = res.data;
@@ -4892,6 +4913,10 @@ angular.module('dealuna.controllers', [])
                 }, function () {
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
+
+            $scope.mouseoverL = function(goods,imageUrlL){
+                goods.imageUrlJson = imageUrlL.imageUrlJson;
+            };
 
             $scope.gotoGoodsList = function(root){
                 firstGoodsTypeId = root.goodsTypeId;
@@ -5069,6 +5094,7 @@ angular.module('dealuna.controllers', [])
                         } else {
                             $scope.goodsTypeGoodsListData = res.goodsList;
                         }
+                        console.log( $scope.goodsTypeGoodsListData);
                         $scope.isFirstInMain = 1;
 
                         //从首页直接跳转直接跳转
@@ -5188,6 +5214,7 @@ angular.module('dealuna.controllers', [])
                     $scope.isLoading = false;
                     if (res.resultCode == "00") {
                         $scope.goodsList = $scope.goodsList.concat(res.results);
+                        console.log($scope.goodsList);
                         $scope.totalPage = res.allCount;
                         //$scope.dochangePage();
                         $scope.currentPage++;
@@ -5436,18 +5463,28 @@ angular.module('dealuna.controllers', [])
 
     .controller('goodsListDisplayCtrl', ["$scope", "$state", "$stateParams",  "goodsListService", "goodsListDisplayService", "activityTypeListService","$rootScope", "$modal", "getAlltypesService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsListService,goodsListDisplayService,activityTypeListService, $rootScope, $modal, getAlltypesService,brandtypeService,localStorageService,popupService) {
-            $scope.showForRepeat=false;
+            $scope.showForRepeat=[];
+            $scope.showForRepeatStatue=false;
             $scope.showForAct=false;
             $scope.fun=function () {
-                $scope.showForAct=true;
-                $scope.showForRepeat=false;
+                $scope.showForAct=!$scope.showForAct;
             };
             $scope.func=function (obj) {
-                $scope.showForRepeat=obj;
-                $scope.showForAct=false;
+                var index = $scope.showForRepeat.indexOf(obj);
+                if (index>-1){
+                    $scope.showForRepeat.splice(index,1);
+                }else {
+                    $scope.showForRepeat.push(obj);
+                }
             };
             $scope.funct=function (obj) {
-                return $scope.showForRepeat==obj;
+                var showForFunct = $scope.showForRepeat;
+                for (var i = 0; i < showForFunct.length; i++) {
+                    if(showForFunct[i]===obj){
+                        return true
+                    }
+                }
+                return false;
             };
             //数据集合
             $scope.goodsListClass = "col-xs-12 col-sm-12";
@@ -5550,6 +5587,10 @@ angular.module('dealuna.controllers', [])
                 }, function () {
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
+
+            $scope.mouseoverL = function(goods,imageUrlL){
+                goods.imageUrlJson = imageUrlL.imageUrlJson;
+            };
 
             $scope.getDataByActId = function (activityId,activityName) {
 

@@ -22,10 +22,10 @@
                 <span class="col-xs-12 second">
                     <a href="javascript:void(0);" ng-click="getGoodsList();">全部</a>
                 </span>
-                <span class="col-xs-12 second" ng-if="activityTypeList.length > 0" ng-click="fun()">
+                <span class="col-xs-12 second" ng-if="activityTypeList.length > 0" ng-click="fun()" style="cursor: pointer;">
                     活动
                      <span class="col-xs-12 third" ng-repeat="thirdMenu in activityTypeList" ng-show="showForAct"
-                           ng-click="getDataByActId(thirdMenu.activityId,thirdMenu.activityName)">
+                           ng-click="getDataByActId(thirdMenu.activityId,thirdMenu.activityName)" style="cursor: none;">
                         <a href="javascript:void(0);">{{thirdMenu.activityName}}</a>
                     </span>
                 </span>
@@ -178,6 +178,11 @@
                                             <img ng-src="{{goods.imageUrlJson | imgPath:''}}" class="" alt=""
                                                  width="100%" style="margin:0 auto;"/>
                                         </a>
+                                        <span ng-repeat="imageUrlL in goods.gdsColoreimageList">
+                                             <span ng-if="null!=imageUrlL.imageUrl">
+                                                <img ng-src="{{imageUrlL.imageUrl | imgPath:''}}" style="width: 20px;height: 20px;border: 2px #cccccc solid" ng-mouseover="mouseoverL(goods,imageUrlL)"/>
+                                             </span>
+                                        </span>
                                     </div>
                                     <div class="card-goods-price">
                                         <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>

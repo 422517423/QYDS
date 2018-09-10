@@ -295,7 +295,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             //获取下订单的会员的详情
             MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(list.get(0).getMemberId());
             //判断是否是高级会员
-            if ("30".equals(mmbMaster.getMemberLevelId())) {
+            if (mmbMaster!=null&&"30".equals(mmbMaster.getMemberLevelId())) {
                 //如果是高级会员，遍历这个会员的所有订单，并判断是否有订单时间大于升级时间的订单
                 List<OrdMasterExt> orderByMemberIdList = ordMasterMapperExt.getOrderByMemberId(mmbMaster.getMemberId());
                 for (OrdMasterExt orderMasterById :
@@ -4007,7 +4007,7 @@ public class OrdMasterServiceImpl implements OrdMasterService {
             //获取下订单的会员的详情
             MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(ordMasterExt.getMemberId());
             //判断是否是高级会员
-            if ("30".equals(mmbMaster.getMemberLevelId())) {
+            if (mmbMaster!=null&&"30".equals(mmbMaster.getMemberLevelId())) {
                 //如果是高级会员，遍历这个会员的所有订单，并判断是否有订单时间大于升级时间的订单
                 List<OrdMasterExt> orderByMemberIdList = ordMasterMapperExt.getOrderByMemberId(mmbMaster.getMemberId());
                 for (OrdMasterExt orderMasterById :

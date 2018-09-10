@@ -15,9 +15,10 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="insert_user_id" property="insertUserId" jdbcType="VARCHAR" />
     <result column="insert_time" property="insertTime" jdbcType="TIMESTAMP" />
+    <result column="image_url" property="imageUrl" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    goods_colore_id, goods_id, colore_code, colore_name, erp_goods_code, erp_colore_code,
+    goods_colore_id, goods_id, colore_code, colore_name, erp_goods_code, erp_colore_code,image_url,
     image_url_json, comment, deleted, update_user_id, update_time, insert_user_id, insert_time
   </sql>
   <select id="selectColorList" resultMap="BaseResultMap" parameterType="java.lang.String" >

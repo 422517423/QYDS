@@ -45,6 +45,24 @@ $(document).ready(function() {
 		$("#colorManage").modal('hide');
 	});
 
+    //保存按钮点击事件
+    $("#save_btnL").click(function(){
+
+        var json = {};
+        json.goodsColoreId = $("#goods_colore_idL").val();
+        json.goodsId = goodsId;
+        json.imageUrl= $('#goods_little_image_for_save').val();
+        console.log(json.imageUrl);
+
+        axse("/gds_color/save.json", {'data':JSON.stringify(json)}, saveSuccessFn, errorFn);
+
+    });
+
+	//小图配置取消按钮的点击事件
+	$('#cancel_btnL').click(function () {
+        $("#colorManageL").modal('hide');
+    });
+
 	//sku属性添加按钮的点击事件
 	$('#icon-plus-sign-sku').click(function(){
 
@@ -72,7 +90,13 @@ $(document).ready(function() {
 		$('#sku_image_div').append(img_clone);
 	});
 
+    $('#goods_little_image').click(function () {
+        $("#goods_little_image_input").click();
+    });
 
+    $('#goods_little_image_input').change(function (e) {
+        processImageL(this, $('#goods_little_image'));
+    });
 
 });
 
@@ -134,6 +158,62 @@ function uploadImage(img, data, fileName, suffix,count) {
 	axseForImage(null, param, success, error);
 }
 
+//处理图片的方法
+function processImageL(fileInput, image,count) {
+    var filepath = $(fileInput).val();
+    var extStart = filepath.lastIndexOf(".");
+    var ext = filepath.substring(extStart + 1, filepath.length).toUpperCase();
+    var fileName = getFileName(filepath);
+    if (ext != "JPG" && ext != "JPEG" && ext != "PNG") {
+        showAlert("请选择符合要求格式的图片上传！", "提示");
+        return;
+    }
+    // Get a reference to the fileList
+    var files = !!fileInput.files ? fileInput.files : [];
+    // If no files were selected, or no FileReader support,
+    // return
+    if (!files.length || !window.FileReader) {
+        showAlert("读取图片失败！", "提示");
+        return;
+    }
+    // Only proceed if the selected file is an image
+    if (/^image/.test(files[0].type)) {
+        // Create a new instance of the FileReader
+        var reader = new FileReader();
+        // Read the local file as a DataURL
+        reader.readAsDataURL(files[0]);
+        reader.onloadend = function() {
+            uploadImageL(image, this.result, fileName, ext,count);
+        }
+    } else {
+        showAlert("请选择图片文件！", "提示");
+        return;
+    }
+}
+
+//图片上传网络请求方法
+function uploadImageL(img, data, fileName, suffix,count) {
+    var url = uploadUri;
+    var param = {
+        type : "GDS_COLOR",
+        file : data,
+        fileName : fileName,
+        suffix : suffix
+    };
+
+    var success = function(data) {
+        if (data.resultCode == '00') {
+            img.attr("src", displayUri + orignal + data.data);
+            $('#goods_little_image_for_save').val(data.url);
+        } else {
+            showAlert('图片上传失败');
+        }
+    };
+    var error = function() {
+        showAlert('图片上传失败');
+    };
+    axseForImage(null, param, success, error);
+}
 
 //退回到列表画面
 function gotoListPage(){
@@ -187,7 +267,7 @@ function tableDisplay(colorList){
 		var coloreCode = colorList[i].coloreCode;
 		var coloreName = colorList[i].coloreName;
 		var goodsColoreId = colorList[i].goodsColoreId;
-		row = row + '<td>'+coloreCode+'</td>' + '<td>'+coloreName+'</td>' + '<td><a class="color" href="#" onclick="doColorConfirm(this);" id="' + goodsColoreId + '">配置</a></td>';
+		row = row + '<td>'+coloreCode+'</td>' + '<td>'+coloreName+'</td>' + '<td><a class="color" href="#" onclick="doColorConfirm(this);" id="' + goodsColoreId + '">配置</a></td>'+ '<td><a class="color" href="#" onclick="doColorConfirmL(this);" id="' + goodsColoreId + '">小图配置</a></td>';
 		row = row + '</tr>';
 		$('#body').append($(row));
 	}
@@ -203,6 +283,29 @@ function doColorConfirm(item){
 	//获取图片信息
 	axse("/gds_color/edit.json", {"goodsColoreId":item.id}, editSuccessFn, errorFn);
 }
+
+//点击配置的方法
+function doColorConfirmL(item){
+    $('#colorFormL')[0].reset();
+    $("#colorFormL").validate().resetForm();
+    $("#goods_colore_idL").val(item.id);
+    $('#colorManageL').modal(modalSettings);
+    //获取图片信息
+    axse("/gds_color/edit.json", {"goodsColoreId":item.id}, editSuccessFnL, errorFn);
+}
+
+function editSuccessFnL(data) {
+	if (data.resultCode == '00'){
+        if(data.data != null){
+        	var imageUrl = data.data.imageUrl;
+        	if (imageUrl != null) {
+                $("#goods_little_image").attr("src", displayUri + orignal  + imageUrl);
+				$("#goods_little_image_for_save").val(imageUrl)
+			}
+		}
+	}
+}
+
 
 //数据编辑的回调方法
 function editSuccessFn(data){
@@ -250,7 +353,7 @@ function editSuccessFn(data){
 function saveSuccessFn(data){
 
 	if (data.resultCode == '00') {
-		$("#colorManage").modal('hide');
+		$("#colorManageL").modal('hide');
 		//删除掉所有的事件
 		$.each($('#sku_image_div .img_clone'), function(index, item) {
 			$("#logo_img_"+index).die('click');

@@ -94,6 +94,16 @@ public class GdsMasterExt extends GdsMaster {
     //套装的场合用商品列表
     private List<GdsMasterExt> goodsList;
 
+    private List<GdsColoreimage> gdsColoreimageList;
+
+    public List<GdsColoreimage> getGdsColoreimageList() {
+        return gdsColoreimageList;
+    }
+
+    public void setGdsColoreimageList(List<GdsColoreimage> gdsColoreimageList) {
+        this.gdsColoreimageList = gdsColoreimageList;
+    }
+
     // 活动ID
     private String activityId;
 

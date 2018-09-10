@@ -182,6 +182,7 @@
                                                         <th>颜色CODE</th>
                                                         <th>颜色名称</th>
                                                         <th>配置</th>
+                                                        <th>小图配置</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="body">
@@ -253,6 +254,42 @@
                      style="float: left; color: red; margin-left: 20px"></div>
                 <button type="button" class="btn default" id="cancel_btn">取消</button>
                 <button type="button" id="save_btn" class="btn blue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 颜色配置画面 end -->
+
+<!-- 颜色小图配置画面 start-->
+<div class="modal fade" style="height: 600px;" id="colorManageL" tabindex="-1" role="basic" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">颜色配置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="colorFormL" class="form-horizontal validator">
+                        <input type="hidden" value="" name="goods_colore_idL" id="goods_colore_idL" />
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">小图</label>
+                            <div class="col-sm-4">
+                                <img id="goods_little_image" alt="" src=""
+                                     style="width: 40px;height: 40px;border: 1px #cccccc solid">
+                                <input type="text" id="goods_little_image_for_save" style="display: none;">
+                                <input type="file" id="goods_little_image_input" style="display: none">
+                                <div style="padding: 10px">(建议大小: 20*20)</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="sku_edit_tipL"
+                     style="float: left; color: red; margin-left: 20px"></div>
+                <button type="button" class="btn default" id="cancel_btnL">取消</button>
+                <button type="button" id="save_btnL" class="btn blue">保存</button>
             </div>
         </div>
     </div>

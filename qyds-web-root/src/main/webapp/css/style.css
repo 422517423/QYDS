@@ -1948,7 +1948,17 @@ select::-ms-expand { display: none; }
 .magazine-type:hover {
     text-decoration: underline;
 }
+.second a{
+    font-size: 15px !important;
+}
 
+.second{
+    font-size: 15px !important;
+}
+
+.product-list .title{
+    font-size: 20px !important;
+}
 
 /*!*关于秒杀的css*!*/
 /*.timeline {*/

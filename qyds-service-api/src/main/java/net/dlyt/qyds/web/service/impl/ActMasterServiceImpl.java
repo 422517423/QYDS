@@ -2171,6 +2171,9 @@ public class ActMasterServiceImpl implements ActMasterService {
                 if (goodsList.get(i).getSkuList().size() == 1) {
                     skuId = goodsList.get(i).getSkuList().get(0).getSkuId();
                     skuInfo = skuMapperExt.selectBySkuId(goodsList.get(i).getSkuList().get(0).getSkuId());
+                    if (skuInfo==null){
+                        continue;
+                    }
                     price = skuInfo.getPrice();
                     activityList = actMasterMapperExt.selectActivitiesBySkuInfo(skuInfo);
                 } else {

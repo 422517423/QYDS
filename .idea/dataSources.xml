@@ -38,5 +38,11 @@
         <property name="ApplicationName" value="DataGrip" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="DB_QYDS@115.29.146.180" uuid="a07145a0-9222-43e7-ae69-4373d9b6cb91">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://115.29.146.180:5432/DB_QYDS</jdbc-url>
+    </data-source>
   </component>
 </project>

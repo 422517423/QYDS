@@ -30,7 +30,17 @@ public class GdsColoreimage implements Serializable {
 
     private Date insertTime;
 
+    private String imageUrl;
+
     private static final long serialVersionUID = 1L;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getGoodsColoreId() {
         return goodsColoreId;
