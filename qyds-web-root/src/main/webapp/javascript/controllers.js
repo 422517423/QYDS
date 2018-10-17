@@ -6215,6 +6215,10 @@ angular.module('dealuna.controllers', [])
             $scope.doCallServicePhone();
         };
 
+        $scope.mouseoverL = function(goods,imageUrlL){
+            goods.imageUrlJson = imageUrlL.imageUrlJson;
+        };
+
         //商品详细画面跳转
         $scope.goProdocutDetail = function (goodsId) {
             var url = '/#/goodsDetail/' + goodsId;
