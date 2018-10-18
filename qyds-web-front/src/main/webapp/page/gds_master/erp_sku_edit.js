@@ -61,6 +61,7 @@ $(document).ready(function() {
 	//小图配置取消按钮的点击事件
 	$('#cancel_btnL').click(function () {
         $("#colorManageL").modal('hide');
+        $("#goods_little_image").attr("src", null);
     });
 
 	//sku属性添加按钮的点击事件
@@ -295,12 +296,15 @@ function doColorConfirmL(item){
 }
 
 function editSuccessFnL(data) {
+	console.log(data);
 	if (data.resultCode == '00'){
         if(data.data != null){
         	var imageUrl = data.data.imageUrl;
         	if (imageUrl != null) {
                 $("#goods_little_image").attr("src", displayUri + orignal  + imageUrl);
 				$("#goods_little_image_for_save").val(imageUrl)
+			}else {
+                $("#goods_little_image").attr("src", null);
 			}
 		}
 	}

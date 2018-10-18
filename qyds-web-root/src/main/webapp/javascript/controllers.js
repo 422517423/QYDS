@@ -5085,6 +5085,7 @@ angular.module('dealuna.controllers', [])
                     "firstGoodsTypeId": firstGoodsTypeId,
                     "memberId":memberId
                 }).then(function (res) {
+                    console.log(res.goodsList);
                     $scope.isLoading = false;
                     if (res.resultCode == "00") {
                         $scope.goodsTypeNewData = res.newList;

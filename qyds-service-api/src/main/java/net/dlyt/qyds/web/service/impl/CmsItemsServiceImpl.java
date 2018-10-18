@@ -57,6 +57,9 @@ public class CmsItemsServiceImpl implements CmsItemsService {
     @Autowired
     private ActMasterService actMasterService;
 
+    @Autowired
+    private GdsColorMapperExt gdsColorMapperExt;
+
     public List<CmsItemsExt> selectAll() {
         return cmsItemsMapperExt.selectAll();
     }
@@ -768,6 +771,10 @@ public class CmsItemsServiceImpl implements CmsItemsService {
                     goodsList.add(gdsMasterExt);
                 }
             }
+        }
+        for (GdsMasterExt gdsMasterExt1: goodsList) {
+            List<GdsColoreimage> gdsColoreimages = gdsColorMapperExt.selectColorList(gdsMasterExt1.getGoodsId());
+            gdsMasterExt1.setGdsColoreimageList(gdsColoreimages);
         }
         return goodsList;
     }
