@@ -34,8 +34,6 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-20160607-source" level="project" />
-    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-20160607" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:3.2.16.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:3.2.16.RELEASE" level="project" />
@@ -98,7 +96,7 @@
     <orderEntry type="module-library">
       <library name="Maven: com.taobao:taobao-sdk-java-auto:1455552377940-20160607">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/taobao-sdk-java-auto_1455552377940-20160607.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/com/taobao/taobao-sdk-java-auto/1455552377940-20160607/taobao-sdk-java-auto-1455552377940-20160607.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -117,5 +115,6 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:19.0-rc2" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjtools:1.7.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.3.0" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

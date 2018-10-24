@@ -51,6 +51,7 @@
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.2.2" />
           <element id="library" level="project" name="Maven: org.jdom:jdom2:2.0.6" />
           <element id="library" level="project" name="Maven: com.alibaba:tools:RELEASE" />
+          <element id="library" level="project" name="Maven: com.taobao:taobao-sdk-java-auto:1455552377940-20160607" />
           <element id="archive" name="qyds-interface-1.0.jar">
             <element id="module-output" name="qyds-interface" />
           </element>

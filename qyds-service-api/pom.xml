@@ -153,16 +153,16 @@
             <version>3.2.3.RELEASE</version>
             <scope>test</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.taobao</groupId>-->
-            <!--<artifactId>taobao-sdk-java-auto</artifactId>-->
-            <!--<version>1455552377940-20160607</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.taobao</groupId>-->
-            <!--<artifactId>taobao-sdk-java-auto</artifactId>-->
-            <!--<version>1455552377940-20160607</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.taobao</groupId>
+            <artifactId>taobao-sdk-java-auto</artifactId>
+            <version>1455552377940-20160607</version>
+        </dependency>
+        <dependency>
+            <groupId>com.taobao</groupId>
+            <artifactId>taobao-sdk-java-auto</artifactId>
+            <version>1455552377940-20160607</version>
+        </dependency>
 
 
     </dependencies>
