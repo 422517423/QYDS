@@ -54,6 +54,15 @@ public class GdsMasterController {
         return gdsMasterService.selectOnsellSku(form);
     }
 
+    @RequestMapping("getOnsellSkuListForAll")
+    public @ResponseBody
+    JSONObject getOnsellSkuListForAll(SkuForm form){
+        form.setsEcho(null);
+        form.setiDisplayLength(1000);
+        form.setiDisplayStart(0);
+        return gdsMasterService.selectOnsellSku(form);
+    }
+
     @RequestMapping("getSkuColorList")
     public @ResponseBody
     JSONObject getSkuColorList(SkuForm form){

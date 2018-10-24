@@ -396,6 +396,7 @@ function onGoodsSelected(selectedGoods) {
 }
 
 function onSkuSelected(selectedSkus) {
+    console.log(selectedSkus);
     if (!goodsList) {
         goodsList = [];
     }
@@ -553,6 +554,7 @@ function refreshActivityGoodsList() {
             $("#activity_goods_line_code").val('');
 
             refreshSkuList();
+            $("#sku_select_table1").dataTable().fnDestroy();
             initTableForSku();
             break;
         }
@@ -1230,7 +1232,7 @@ function getActivityDetail() {
  */
 function addGoods(addGoodsList) {
     if(!addGoodsList || addGoodsList.length==0){
-       return;
+        return;
     }
     var url = "/act_master/addGoods.json";
     var param = {
@@ -1506,6 +1508,7 @@ function initTableForSku() {
         "fnServerData": fnServerData,
         "bFilter": false,
         "bSort": false,
+         retrieve: true,
         "sAjaxSource": "../act_master/getGoodsListForSku.json",
         "fnServerParams": function (aoData) {
             // 设置参数
@@ -1583,7 +1586,7 @@ function initTableForSku() {
 
 
 
-function setAllCheckboxs(){
+function setAllCheckboxs1(){
     var status = $('.allCheck').prop('checked');
     var checkboxs = $('#sku_select_table1 tbody input[type="checkbox"]');
     if(status){

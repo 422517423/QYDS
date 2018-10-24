@@ -100,12 +100,17 @@ function showTip(message) {
 function setAllCheckboxs(){
     var status = $('.allCheck').prop('checked');
     var checkboxs = $('#sku_select_table tbody input[type="checkbox"]');
+    console.log(status);
     if(status){
+        console.log(status);
         $.each(checkboxs,function(i,v){
+            console.log($(this).attr('checked'));
             $(this).attr('checked','checked');
         });
     }else{
+        console.log(status);
         $.each(checkboxs,function(i,v){
+            console.log($(this).attr('checked'));
             $(this).removeAttr('checked');
         });
     }

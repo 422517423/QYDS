@@ -48,7 +48,7 @@ function initTable() {
             aoData.push({"name": "colorName", "value": $("#select_sku_goods_color").val()});
         },
         "fnDrawCallback": function() {
-            $('.allCheck').removeAttr('checked');
+            $('.allCheck1').removeAttr('checked');
         },
         "aoColumns": [
             {
@@ -106,14 +106,59 @@ function initTable() {
     tableSkuSelect = $('#sku_select_table').dataTable(tableOption);
 }
 
+function funGetAll() {
+    $.ajax({
+        url : "../gds_master/getOnsellSkuListForAll.json",
+        data : {
+            goodsCode:$("#select_sku_goods_code").val(),
+            colorName:$("#select_sku_goods_color").val()
+        },
+        success:function (result) {
+            console.log(result);
+            var selectedSkuIdsAll = [];
+            $.each(result.aaData,function (index, goodsSku) {
+               selectedSkuIdsAll.push(goodsSku);
+            });
+            if (selectedSkuIdsAll.length>0){
+                $("#sku_select_dialog").modal('hide');
+                onSkuSelected(selectedSkuIdsAll);
+            } else {
+                showTip("提交失败");
+            }
+
+            // $("input[name='select_sku_checkbox']:checked").each(function () {
+            //     selectedSkuIds.push($(this).val());
+            // });
+            // if (selectedSkuIds.length > 0) {
+            //     $("#sku_select_dialog").modal('hide');
+            //     // 这个方法在弹出选择模板的画面实现
+            //     var selectedRows = [];
+            //     $.each(selectedSkuIds, function (index, selectId) {
+            //         $.each(tableSkuSelect.fnGetData(), function (index2, row) {
+            //             if (selectId == row.skuid) {
+            //                 selectedRows.push(row);
+            //             }
+            //         });
+            //     });
+            //     onSkuSelected(selectedRows);
+            // } else {
+            //     showTip("请先选择一个商品");
+            // }
+            //
+
+        }
+    })
+}
+
 function showTip(message) {
     $("#sku_select_tip").text(message);
     setTimeout(function () {
         $("#sku_select_tip").text("");
     }, 2000);
 }
-function setAllCheckboxs(){
-    var status = $('.allCheck').prop('checked');
+function setAllCheckboxsAll(){
+    var status = $('.allCheck1').prop('checked');
+    console.log(status);
     var checkboxs = $('#sku_select_table tbody input[type="checkbox"]');
     if(status){
         $.each(checkboxs,function(i,v){

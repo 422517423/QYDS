@@ -34,7 +34,7 @@
                            id="sku_select_table">
                         <thead>
                         <tr>
-                            <th>全选<input type="checkbox" class="allCheck" onchange="setAllCheckboxs()"/></th>
+                            <th>全选<input type="checkbox" class="allCheck1" onchange="setAllCheckboxsAll()"/></th>
                             <th>商品款号</th>
                             <th>颜色</th>
                             <th>尺码</th>
@@ -49,6 +49,8 @@
             <div class="modal-footer" style="margin-top: 0">
                 <div id="sku_select_tip" style="float: left; color: red; margin-left: 20px"></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn blue" onclick="funGetAll()" id="select_sku_btn_search_all">全选
+                </button>
                 <button type="button" id="sku_select_btn_confirm" class="btn blue">确定</button>
             </div>
         </div>

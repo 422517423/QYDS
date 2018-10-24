@@ -304,7 +304,7 @@ function editSuccessFnL(data) {
                 $("#goods_little_image").attr("src", displayUri + orignal  + imageUrl);
 				$("#goods_little_image_for_save").val(imageUrl)
 			}else {
-                $("#goods_little_image").attr("src", null);
+                $("#goods_little_image").attr("src", "/qyds-web-front/none.png");
 			}
 		}
 	}
@@ -357,6 +357,7 @@ function editSuccessFn(data){
 function saveSuccessFn(data){
 
 	if (data.resultCode == '00') {
+        $("#colorManage").modal('hide');
 		$("#colorManageL").modal('hide');
 		//删除掉所有的事件
 		$.each($('#sku_image_div .img_clone'), function(index, item) {

@@ -49,6 +49,9 @@ public interface GdsMasterService {
     //选择已经上架的sku
     JSONObject selectOnsellSku(SkuForm form);
 
+    //全選查出來的sku
+//    JSONObject selectOnsellSkuForAll(SkuForm form);
+
     //*******************************API接口部分************************************//
 
     /**
