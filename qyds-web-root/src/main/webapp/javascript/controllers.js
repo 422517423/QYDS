@@ -5085,7 +5085,6 @@ angular.module('dealuna.controllers', [])
                     "firstGoodsTypeId": firstGoodsTypeId,
                     "memberId":memberId
                 }).then(function (res) {
-                    console.log(res.goodsList);
                     $scope.isLoading = false;
                     if (res.resultCode == "00") {
                         $scope.goodsTypeNewData = res.newList;
@@ -5095,7 +5094,6 @@ angular.module('dealuna.controllers', [])
                         } else {
                             $scope.goodsTypeGoodsListData = res.goodsList;
                         }
-                        console.log( $scope.goodsTypeGoodsListData);
                         $scope.isFirstInMain = 1;
 
                         //从首页直接跳转直接跳转
@@ -5215,7 +5213,6 @@ angular.module('dealuna.controllers', [])
                     $scope.isLoading = false;
                     if (res.resultCode == "00") {
                         $scope.goodsList = $scope.goodsList.concat(res.results);
-                        console.log($scope.goodsList);
                         $scope.totalPage = res.allCount;
                         //$scope.dochangePage();
                         $scope.currentPage++;
@@ -7867,7 +7864,6 @@ angular.module('dealuna.controllers', [])
             selectPayModalInstance.result.then(
                 function (result) {
                     if (result) {
-                        console.log(userInfo);
                         if("10" == result.type){
                             //支付测试
                             $('#orderId').val($rootScope.orderId);
@@ -8319,7 +8315,6 @@ angular.module('dealuna.controllers', [])
         }
 
         var userInfo = localStorageService.get(KEY_USERINFO);
-        console.log(userInfo);
         $scope.info = {provinceCd: '0', cityCd: '0', areaCd: '0'};//初始化联动下拉
         $scope.selectedOrderActivity = {
             id:-1
@@ -8492,7 +8487,6 @@ angular.module('dealuna.controllers', [])
         };
 
         $scope.processConfirmData = function (result) {
-            console.log(result);
             $scope.confirmData = result;
             var selectAddressInfo = $rootScope.selectedAddressInfo;
             if(selectAddressInfo && selectAddressInfo.addressId){
@@ -8621,6 +8615,7 @@ angular.module('dealuna.controllers', [])
                 }
             }
             $scope.selectedCoupon.id = -1;
+            // $scope.setSelectedCoupon($scope.selectedCoupon.id);
             var hasOrderActivity = "1";
             if(!$scope.selectedOrderActivity.id||$scope.selectedOrderActivity.id==-1){
                 hasOrderActivity = "0";
@@ -8638,12 +8633,13 @@ angular.module('dealuna.controllers', [])
             new confirmOrderService(param).getOrderCoupons().then(function (res) {
                 if(res.resultCode == "00"){
                     $scope.couponList = res.results;
+                    $scope.setSelectedCoupon(-1);
                     if("1" == userInfo.isSaller){
                         $scope.couponList = [];
                     }
-                    if($scope.couponList&&$scope.couponList.length>0){
-                        $scope.selectedCoupon.id = $scope.couponList[0].couponMemberId;
-                    }
+                    // if($scope.couponList&&$scope.couponList.length>0){
+                    //     $scope.selectedCoupon.id = $scope.couponList[0].couponMemberId;
+                    // }
                     $scope.setOrderFinalPrice();
                 }else{
                     popupService.showToast(res.resultMessage);
@@ -8668,8 +8664,6 @@ angular.module('dealuna.controllers', [])
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
-                    console.log(goodsPrice);
-                    console.log(parseFloat(goodsPrice)*goods.quantity);
                 }else{
                     // 套装
                     var goodsPrice =  0;
@@ -8688,8 +8682,6 @@ angular.module('dealuna.controllers', [])
             });
             $scope.goodsCount = goodsCount;
             $scope.goodsTotalPrice = goodsTotal.toFixed(2);
-            console.log("goodsTotalPrice");
-            console.log($scope.goodsTotalPrice);
             $scope.goodsExchangePointCount = exchangePointCount;
         };
 
@@ -8761,6 +8753,7 @@ angular.module('dealuna.controllers', [])
         };
         $scope.setSelectedCoupon = function(id){
             //点击的单选按钮，如果不是“使用红包”单选按钮的时候，将红包数组置空，并全部取消选中
+            console.log(id);
             if (id!=-2){
                 angular.forEach($scope.couponList, function (coupon, index) {
                     coupon.isChecked=false;
@@ -8770,7 +8763,7 @@ angular.module('dealuna.controllers', [])
             }else {
                 angular.forEach($scope.couponList, function (coupon, index) {
                     if (coupon.couponType=='40'){
-                         coupon.isChecked=true;
+                        coupon.isChecked=true;
                         $scope.setSelectedCoupons();
                     }
                 });
@@ -8798,7 +8791,6 @@ angular.module('dealuna.controllers', [])
                 }
             }
             $scope.couponMemberIds = temID;
-            console.log($scope.couponMemberIds);
             $scope.setOrderFinalPrice();
         };
 

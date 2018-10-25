@@ -2574,6 +2574,12 @@ public class ActMasterServiceImpl implements ActMasterService {
             }
         }
 
+        //如果不在会员表中，则不是会员，是店员，则首单打折取消
+        MmbMaster mmbMaster = mmbMasterMapper.selectByPrimaryKey(memberId);
+        if (mmbMaster==null){
+            newMemberDiscount = 1.00f;
+        }
+
         //根据传递的memberDiscount获取到
         if (StringUtils.isNotBlank(memberPhone)) {
             //根据memberphone获取会员的等级id
