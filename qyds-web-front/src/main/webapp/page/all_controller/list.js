@@ -190,7 +190,7 @@ function closeItem(obj) {
     var url = "/all_controller/edit.json";
     var param = {
         "allControllerId": obj ,
-        "status":1
+        "status":0
     };
 
     var success = function (data) {
