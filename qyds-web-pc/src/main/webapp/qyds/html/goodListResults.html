@@ -127,6 +127,13 @@
                                 <img ng-src="{{goods.imageUrlJson | imgPath:''}}" class="" alt=""
                                      width="100%" style="margin:0 auto;"/>
                             </a>
+                            <div style="margin-top: 5px">
+                            <span ng-repeat="imageUrlL in goods.gdsColoreimageList| limitTo : 10">
+                                            <span ng-if="null!=imageUrlL.imageUrl">
+                                                <img ng-src="{{imageUrlL.imageUrl | imgPath:''}}" style="width: 20px;height: 20px;border: 2px "  ng-mouseover="mouseoverL(goods,imageUrlL)"/>
+                                             </span>
+                                        </span>
+                            </div>
                             <!--<div class="tag">-->
                             <!--<div style="width:25%;float:right;margin-left: 10px;" ng-repeat="tag in goods.activityTags">-->
                             <!--<a href="javascript:void(0);" class="img_blink">-->
@@ -142,11 +149,11 @@
                             <!--<span ng-if="activityPrice != null && activityPrice != '¥null' ">{{activityPrice}}</span>-->
                             <!--<span ng-if="activityPrice == null || activityPrice == '¥null'" style="font-size: 13px;">{{skuPrice}}</span>-->
                             <!--<span class="font_del" ng-if="activityPrice != null && activityPrice != '¥null'" style="font-size: 13px;margin-left:4px;text-decoration: line-through">{{skuPrice}}</span>-->
-                            <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#ff0000">{{goods.minAndMaxPriceActivity}}</span>
-                            <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice}}</span>
+                            <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' " style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                            <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice | priceFilter2}}</span>
                             <span class="font_del"
                                   ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
-                                  style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice}}</span>
+                                  style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice | priceFilter2}}</span>
 
                         </div>
                         <div class="card-goods-name" style="font-size: 12px;color: #333;">
@@ -154,7 +161,7 @@
                         </div>
 
                         <div class="card-goods-activityName">
-                            <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#ff0000">{{goods.activityName}}</span>
+                            <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{goods.activityName}}</span>
                         </div>
                     </div>
                 </div>
@@ -277,11 +284,11 @@
                                 <!--<span ng-if="activityPrice != null && activityPrice != '¥null' ">{{activityPrice}}</span>-->
                                 <!--<span ng-if="activityPrice == null || activityPrice == '¥null'" style="font-size: 13px;">{{skuPrice}}</span>-->
                                 <!--<span class="font_del" ng-if="activityPrice != null && activityPrice != '¥null'" style="font-size: 13px;margin-left:4px;text-decoration: line-through">{{skuPrice}}</span>-->
-                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' "  style="font-size:12px;color:#ff0000">{{goods.minAndMaxPriceActivity}}</span>
-                                <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null' "  style="font-size:12px;color:#CC0001">{{goods.minAndMaxPriceActivity | priceFilter2}}</span>
+                                <span ng-if="goods.minAndMaxPriceActivity == null || goods.minAndMaxPriceActivity == '¥null'" style="font-size:12px;color:#333">{{goods.minAndMaxPrice | priceFilter2}}</span>
                                 <span class="font_del"
                                       ng-if="goods.minAndMaxPriceActivity != null && goods.minAndMaxPriceActivity != '¥null'"
-                                      style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice}}</span>
+                                      style="color:#333;font-size: 12px;margin-left:4px;text-decoration:line-through">{{goods.minAndMaxPrice | priceFilter2}}</span>
 
                             </div>
                             <div class="card-goods-name" style="font-size: 12px;color: #333;">
@@ -289,7 +296,7 @@
                             </div>
 
                             <div class="card-goods-activityName">
-                                <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#ff0000">{{goods.activityName}}</span>
+                                <span ng-if="goods.activityName != null && goods.activityName != '¥null' " style="font-size:12px;color:#CC0001">{{goods.activityName}}</span>
                             </div>
                         </div>
                     </div>

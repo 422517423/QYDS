@@ -62,6 +62,13 @@ angular.module('dealuna.filters', [])
             return parseFloat(price).toFixed(2);
         };
     }])
+
+    .filter('priceFilter2', ["$filter", function ($filter) {
+        return function (price) {
+            return '¥' + parseFloat(price.substring(1,price.length)).toFixed(2);
+        };
+    }])
+
     .filter('orderSkuFilter10', ["$filter", function ($filter) {
         return function (skuJsonStr, type) {
             // [{"color_code":"520","color_name":"橄榄绿","size_code":"10","size_name":"XS 165/88A"}]"

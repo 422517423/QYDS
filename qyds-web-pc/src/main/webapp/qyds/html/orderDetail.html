@@ -28,7 +28,7 @@
                             付款
                         </button>
 
-                        <button ng-if="orderDetail.orderStatus == 10 && orderDetail.deliverStatus == 10 && orderDetail.payStatus == 20"
+                        <button ng-if="orderDetail.orderStatus == 10 && orderDetail.deliverStatus == 10 && orderDetail.payStatus == 20 && orderDetail.noReturn!=1"
                                 class="btn btn-default btn-sm" 
                                 ng-click="applyRefund(orderDetail.orderId)">
                             申请退款
@@ -41,7 +41,7 @@
                             确认收货
                         </button>
 
-                        <button ng-if="((orderDetail.orderStatus == 10 || orderDetail.orderStatus == 23) || orderDetail.orderStatus == 23) && orderDetail.deliverStatus == 21 && orderDetail.payStatus == 20" class="btn btn-default btn-sm"
+                        <button ng-if="((orderDetail.orderStatus == 10 || orderDetail.orderStatus == 23) || orderDetail.orderStatus == 23) && orderDetail.deliverStatus == 21 && orderDetail.payStatus == 20 && orderDetail.noReturn!=1" class="btn btn-default btn-sm"
                                  ng-click="refunds(orderDetail);">
                             申请退货
                         </button>
@@ -311,12 +311,21 @@
                     <span style="color:#FF0000;float: right">- ￥{{orderDetail.amountDiscount}}</span>
                 </div>
             </div>
-            <div class="col-xs-12" ng-if="orderDetail.amountCoupon != null"
+            <div class="col-xs-12" ng-if="orderDetail.amountCoupon != null&&orderDetail.couponMasterList==null"
                  style="margin-top: 10px">
                 <div style="padding: 6px;background: #eeeeee;">
                     <sapn>优惠券：</sapn>
                     <span>{{orderDetail.coupon.couponName}}</span>
                     <span style="color:#FF0000;float: right">- ￥{{orderDetail.amountCoupon}}</span>
+                </div>
+            </div>
+            <div class="col-xs-12" ng-if="orderDetail.couponMasterList!=null" style="margin-top: 10px">
+                <div ng-repeat="coupon in orderDetail.couponMasterList">
+                    <div style="padding: 6px;background: #eeeeee;">
+                        <sapn>红包：</sapn>
+                        <span>{{coupon.couponName}}</span>
+                        <span style="color:#FF0000;float: right">- ￥{{coupon.worth}}</span>
+                    </div>
                 </div>
             </div>
             <div ng-if="orderDetail.amountPoint != 0" class="col-xs-12 text-right" style="font-size:13px;">
@@ -325,9 +334,14 @@
             </div>
             <div class="col-xs-12 text-right" style="margin-top: 10px;margin-bottom: 30px">
                 <sapn>实付款：</sapn>
-                <span style="color:#ff0000;font-size:20px;">￥{{orderDetail.payInfact}}</span>
+                <span style="color:#CC0001;font-size:20px;">￥{{orderDetail.payInfact}}</span>
             </div>
         </div>
         <input type="text" id="orderId" name="orderId" hidden>
+        <input type="text" id="signcode" name="signcode" hidden>
+
+        <input type="text" id="operate" name="operate" hidden>
+        <input type="text" id="storeid" name="storeid" hidden>
+        <input type="text" id="storesubid" name="storesubid" hidden>
     </form>
 </div>

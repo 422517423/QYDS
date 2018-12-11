@@ -7,18 +7,18 @@
         <div class="row" style="margin: auto">
             <div class="col-xs-12 col-md-6" style="padding: 0px;">
                 <div class="hidden-xs hidden-sm" style="padding:0px;overflow: hidden">
-                                <div class="" style="padding: 0px;float: left">
-                                    <div id="bx-pager" style="height:578px">
-                                        <div class="swiper-container" style="width: 100%;height: 100%">
-                                            <div class="swiper-wrapper">
-                                                <div class="swiper-slide" ng-repeat="img in skuImage">
-                                                    <a data-slide-index={{$index}} href="javascript:void(0);"
-                                                       style="width: 100%;height: 100%">
-                                                        <img ng-src="{{img | imgPath:'0' }}" width='72px'/>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- Add Arrows -->
+                    <div class="" style="padding: 0px;float: left">
+                        <div id="bx-pager" style="height:578px">
+                            <div class="swiper-container" style="width: 100%;height: 100%">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide" ng-repeat="img in skuImage">
+                                        <a data-slide-index={{$index}} href="javascript:void(0);"
+                                           style="width: 100%;height: 100%">
+                                            <img ng-src="{{img | imgPath:'0' }}" width='72px'/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Add Arrows -->
                                 <!--<div ng-if="skuImage.length > 5" class="swiper-button-next"></div>-->
                                 <!--<div ng-if="skuImage.length > 5" class="swiper-button-prev"></div>-->
                             </div>
@@ -54,7 +54,7 @@
                     <div class="titleBox" style=" padding:0;">
                         <div>
                             <span ng-if="activityPrice != null && activityPrice != '¥null' "
-                                  style="font-size: 22px;color:#ff0000;">{{activityPrice}}</span>
+                                  style="font-size: 22px;color:#CC0001;">{{activityPrice}}</span>
                             <span ng-if="activityPrice == null || activityPrice == '¥null'" style="font-size: 22px;">{{skuPrice}}</span>
                             <span class="font_del" ng-if="activityPrice != null && activityPrice != '¥null'"
                                   style="color:#000000;font-size: 13px;text-decoration: line-through">{{skuPrice}}</span>
@@ -85,7 +85,7 @@
                             <div class="divider_gray"></div>
                             <div style="font-size:1.3em;" style="padding:0;">{{good.goodsName}}</div>
 
-                            <div style="margin-top:0.3em;color:#ff0000;" ng-if="skuPriceActivityPriceSuit != null">
+                            <div style="margin-top:0.3em;color:#CC0001;" ng-if="skuPriceActivityPriceSuit != null">
                                 <span>¥{{skuPriceActivityPriceSuit}}</span>&nbsp;&nbsp;&nbsp;
                                 <span ng-if="skuPriceActivityPrice == null"
                                       style="font-size: 13px;">¥{{skuPrice}}</span>
@@ -293,7 +293,7 @@
             <div class="col-xs-12" style="padding:0;margin-bottom: 30px">
                 <div class="row">
                     <div class="col-xs-12" style="margin-top: 30px"
-                         ng-if="productDetailData.recommend_list&&productDetailData.recommend_list.length>0">
+                         ng-if="matingAndRecommendList.recommend_list&&matingAndRecommendList.recommend_list.length>0">
                         <div style="padding: 4px 0px;font-weight: bold">
                             <span>您还可能喜欢</span>
                             <span>/</span>
@@ -302,7 +302,7 @@
                         <div class="border-top">
                             <div class="row">
                                 <div class="col-xs-6 visible-xs"
-                                     ng-repeat="recommend in productDetailData.recommend_list" style="margin-top: 10px"
+                                     ng-repeat="recommend in matingAndRecommendList.recommend_list" style="margin-top: 10px"
                                      ng-if="isShowAllRecommand || $index<10">
                                     <div ng-click="goProdocutDetail(recommend.goodsId);" style="cursor: pointer;">
                                         <img ng-src="{{recommend.imageUrlJson | imgPath:'480'}}" class="" alt=""
@@ -313,7 +313,7 @@
                                     </div>
                                 </div>
                                 <div class="hidden-xs" style="padding: 5px">
-                                    <div ng-repeat="recommend in productDetailData.recommend_list"
+                                    <div ng-repeat="recommend in matingAndRecommendList.recommend_list"
                                          style="margin-top: 10px;width: 20%;float: left;padding: 0px 10px"
                                          ng-if="isShowAllRecommand || $index<10">
                                         <div ng-click="goProdocutDetail(recommend.goodsId);" style="cursor: pointer;">
@@ -328,12 +328,12 @@
                             </div>
                         </div>
                         <div style="background: #000000;padding: 8px;margin-top: 10px;text-align: center"
-                             ng-if="!isShowAllRecommand && productDetailData.recommend_list.length>10"
+                             ng-if="!isShowAllRecommand && matingAndRecommendList.recommend_list.length>10"
                              data-ng-click="showAllRecommand()">
                             <span style="color:white;font-size: 14px;">查看更多</span>
                         </div>
                         <div style="background: #000000;padding: 8px;margin-top: 10px;text-align: center"
-                             ng-if="isShowAllRecommand && productDetailData.recommend_list.length>10"
+                             ng-if="isShowAllRecommand && matingAndRecommendList.recommend_list.length>10"
                              data-ng-click="hideAllRecommand()">
                             <span style="color:white;font-size: 14px;">收起</span>
                         </div>
@@ -344,7 +344,7 @@
             <div class="col-xs-12" style="padding:0;margin-bottom: 30px">
                 <div class="row">
                     <div class="col-xs-12" style="margin-top: 30px"
-                         ng-if="productDetailData.mating_list&&productDetailData.mating_list.length>0">
+                         ng-if="matingAndRecommendList.mating_list&&matingAndRecommendList.mating_list.length>0">
                         <div style="padding: 4px 0px;font-weight: bold">
                             <span>成套搭配</span>
                             <span>/</span>
@@ -361,7 +361,7 @@
                                 <!--</div>-->
                                 <!--</div>-->
                                 <div class="col-xs-6 col-sm-4"
-                                     ng-repeat="mating in productDetailData.mating_list">
+                                     ng-repeat="mating in matingAndRecommendList.mating_list">
                                     <div ng-click="goProdocutDetail(mating.goodsId);" style="cursor: pointer;">
                                         <img ng-src="{{mating.imageUrlJson | imgPath:'480'}}" class="" alt=""
                                              style="margin:0 auto;width: 100%"/>

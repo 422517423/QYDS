@@ -53,11 +53,6 @@
 		<property name="durability" value="true" />
 	</bean>
 
-	<!--<bean name="" 	class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
-	<!--<property name="jobClass" value="net.dlyt.qyds.web.quartz.ThirtyDayOrderTaskJob" />-->
-	<!--<property name="durability" value="true" />-->
-	<!--</bean>-->
-
 	<!--&lt;!&ndash; 每日11点12分13秒执行一次 &ndash;&gt;-->
 	<!--<bean id="mmbMasterUpgradeCronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
 	<!--<property name="jobDetail" ref="mmbMasterUpgradeTaskJob" />-->
@@ -120,27 +115,27 @@
 	<bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="jobDetails">
 			<list>
-				<!--<ref bean="mmbMasterDownGradeTaskJob" />
+				<ref bean="mmbMasterDownGradeTaskJob" />
 				<ref bean="mmbBonusPointCleanTaskJob" />
 				<ref bean="mmbAddPointTaskJob" />
 				<ref bean="distributeBirthdayCouponTaskJob" />
 				<ref bean="erpSendTaskJob" />
 				<ref bean="receiptOrderTaskJob" />
 				<ref bean="thirtyDayOrderTaskJob" />
-				<ref bean="fifteenDayOrderTaskJob" />-->
+				<ref bean="fifteenDayOrderTaskJob" />
 			</list>
 		</property>
 
 		<property name="triggers">
 			<list>
-				<!--<ref bean="mmbMasterDownGradeCronTrigger" />
+				<ref bean="mmbMasterDownGradeCronTrigger" />
 				<ref bean="mmbBonusPointCleanCronTrigger" />
 				<ref bean="mmbAddPointCronTrigger" />
 				<ref bean="distributeBirthdayCouponCronTrigger" />
 				<ref bean="erpSendCronTrigger" />
 				<ref bean="receiptOrderCronTrigger" />
 				<ref bean="thirtyDayOrderCronTrigger" />
-				<ref bean="fifteenDayOrderCronTrigger" />-->
+				<ref bean="fifteenDayOrderCronTrigger" />
 			</list>
 		</property>
 
@@ -159,4 +154,5 @@
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="overwriteExistingJobs" value="true" />
 	</bean>
+
 </beans>

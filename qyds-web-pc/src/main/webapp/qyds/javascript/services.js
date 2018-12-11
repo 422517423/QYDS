@@ -138,7 +138,7 @@ angular.module('dealuna.services', [])
         function commonService(param){
             function getProvinces() {
                 var defer = $q.defer();
-                $http.post("../com_discrict/getProvinces.json").then(
+                $http.post("/qyds-web-pc/com_discrict/getProvinces.json").then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -149,7 +149,7 @@ angular.module('dealuna.services', [])
 
             function getSubAddresses() {
                 var defer = $q.defer();
-                $http.post("../com_discrict/getSubAddresses.json", $.param({'parentId':param.parentId})).then(
+                $http.post("/qyds-web-pc/com_discrict/getSubAddresses.json", $.param({'parentId':param.parentId})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -161,7 +161,7 @@ angular.module('dealuna.services', [])
 
             function sendCaptcha() {
                 var defer = $q.defer();
-                $http.post("../captcha/send.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/captcha/send.json", $.param({'data': JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -184,7 +184,7 @@ angular.module('dealuna.services', [])
         function authService(param){
             function login() {
                 var defer = $q.defer();
-                $http.post("../auth/login.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/auth/login.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function (error) {
@@ -195,7 +195,7 @@ angular.module('dealuna.services', [])
 
             function register() {
                 var defer = $q.defer();
-                $http.post("../auth/register.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/auth/register.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function (error) {
@@ -206,7 +206,7 @@ angular.module('dealuna.services', [])
 
             function changePassword() {
                 var defer = $q.defer();
-                $http.post("../auth/changePassword.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/auth/changePassword.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         console.log(response);
                         defer.resolve(response.data);
@@ -218,7 +218,7 @@ angular.module('dealuna.services', [])
 
             function getPersonalInfo() {
                 var defer = $q.defer();
-                $http.post("../mmb_master/getDetail.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_master/getDetail.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function (error) {
@@ -241,7 +241,7 @@ angular.module('dealuna.services', [])
 
             function getStoreList() {
                 var defer = $q.defer();
-                $http.post("../store/getOrgList.json",$.param({'data':JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/store/getOrgList.json",$.param({'data':JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -253,7 +253,7 @@ angular.module('dealuna.services', [])
 
             function getOrgAddressList() {
                 var defer = $q.defer();
-                $http.post("../store/getOrgAddressList.json", $.param({'data':JSON.stringify(param)}), {noLoading:true}).then(
+                $http.post("/qyds-web-pc/store/getOrgAddressList.json", $.param({'data':JSON.stringify(param)}), {noLoading:true}).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -278,7 +278,7 @@ angular.module('dealuna.services', [])
     //        var defer = $q.defer();
     //        var json = {};
     //        json.itemCode = "index_contact";
-    //        $http.post("../cms_items_api/getContentHtmlByItemCode.json",$.param({'data':JSON.stringify(json)}))
+    //        $http.post("/qyds-web-pc/cms_items_api/getContentHtmlByItemCode.json",$.param({'data':JSON.stringify(json)}))
     //            .then(
     //                function (response) {
     //                    defer.resolve(response.data);
@@ -295,7 +295,7 @@ angular.module('dealuna.services', [])
         function contactUsService(param) {
             function upInfo() {
                 var defer = $q.defer();
-                $http.post("../mmb_contact/add.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/mmb_contact/add.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -318,7 +318,7 @@ angular.module('dealuna.services', [])
         function displayUriService(){
             var defer = $q.defer();
             //获取全局用的图片访问baseUri
-            $http.get("../common/getImageUrl.json").then(
+            $http.get("/qyds-web-pc/common/getImageUrl.json").then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -334,7 +334,7 @@ angular.module('dealuna.services', [])
         function getBnkLimitService(){
             var defer = $q.defer();
             //获取全局用的图片访问baseUri
-            $http.get("../common/getBnkLimit.json").then(
+            $http.get("/qyds-web-pc/common/getBnkLimit.json").then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -349,7 +349,7 @@ angular.module('dealuna.services', [])
         function uploadUriService(){
             var defer = $q.defer();
             //获取全局用的图片访问baseUri
-            $http.get("../common/getUploadUrl.json").then(
+            $http.get("/qyds-web-pc/common/getUploadUrl.json").then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -363,12 +363,11 @@ angular.module('dealuna.services', [])
     // 获取商品分类的二级主页内容
     .factory("goodsTypeIndexService", function($http,$q) {
         function getGoodsTypeIndexService(params){
-            // alert("params:"+params);
             var defer = $q.defer();
             var json = {};
             json.goodsTypeId = params.firstGoodsTypeId;
             json.memberId = params.memberId;
-            $http.post("../cms_items_api/getGoodsTypeIndex.json", $.param({'data':JSON.stringify(json)})).then(
+            $http.post("/qyds-web-pc/cms_items_api/getGoodsTypeIndex.json", $.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -386,7 +385,7 @@ angular.module('dealuna.services', [])
             var json = {};
             var memberId = params.memberId;
             json.memberId = memberId;
-            $http.post("../points_exchange_api/activityListService.json",$.param({'data':JSON.stringify(json)})).then(
+            $http.post("/qyds-web-pc/points_exchange_api/activityListService.json",$.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -403,8 +402,29 @@ angular.module('dealuna.services', [])
             var defer = $q.defer();
             var json = {};
             var memberId = params.memberId;
+            var firstGoodsTypeId = params.firstGoodsTypeId;
             json.memberId = memberId;
-            $http.post("../gds_master_pc_api/activityTypeListService.json",$.param({'data':JSON.stringify(json)})).then(
+            json.firstGoodsTypeId=firstGoodsTypeId;
+            $http.post("/qyds-web-pc/gds_master_pc_api/activityTypeListService.json",$.param({'data':JSON.stringify(json)})).then(
+                function(response) {
+                    defer.resolve(response.data);
+                },function(){
+                    defer.reject();
+                });
+            return defer.promise;
+        };
+        return getData;// 此处return上面的 方法
+    })
+
+    //用户下所有的活动信息
+    .factory("activitysListService", function($http,$q) {
+
+        function getData(params) { //<———————需要给原来的方法体做一个内部方法名字尽量起的有意义（getxxx、savexxxx等）
+            var defer = $q.defer();
+            var json = {};
+            var memberId = params.memberId;
+            json.memberId = memberId;
+            $http.post("/qyds-web-pc/gds_master_pc_api/activitysListService.json",$.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -423,7 +443,7 @@ angular.module('dealuna.services', [])
             var firstGoodsTypeId = params.firstGoodsTypeId;
             json.goodsTypeId = firstGoodsTypeId;
             json.itemCode = "index_goods";
-            $http.post("../cms_items_api/getNewGoods.json",$.param({'data':JSON.stringify(json)})).then(
+            $http.post("/qyds-web-pc/cms_items_api/getNewGoods.json",$.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -451,9 +471,11 @@ angular.module('dealuna.services', [])
             var updateTime = param.updateTime;
             var sortByPrice = param.sortByPrice;
             var sortByTime = param.sortByTime;
+            var sortBySales = param.sortBySales;
             var memberId = param.memberId;
             var goodsIds = param.goodsIds;
             var cmsId = param.cmsId;
+            var activityIds = param.actIds;
 
             var json = {};
             json.goodsTypeId = goodsTypeId;
@@ -468,12 +490,22 @@ angular.module('dealuna.services', [])
             json.pageSize = pageSize;
             json.sortByPrice = sortByPrice;
             json.sortByTime = sortByTime;
+            json.sortBySales = sortBySales;
             json.memberId = memberId;
             json.goodsIds = goodsIds;
             json.cmsId = cmsId;
+            json.activityIds = activityIds;
 
             if(activityId != null && activityId.length > 0){
-                $http.post("../gds_master_pc_api/getProductListByActivityId.json", $.param({'data':JSON.stringify(json)})).then(
+                $http.post("/qyds-web-pc/gds_master_pc_api/getProductListByActivityId.json", $.param({'data':JSON.stringify(json)})).then(
+                    function(response) {
+                        defer.resolve(response.data);
+                    },function(){
+                        defer.reject();
+                    });
+                return defer.promise;
+            }else if(activityIds != null && activityIds.length > 0){
+                $http.post("/qyds-web-pc/gds_master_pc_api/getProductListByActivityIds.json", $.param({'data':JSON.stringify(json)})).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -481,7 +513,7 @@ angular.module('dealuna.services', [])
                     });
                 return defer.promise;
             }else {
-                $http.post("../gds_master_pc_api/getProductList.json", $.param({'data':JSON.stringify(json)})).then(
+                $http.post("/qyds-web-pc/gds_master_pc_api/getProductList.json", $.param({'data':JSON.stringify(json)})).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -503,7 +535,7 @@ angular.module('dealuna.services', [])
             goodsTypeId = goodsTypeId + '/' + memberId;
             //var json = {};
             //json.goodsTypeId = goodsTypeId;
-            $http.post("../gds_master_pc_api/getProductListBySequre.json", $.param({'data':goodsTypeId})).then(
+            $http.post("/qyds-web-pc/gds_master_pc_api/getProductListBySequre.json", $.param({'data':goodsTypeId})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -531,7 +563,7 @@ angular.module('dealuna.services', [])
             json.pageSize = pageSize;
             json.memberId = memberId;
 
-            $http.post("../gds_master_pc_api/getProductList.json", $.param({'data':JSON.stringify(json)})).then(
+            $http.post("/qyds-web-pc/gds_master_pc_api/getProductList.json", $.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(){
@@ -552,7 +584,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.goodsId = goodsId;
             json.memberId = memberId;
-            $http.post("../gds_master_pc_api/getProductDetail.json", $.param({'data':JSON.stringify(json)})).then(
+            $http.post("/qyds-web-pc/gds_master_pc_api/getProductDetail.json", $.param({'data':JSON.stringify(json)})).then(
                 function(response) {
                     defer.resolve(response.data);
                 },function(error){
@@ -561,17 +593,27 @@ angular.module('dealuna.services', [])
             return defer.promise;
         };
         return getData;// 此处return上面的 方法
+    })
 
-        //var defer = $q.defer();
-        //
-        //$http.get("./data/productDetail.json").then(
-        //    function(response) {
-        //        defer.resolve(response.data.results);
-        //        console.log()
-        //    },function(){
-        //        defer.reject();
-        //    });
-        //return defer.promise;
+    .factory("matingAndRecommendService", function($http,$q) {
+
+        function getData(param) { //<———————需要给原来的方法体做一个内部方法名字尽量起的有意义（getxxx、savexxxx等）
+            var defer = $q.defer();
+            var goodsId = param.goodsId;
+            var memberId = param.memberId;
+
+            var json = {};
+            json.goodsId = goodsId;
+            json.memberId = memberId;
+            $http.post("/qyds-web-pc/gds_master_pc_api/getMatingListAndRecommendList.json", $.param({'data':JSON.stringify(json)})).then(
+                function(response) {
+                    defer.resolve(response.data);
+                },function(error){
+                    defer.reject('error');
+                });
+            return defer.promise;
+        };
+        return getData;// 此处return上面的 方法
     })
 
     .service('popupService', ['$rootScope',  '$timeout',
@@ -762,7 +804,7 @@ angular.module('dealuna.services', [])
             var json = {};
             // json.itemCode = 'index_gds_sorts,index_act';
             json.itemCode = 'seo';
-            $http.post("../cms_items_api/getMetaData.json", $.param({'data': JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getMetaData.json", $.param({'data': JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -776,7 +818,7 @@ angular.module('dealuna.services', [])
             var defer = $q.defer();
             var json = {};
             json.itemCode = 'index_gds_sorts';
-            $http.post("../cms_items_api/getMasterByItemArray.json", $.param({'data': JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getMasterByItemArray.json", $.param({'data': JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -791,7 +833,7 @@ angular.module('dealuna.services', [])
             var json = {};
             // json.itemCode = 'index_gds_sorts,index_act';
             json.itemCode = 'head_delivery';
-            $http.post("../cms_items_api/getDeliverData.json", $.param({'data': JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getDeliverData.json", $.param({'data': JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -816,7 +858,7 @@ angular.module('dealuna.services', [])
 .factory("indexGdsBrandTypeService", function($http,$q) {
     function getIndexGdsBrandTypeData(param) {
         var defer = $q.defer();
-        $http.post("../gds_type_pc_api/getGdsBrandType.json", {})
+        $http.post("/qyds-web-pc/gds_type_pc_api/getGdsBrandType.json", {})
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -834,7 +876,7 @@ angular.module('dealuna.services', [])
 //         var defer = $q.defer();
 //         var json = {};
 //         json.memberId = param.memberId;
-//         $http.post("../mmb_collection/getCount.json", $.param({'data': JSON.stringify(json)}))
+//         $http.post("/qyds-web-pc/mmb_collection/getCount.json", $.param({'data': JSON.stringify(json)}))
 //             .then(
 //                 function(response) {
 //                     defer.resolve(response.data);
@@ -852,7 +894,7 @@ angular.module('dealuna.services', [])
 //         var defer = $q.defer();
 //         var json = {};
 //         json.memberId = param.memberId;
-//         $http.post("../mmb_shopping_bag/getCount.json", $.param({'data': JSON.stringify(json)}))
+//         $http.post("/qyds-web-pc/mmb_shopping_bag/getCount.json", $.param({'data': JSON.stringify(json)}))
 //             .then(
 //                 function(response) {
 //                     defer.resolve(response.data);
@@ -870,7 +912,7 @@ angular.module('dealuna.services', [])
         var defer = $q.defer();
         var json = {};
         json.memberId = param.memberId;
-        $http.post("../mmb_coupon_pc_api/getCount.json", $.param({'data': JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/mmb_coupon_pc_api/getCount.json", $.param({'data': JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -889,7 +931,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_figure';
         json.isChild = '0';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -908,7 +950,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_new';
         json.isChild = '0';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -928,7 +970,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_new_1';
         json.isChild = '0';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -946,7 +988,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_new_2';
         json.isChild = '0';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -965,7 +1007,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_new_3';
         json.isChild = '0';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -984,7 +1026,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_new_4';
             json.isChild = '0';
-            $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1003,7 +1045,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_new_5';
             json.isChild = '0';
-            $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1022,7 +1064,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_new_6';
             json.isChild = '0';
-            $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1042,7 +1084,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_new_two';
         json.isChild = '0';
-        $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -1062,7 +1104,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_goods_main';
         json.isChild = '0';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -1081,7 +1123,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_2';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1100,7 +1142,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_2_1';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1119,7 +1161,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_3';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1137,7 +1179,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_3_phone';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1155,7 +1197,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_4';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1173,7 +1215,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_5';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1191,7 +1233,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_6';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1209,7 +1251,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_7';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1227,7 +1269,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'index_region_8';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1246,7 +1288,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'sec_kill';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1265,7 +1307,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'activity_points';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1284,7 +1326,7 @@ angular.module('dealuna.services', [])
             var json = {};
             json.itemCode = 'points_couppon';
             json.isChild = '0';
-            $http.post("../cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1302,7 +1344,7 @@ angular.module('dealuna.services', [])
             var defer = $q.defer();
             var json = {};
             json.memberId = param.memberId;
-            $http.post("../auth/getCurrentPoints.json", $.param({'data':JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/auth/getCurrentPoints.json", $.param({'data':JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -1319,7 +1361,7 @@ angular.module('dealuna.services', [])
    function couponAllService(param) {
        function getAllCoupons() {
            var defer = $q.defer();
-           $http.post("../coupon_master/getAllCoupons.json", $.param({'data': JSON.stringify(param)}))
+           $http.post("/qyds-web-pc/coupon_master/getAllCoupons.json", $.param({'data': JSON.stringify(param)}))
                .then(
                    function (response) {
                        defer.resolve(response.data);
@@ -1330,7 +1372,7 @@ angular.module('dealuna.services', [])
        };
        function getCoupon() {
            var defer = $q.defer();
-           $http.post("../coupon_master/addCouponsForUser.json", $.param({'data': JSON.stringify(param)}))
+           $http.post("/qyds-web-pc/coupon_master/addCouponsForUser.json", $.param({'data': JSON.stringify(param)}))
                .then(
                    function (response) {
                        defer.resolve(response.data);
@@ -1354,7 +1396,7 @@ angular.module('dealuna.services', [])
         var json = {};
         json.itemCode = 'index_footer';
         json.isChild = '1';
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -1374,7 +1416,7 @@ angular.module('dealuna.services', [])
         function personalService(param){
             function getPersonalInfo() {
                 var defer = $q.defer();
-                $http.post("../mmb_master/getDetail.json", $.param({'data':JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/mmb_master/getDetail.json", $.param({'data':JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1386,7 +1428,7 @@ angular.module('dealuna.services', [])
 
             function editPersonal() {
                 var defer = $q.defer();
-                $http.post("../mmb_master/editPersonal.json", $.param({'data':JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/mmb_master/editPersonal.json", $.param({'data':JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1398,7 +1440,7 @@ angular.module('dealuna.services', [])
 
             function getERPAddressInfo() {
                 var defer = $q.defer();
-                $http.post("../mmb_master/getAddressList.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_master/getAddressList.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1429,7 +1471,7 @@ angular.module('dealuna.services', [])
              */
             function getList() {
                 var defer = $q.defer();
-                $http.post("../mmb_shopping_bag/getList.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_shopping_bag/getList.json", $.param({'data': JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1452,7 +1494,7 @@ angular.module('dealuna.services', [])
              */
             function add() {
                 var defer = $q.defer();
-                $http.post("../mmb_shopping_bag/add.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_shopping_bag/add.json", $.param({'data': JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function (error) {
@@ -1471,7 +1513,7 @@ angular.module('dealuna.services', [])
              */
             function remove() {
                 var defer = $q.defer();
-                $http.post("../mmb_shopping_bag/delete.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_shopping_bag/delete.json", $.param({'data': JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1490,7 +1532,7 @@ angular.module('dealuna.services', [])
              */
             function changeQuantity() {
                 var defer = $q.defer();
-                $http.post("../mmb_shopping_bag/changeQuantity.json", $.param({'data': JSON.stringify(param)}),{noLoading:true}).then(
+                $http.post("/qyds-web-pc/mmb_shopping_bag/changeQuantity.json", $.param({'data': JSON.stringify(param)}),{noLoading:true}).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1510,7 +1552,7 @@ angular.module('dealuna.services', [])
              */
             function changeActivity() {
                 var defer = $q.defer();
-                $http.post("../mmb_shopping_bag/changeActivity.json", $.param({'data': JSON.stringify(param)}),{noLoading:true}).then(
+                $http.post("/qyds-web-pc/mmb_shopping_bag/changeActivity.json", $.param({'data': JSON.stringify(param)}),{noLoading:true}).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1546,7 +1588,7 @@ angular.module('dealuna.services', [])
              */
             function getTimes() {
                 var defer = $q.defer();
-                $http.post("../gds_master_pc_api/getSecKillActivityTimes.json", $.param({'data':JSON.stringify(param)}),{noLoading:true}).then(
+                $http.post("/qyds-web-pc/gds_master_pc_api/getSecKillActivityTimes.json", $.param({'data':JSON.stringify(param)}),{noLoading:true}).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1565,7 +1607,7 @@ angular.module('dealuna.services', [])
              */
             function getProducts() {
                 var defer = $q.defer();
-                $http.post("../gds_master_pc_api/getSecKillProductList.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/gds_master_pc_api/getSecKillProductList.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1599,7 +1641,7 @@ angular.module('dealuna.services', [])
              */
             function getList() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/getList.json", $.param({'data':JSON.stringify(param)}),{noLoading:true}).then(
+                $http.post("/qyds-web-pc/mmb_collection/getList.json", $.param({'data':JSON.stringify(param)}),{noLoading:true}).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1621,7 +1663,7 @@ angular.module('dealuna.services', [])
              */
             function addFavorite() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/add.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_collection/add.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1641,7 +1683,7 @@ angular.module('dealuna.services', [])
              */
             function deleteFavorite() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/delete.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_collection/delete.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1659,7 +1701,7 @@ angular.module('dealuna.services', [])
              */
             function getInventoryAlarming() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/getInventoryAlarming.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_collection/getInventoryAlarming.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1694,7 +1736,7 @@ angular.module('dealuna.services', [])
              */
             function getList() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/getPhoneList.json", $.param({'data':JSON.stringify(param)}),{noLoading:true}).then(
+                $http.post("/qyds-web-pc/mmb_collection/getPhoneList.json", $.param({'data':JSON.stringify(param)}),{noLoading:true}).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1716,7 +1758,7 @@ angular.module('dealuna.services', [])
              */
             function addFavorite() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/add.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_collection/add.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1736,7 +1778,7 @@ angular.module('dealuna.services', [])
              */
             function deleteFavorite() {
                 var defer = $q.defer();
-                $http.post("../mmb_collection/delete.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_collection/delete.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1765,7 +1807,7 @@ angular.module('dealuna.services', [])
                 var defer = $q.defer();
                 var json = {};
                 json.tel = param.tel;
-                $http.post("../order_pc/checkInputTel.json", $.param({'data': JSON.stringify(json)}))
+                $http.post("/qyds-web-pc/order_pc/checkInputTel.json", $.param({'data': JSON.stringify(json)}))
                     .then(
                         function(response) {
                             defer.resolve(response.data);
@@ -1787,7 +1829,7 @@ angular.module('dealuna.services', [])
             // 会员送货地址一览
             function getList() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/getList.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/getList.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1798,7 +1840,7 @@ angular.module('dealuna.services', [])
 
             function getDefaultAddress() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/getDefaultAddress.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/getDefaultAddress.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1809,7 +1851,7 @@ angular.module('dealuna.services', [])
 
             function add() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/add.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/add.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1820,7 +1862,7 @@ angular.module('dealuna.services', [])
 
             function edit() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/edit.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/edit.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1831,7 +1873,7 @@ angular.module('dealuna.services', [])
 
             function deleteItem() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/delete.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/delete.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1842,7 +1884,7 @@ angular.module('dealuna.services', [])
 
             function getDetail() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/getDetail.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/getDetail.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1853,7 +1895,7 @@ angular.module('dealuna.services', [])
 
             function changeDefault() {
                 var defer = $q.defer();
-                $http.post("../mmb_address/changeDefault.json", $.param({'data':JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/mmb_address/changeDefault.json", $.param({'data':JSON.stringify(param)})).then(
                     function (response) {
                         defer.resolve(response.data);
                     }, function () {
@@ -1882,7 +1924,7 @@ angular.module('dealuna.services', [])
         function confirmOrderService(param) {
             function getDataByBag() {
                 var defer = $q.defer();
-                $http.post("../order_pc/confirmOrderFromBag.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/order_pc/confirmOrderFromBag.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1893,7 +1935,7 @@ angular.module('dealuna.services', [])
             };
             function checkDataByBag() {
                 var defer = $q.defer();
-                $http.post("../order_pc/checkConfirmOrderFromBag.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/order_pc/checkConfirmOrderFromBag.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1904,7 +1946,7 @@ angular.module('dealuna.services', [])
             };
             function getDataBySingleGoods() {
                 var defer = $q.defer();
-                $http.post("../order_pc/confirmOrderFromGoods.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/order_pc/confirmOrderFromGoods.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1915,7 +1957,7 @@ angular.module('dealuna.services', [])
             };
             function checkDataBySingleGoods() {
                 var defer = $q.defer();
-                $http.post("../order_pc/checkConfirmOrderFromGoods.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/order_pc/checkConfirmOrderFromGoods.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1926,7 +1968,7 @@ angular.module('dealuna.services', [])
             };
             function getDataBySuitGoods() {
                 var defer = $q.defer();
-                $http.post("../order_pc/confirmOrderFromSuitGoods.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/order_pc/confirmOrderFromSuitGoods.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1937,7 +1979,7 @@ angular.module('dealuna.services', [])
             };
             function submitOrder() {
                 var defer = $q.defer();
-                $http.post("../order_pc/submitOrder.json", $.param({'data': JSON.stringify(param)}),{showLoading:true})
+                $http.post("/qyds-web-pc/order_pc/submitOrder.json", $.param({'data': JSON.stringify(param)}),{showLoading:true})
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1948,7 +1990,7 @@ angular.module('dealuna.services', [])
             };
             function getOrderCoupons() {
                 var defer = $q.defer();
-                $http.post("../coupon_master/getOrderCoupons.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/coupon_master/getOrderCoupons.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1959,7 +2001,7 @@ angular.module('dealuna.services', [])
             };
             function getGiftDetailByCode() {
                 var defer = $q.defer();
-                $http.post("../gds_master_pc_api/getGiftDetailByCode.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/gds_master_pc_api/getGiftDetailByCode.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -1989,7 +2031,7 @@ angular.module('dealuna.services', [])
         function orderService(param) {
             function getList(){
                 var defer = $q.defer();
-                $http.post("../order_pc/getOrderListByMemberId.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/order_pc/getOrderListByMemberId.json", $.param({'data': JSON.stringify(param)})).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2000,7 +2042,7 @@ angular.module('dealuna.services', [])
             // 获取订单详情
             function showOrderDetail(param) {
                 var defer = $q.defer();
-                $http.post("../order_pc/getOrderDetail.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/order_pc/getOrderDetail.json", $.param({'data': JSON.stringify(param)})).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2011,7 +2053,7 @@ angular.module('dealuna.services', [])
             // 取消订单
             function cancelOrder() {
                 var defer = $q.defer();
-                $http.post("../order_pc/cancelOrder.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/cancelOrder.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2022,7 +2064,7 @@ angular.module('dealuna.services', [])
             // 确认收货（全单）
             function confirmReceiptInMaster() {
                 var defer = $q.defer();
-                $http.post("../order_pc/confirmReceiptInMaster.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/confirmReceiptInMaster.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2033,7 +2075,7 @@ angular.module('dealuna.services', [])
             // 确认收货（自提全单orderId或快递编号expressNo）
             function confirmReceived() {
                 var defer = $q.defer();
-                $http.post("../order_pc/confirmReceived.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/confirmReceived.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2044,7 +2086,7 @@ angular.module('dealuna.services', [])
             // 删除订单（全单）
             function deleteOrder() {
                 var defer = $q.defer();
-                $http.post("../order_pc/deleteOrder.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/deleteOrder.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2055,7 +2097,7 @@ angular.module('dealuna.services', [])
             // 全单退货（不可拆单退）
             function applyReturnGoods() {
                 var defer = $q.defer();
-                $http.post("../order_pc/applyReturnGoods.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/applyReturnGoods.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2066,7 +2108,7 @@ angular.module('dealuna.services', [])
             // 子单退货（允许拆单退）
             function applyReturnSubGoods() {
                 var defer = $q.defer();
-                $http.post("../order_pc/applyReturnSubGoods.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/applyReturnSubGoods.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2077,7 +2119,7 @@ angular.module('dealuna.services', [])
             // 获取门店信息
             function getOrgList() {
                 var defer = $q.defer();
-                $http.post("../order_pc/getOrgList.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/order_pc/getOrgList.json", $.param({'data': JSON.stringify(param)})).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2088,7 +2130,7 @@ angular.module('dealuna.services', [])
             // 申请退款
             function applyRefund() {
                 var defer = $q.defer();
-                $http.post("../order_pc/applyRefund.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
+                $http.post("/qyds-web-pc/order_pc/applyRefund.json", $.param({'data': JSON.stringify(param)}),{showLoading:true}).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2118,7 +2160,7 @@ angular.module('dealuna.services', [])
         function orderOffLineService(param) {
             function getList(){
                 var defer = $q.defer();
-                $http.post("../order_pc/getOrderListOffLineByMemberId.json", $.param({'data': JSON.stringify(param)})).then(
+                $http.post("/qyds-web-pc/order_pc/getOrderListOffLineByMemberId.json", $.param({'data': JSON.stringify(param)})).then(
                     function(response) {
                         defer.resolve(response.data);
                     },function(){
@@ -2138,7 +2180,7 @@ angular.module('dealuna.services', [])
 
     function getLogistics(param) {
         var defer = $q.defer();
-        $http.post("../order_pc/queryLogisticsInfo.json", $.param({'data': JSON.stringify(param)}))
+        $http.post("/qyds-web-pc/order_pc/queryLogisticsInfo.json", $.param({'data': JSON.stringify(param)}))
             .then(
                 function (response) {
                     defer.resolve(response.data);
@@ -2157,7 +2199,7 @@ angular.module('dealuna.services', [])
             var defer = $q.defer();
             var json = {};
             json.goodsTypeId = param.firstGoodsTypeId;
-            $http.post("../gds_type_pc_api/getGdsTypeFloor.json", $.param({'data': JSON.stringify(json)}))
+            $http.post("/qyds-web-pc/gds_type_pc_api/getGdsTypeFloor.json", $.param({'data': JSON.stringify(json)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -2169,12 +2211,29 @@ angular.module('dealuna.services', [])
         return getTypeData;
     }])
 
+    //获取所有的type分类
+    .factory("getAlltypesService",["$q","$http", function($q, $http) {
+        function getTypeData(param) {
+            var defer = $q.defer();
+            $http.post("/qyds-web-pc/gds_type_pc_api/getAllTypes.json", $.param({}))
+                .then(
+                    function(response) {
+                        defer.resolve(response.data);
+                    },function(){
+                        defer.reject();
+                    });
+            return defer.promise;
+        };
+        return getTypeData;
+    }])
+
+
 // 获取品牌系列
 .factory("brandtypeService",["$q","$http", function($q, $http) {
     function getTypeData(param) {
         var defer = $q.defer();
         var json;
-        $http.post("../gds_type_pc_api/getGdsBrandTypeFloor.json")
+        $http.post("/qyds-web-pc/gds_type_pc_api/getGdsBrandTypeFloor.json")
             .then(
                 function(response) {
                     console.log(response.data);
@@ -2192,7 +2251,7 @@ angular.module('dealuna.services', [])
     function getTypeData(param) {
         var defer = $q.defer();
         var json = {};
-        $http.post("../gds_type_pc_api/getGdsTypeFloorByPhone.json")
+        $http.post("/qyds-web-pc/gds_type_pc_api/getGdsTypeFloorByPhone.json")
             .then(
                 function(response) {
                     console.log(response.data);
@@ -2219,7 +2278,7 @@ angular.module('dealuna.services', [])
         json.pageSize = parseInt(param.data.pageSize);
         json.memberId = param.data.memberId;
         json.status = param.data.status;
-        $http.post("../mmb_coupon_pc_api/getList.json", $.param({'data': JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/mmb_coupon_pc_api/getList.json", $.param({'data': JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -2234,7 +2293,7 @@ angular.module('dealuna.services', [])
 .factory("footerExplainService",["$q","$http", function($q, $http) {
     function getHeaderData(param) {
         var defer = $q.defer();
-        $http.post("../cms_items_api/getContentHtmlByCmsId.json", $.param({'data': JSON.stringify(param)}))
+        $http.post("/qyds-web-pc/cms_items_api/getContentHtmlByCmsId.json", $.param({'data': JSON.stringify(param)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -2249,7 +2308,7 @@ angular.module('dealuna.services', [])
 .factory("goodsOrderService",["$q","$http", function($q, $http) {
     function goodsOrder(param) {
         var defer = $q.defer();
-        $http.post("../gds_master_pc_api/goodsOrder.json", $.param({'data': JSON.stringify(param)}))
+        $http.post("/qyds-web-pc/gds_master_pc_api/goodsOrder.json", $.param({'data': JSON.stringify(param)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -2265,7 +2324,7 @@ angular.module('dealuna.services', [])
 .factory("magazineListService",["$q","$http", function($q, $http) {
     function getHeaderData(param) {
         var defer = $q.defer();
-        $http.post("../cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(param)}))
+        $http.post("/qyds-web-pc/cms_items_api/getMasterByItemList.json", $.param({'data': JSON.stringify(param)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -2283,7 +2342,7 @@ angular.module('dealuna.services', [])
         var defer = $q.defer();
         var json = {};
         json.cmsId = param.cmsId;
-        $http.post("../cms_items_api/getTheStory.json", $.param({'data': JSON.stringify(json)}))
+        $http.post("/qyds-web-pc/cms_items_api/getTheStory.json", $.param({'data': JSON.stringify(json)}))
             .then(
                 function(response) {
                     defer.resolve(response.data);
@@ -2298,7 +2357,7 @@ angular.module('dealuna.services', [])
     function pointExchangeService(param) {
         function getPointExchangeCoupons() {
             var defer = $q.defer();
-            $http.post("../coupon_master/getPointExchangeCoupons.json", $.param({'data': JSON.stringify(param)}))
+            $http.post("/qyds-web-pc/coupon_master/getPointExchangeCoupons.json", $.param({'data': JSON.stringify(param)}))
                 .then(
                     function (response) {
                         defer.resolve(response.data);
@@ -2309,7 +2368,7 @@ angular.module('dealuna.services', [])
         };
         function getCoupon() {
             var defer = $q.defer();
-            $http.post("../coupon_master/addCouponsForUser.json", $.param({'data': JSON.stringify(param)}))
+            $http.post("/qyds-web-pc/coupon_master/addCouponsForUser.json", $.param({'data': JSON.stringify(param)}))
                 .then(
                     function(response) {
                         defer.resolve(response.data);
@@ -2330,7 +2389,7 @@ angular.module('dealuna.services', [])
         function WeiXinService(param) {
             function getWxPayInfo() {
                 var defer = $q.defer();
-                $http.post("../wechat/getWxPayInfo.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/wechat/getWxPayInfo.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -2350,7 +2409,7 @@ angular.module('dealuna.services', [])
         function prizeDrawService(param) {
             function getPrizeDrawById() {
                 var defer = $q.defer();
-                $http.post("../prize_draw/getPrizeDrawInfo.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/prize_draw/getPrizeDrawInfo.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -2361,7 +2420,7 @@ angular.module('dealuna.services', [])
             };
             function exchangePrizeWithPoint() {
                 var defer = $q.defer();
-                $http.post("../prize_draw/exchangePrizeWithPoint.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/prize_draw/exchangePrizeWithPoint.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -2376,7 +2435,7 @@ angular.module('dealuna.services', [])
                 var json = {};
                 json.itemCode = 'prize_draw';
                 json.isChild = '0';
-                $http.post("../cms_items_api/getListByItem.json", $.param({'data': JSON.stringify(json)}))
+                $http.post("/qyds-web-pc/cms_items_api/getListByItem.json", $.param({'data': JSON.stringify(json)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -2388,7 +2447,7 @@ angular.module('dealuna.services', [])
 
             function getWinningList() {
                 var defer = $q.defer();
-                $http.post("../prize_draw/getWinningList.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/prize_draw/getWinningList.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -2400,7 +2459,7 @@ angular.module('dealuna.services', [])
 
             function getPrizeGoodsList() {
                 var defer = $q.defer();
-                $http.post("../prize_draw/getPrizeGoodsList.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/prize_draw/getPrizeGoodsList.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);
@@ -2411,7 +2470,7 @@ angular.module('dealuna.services', [])
             };
             function prizeDraw() {
                 var defer = $q.defer();
-                $http.post("../prize_draw/prizeDraw.json", $.param({'data': JSON.stringify(param)}))
+                $http.post("/qyds-web-pc/prize_draw/prizeDraw.json", $.param({'data': JSON.stringify(param)}))
                     .then(
                         function (response) {
                             defer.resolve(response.data);

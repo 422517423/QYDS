@@ -265,7 +265,7 @@
                                                         付款
                                                     </button>
 
-                                                    <button ng-if="order.orderStatus == 10 && order.deliverStatus == 10 && order.payStatus == 20"
+                                                    <button ng-if="order.orderStatus == 10 && order.deliverStatus == 10 && order.payStatus == 20 &&order.noReturn != 1"
                                                             class="btn btn-default btn-md pull-right"
                                                             style="margin-left: 4px;"
                                                             ng-click="applyRefund(order.orderId)">
@@ -280,7 +280,7 @@
                                                         确认收货
                                                     </button>
 
-                                                    <button ng-if="(order.orderStatus == 10 || order.orderStatus == 23) && order.deliverStatus == 21 && order.payStatus == 20"
+                                                    <button ng-if="(order.orderStatus == 10 || order.orderStatus == 23) && order.deliverStatus == 21 && order.payStatus == 20 &&order.noReturn != 1"
                                                             class="btn btn-default btn-md pull-right"
                                                             style="margin-left: 4px;" ng-click="refunds(order);">
                                                         申请退货
@@ -320,6 +320,11 @@
                 </div>
             </div>
             <input type="text" id="orderId" name="orderId" hidden>
+            <input type="text" id="signcode" name="signcode" hidden>
+
+            <input type="text" id="operate" name="operate" hidden>
+            <input type="text" id="storeid" name="storeid" hidden>
+            <input type="text" id="storesubid" name="storesubid" hidden>
         </form>
     </div>
 </div>

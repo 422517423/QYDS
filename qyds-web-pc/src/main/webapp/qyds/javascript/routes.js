@@ -19,10 +19,16 @@ angular.module('dealuna.routes', [])
         //})
         // 商品列表
         .state('goodsList', {
-            url: '/goodsList/{actId}/{firstGoodsTypeId}/{type}/{cmsId}/{pageType}/{classifyId}/{classifyName}',
+            url: '/goodsList/{actId}/{firstGoodsTypeId}/{type}/{cmsId}/{pageType}/{classifyId}/{classifyName}/{brandFlg}',
             //params:{"type":'',"actId":'', "firstGoodsTypeId":''},
             templateUrl: 'html/goodList.html',
             controller: 'goodsListCtrl'
+        })
+        // 活动专题页面
+        .state('sale', {
+            url: '/saleList',
+            templateUrl: 'html/saleList.html',
+            controller: 'saleListCtrl'
         })
         .state('goodsListDisplay', {
             url: '/goodsListDisplay/:type',

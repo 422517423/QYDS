@@ -1178,6 +1178,19 @@ a.callbacks_nav.callbacks2_nav.next {
     color:#333;
 }
 
+.goodList .classify_menu .last{
+    padding:3px 0;
+}
+.goodList .classify_menu .last a{
+    cursor: pointer;
+    font-size:10px;
+    color:#8d8d8d;
+    text-decoration: none;
+}
+.goodList .classify_menu .last a:hover{
+    color:#333;
+}
+
 .goodList .good_table{
     margin:8px 0 0 8px;
     padding:0;
@@ -1935,7 +1948,17 @@ select::-ms-expand { display: none; }
 .magazine-type:hover {
     text-decoration: underline;
 }
+.second a{
+    font-size: 15px !important;
+}
 
+.second{
+    font-size: 15px !important;
+}
+
+.product-list .title{
+    font-size: 20px !important;
+}
 
 /*!*关于秒杀的css*!*/
 /*.timeline {*/

@@ -69,7 +69,7 @@
                          ng-click="selectTab('10')">
                         物流快递
                     </div>
-                    <div ng-if="selectedDeliveryTab =='10'" class="deliveryTabUnselect border-right border-top"
+                    <div ng-if="selectedDeliveryTab =='10'" id="mdzt10" class="deliveryTabUnselect border-right border-top"
                          ng-click="selectTab('20')">
                         到店自提
                     </div>
@@ -78,7 +78,7 @@
                          ng-click="selectTab('10')">
                         物流快递
                     </div>
-                    <div ng-if="selectedDeliveryTab =='20'" class="deliveryTabSelected border-right border-top"
+                    <div ng-if="selectedDeliveryTab =='20'" id="mdzt20" class="deliveryTabSelected border-right border-top"
                          ng-click="selectTab('20')">
                         到店自提
                     </div>
@@ -300,7 +300,7 @@
                                                 <span style="color: red">高级会员8.8折</span>
                                             </div>
                                             <div ng-if="goodItem.isNew==true" style="margin-top: 2px;">
-                                                <span style="color: red">新用户首单9折</span>
+                                                <span style="color: red">新用户首单9.5折</span>
                                             </div>
                                         </div>
                                     </td>
@@ -558,11 +558,29 @@
             </div>
             <div class="col-xs-12">
                 <div style="background: #eeeeee;">
-                    <div ng-repeat="coupon in couponList" ng-click="setSelectedCoupon(coupon.couponMemberId)"
+                    <div ng-repeat='coupon in couponList|filter: {couponType:"!40"}' ng-click="setSelectedCoupon(coupon.couponMemberId)"
                          style="border-bottom: 1px #dddddd solid;padding:6px 6px;">
                         <div style="width: 100%;margin-bottom: 0px">
                             <input type="radio"
                                    ng-value="coupon.couponMemberId" ng-model="selectedCoupon.id">
+                            <span style="font-size:12px">{{coupon.couponName}}</span>
+                            <span ng-if="coupon.couponStyle==0" style="color: red;float: right">- ¥{{coupon.worth}}</span>
+                            <span ng-if="coupon.couponStyle==1" style="color: red;float: right">{{coupon.discount}}折 - ¥{{coupon.discountPrice}}</span>
+                        </div>
+                    </div>
+                    <div ng-repeat='coupon in couponList|filter: {couponType:"40"}|limitTo:1'
+                         style="border-bottom: 1px #dddddd solid;padding:6px 6px;" id="redPacketUse">
+                        <div style="width: 100%;margin-bottom: 0px" ng-click="setSelectedCoupon(-2)">
+                            <input type="radio" ng-value="-2" id="redPacketRadio"
+                                   ng-model="selectedCoupon.id">
+                            <span style="font-size:12px ">使用红包</span>
+                        </div>
+                    </div>
+                    <div ng-repeat='coupon in couponList|filter: {couponType:"40"}'
+                         style="border-bottom: 1px #dddddd solid;padding:6px 6px;" id="redPacketCheckBox">
+                        <div style="width: 100%;margin-bottom: 0px">
+                            <input type="checkbox" ng-value="coupon.couponMemberId" ng-model="coupon.isChecked" ng-change="setSelectedCoupons()"
+                                   style="margin-right: 8px;" >
                             <span style="font-size:12px">{{coupon.couponName}}</span>
                             <span ng-if="coupon.couponStyle==0" style="color: red;float: right">- ¥{{coupon.worth}}</span>
                             <span ng-if="coupon.couponStyle==1" style="color: red;float: right">{{coupon.discount}}折 - ¥{{coupon.discountPrice}}</span>
@@ -605,5 +623,11 @@
     </form>
     <form id="ordMaster1" name="ordMaster1">
         <input type="text" id="orderId" name="orderId" hidden>
+        <input type="text" id="signcode" name="signcode" hidden>
+
+        <input type="text" id="operate" name="operate" hidden>
+        <input type="text" id="storeid" name="storeid" hidden>
+        <input type="text" id="storesubid" name="storesubid" hidden>
+
     </form>
 </div>

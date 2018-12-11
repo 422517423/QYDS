@@ -29,7 +29,7 @@ function footerSuccess(data) {
         }
         var QRCode = '';
         QRCode += '<div class="col-xs-6 col-md-2 coupons-gd">';
-        QRCode += '<img alt=" " src="images/footer-phone.png" class="footer-phone">';
+        QRCode += '<img alt=" " src="images/erweima.png" class="footer-phone">';
         QRCode += '</div>';
         $("#footer_area").append(QRCode);
 

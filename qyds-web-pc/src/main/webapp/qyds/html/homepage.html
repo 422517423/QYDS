@@ -1,3 +1,5 @@
+<div class="visible-xs"
+     style="margin-left:25px;text-align:center;letter-spacing:25px;color:#CC0001;margin-top:10px;font-size:14px;font-family:Microsoft YaHei">全场包邮</div>
 <div style="margin-top: 20px;">
     <!--轮播图-->
     <div class="row">
@@ -149,7 +151,7 @@
                             </a>
                             <div class="card-goods-price">
                                 <span ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null' "
-                                      style="font-size:18px;color:#ff0000">{{propter.minAndMaxPriceActivity}}</span>
+                                      style="font-size:18px;color:#CC0001">{{propter.minAndMaxPriceActivity | priceFilter2}}</span>
                                 <span ng-if="propter.minAndMaxPriceActivity == null || propter.minAndMaxPriceActivity == '¥null'">{{propter.minAndMaxPrice}}</span>
                                 <span class="font_del"
                                       ng-if="propter.minAndMaxPriceActivity != null && propter.minAndMaxPriceActivity != '¥null'"
@@ -192,79 +194,26 @@
         <div class="row" style="max-width: 1920px;margin: 0px auto;padding: 35px 0px" ng-if="indexRegion2_1Data != null && indexRegion2_1Data.cmList != null && indexRegion2_1Data.cmList.length>0" >
             <div class="col-xs-12" style="padding: 0px">
                 <img ng-if="indexRegion2_1Data != null && indexRegion2_1Data.cmList != null && indexRegion2_1Data.cmList.length>0"
-                     class="img-responsive" alt="" style="cursor:pointer;margin:0 auto;" width="68%" ng-src="{{indexRegion2_1Data.cmList[0].imageUrl | imgPath:''}}" ng-click="goOtherPage(indexRegion2_1Data.cmList[0].itemType, indexRegion2_1Data.cmList[0].itemTypeVal,'',indexRegion2_1Data.cmList[0].cmsId)">
+                     class="img-responsive" alt="" style="cursor:pointer;margin:0 auto;" width="100%" ng-src="{{indexRegion2_1Data.cmList[0].imageUrl | imgPath:''}}" ng-click="goOtherPage(indexRegion2_1Data.cmList[0].itemType, indexRegion2_1Data.cmList[0].itemTypeVal,'',indexRegion2_1Data.cmList[0].cmsId)">
 
-            </div>
-        </div>
-
-
-        <!--区域8-->
-        <div class="row" style="padding: 0px 0px 35px 0px">
-            <div class="row">
-                <div class="row hidden-xs" style="max-width: 900px;margin: 0px auto">
-                    <img ng-if="titleImg != null && titleImg.length > 0" ng-src="{{titleImg | imgPath:''}}" style="width: 100%;"/>
-                </div>
-                <div class="visible-xs col-xs-10 col-xs-offset-1">
-                    <img ng-if="titleImg != null && titleImg.length > 0" ng-src="{{titleImg | imgPath:''}}" style="width: 100%;"/>
-                </div>
-            </div>
-            <div class="row" style="max-width: 1520px;margin: 10px auto">
-                <div class="swiper-bottom hidden-xs"
-                     style="overflow: hidden;width: 100%;position: relative;padding: 0px 15px">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" ng-repeat="match in matches" style="position: relative;cursor: pointer;"
-                             ng-click="goGoodsDetail(match.goodsId)"
-                             ng-mouseenter="showShadow(match)"
-                        >
-                            <img ng-src="{{match.imageUrl | imgPath:''}}" style="width: 100%;"/>
-                            <div ng-mouseout="hideShadow(match)" ng-if="match.showShadow == '1'" style="text-align: center;background: rgba(0,0,0,0.3);position: absolute;top: 0px;right: 0px;bottom: 0px;left: 0px;color: white">
-                                <div style="position:absolute;top: 50%;left: 0;right: 0;text-align: center;margin-top: -8px">选购这身搭配</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next"
-                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_right.png);right: 0px;margin-top: -15px;opacity: 1"></div>
-                    <div class="swiper-button-prev"
-                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_left.png);left: 0px;margin-top: -15px;opacity: 1"></div>
-                </div>
-                <div class="swiper-bottom-phone visible-xs"
-                     style="overflow: hidden;width: 100%;position: relative;padding: 0px 15px">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" ng-repeat="match in matches">
-                            <img ng-src="{{match.imageUrl | imgPath:''}}" style="width: 100%;cursor: pointer" ng-click="goGoodsDetail(match.goodsId)"/>
-                        </div>
-                    </div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next"
-                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_right.png);right: 0px;margin-top: -15px;opacity: 1"></div>
-                    <div class="swiper-button-prev"
-                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_left.png);left: 0px;margin-top: -15px;opacity: 1"></div>
-                </div>
-            </div>
-            <div style="position: fixed;bottom: 90px;right: 15px;z-index: 9" ng-click="scroll2Top()">
-                <!--<div style="width: 40px;height: 40px;line-height: 40px;text-align: center;background: rgba(0,0,0,0.3);border-radius:20px">-->
-                <!--<i class="ion-chevron-up light"></i>-->
-                <img src="images/toTop.png" alt="返回顶部" height="30px" style="margin-top:3px;">
-                <!--</div>-->
             </div>
         </div>
 
 
 
         <!--模块1一-->
-        <div class="row hidden-xs" style="max-width: 1920px;margin: 0px auto;padding: 35px 0px" ng-repeat="guide in indexNewsData1" ng-controller="homepageCtrl">
+        <div class="row hidden-xs" style="max-width: 1920px;margin: 0px auto;padding: 35px 0px" ng-repeat="guide in indexNewsData1">
             <div class="col-xs-12" style="padding: 0px">
-                <img ng-click="goOtherPage(guide.itemType, guide.itemTypeVal,'',guide.cmsId , guide.comment)"
+                <img ng-click="goOtherPage(guide.itemType, guide.itemTypeVal,'',guide.cmsId,guide.comment)"
                      style="cursor:pointer;margin:0 auto;"
-                     ng-src="{{guide.imageUrl | imgPath:''}}" class="img-responsive" alt="" width="68%"/>
+                     ng-src="{{guide.imageUrl | imgPath:''}}" class="img-responsive" alt="" width="100%"/>
             </div>
         </div>
 
         <!--模块1一-->
-        <div class="row visible-xs" style="max-width: 1920px;margin: 0px auto;padding: 20px 0px" ng-repeat="guide in indexNewsData1" ng-controller="homepageCtrl">
+        <div class="row visible-xs" style="max-width: 1920px;margin: 0px auto;padding: 20px 0px" ng-repeat="guide in indexNewsData1">
             <div class="col-xs-12" style="padding: 0px">
-                <img ng-click="goOtherPage(guide.itemType, guide.itemTypeVal,'',guide.cmsId , guide.comment)"
+                <img ng-click="goOtherPage(guide.itemType, guide.itemTypeVal,'',guide.cmsId,guide.comment)"
                      style="cursor:pointer;margin:0 auto;"
                      ng-src="{{guide.imageUrl | imgPath:''}}" class="img-responsive" alt="" width="100%"/>
             </div>
@@ -398,34 +347,160 @@
         <!--</div>-->
 
         <!--区域3-->
-        <div class="row hidden-xs" style="padding: 35px 0px">
-            <div class="row" style="max-width: 1520px;margin: 0px auto">
-                <div class="swiper-category" style="overflow: hidden;width: 100%">
+        <!--<div class="row hidden-xs" style="padding: 35px 0px">-->
+            <!--<div class="row" style="max-width: 1520px;margin: 0px auto">-->
+                <!--<div class="swiper-category" style="overflow: hidden;width: 100%">-->
+                    <!--<div class="swiper-wrapper">-->
+                        <!--<div class="swiper-slide" ng-repeat="category in categories" >-->
+                            <!--<img ng-src="{{category.imageUrl | imgPath:''}}" style="width: 100%;cursor: pointer" ng-click="goGoodsList(category.typeId,category.pageType,category.classifyId,category.classifyName)"/>-->
+                            <!--<div style="text-align: center;cursor: pointer;font-size: 14px;margin-top: 10px" ng-click="goGoodsList(category.typeId,category.pageType,category.classifyId,category.classifyName)">-->
+                                <!--{{categoriesDescribe[$index]}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row  hidden-xs" style="padding: 35px 0px;">
+            <div class="row" style="max-width: 1520px;margin: 0px auto;">
+                <div class="col-xs-3" style="padding: 10px">
+                    <img ng-if="categories != null && categories[0] != null" ng-src="{{categories[0].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categories[0].typeId,categories[0].pageType,categories[0].classifyId,categories[0].classifyName)">
+                    <div style="text-align: center;cursor: pointer;font-size: 14px;margin-top: 10px" ng-click="goGoodsList(category[0].typeId,category[0].pageType,category[0].classifyId,category[0].classifyName)">
+                        {{categoriesDescribe[0]}}
+                    </div>
+                </div>
+                <div class="col-xs-3" style="padding: 10px">
+                    <img ng-if="categories != null && categories[1] != null" ng-src="{{categories[1].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categories[1].typeId,categories[1].pageType,categories[1].classifyId,categories[1].classifyName)">
+                    <div style="text-align: center;cursor: pointer;font-size: 14px;margin-top: 10px" ng-click="goGoodsList(category[1].typeId,category[1].pageType,category[1].classifyId,category[1].classifyName)">
+                        {{categoriesDescribe[1]}}
+                    </div>
+                </div>
+                <div class="col-xs-3" style="padding: 10px">
+                    <img ng-if="categories != null && categories[2] != null" ng-src="{{categories[2].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categories[2].typeId,categories[2].pageType,categories[2].classifyId,categories[2].classifyName)">
+                    <div style="text-align: center;cursor: pointer;font-size: 14px;margin-top: 10px" ng-click="goGoodsList(category[2].typeId,category[2].pageType,category[2].classifyId,category[2].classifyName)">
+                        {{categoriesDescribe[2]}}
+                    </div>
+                </div>
+                <div class="col-xs-3" style="padding: 10px">
+                    <img ng-if="categories != null && categories[3] != null" ng-src="{{categories[3].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList('6acd07b1-e0c7-4661-85dd-6044373f370e','4','6acd07b1-e0c7-4661-85dd-6044373f370e',categories[3].classifyName)">
+                    <div style="text-align: center;cursor: pointer;font-size: 14px;margin-top: 10px" ng-click="goGoodsList('6acd07b1-e0c7-4661-85dd-6044373f370e','4','6acd07b1-e0c7-4661-85dd-6044373f370e',categories[3].classifyName)">
+                        {{categoriesDescribe[3]}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--区域3 手机版-->
+        <!--<div class="row visible-xs" style="padding: 0px">-->
+            <!--<div class="col-xs-4" style="padding: 0px">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[0] != null" ng-src="{{categoriesPhone[0].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[0].typeId,categoriesPhone[0].pageType,categoriesPhone[0].classifyId,categoriesPhone[0].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[1] != null" ng-src="{{categoriesPhone[1].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[1].typeId,categoriesPhone[1].pageType,categoriesPhone[1].classifyId,categoriesPhone[1].classifyName)">-->
+            <!--</div>-->
+            <!--<div class="col-xs-4" style="padding: 0px">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[2] != null" ng-src="{{categoriesPhone[2].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[2].typeId,categoriesPhone[2].pageType,categoriesPhone[2].classifyId,categoriesPhone[2].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[3] != null" ng-src="{{categoriesPhone[3].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[3].typeId,categoriesPhone[3].pageType,categoriesPhone[3].classifyId,categoriesPhone[3].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[4] != null" ng-src="{{categoriesPhone[4].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[4].typeId,categoriesPhone[4].pageType,categoriesPhone[4].classifyId,categoriesPhone[4].classifyName)">-->
+            <!--</div>-->
+            <!--<div class="col-xs-4" style="padding: 0px">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[5] != null" ng-src="{{categoriesPhone[5].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[5].typeId,categoriesPhone[5].pageType,categoriesPhone[5].classifyId,categoriesPhone[5].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[6] != null" ng-src="{{categoriesPhone[6].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[6].typeId,categoriesPhone[6].pageType,categoriesPhone[6].classifyId,categoriesPhone[6].classifyName)">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row visible-xs" style="padding: 0px;margin-right:5px;margin-left:5px">-->
+            <!--<div class="col-xs-12" style="padding: 0px;margin-bottom:2px;">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[3] != null" ng-src="{{categoriesPhone[3].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[3].typeId,categoriesPhone[3].pageType,categoriesPhone[3].classifyId,categoriesPhone[3].classifyName)">-->
+            <!--</div>-->
+            <!--<div class="col-xs-4" style="padding: 2px">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[5] != null" ng-src="{{categoriesPhone[5].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[5].typeId,categoriesPhone[5].pageType,categoriesPhone[5].classifyId,categoriesPhone[5].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[1] != null" ng-src="{{categoriesPhone[1].imageUrl | imgPath:''}}" style="width: 100%;margin-top: 4px;" data-ng-click="goGoodsList(categoriesPhone[1].typeId,categoriesPhone[1].pageType,categoriesPhone[1].classifyId,categoriesPhone[1].classifyName)">-->
+            <!--</div>-->
+            <!--<div class="col-xs-4" style="padding: 2px;">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[6] != null" ng-src="{{categoriesPhone[6].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[6].typeId,categoriesPhone[6].pageType,categoriesPhone[6].classifyId,categoriesPhone[6].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[2] != null" ng-src="{{categoriesPhone[2].imageUrl | imgPath:''}}" style="width: 100%;margin-top: 4px;" data-ng-click="goGoodsList(categoriesPhone[2].typeId,categoriesPhone[2].pageType,categoriesPhone[2].classifyId,categoriesPhone[2].classifyName)">-->
+            <!--</div>-->
+            <!--<div class="col-xs-4" style="padding: 2px;">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[0] != null" ng-src="{{categoriesPhone[0].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[0].typeId,categoriesPhone[0].pageType,categoriesPhone[0].classifyId,categoriesPhone[0].classifyName)">-->
+                <!--<img ng-if="categoriesPhone != null && categoriesPhone[4] != null" ng-src="{{categoriesPhone[4].imageUrl | imgPath:''}}" style="width: 100%;margin-top: 4px;" data-ng-click="goGoodsList(categoriesPhone[4].typeId,categoriesPhone[4].pageType,categoriesPhone[4].classifyId,categoriesPhone[4].classifyName)">-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row visible-xs" style="padding: 0px;margin-right:5px;margin-left:5px">
+
+            <div class="col-xs-3" style="padding: 2px">
+                <img ng-if="categoriesPhone != null && categoriesPhone[0] != null" ng-src="{{categoriesPhone[0].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[0].typeId,categoriesPhone[0].pageType,categoriesPhone[0].classifyId,categoriesPhone[0].classifyName)">
+            </div>
+            <div class="col-xs-3" style="padding: 2px;">
+                <img ng-if="categoriesPhone != null && categoriesPhone[1] != null" ng-src="{{categoriesPhone[1].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[1].typeId,categoriesPhone[1].pageType,categoriesPhone[1].classifyId,categoriesPhone[1].classifyName)">
+            </div>
+            <div class="col-xs-3" style="padding: 2px;">
+                <img ng-if="categoriesPhone != null && categoriesPhone[2] != null" ng-src="{{categoriesPhone[2].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[2].typeId,categoriesPhone[2].pageType,categoriesPhone[2].classifyId,categoriesPhone[2].classifyName)">
+            </div>
+            <div class="col-xs-3" style="padding: 2px;">
+                <img ng-if="categoriesPhone != null && categoriesPhone[3] != null" ng-src="{{categoriesPhone[3].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList('6acd07b1-e0c7-4661-85dd-6044373f370e','4','6acd07b1-e0c7-4661-85dd-6044373f370e',categoriesPhone[3].classifyName)">
+            </div>
+        </div>
+
+
+
+        <!--区域8-->
+        <div class="row" style="padding: 15px 0px 35px 0px">
+            <div class="row">
+                <div class="row hidden-xs" style="max-width: 900px;margin: 0px auto">
+                    <img ng-if="titleImg != null && titleImg.length > 0" ng-src="{{titleImg | imgPath:''}}" style="width: 100%;"/>
+                </div>
+                <div class="visible-xs col-xs-10 col-xs-offset-1">
+                    <img ng-if="titleImg != null && titleImg.length > 0" ng-src="{{titleImg | imgPath:''}}" style="width: 100%;"/>
+                </div>
+            </div>
+            <div class="row" style="max-width: 1520px;margin: 10px auto">
+                <div class="swiper-bottom hidden-xs"
+                     style="overflow: hidden;width: 100%;position: relative;padding: 0px 15px">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" ng-repeat="category in categories">
-                            <img ng-src="{{category.imageUrl | imgPath:''}}" style="width: 100%;cursor: pointer" ng-click="goGoodsList(category.typeId,category.pageType,category.classifyId,category.classifyName)"/>
-                            <div style="text-align: center;cursor: pointer;text-decoration: underline;font-size: 14px;margin-top: 10px" ng-click="goGoodsList(category.typeId,category.pageType,category.classifyId,category.classifyName)">
-                                SHOP NOW
+                        <div class="swiper-slide match" ng-repeat="match in matches" style="position: relative;cursor: pointer;"
+                             ng-click="goGoodsDetail(match.goodsId)">
+                            <img ng-src="{{match.imageUrl | imgPath:''}}" style="width: 100%;"/>
+                            <div class="matchFont" style="display:none;text-align: center;background: rgba(0,0,0,0.3);position: absolute;top: 0px;right: 0px;bottom: 0px;left: 0px;color: white;">
+                                <div style="position:absolute;top: 50%;left: 0;right: 0;text-align: center;margin-top: -8px;font-size:12px;">
+                                    {{match.tops}}<br/>{{match.pants}}
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"
+                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_right.png);right: 0px;margin-top: -15px;opacity: 1"></div>
+                    <div class="swiper-button-prev"
+                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_left.png);left: 0px;margin-top: -15px;opacity: 1"></div>
+                </div>
+                <div class="swiper-bottom-phone visible-xs"
+                     style="overflow: hidden;width: 100%;position: relative;padding: 0px 15px">
+                    <div class="swiper-wrapper">
+                        <!--<div class="swiper-slide matchPop" ng-repeat="match in matches" style="position: relative;cursor: pointer;" ng-click="goGoodsDetail(match.goodsId)">-->
+                        <div class="swiper-slide matchPop" ng-repeat="match in matches" style="position: relative;cursor: pointer;">
+                            <input class="popHidden" type="hidden" value="{{match.goodsId}}">
+                            <img class="popImg" ng-src="{{match.imageUrl | imgPath:''}}" style="width: 100%;" />
+                            <!--<div class="popFont" style="text-align:center;font-size:13px;display:none;">{{suitPrice[$index][0]}}<br/>{{suitPrice[$index][1]}}</div>-->
+                            <div class="popFont layerImg" style="display:none;text-align: center;background: rgba(0,0,0,0.3);position: absolute;top: 0px;right: 0px;bottom: 0px;left: 0px;color: white;" ng-click="goGoodsDetail(match.goodsId)">
+                                <div style="position:absolute;top: 50%;left: 0;right: 0;text-align: center;margin-top: -8px;font-size:9px;">
+                                    {{match.tops}}<br/>{{match.pants}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"
+                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_right.png);right: 0px;margin-top: -15px;opacity: 1"></div>
+                    <div class="swiper-button-prev"
+                         style="background-size:100%;width:30px;height:30px;background-image: url(images/arrow_left.png);left: 0px;margin-top: -15px;opacity: 1"></div>
                 </div>
             </div>
-        </div>
-        <!--区域3 手机版-->
-        <div class="row visible-xs" style="padding: 0px">
-            <div class="col-xs-4" style="padding: 0px">
-                <img ng-if="categoriesPhone != null && categoriesPhone[0] != null" ng-src="{{categoriesPhone[0].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[0].typeId,categoriesPhone[0].pageType,categoriesPhone[0].classifyId,categoriesPhone[0].classifyName)">
-                <img ng-if="categoriesPhone != null && categoriesPhone[1] != null" ng-src="{{categoriesPhone[1].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[1].typeId,categoriesPhone[1].pageType,categoriesPhone[1].classifyId,categoriesPhone[1].classifyName)">
-            </div>
-            <div class="col-xs-4" style="padding: 0px">
-                <img ng-if="categoriesPhone != null && categoriesPhone[2] != null" ng-src="{{categoriesPhone[2].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[2].typeId,categoriesPhone[2].pageType,categoriesPhone[2].classifyId,categoriesPhone[2].classifyName)">
-                <img ng-if="categoriesPhone != null && categoriesPhone[3] != null" ng-src="{{categoriesPhone[3].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[3].typeId,categoriesPhone[3].pageType,categoriesPhone[3].classifyId,categoriesPhone[3].classifyName)">
-                <img ng-if="categoriesPhone != null && categoriesPhone[4] != null" ng-src="{{categoriesPhone[4].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[4].typeId,categoriesPhone[4].pageType,categoriesPhone[4].classifyId,categoriesPhone[4].classifyName)">
-            </div>
-            <div class="col-xs-4" style="padding: 0px">
-                <img ng-if="categoriesPhone != null && categoriesPhone[5] != null" ng-src="{{categoriesPhone[5].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[5].typeId,categoriesPhone[5].pageType,categoriesPhone[5].classifyId,categoriesPhone[5].classifyName)">
-                <img ng-if="categoriesPhone != null && categoriesPhone[6] != null" ng-src="{{categoriesPhone[6].imageUrl | imgPath:''}}" style="width: 100%" data-ng-click="goGoodsList(categoriesPhone[6].typeId,categoriesPhone[6].pageType,categoriesPhone[6].classifyId,categoriesPhone[6].classifyName)">
+            <div style="position: fixed;bottom: 90px;right: 15px;z-index: 9" ng-click="scroll2Top()">
+                <!--<div style="width: 40px;height: 40px;line-height: 40px;text-align: center;background: rgba(0,0,0,0.3);border-radius:20px">-->
+                <!--<i class="ion-chevron-up light"></i>-->
+                <img src="images/toTop.png" alt="返回顶部" height="30px" style="margin-top:3px;">
+                <!--</div>-->
             </div>
         </div>
 

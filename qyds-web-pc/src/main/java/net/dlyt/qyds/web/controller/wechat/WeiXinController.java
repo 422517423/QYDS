@@ -63,8 +63,8 @@ public class WeiXinController {
             parameters.put("spbill_create_ip",
                     ClientIPUtil.getRemoteHost(request));
             // 20171208 测试
-            //parameters.put("notify_url", "https://www.dealuna.com/qyds-wx-front/wechat/asyncWechatPay.json");
-            parameters.put("notify_url", "https://115.29.146.180/qyds-wx-front/wechat/asyncWechatPay.json");
+            parameters.put("notify_url", "https://www.dealuna.com/qyds-wx-front/wechat/asyncWechatPay.json");
+//            parameters.put("notify_url", "https://115.29.146.180/qyds-wx-front/wechat/asyncWechatPay.json");
             WxMpPrepayIdResult result = wxMpService.getPrepayId(parameters);
             // 返回结果code
             json.put("results", result);

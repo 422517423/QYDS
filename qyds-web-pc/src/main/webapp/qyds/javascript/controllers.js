@@ -1,9 +1,8 @@
 //var commonMessage = new Object();
 //commonMessage.networkErrorMsg = "网络异常";
-// 提交订单页面中判断跳转来源 0:立即购买 1:购物车结算
 var resultPath;
 angular.module('dealuna.controllers', [])
-    // header
+// header
     .controller('headerCtrl', ["$scope", "$state", "headerService", "$modal", "localStorageService","indexGdsBrandTypeService",'popupService','$rootScope','favoriteService','alertService',
         function ($scope, $state, headerService, $modal, localStorageService,indexGdsBrandTypeService,popupService,$rootScope,favoriteService,alertService) { //header
 
@@ -15,7 +14,7 @@ angular.module('dealuna.controllers', [])
                         $('meta[name="description"]').attr('content',metaDate.seo_description);
                         $('meta[name="Keywords"]').attr('content',metaDate.seo_keywords);
                     }
-            });
+                });
 
             //快递信息s
             new headerService({}).getDeliverData()
@@ -25,6 +24,17 @@ angular.module('dealuna.controllers', [])
                         $scope.deliverInfo = metaDate;
                     }
                 });
+
+            // add by sunt start
+
+            $scope.searchKeyup = function(e){
+                var keycode = window.event?e.keyCode:e.which;
+                if(keycode==13){
+                    $state.go("searchGoods", {'searchKey': $scope.searchInfo.value});
+                }
+            }
+
+            // add by sunt end
 
             $scope.contactUs = function(){
                 //popupService.showAlert('aaa');可以增加关闭时候的回调方法,如popupService.showAlert('aaa',cb)
@@ -44,6 +54,86 @@ angular.module('dealuna.controllers', [])
                 setTimeout(function(){
                     switchMenu(curMenuId);
                 },1000);
+
+
+
+                $('.leftMenu').off().click(function(e){
+                    //alert('aaa');
+                    //layer.open({
+                    //    type: 1,
+                    //    area: ['600px', '360px'],
+                    //    shadeClose: true, //点击遮罩关闭
+                    //    content: 'aaaa'
+                    //});
+
+                    var targetOffset = $('.targetTop').offset();
+                    var $cloneDom = $('.deployMenu').clone();
+
+
+                    //var popGoodsId = $('.popHidden',$cloneDom).val();
+                    //$('.popImg',$cloneDom).width(popW).height(popH).addClass('layerImg');
+                    //$('.popFont',$cloneDom).show();
+
+                    layer.open({
+                        type: 1,
+                        title: false, //不显示标题
+                        closeBtn: 0,
+                        anim:5,
+                        shadeClose:true,
+                        shade: [0.1, '#fff'],
+                        area: ['80%', 'auto'], //宽高
+                        scrollbar:false,
+                        offset : [targetOffset.top - $(document).scrollTop() +'px','0px'],
+                        //$that.html()
+                        content: $cloneDom.html(), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    });
+
+                    // 绑定事件
+                    $('.menu_personal',$('.layui-layer-content')).click(function(){
+                        $scope.goPersonalHome();
+                        layer.closeAll();
+                        return false;
+                    });
+                    $('.menu_homepage',$('.layui-layer-content')).click(function(){
+                        $scope.goHomepage();
+                        layer.closeAll();
+                        return false;
+                    });
+                    $('.menu_otherpage',$('.layui-layer-content')).click(function(){
+                        var itemType = $('.itemType',$(this)).val();
+                        var itemTypeVal = $('.itemTypeVal',$(this)).val();
+                        var cmsId = $('.cmsId',$(this)).val();
+                        var brandFlg = $('.brandFlg',$(this)).val();
+
+                        $scope.goOtherPage(itemType,itemTypeVal,'',cmsId ,brandFlg);
+                        layer.closeAll();
+                        return false;
+                    });
+                    $('.menu_magazine',$('.layui-layer-content')).click(function(){
+                        $scope.goMagazine();
+                        layer.closeAll();
+                        return false;
+                    });
+                    $('.menu_sale',$('.layui-layer-content')).click(function(){
+                        $scope.goSale();
+                        layer.closeAll();
+                        return false;
+                    });
+                    $('.menu_login',$('.layui-layer-content')).click(function(){
+                        $scope.goLogin();
+                        layer.closeAll();
+                        return false;
+                    });
+                    $('.menu_out',$('.layui-layer-content')).click(function(){
+                        $scope.logout();
+                        layer.closeAll();
+                        return false;
+                    });
+
+
+                    return false;
+                });
+
             });
 
             var userInfo = localStorageService.get(KEY_USERINFO);
@@ -69,7 +159,7 @@ angular.module('dealuna.controllers', [])
                 .then(function (res) {
                     if (res.resultCode == "00") {
                         $scope.headerData = res.results;
-                        var percent = 99 / (3 + $scope.headerData.length) + '%';
+                        var percent = 99 / (4 + $scope.headerData.length) + '%';
                         $scope.headerStyle = {width:percent};
                         new indexGdsBrandTypeService({})
                             .then(function (resp) {
@@ -88,7 +178,7 @@ angular.module('dealuna.controllers', [])
                 }, function () {
                     // popupService.showToast(commonMessage.networkErrorMsg);
                     //alert();
-            });
+                });
 
             // 首页
             $scope.goHomepage = function () {
@@ -117,7 +207,6 @@ angular.module('dealuna.controllers', [])
 
             // 退出登录
             $scope.logout = function () {
-
                 popupService.showConfirm('确定要离开了么?', function (){
                     localStorageService.clear(KEY_USERINFO);
                     $scope.hasLogon = false;
@@ -207,10 +296,8 @@ angular.module('dealuna.controllers', [])
             };
 
             // 商品详细
-            $scope.goOtherPage = function (type, typeId,index,cmsId) {
+            $scope.goOtherPage = function (type, typeId,index,cmsId,brandFlg) {
                 $scope.navbarCollapsed  = false;
-                console.log('inininin');
-
                 if(type == 41){// add by sunt
                     localStorageService.set(KEY_MENU,'nav_sort');
                     switchMenu('nav_sort');
@@ -231,7 +318,7 @@ angular.module('dealuna.controllers', [])
 
                     // 商品分类的时候
                 } else if (type == 42) {
-                    $state.go("goodsList", {"actId":'',"firstGoodsTypeId": typeId, "type": type,"cmsId":'',"pageType":'',"classifyId":'',"classifyName":''});
+                    $state.go("goodsList", {"actId":'',"firstGoodsTypeId": typeId, "type": type,"cmsId":'',"pageType":'',"classifyId":'',"classifyName":'',"brandFlg":brandFlg});
 
                     // 活动的时候
                 } else if (type == 43) {
@@ -242,7 +329,13 @@ angular.module('dealuna.controllers', [])
             $scope.goMagazine = function() {
                 $state.go("magazine");
                 $scope.navbarCollapsed  = false;
-            }
+            };
+
+            $scope.goSale = function() {
+                $state.go("sale");
+                $scope.navbarCollapsed  = false;
+            };
+
             //// 登录
             //$scope.goLogin = function(){
             //    //$state.go("login");
@@ -580,11 +673,18 @@ angular.module('dealuna.controllers', [])
 
             // 商品详细
             $scope.goGoodsDetail = function (goodsId) {
-                $state.go("goodsDetail", {"goodsId": goodsId});
+                var array = goodsId.split(',');
+                if(array.length == 1){
+                    $state.go("goodsDetail", {"goodsId": goodsId});
+                }else {
+                    $state.go("goodsListDisplay", {"type" : goodsId});
+                }
+
             };
 
             // 商品详细
-            $scope.goOtherPage = function (type, typeId,index,cmsId) {
+            $scope.goOtherPage = function (type, typeId,index,cmsId,comment) {
+                // alert("type2="+type);
                 // 点击商品的时候
                 if (type == 41) {
                     var array = typeId.split(",");
@@ -606,8 +706,7 @@ angular.module('dealuna.controllers', [])
 
                     // 商品分类的时候
                 } else if (type == 42) {
-                    // alert(typeId);
-                    $state.go("goodsList", {"actId":'',"firstGoodsTypeId": typeId, "type": type,"cmsId":'',"pageType":'',"classifyId":'',"classifyName":''});
+                    $state.go("goodsList", {"actId":'',"firstGoodsTypeId": typeId, "type": type,"cmsId":'',"pageType":'',"classifyId":'',"classifyName":'123'});
 
                     // 活动的时候
                 } else if (type == 43) {
@@ -615,6 +714,7 @@ angular.module('dealuna.controllers', [])
                 } else if (type == 44){
 
                     //提示登陆
+
                     var userInfo = localStorageService.get(KEY_USERINFO);
                     if(!userInfo){
                         $scope.goLogin();
@@ -647,6 +747,10 @@ angular.module('dealuna.controllers', [])
                     }
                     //跳转抽奖画面
                     $state.go("prizeDraw",{"prizeDrawId": typeId});
+                }else{
+                    if(comment == "SALE"){
+                        $state.go("sale");
+                    }
                 }
             };
 
@@ -686,37 +790,38 @@ angular.module('dealuna.controllers', [])
             // 分类区
             var pageType = '';
             $scope.categories = [
-            //    {
-            //    typeId:"66c85de5-2bd4-4517-8387-cdcda445a5b4",
-            //    pageType:"0",
-            //    imageUrl:"image_temp2/3_1.jpg"
-            //},{
-            //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
-            //    pageType:"1",
-            //    imageUrl:"image_temp2/3_2.jpg"
-            //},{
-            //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
-            //    pageType:"2",
-            //    imageUrl:"image_temp2/3_3.jpg"
-            //},{
-            //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
-            //    pageType:"3",
-            //    imageUrl:"image_temp2/3_4.jpg"
-            //},{
-            //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
-            //    pageType:"4",
-            //    imageUrl:"image_temp2/3_5.jpg"
-            //},{
-            //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
-            //    pageType:"5",
-            //    imageUrl:"image_temp2/3_6.jpg"
-            //},{
-            //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
-            //    pageType:"6",
-            //    imageUrl:"image_temp2/3_7.jpg"
-            //}
+                //    {
+                //    typeId:"66c85de5-2bd4-4517-8387-cdcda445a5b4",
+                //    pageType:"0",
+                //    imageUrl:"image_temp2/3_1.jpg"
+                //},{
+                //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
+                //    pageType:"1",
+                //    imageUrl:"image_temp2/3_2.jpg"
+                //},{
+                //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
+                //    pageType:"2",
+                //    imageUrl:"image_temp2/3_3.jpg"
+                //},{
+                //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
+                //    pageType:"3",
+                //    imageUrl:"image_temp2/3_4.jpg"
+                //},{
+                //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
+                //    pageType:"4",
+                //    imageUrl:"image_temp2/3_5.jpg"
+                //},{
+                //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
+                //    pageType:"5",
+                //    imageUrl:"image_temp2/3_6.jpg"
+                //},{
+                //    typeId:"b97f11e6-df14-4c75-ab1f-2c037c70f77b",
+                //    pageType:"6",
+                //    imageUrl:"image_temp2/3_7.jpg"
+                //}
             ];
             $scope.categoriesPhone = [];
+            $scope.categoriesDescribe= [];
 
             // 区域3
             new indexRegion3Service({})
@@ -734,6 +839,8 @@ angular.module('dealuna.controllers', [])
                                 json.classifyName = item.textComment;
                                 $scope.categories.push(json);
                             }
+
+                            $scope.categoriesDescribe = ['女士','男士','童装','品牌'];
 
                             angular.element(document).ready(function() {
                                 var swipeCategory = new Swiper('.swiper-category', {
@@ -835,35 +942,37 @@ angular.module('dealuna.controllers', [])
 
             // 搭配区
             $scope.matches = [
-            //    {
-            //    goodsId:"f491e5e4-7340-4ae1-87b3-9e71d66fcbc8",
-            //    imageUrl:"image_temp2/8_1.jpg"
-            //},{
-            //    goodsId:"869a56f6-bc5d-400c-850d-99eae7e6e2ab",
-            //    imageUrl:"image_temp2/8_2.jpg"
-            //},{
-            //    goodsId:"e2c162f7-c5f1-40be-9897-b23e9f94396a",
-            //    imageUrl:"image_temp2/8_3.jpg"
-            //},{
-            //    goodsId:"2801e4ef-6693-48f9-8c6f-b7afafca58b5",
-            //    imageUrl:"image_temp2/8_4.jpg"
-            //},{
-            //    goodsId:"9b6d014c-f4e0-4926-925b-bf14049c605e",
-            //    imageUrl:"image_temp2/8_5.jpg"
-            //},{
-            //    goodsId:"b16ee3db-3866-4889-9cfd-1c670d947eb8",
-            //    imageUrl:"image_temp2/8_6.jpg"
-            //},{
-            //    goodsId:"c05d5bd7-42b8-4c06-bcdc-19046ea3a228",
-            //    imageUrl:"image_temp2/8_7.jpg"
-            //},{
-            //    goodsId:"62b9c5a8-d5e0-4736-b6f0-25ef83e604f7",
-            //    imageUrl:"image_temp2/8_8.jpg"
-            //},{
-            //    goodsId:"c5947986-4fec-4f01-9743-8a9f423e2e5d",
-            //    imageUrl:"image_temp2/8_9.jpg"
-            //}
+                //    {
+                //    goodsId:"f491e5e4-7340-4ae1-87b3-9e71d66fcbc8",
+                //    imageUrl:"image_temp2/8_1.jpg"
+                //},{
+                //    goodsId:"869a56f6-bc5d-400c-850d-99eae7e6e2ab",
+                //    imageUrl:"image_temp2/8_2.jpg"
+                //},{
+                //    goodsId:"e2c162f7-c5f1-40be-9897-b23e9f94396a",
+                //    imageUrl:"image_temp2/8_3.jpg"
+                //},{
+                //    goodsId:"2801e4ef-6693-48f9-8c6f-b7afafca58b5",
+                //    imageUrl:"image_temp2/8_4.jpg"
+                //},{
+                //    goodsId:"9b6d014c-f4e0-4926-925b-bf14049c605e",
+                //    imageUrl:"image_temp2/8_5.jpg"
+                //},{
+                //    goodsId:"b16ee3db-3866-4889-9cfd-1c670d947eb8",
+                //    imageUrl:"image_temp2/8_6.jpg"
+                //},{
+                //    goodsId:"c05d5bd7-42b8-4c06-bcdc-19046ea3a228",
+                //    imageUrl:"image_temp2/8_7.jpg"
+                //},{
+                //    goodsId:"62b9c5a8-d5e0-4736-b6f0-25ef83e604f7",
+                //    imageUrl:"image_temp2/8_8.jpg"
+                //},{
+                //    goodsId:"c5947986-4fec-4f01-9743-8a9f423e2e5d",
+                //    imageUrl:"image_temp2/8_9.jpg"
+                //}
             ];
+
+            $scope.suitPrice=[];
 
             // 区域8
             new indexRegion8Service({})
@@ -878,8 +987,61 @@ angular.module('dealuna.controllers', [])
                                 var json = {};
                                 json.goodsId = item.itemTypeVal;
                                 json.imageUrl = item.imageUrl;
+                                json.tops=item.tops;
+                                json.pants=item.pants;
                                 $scope.matches.push(json);
                             }
+
+                            // add by sunt for 4.首页搭配要加价格 start
+                            //$scope.suitPrice = [
+                            //    ['短袖T ￥111.30','针织短裤 ￥167.30'],
+                            //    ['POLO短袖 ￥249.00','九分裤 ￥244.30'],
+                            //    ['长袖衬衫 ￥244.30','短裤 ￥299.00'],
+                            //    ['短袖T ￥139.30','短裤 ￥195.30'],
+                            //    ['短袖衬衫 ￥299.00','短裤 ￥349.00'],
+                            //    ['短袖T ￥199.00','慢跑裤 ￥244.30'],
+                            //    ['POLO短袖 ￥139.30','慢跑裤 ￥195.30'],
+                            //    ['POLO短袖 ￥209.30','针织短裤 ￥244.30'],
+                            //    ['短袖T ￥199.00','短裤 ￥299.00']
+                            //]
+
+                            //$scope.suitPrice = [
+                            //    ['短袖T ￥79.50','针织短裤 ￥119.50'],
+                            //    ['POLO短袖 ￥174.30','九分裤 ￥244.30'],
+                            //    ['长袖衬衫 ￥174.50','短裤 ￥209.30'],
+                            //    ['短袖T ￥99.50','短裤 ￥139.50'],
+                            //    ['短袖衬衫 ￥149.50','短裤 ￥244.30'],
+                            //    ['短袖T ￥139.30','慢跑裤 ￥244.30'],
+                            //    ['POLO短袖 ￥99.50','慢跑裤 ￥139.50'],
+                            //    ['POLO短袖 ￥149.50','针织短裤 ￥174.50'],
+                            //    ['短袖T ￥139.30','短裤 ￥209.30']
+                            //]
+
+                            //$scope.suitPrice = [
+                            //    ['卫衣 ￥349.00','长裤 ￥299.00'],
+                            //    ['卫衣 ￥499.00','慢跑裤 ￥399.00'],
+                            //    ['大衣 ￥699.00','九分裤 ￥399.00'],
+                            //    ['单夹克 ￥349.00','慢跑裤 ￥249.00'],
+                            //    ['卫衣 ￥449.00','长裤 ￥399.00'],
+                            //    ['皮衣 ￥599.00','长裤 ￥399.00'],
+                            //    ['长袖衬衫 ￥249.0','长裤 ￥299.00'],
+                            //    ['棉夹克 ￥799.00','慢跑裤 ￥399.00'],
+                            //    ['长袖衬衫 ￥349.00','长裤 ￥399.00']
+                            //]
+
+                            $scope.suitPrice = [
+                                ['上衣 ￥699.00','长裤 ￥799.00'],
+                                ['棉夹克 ￥399.00','长裤 ￥299.00'],
+                                ['上衣 ￥349.00','长裤 ￥399.00'],
+                                ['卫衣 ￥449.00','慢跑裤 ￥499.00'],
+                                ['上衣 ￥599.00','长裤 ￥799.00'],
+                                ['棉夹克 ￥749.00','慢跑裤 ￥499.00'],
+                                ['单西 ￥499','长裤 ￥399.00'],
+                                ['单夹克 ￥349.00','慢跑裤 ￥299.00'],
+                                ['风衣 ￥1299.00','长裤 ￥799.00']
+                            ]
+
+                            // add by sunt for 4.首页搭配要加价格 end
 
                             angular.element(document).ready(function() {
                                 var swipeCategory = new Swiper('.swiper-category', {
@@ -904,18 +1066,64 @@ angular.module('dealuna.controllers', [])
                                     loop:true
                                 });
                             });
-                            $scope.showShadow = function(match){
-                                console.log("enter");
-                                if(match.showShadow != '1'){
-                                    match.showShadow = '1';
-                                }
-                            }
-                            $scope.hideShadow = function(match){
-                                console.log("out");
-                                if(match.showShadow != '0'){
-                                    match.showShadow = '0';
-                                }
-                            }
+                            // md by sunt start
+                            angular.element(document).ready(function () {
+                                $('.match').off().hover(function(){
+                                    $('.matchFont',$(this)).show();
+                                },function(){
+                                    $('.matchFont',$(this)).hide();
+                                });
+                                $('.matchPop').off().click(function(e){
+                                    //alert('aaa');
+                                    //layer.open({
+                                    //    type: 1,
+                                    //    area: ['600px', '360px'],
+                                    //    shadeClose: true, //点击遮罩关闭
+                                    //    content: 'aaaa'
+                                    //});
+                                    var popW = $(e.target).width();
+                                    var popH = $(e.target).height();
+
+                                    var targetOffset = $(e.target).offset();
+                                    var $cloneDom = $(this).clone();
+                                    var popGoodsId = $('.popHidden',$cloneDom).val();
+                                    $('.popImg',$cloneDom).width(popW).height(popH).addClass('layerImg');
+                                    $('.popFont',$cloneDom).show();
+
+                                    layer.open({
+                                        type: 1,
+                                        title: false, //不显示标题
+                                        closeBtn: 0,
+                                        anim:5,
+                                        shadeClose:true,
+                                        area: [popW, popH], //宽高
+                                        scrollbar:false,
+                                        offset : [targetOffset.top - $(document).scrollTop() +'px',targetOffset.left +'px'],
+                                        //$that.html()
+                                        content: $cloneDom.html(), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                                    });
+                                    $('.layerImg').click(function(){
+                                        $scope.goGoodsDetail(popGoodsId);
+                                        layer.closeAll();
+                                    });
+
+
+                                    return false;
+                                });
+                            });
+                            //$scope.showShadow = function(match){
+                            //    //console.log("enter");
+                            //    if(match.showShadow != '1'){
+                            //        match.showShadow = '1';
+                            //    }
+                            //}
+                            //$scope.hideShadow = function(match){
+                            //    //console.log("out");
+                            //    if(match.showShadow != '0'){
+                            //        match.showShadow = '0';
+                            //    }
+                            //}
+                            // md by sunt end
                         }
                     } else {
                         // popupService.showToast(res.resultMessage);
@@ -1011,182 +1219,221 @@ angular.module('dealuna.controllers', [])
     // 我的订单
     .controller('orderListCtrl', ["$scope", "$state", "orderService", "localStorageService", 'popupService','$modal','WeiXinService',
         function ($scope, $state, orderService, localStorageService,popupService,$modal,WeiXinService) {
-        var userInfo = localStorageService.get(KEY_USERINFO);
+            var userInfo = localStorageService.get(KEY_USERINFO);
 
-        $scope.currentPage = 1;
-        $scope.currentPagePhone = 1;
-        $scope.totalPage = 0;
-        $scope.pageSize = 7;
-        $scope.orderList = [];
-        $scope.orderPhoneList = [];
-        $scope.totalcount = 0;
-
-        $scope.orderType = 1;
-
-        $scope.orderChangePage = function () {
-            //分页样式初始化
-            $(".pager").ucPager({
-                //pageClass     : "分页样式",
-                currentPage: $scope.currentPage, //当前页数
-                totalPage: $scope.totalPage,   //总页数
-                pageSize: $scope.pageSize,   //每一页显示的件数
-                clickCallback: function (page) {
-                    //下一页 上一页 页数跳转
-                    $scope.currentPage = page;
-                    $scope.getData();
-                    // $scope.orderChangePage();
-                }
-            });
-        };
-
-        $scope.selectByStatus = function(type) {
             $scope.currentPage = 1;
-            $scope.orderList = [];
-            $scope.totalPage = 0;
-            $scope.orderType = type;
-            $scope.getData();
-        };
-
-        $scope.setSelectedTabStyle = function(type) {
-            if(type==$scope.orderType){
-                return {"color":"#333333"};
-            }else{
-                return {"color":"#999999"};
-            }
-        };
-
-        $scope.selectPhoneByStatus = function(type) {
             $scope.currentPagePhone = 1;
-            $scope.orderPhoneList = [];
             $scope.totalPage = 0;
-            $scope.orderType = type;
-            $scope.hasMore = true;
-            $scope.getPhoneData();
-        };
+            $scope.pageSize = 7;
+            $scope.orderList = [];
+            $scope.orderPhoneList = [];
+            $scope.totalcount = 0;
 
-        $scope.getData = function () {
-            var param = {
-                "memberId": userInfo.memberId,
-                "needColumns": $scope.pageSize,
-                "startPoint": ($scope.currentPage-1) * $scope.pageSize,
-                "type":$scope.orderType
+            $scope.orderType = 1;
+
+            $scope.orderChangePage = function () {
+                //分页样式初始化
+                $(".pager").ucPager({
+                    //pageClass     : "分页样式",
+                    currentPage: $scope.currentPage, //当前页数
+                    totalPage: $scope.totalPage,   //总页数
+                    pageSize: $scope.pageSize,   //每一页显示的件数
+                    clickCallback: function (page) {
+                        //下一页 上一页 页数跳转
+                        $scope.currentPage = page;
+                        $scope.getData();
+                        // $scope.orderChangePage();
+                    }
+                });
             };
-            new orderService(param).getList()
-                .then(function (res) {
-                        if (res.resultCode == "00") {
-                            $scope.totalPage = res.totalPage;
-                            $scope.orderList = res.results;
+
+            $scope.selectByStatus = function(type) {
+                $scope.currentPage = 1;
+                $scope.orderList = [];
+                $scope.totalPage = 0;
+                $scope.orderType = type;
+                $scope.getData();
+            };
+
+            $scope.setSelectedTabStyle = function(type) {
+                if(type==$scope.orderType){
+                    return {"color":"#333333"};
+                }else{
+                    return {"color":"#999999"};
+                }
+            };
+
+            $scope.selectPhoneByStatus = function(type) {
+                $scope.currentPagePhone = 1;
+                $scope.orderPhoneList = [];
+                $scope.totalPage = 0;
+                $scope.orderType = type;
+                $scope.hasMore = true;
+                $scope.getPhoneData();
+            };
+
+            $scope.getData = function () {
+                var param = {
+                    "memberId": userInfo.memberId,
+                    "needColumns": $scope.pageSize,
+                    "startPoint": ($scope.currentPage-1) * $scope.pageSize,
+                    "type":$scope.orderType
+                };
+                new orderService(param).getList()
+                    .then(function (res) {
+                            if (res.resultCode == "00") {
+                                $scope.totalPage = res.totalPage;
+                                $scope.orderList = res.results;
+                                $scope.allCount = res.allCount;
+                                $scope.waitPayCount = res.waitPayCount;
+                                $scope.waitDeliveryCount = res.waitDeliveryCount;
+                                $scope.waitReceiveCount = res.waitReceiveCount;
+                                $scope.completedCount = res.completedCount;
+                                $scope.orderChangePage();
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            $scope.hasMore = false;
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        }
+                    );
+            };
+            $scope.isPhoneLoading = false;
+            $scope.hasMore = true;
+            $scope.getPhoneData = function () {
+                if($scope.isPhoneLoading){
+                    return;
+                }
+                $scope.isPhoneLoading = true;
+
+                var param = {
+                    "memberId": userInfo.memberId,
+                    "needColumns": $scope.pageSize,
+                    "startPoint": ($scope.currentPagePhone - 1) * $scope.pageSize,
+                    "type": $scope.orderType
+                };
+
+                //初始化调用
+                new orderService(param).getList().then(function (res) {
+                    $scope.isPhoneLoading = false;
+                    if (res.resultCode == "00") {
+                        if (res.results.length != 0) {
+                            $scope.orderPhoneList = $scope.orderPhoneList.concat(res.results);
                             $scope.allCount = res.allCount;
                             $scope.waitPayCount = res.waitPayCount;
                             $scope.waitDeliveryCount = res.waitDeliveryCount;
                             $scope.waitReceiveCount = res.waitReceiveCount;
                             $scope.completedCount = res.completedCount;
-                            $scope.orderChangePage();
+                            $scope.totalcount = res.totalCount;
+                            if(res.results.length<$scope.pageSize){
+                                $scope.hasMore = false;
+                            }
                         } else {
-                            popupService.showToast(res.resultMessage);
-                        }
-                    }, function (error) {
-                        $scope.hasMore = false;
-                        popupService.showToast(commonMessage.networkErrorMsg);
-                    }
-                );
-        };
-        $scope.isPhoneLoading = false;
-        $scope.hasMore = true;
-        $scope.getPhoneData = function () {
-            if($scope.isPhoneLoading){
-                return;
-            }
-            $scope.isPhoneLoading = true;
-
-            var param = {
-                "memberId": userInfo.memberId,
-                "needColumns": $scope.pageSize,
-                "startPoint": ($scope.currentPagePhone - 1) * $scope.pageSize,
-                "type": $scope.orderType
-            };
-
-            //初始化调用
-            new orderService(param).getList().then(function (res) {
-                $scope.isPhoneLoading = false;
-                if (res.resultCode == "00") {
-                    if (res.results.length != 0) {
-                        $scope.orderPhoneList = $scope.orderPhoneList.concat(res.results);
-                        $scope.allCount = res.allCount;
-                        $scope.waitPayCount = res.waitPayCount;
-                        $scope.waitDeliveryCount = res.waitDeliveryCount;
-                        $scope.waitReceiveCount = res.waitReceiveCount;
-                        $scope.completedCount = res.completedCount;
-                        $scope.totalcount = res.totalCount;
-                        if(res.results.length<$scope.pageSize){
+                            $scope.currentPagePhone = $scope.currentPagePhone - 1;
                             $scope.hasMore = false;
                         }
                     } else {
-                        $scope.currentPagePhone = $scope.currentPagePhone - 1;
-                        $scope.hasMore = false;
+                        popupService.showToast(res.resultMessage);
                     }
-                } else {
-                    popupService.showToast(res.resultMessage);
-                }
-            }, function (err) {
-                $scope.isPhoneLoading = false;
-                popupService.showToast(commonMessage.networkErrorMsg);
-            });
-        };
-
-        //加载更多
-        $scope.doGetMore = function () {
-            $scope.currentPagePhone = $scope.currentPagePhone + 1;
-            $scope.getPhoneData($scope.orderType);
-        };
-
-        $scope.doRefresh = function(){
-            $scope.selectByStatus($scope.orderType);
-            $scope.selectPhoneByStatus($scope.orderType);
-        };
-
-        // 跳转物流信息
-        $scope.goLogisticsList = function (gdsId) {
-            $state.go("personalCenter.logisticsList", {"orderId": gdsId});
-        };
-
-        $scope.applyRefund = function (orderId) {
-            $state.go("personalCenter.applyRefund", {orderId:orderId});
-        };
-
-        // 支付
-        $scope.doPay = function (orderId,orderCode,payInfact) {
-            var scope = $scope.$new();
-            var selectPayModalInstance = $modal.open({
-                templateUrl: 'html/selectPay.html',
-                controller: 'selectPayCtrl',
-                backdrop: "static",
-                keyboard: false,
-                scope: scope
-            });
-            selectPayModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
-
-            });
-            selectPayModalInstance.result.then(
-                function (result) {
-                    if (result) {
-                        if("10" == result.type){
-                            //支付测试
-                            $('#orderId').val(orderId);
-                            $('#ordMaster')[0].action = '/qyds-web-pc/alipay/orderAliPay.json';
-                            $('#ordMaster')[0].submit();
-                        }else if("20" == result.type){
-                            $scope.getWXPayInfo(orderCode,payInfact);
-                        }else if("30" == result.type){
-                            $('#orderId').val(orderId);
-                            $('#ordMaster')[0].action = '/qyds-web-pc/unionpay/orderUnionPay.json';
-                            $('#ordMaster')[0].submit();
-                        }
-                    }
-                }, function (reason) {
-                    //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                }, function (err) {
+                    $scope.isPhoneLoading = false;
+                    popupService.showToast(commonMessage.networkErrorMsg);
                 });
-        };
+            };
+
+            //加载更多
+            $scope.doGetMore = function () {
+                $scope.currentPagePhone = $scope.currentPagePhone + 1;
+                $scope.getPhoneData($scope.orderType);
+            };
+
+            $scope.doRefresh = function(){
+                $scope.selectByStatus($scope.orderType);
+                $scope.selectPhoneByStatus($scope.orderType);
+            };
+
+            // 跳转物流信息
+            $scope.goLogisticsList = function (gdsId) {
+                $state.go("personalCenter.logisticsList", {"orderId": gdsId});
+            };
+
+            $scope.applyRefund = function (orderId) {
+                $state.go("personalCenter.applyRefund", {orderId:orderId});
+            };
+
+            // 支付
+            $scope.doPay = function (orderId,orderCode,payInfact) {
+                var scope = $scope.$new();
+                var selectPayModalInstance = $modal.open({
+                    templateUrl: 'html/selectPay.html',
+                    controller: 'selectPayCtrl',
+                    backdrop: "static",
+                    keyboard: false,
+                    scope: scope
+                });
+                selectPayModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+
+                });
+                selectPayModalInstance.result.then(
+                    function (result) {
+                        if (result) {
+                            if("10" == result.type){
+                                //支付测试
+                                $('#orderId').val(orderId);
+                                $('#ordMaster')[0].action = '/qyds-web-pc/alipay/orderAliPay.json';
+                                $('#ordMaster')[0].submit();
+                            }else if("20" == result.type){
+                                $scope.getWXPayInfo(orderCode,payInfact);
+                            }else if("30" == result.type){
+                                $('#orderId').val(orderId);
+                                $('#ordMaster')[0].action = '/qyds-web-pc/unionpay/orderUnionPay.json';
+                                $('#ordMaster')[0].submit();
+                            }else if("40" == result.type){
+                                var scanModalInstance = $modal.open({
+                                    templateUrl: 'html/scanPage.html',
+                                    controller: 'scanPageCtrl',
+                                    backdrop: "static",
+                                    keyboard: false,
+                                    scope: scope
+                                });
+
+                                scanModalInstance.result.then(
+                                    function (result) {
+                                        if (result) {
+                                            //调用付款接口
+                                            $('#orderId').val(orderId);
+                                            $('#signcode').val(result.signcode);
+                                            $('#operate').val(userInfo.operate);
+                                            $('#storeid').val(userInfo.storeid);
+                                            $('#storesubid').val(userInfo.storesubid);
+
+                                            var options  = {
+                                                url:'../qyds-web-pc/scanpay/scanpay.json',
+                                                type:'post',
+                                                dataType : 'json',
+                                                complete:function(xhr){//请求完成
+                                                    if(xhr.responseText == '0'){
+                                                        window.location.href="../#/personalCenter/personalCenter/orderList";
+                                                    }else{
+                                                        popupService.showToast('付款失败!');
+                                                    }
+
+                                                }
+                                            };
+                                            $('#ordMaster').ajaxSubmit(options);
+                                            return false; // 阻止表单自动提交事件
+
+                                        }
+                                    }, function (reason) {
+                                        //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                                    });
+                            }
+                        }
+                    }, function (reason) {
+                        //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                    });
+            };
 
             $scope.getWXPayInfo = function (out_trade_no,payInfact) {
                 var params = {
@@ -1229,25 +1476,46 @@ angular.module('dealuna.controllers', [])
                 });
             };
 
-        //订单详情
-        $scope.orderDetail = function(id){
-            $state.go("personalCenter.orderDetail", {"orderId": id});
-        };
+            //订单详情
+            $scope.orderDetail = function(id){
+                $state.go("personalCenter.orderDetail", {"orderId": id});
+            };
 
-        // 取消订单
-        $scope.cancelOrder = function (orderId) {
+            // 取消订单
+            $scope.cancelOrder = function (orderId) {
 
-            popupService.showConfirm('确定要取消此订单吗?', function(){
+                popupService.showConfirm('确定要取消此订单吗?', function(){
 
-                var param = {
-                    "memberId": userInfo.memberId,
-                    "orderId": orderId
-                };
+                    var param = {
+                        "memberId": userInfo.memberId,
+                        "orderId": orderId
+                    };
 
-                new orderService(param).cancelOrder()
-                    .then(function (res) {
+                    new orderService(param).cancelOrder()
+                        .then(function (res) {
+                            if (res.resultCode == "00") {
+                                popupService.showToast("订单已取消。");
+                                $scope.doRefresh();
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        });
+                });
+            };
+
+            // 确认收货
+            $scope.confirmReceiptInMaster = function (orderId) {
+                popupService.showConfirm('确定已收到此订单中所有的商品了吗?', function(){
+                    var param = {
+                        "memberId": userInfo.memberId,
+                        "orderId": orderId
+                    };
+
+                    new orderService(param).confirmReceiptInMaster().then(function (res) {
                         if (res.resultCode == "00") {
-                            popupService.showToast("订单已取消。");
+                            popupService.showToast("订单已确认收货。");
                             $scope.doRefresh();
                         } else {
                             popupService.showToast(res.resultMessage);
@@ -1255,65 +1523,44 @@ angular.module('dealuna.controllers', [])
                     }, function (error) {
                         popupService.showToast(commonMessage.networkErrorMsg);
                     });
-            });
-        };
-
-        // 确认收货
-        $scope.confirmReceiptInMaster = function (orderId) {
-            popupService.showConfirm('确定已收到此订单中所有的商品了吗?', function(){
-                var param = {
-                    "memberId": userInfo.memberId,
-                    "orderId": orderId
-                };
-
-                new orderService(param).confirmReceiptInMaster().then(function (res) {
-                    if (res.resultCode == "00") {
-                        popupService.showToast("订单已确认收货。");
-                        $scope.doRefresh();
-                    } else {
-                        popupService.showToast(res.resultMessage);
-                    }
-                }, function (error) {
-                    popupService.showToast(commonMessage.networkErrorMsg);
                 });
-            });
-        };
+            };
 
-        // 删除订单
-        $scope.deleteOrder = function (orderId) {
-            popupService.showConfirm('确定要删除此订单吗?', function(){
-                var param = {
-                    "memberId": userInfo.memberId,
-                    "orderId": orderId
-                };
+            // 删除订单
+            $scope.deleteOrder = function (orderId) {
+                popupService.showConfirm('确定要删除此订单吗?', function(){
+                    var param = {
+                        "memberId": userInfo.memberId,
+                        "orderId": orderId
+                    };
 
-                new orderService(param).deleteOrder().then(function (res) {
-                            if (res.resultCode == "00") {
-                                popupService.showToast("订单已删除。");
-                                $scope.doRefresh();
-                            } else {
-                                popupService.showToast(res.resultMessage);
-                            }
-                        }, function (error) {
-                            popupService.showToast(commonMessage.networkErrorMsg);
+                    new orderService(param).deleteOrder().then(function (res) {
+                        if (res.resultCode == "00") {
+                            popupService.showToast("订单已删除。");
+                            $scope.doRefresh();
+                        } else {
+                            popupService.showToast(res.resultMessage);
+                        }
+                    }, function (error) {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
                 });
-            });
 
-        };
-        // 退货（全单）
-        $scope.refunds = function (orderItem) {
-            localStorageService.set(KEY_PARAM_REFUND_ORDER,orderItem);
-            $state.go("personalCenter.applyReturnGoods");
-        };
+            };
+            // 退货（全单）
+            $scope.refunds = function (orderItem) {
+                localStorageService.set(KEY_PARAM_REFUND_ORDER,orderItem);
+                $state.go("personalCenter.applyReturnGoods");
+            };
 
-        // 跳转到商品详细
-        $scope.goGoodsDetail = function (gdsId) {
-            $state.go("goodsDetail", {"goodsId": gdsId});
-        };
+            // 跳转到商品详细
+            $scope.goGoodsDetail = function (gdsId) {
+                $state.go("goodsDetail", {"goodsId": gdsId});
+            };
 
-        $scope.getData(1);
-        $scope.getPhoneData(1);
-    }])
+            $scope.getData(1);
+            $scope.getPhoneData(1);
+        }])
     // 线下订单
     .controller('orderListOffLineCtrl', ["$scope", "$state", "orderOffLineService", "localStorageService", 'popupService',
         function ($scope, $state, orderOffLineService, localStorageService,popupService) {
@@ -1355,7 +1602,7 @@ angular.module('dealuna.controllers', [])
                                 $scope.totalPage = res.totalPage;
                                 $scope.orderList = res.results;
                                 $scope.allCount = res.allCount;
-console.log($scope.orderList);
+                                console.log($scope.orderList);
                                 $scope.orderChangePage();
                             } else {
                                 popupService.showToast(res.resultMessage);
@@ -1611,141 +1858,141 @@ console.log($scope.orderList);
     // 优惠券
     .controller('couponCenterCtrl', ["$scope","$state","couponService","localStorageService",'popupService',
         function ($scope,$state,couponService,localStorageService, popupService) {
-        var userInfo = localStorageService.get(KEY_USERINFO);
-        $scope.couponListData = [];     //PC 初始化的场合 
-        $scope.couponListPhoneData = [];
-        $scope.currentPage = 1;
-        $scope.currentPagePhone = 1;
-        $scope.totalPage = 0;
-        $scope.pageSize = 7;
+            var userInfo = localStorageService.get(KEY_USERINFO);
+            $scope.couponListData = [];     //PC 初始化的场合 
+            $scope.couponListPhoneData = [];
+            $scope.currentPage = 1;
+            $scope.currentPagePhone = 1;
+            $scope.totalPage = 0;
+            $scope.pageSize = 7;
 
-        $scope.type = 0;
+            $scope.type = 0;
 
-        $scope.setSelectedTabStyle = function(type) {
-            if(type==$scope.type){
-                return {"color":"#333333"};
-            }else{
-                return {"color":"#999999"};
-            }
-        };
+            $scope.setSelectedTabStyle = function(type) {
+                if(type==$scope.type){
+                    return {"color":"#333333"};
+                }else{
+                    return {"color":"#999999"};
+                }
+            };
 
-        $scope.refreshData = function(type) {
-            $scope.type = type;
-            var param = {};
-            param.currentPage = $scope.currentPage;
-            param.totalPage = $scope.totalPage;
-            param.pageSize = $scope.pageSize;
-            param.memberId = userInfo.memberId;
+            $scope.refreshData = function(type) {
+                $scope.type = type;
+                var param = {};
+                param.currentPage = $scope.currentPage;
+                param.totalPage = $scope.totalPage;
+                param.pageSize = $scope.pageSize;
+                param.memberId = userInfo.memberId;
 
-            if(type != 0){
-                param.status = type;
-            }
+                if(type != 0){
+                    param.status = type;
+                }
 
-            new couponService({"data":param})
-                .then(function (res) {
-                    if (res.resultCode == "00") {
-                        $scope.couponListData = res.data;
-                        $scope.currentPage = res.currentPage; //当前页数
-                        $scope.totalPage = res.totalPage;   //总页数
-                        $scope.pageSize = res.pageSize;   //每一页显示的件数
-                        $scope.iTotalRecords = res.iTotalRecords;
-                        $scope.usedCount = res.usedCount;
-                        $scope.notUsedCount = res.notUsedCount;
-                        $scope.dochangePage();
-                        // $scope.footerData = res.results;
-                        // $ionicSlideBoxDelegate.update();
-                    } else {
-                         popupService.showToast(res.resultMessage);
-                    }
-                }, function () {
-                     popupService.showToast(commonMessage.networkErrorMsg);
-                });
-        };
-        $scope.hasMore = true;
+                new couponService({"data":param})
+                    .then(function (res) {
+                        if (res.resultCode == "00") {
+                            $scope.couponListData = res.data;
+                            $scope.currentPage = res.currentPage; //当前页数
+                            $scope.totalPage = res.totalPage;   //总页数
+                            $scope.pageSize = res.pageSize;   //每一页显示的件数
+                            $scope.iTotalRecords = res.iTotalRecords;
+                            $scope.usedCount = res.usedCount;
+                            $scope.notUsedCount = res.notUsedCount;
+                            $scope.dochangePage();
+                            // $scope.footerData = res.results;
+                            // $ionicSlideBoxDelegate.update();
+                        } else {
+                            popupService.showToast(res.resultMessage);
+                        }
+                    }, function () {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
+            };
+            $scope.hasMore = true;
             $scope.refreshPhoneData = function(type){
                 $scope.hasMore = true;
                 $scope.couponListPhoneData = [];
                 $scope.getPhoneData(type);
             }
             $scope.getPhoneData = function(type) {
-            if($scope.isPhoneLoading){
-                return;
-            }
-            $scope.isPhoneLoading = true;
-            $scope.type = type;
-
-            var count = 0;
-            var start = 0;
-            if($scope.couponListPhoneData.length){
-                count = $scope.pageSize;
-                start = ($scope.currentPagePhone-1) * count;
-                if(start >= $scope.iTotalRecords){
+                if($scope.isPhoneLoading){
                     return;
                 }
-            }
-            var param = {};
-            param.currentPagePhone = $scope.currentPagePhone;
-            param.totalPage = $scope.totalPage;
-            param.pageSize = $scope.pageSize;
-            param.memberId = userInfo.memberId;
+                $scope.isPhoneLoading = true;
+                $scope.type = type;
 
-            if(type != 0){
-                param.status = type;
-            }
-
-            new couponService({"data":param})
-                .then(function (res) {
-                    $scope.isPhoneLoading = false;
-                    if (res.resultCode == "00") {
-                        $scope.couponListPhoneData = $scope.couponListPhoneData.concat(res.data);
-                        $scope.pageSize = res.pageSize;   //每一页显示的件数
-                        $scope.iTotalRecords = res.iTotalRecords;
-                        $scope.usedCount = res.usedCount;
-                        $scope.notUsedCount = res.notUsedCount;
-                        $scope.dochangePage();
-                        if(res.data.length>=$scope.pageSize){
-                            $scope.hasMore = true;
-                        }else{
-                            $scope.hasMore = false;
-                        }
-                        // $scope.footerData = res.results;
-                        // $ionicSlideBoxDelegate.update();
-                    } else {
-                        $scope.currentPagePhone = $scope.currentPagePhone - 1;
-                         popupService.showToast(res.resultMessage);
+                var count = 0;
+                var start = 0;
+                if($scope.couponListPhoneData.length){
+                    count = $scope.pageSize;
+                    start = ($scope.currentPagePhone-1) * count;
+                    if(start >= $scope.iTotalRecords){
+                        return;
                     }
-                }, function () {
-                    $scope.hasMore = false;
-                    $scope.isPhoneLoading = false;
-                     popupService.showToast(commonMessage.networkErrorMsg);
-                });
-        };
-
-        //加载更多
-        $scope.doGetMore = function () {
-            $scope.currentPagePhone = $scope.currentPagePhone + 1;
-            $scope.getPhoneData($scope.type);
-        };
-
-        $scope.refreshData(0);
-        $scope.getPhoneData(0);
-
-        $scope.dochangePage = function () {
-            //分页样式初始化
-            $(".pager").ucPager({
-                //pageClass     : "分页样式",
-                currentPage: $scope.currentPage, //当前页数
-                totalPage: $scope.totalPage,   //总页数
-                pageSize: $scope.pageSize,   //每一页显示的件数
-                clickCallback: function (page) {
-                    //下一页 上一页 页数跳转
-                    $scope.currentPage = page;
-                    $scope.refreshData($scope.type);
-                    $scope.dochangePage($scope.type);
                 }
-            });
-        };
-    }])
+                var param = {};
+                param.currentPagePhone = $scope.currentPagePhone;
+                param.totalPage = $scope.totalPage;
+                param.pageSize = $scope.pageSize;
+                param.memberId = userInfo.memberId;
+
+                if(type != 0){
+                    param.status = type;
+                }
+
+                new couponService({"data":param})
+                    .then(function (res) {
+                        $scope.isPhoneLoading = false;
+                        if (res.resultCode == "00") {
+                            $scope.couponListPhoneData = $scope.couponListPhoneData.concat(res.data);
+                            $scope.pageSize = res.pageSize;   //每一页显示的件数
+                            $scope.iTotalRecords = res.iTotalRecords;
+                            $scope.usedCount = res.usedCount;
+                            $scope.notUsedCount = res.notUsedCount;
+                            $scope.dochangePage();
+                            if(res.data.length>=$scope.pageSize){
+                                $scope.hasMore = true;
+                            }else{
+                                $scope.hasMore = false;
+                            }
+                            // $scope.footerData = res.results;
+                            // $ionicSlideBoxDelegate.update();
+                        } else {
+                            $scope.currentPagePhone = $scope.currentPagePhone - 1;
+                            popupService.showToast(res.resultMessage);
+                        }
+                    }, function () {
+                        $scope.hasMore = false;
+                        $scope.isPhoneLoading = false;
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
+            };
+
+            //加载更多
+            $scope.doGetMore = function () {
+                $scope.currentPagePhone = $scope.currentPagePhone + 1;
+                $scope.getPhoneData($scope.type);
+            };
+
+            $scope.refreshData(0);
+            $scope.getPhoneData(0);
+
+            $scope.dochangePage = function () {
+                //分页样式初始化
+                $(".pager").ucPager({
+                    //pageClass     : "分页样式",
+                    currentPage: $scope.currentPage, //当前页数
+                    totalPage: $scope.totalPage,   //总页数
+                    pageSize: $scope.pageSize,   //每一页显示的件数
+                    clickCallback: function (page) {
+                        //下一页 上一页 页数跳转
+                        $scope.currentPage = page;
+                        $scope.refreshData($scope.type);
+                        $scope.dochangePage($scope.type);
+                    }
+                });
+            };
+        }])
     // 地址
     .controller('addressCenterCtrl', ["$scope", '$rootScope', "localStorageService", 'addressService', '$modal', 'popupService',
         function ($scope, $rootScope, localStorageService, addressService, $modal, popupService) {
@@ -2213,6 +2460,7 @@ console.log($scope.orderList);
                 goodsInfo.goodsId = $scope.productDetailData.goodsId;
                 goodsInfo.goodsName = $scope.productDetailData.goodsName;
                 goodsInfo.imageUrlJson = $scope.productDetailData.imageUrlJson;
+                goodsInfo.gdsColoreimageList = $scope.productDetailData.gdsColoreimageList;
                 goodsInfo.quantity = 1;
                 goodsInfo.type = $scope.productDetailData.type;
                 goodsInfo.isGift = "1";
@@ -2338,100 +2586,122 @@ console.log($scope.orderList);
         'orderService', '$state', 'popupService',
         function ($scope, localStorageService,couponCountService, authService, orderService, $state,popupService) {
 
-        var info = localStorageService.get(KEY_USERINFO);
-        if(info){
-            $scope.userInfo = info;
-        }
+            var info = localStorageService.get(KEY_USERINFO);
+            if(info){
+                $scope.userInfo = info;
+            }
 
-        $scope.goShopping = function (){
-            $state.go("homepage");
-        };
-
-        $scope.getPersonalInfo = function (){
-            var param = {
-                memberId: $scope.userInfo.memberId
+            $scope.goShopping = function (){
+                $state.go("homepage");
             };
 
-            new authService(param).getPersonalInfo()
-                .then(function (res) {
+            $scope.getPersonalInfo = function (){
+                var param = {
+                    memberId: $scope.userInfo.memberId
+                };
 
-                    if (res.resultCode == '00') {
+                new authService(param).getPersonalInfo()
+                    .then(function (res) {
 
-                        localStorageService.set(KEY_USERINFO, res.data);
+                        if (res.resultCode == '00') {
 
-                        $scope.userInfo = res.data;
+                            localStorageService.set(KEY_USERINFO, res.data);
 
-                    } else {
-                        popupService.showToast(res.resultMessage);
-                    }
-                }, function (error) {
-                    popupService.showToast(commonMessage.networkErrorMsg);
-                });
-        };
+                            $scope.userInfo = res.data;
 
-        $scope.getCouponInfo = function(){
-            // 获取优惠劵数量
-            new couponCountService({"memberId":info.memberId})
-                .then(function (res) {
-                    if (res.resultCode == "00") {
-                        $scope.couponCountData = res.results;
-                        // $ionicSlideBoxDelegate.update();
-                    } else {
-                         popupService.showToast(res.resultMessage);
-                    }
-                }, function () {
-                     popupService.showToast(commonMessage.networkErrorMsg);
-                });
-        };
-
-        $scope.getData = function () {
-
-            var param = {
-                "memberId": $scope.userInfo.memberId,
-                "iDisplayLength": 7,
-                "iDisplayStart": 0,
-                "orderStatus": '',
-                "payStatus": '',
-                "deliverStatus": '',
-                "type": '1'
-            };
-
-            new orderService(param).getList()
-                .then(function (res) {
-                        if (res.resultCode == "00") {
-                            $scope.orderList = res.aaData;
                         } else {
                             popupService.showToast(res.resultMessage);
                         }
                     }, function (error) {
-                        //$scope.hasMore = false;
                         popupService.showToast(commonMessage.networkErrorMsg);
-                    }
-                );
-        };
+                    });
+            };
 
-        // 跳转物流信息
-        $scope.goLogisticsList = function (gdsId) {
-            $state.go("personalCenter.logisticsList", {"orderId": gdsId});
-        };
-
-        //订单详情
-        $scope.orderDetail = function(id){
-            $state.go("personalCenter.orderDetail", {"orderId": id});
-        };
-
-        // 取消订单
-        $scope.cancelOrder = function (orderId) {
-            popupService.showConfirm('确定要取消此订单吗?', function(){
-                var param = {
-                    "memberId": $scope.userInfo.memberId,
-                    "orderId": orderId
-                };
-
-                new orderService(param).cancelOrder()
+            $scope.getCouponInfo = function(){
+                // 获取优惠劵数量
+                new couponCountService({"memberId":info.memberId})
                     .then(function (res) {
                         if (res.resultCode == "00") {
-                            popupService.showToast("订单已取消。");
+                            $scope.couponCountData = res.results;
+                            // $ionicSlideBoxDelegate.update();
+                        } else {
+                            popupService.showToast(res.resultMessage);
+                        }
+                    }, function () {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
+            };
+
+            $scope.getData = function () {
+
+                var param = {
+                    "memberId": $scope.userInfo.memberId,
+                    "iDisplayLength": 7,
+                    "iDisplayStart": 0,
+                    "orderStatus": '',
+                    "payStatus": '',
+                    "deliverStatus": '',
+                    "noReturn": '',
+                    "type": '1'
+                };
+
+                new orderService(param).getList()
+                    .then(function (res) {
+                            if (res.resultCode == "00") {
+                                $scope.orderList = res.aaData;
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            //$scope.hasMore = false;
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        }
+                    );
+            };
+
+            // 跳转物流信息
+            $scope.goLogisticsList = function (gdsId) {
+                $state.go("personalCenter.logisticsList", {"orderId": gdsId});
+            };
+
+            //订单详情
+            $scope.orderDetail = function(id){
+                $state.go("personalCenter.orderDetail", {"orderId": id});
+            };
+
+            // 取消订单
+            $scope.cancelOrder = function (orderId) {
+                popupService.showConfirm('确定要取消此订单吗?', function(){
+                    var param = {
+                        "memberId": $scope.userInfo.memberId,
+                        "orderId": orderId
+                    };
+
+                    new orderService(param).cancelOrder()
+                        .then(function (res) {
+                            if (res.resultCode == "00") {
+                                popupService.showToast("订单已取消。");
+                                $scope.getData();
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        });
+                });
+            };
+
+            // 确认收货
+            $scope.confirmReceiptInMaster = function (orderId) {
+                popupService.showConfirm('确定已收到此订单中所有的商品了吗?', function(){
+                    var param = {
+                        "memberId": $scope.userInfo.memberId,
+                        "orderId": orderId
+                    };
+
+                    new orderService(param).confirmReceiptInMaster().then(function (res) {
+                        if (res.resultCode == "00") {
+                            popupService.showToast("订单已确认收货。");
                             $scope.getData();
                         } else {
                             popupService.showToast(res.resultMessage);
@@ -2439,51 +2709,30 @@ console.log($scope.orderList);
                     }, function (error) {
                         popupService.showToast(commonMessage.networkErrorMsg);
                     });
-            });
-        };
-
-        // 确认收货
-        $scope.confirmReceiptInMaster = function (orderId) {
-            popupService.showConfirm('确定已收到此订单中所有的商品了吗?', function(){
-                var param = {
-                    "memberId": $scope.userInfo.memberId,
-                    "orderId": orderId
-                };
-
-                new orderService(param).confirmReceiptInMaster().then(function (res) {
-                    if (res.resultCode == "00") {
-                        popupService.showToast("订单已确认收货。");
-                        $scope.getData();
-                    } else {
-                        popupService.showToast(res.resultMessage);
-                    }
-                }, function (error) {
-                    popupService.showToast(commonMessage.networkErrorMsg);
                 });
-            });
-        };
+            };
 
-        // 删除订单
-        $scope.deleteOrder = function (orderId) {
-            popupService.showConfirm('确定要删除此订单吗?', function(){
-                var param = {
-                    "memberId": $scope.userInfo.memberId,
-                    "orderId": orderId
-                };
+            // 删除订单
+            $scope.deleteOrder = function (orderId) {
+                popupService.showConfirm('确定要删除此订单吗?', function(){
+                    var param = {
+                        "memberId": $scope.userInfo.memberId,
+                        "orderId": orderId
+                    };
 
-                new orderService(param).deleteOrder().then(function (res) {
-                    if (res.resultCode == "00") {
-                        popupService.showToast("订单已删除。");
-                        $scope.getData();
-                    } else {
-                        popupService.showToast(res.resultMessage);
-                    }
-                }, function (error) {
-                    popupService.showToast(commonMessage.networkErrorMsg);
+                    new orderService(param).deleteOrder().then(function (res) {
+                        if (res.resultCode == "00") {
+                            popupService.showToast("订单已删除。");
+                            $scope.getData();
+                        } else {
+                            popupService.showToast(res.resultMessage);
+                        }
+                    }, function (error) {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
                 });
-            });
 
-        };
+            };
 
             // 支付
             $scope.doPay = function (orderId,orderCode) {
@@ -2560,33 +2809,33 @@ console.log($scope.orderList);
                 });
             };
 
-        //订单详情
-        $scope.orderDetail = function(id){
-            $state.go("personalCenter.orderDetail", {"orderId": id});
-        };
+            //订单详情
+            $scope.orderDetail = function(id){
+                $state.go("personalCenter.orderDetail", {"orderId": id});
+            };
 
 
-        // 退货（全单）
-        $scope.refunds = function (orderItem) {
-            localStorageService.set(KEY_PARAM_REFUND_ORDER,orderItem);
-            $state.go("personalCenter.applyReturnGoods");
-        };
+            // 退货（全单）
+            $scope.refunds = function (orderItem) {
+                localStorageService.set(KEY_PARAM_REFUND_ORDER,orderItem);
+                $state.go("personalCenter.applyReturnGoods");
+            };
 
-        // 跳转到商品详细
-        $scope.goGoodsDetail = function (gdsId) {
-            $state.go("goodsDetail", {"goodsId": gdsId});
-        };
+            // 跳转到商品详细
+            $scope.goGoodsDetail = function (gdsId) {
+                $state.go("goodsDetail", {"goodsId": gdsId});
+            };
 
-        //我的订单
-        $scope.goOrderList = function () {
-            $state.go("personalCenter.orderList");
-        };
+            //我的订单
+            $scope.goOrderList = function () {
+                $state.go("personalCenter.orderList");
+            };
 
-        $scope.getPersonalInfo();
-        $scope.getCouponInfo();
-        $scope.getData();
+            $scope.getPersonalInfo();
+            $scope.getCouponInfo();
+            $scope.getData();
 
-    }])
+        }])
 
     // 关于我们
     .controller('aboutCtrl', ["$scope", "$state", "$stateParams", function ($scope, $state, $stateParams) {
@@ -2594,7 +2843,17 @@ console.log($scope.orderList);
     }])
 
     // 杂志
-    .controller('magazineCtrl', ["$scope", "$state", "$stateParams", "magazineListService", function ($scope, $state, $stateParams, magazineListService) {
+    .controller('magazineCtrl', ["$scope", "$state", "$rootScope", "$stateParams", "magazineListService", function ($scope, $state, $rootScope,$stateParams, magazineListService) {
+
+        $scope.currentPage = 1;
+        $scope.totalPage = 0;
+        $scope.pageSize = 3;
+        var currentList = [];
+        //$scope.isPageChange = false;
+        //$scope.phoneAndPC = $('#phone').css('display');
+        //$scope.isLoading = false;
+        //$scope.isPhoneLoading = false;
+
         // 获取配置的杂志信息
         var param = {
             itemCode:'magazine_index',
@@ -2608,7 +2867,19 @@ console.log($scope.orderList);
             .then(function (res) {
                 if (res.resultCode == "00") {
                     $scope.magazineListDataTypes = res.results;
-                    $scope.magazineListData = res.results[0].cmList;
+                    currentList = res.results[0].cmList;
+
+
+                    // 取得当前页数据
+                    if(currentList.length <= $scope.pageSize){
+                        $scope.magazineListData = currentList;
+                    }else{
+                        $scope.magazineListData = currentList.slice(0,3);
+                    }
+
+                    // 计算总页数
+                    $scope.totalPage = Math.ceil(currentList.length/$scope.pageSize);
+
                 } else {
                     // popupService.showToast(res.resultMessage);
                 }
@@ -2619,7 +2890,22 @@ console.log($scope.orderList);
         $scope.getOtherType = function(itemCode){
             for(var i = 0; i < $scope.magazineListDataTypes.length; i++ ){
                 if($scope.magazineListDataTypes[i].itemCode == itemCode ){
-                    $scope.magazineListData = $scope.magazineListDataTypes[i].cmList;
+                    currentList = $scope.magazineListDataTypes[i].cmList;
+
+
+                    // 重置当前页数
+                    $scope.currentPage = 1;
+
+                    // 取得当前页数据
+                    if(currentList.length <= $scope.pageSize){
+                        $scope.magazineListData = currentList;
+                    }else{
+                        $scope.magazineListData = currentList.slice(0,3);
+                    }
+
+                    // 计算总页数
+                    $scope.totalPage = Math.ceil(currentList.length/$scope.pageSize);
+
                     return;
                 }
             }
@@ -2628,6 +2914,68 @@ console.log($scope.orderList);
         $scope.goToTheStory = function(cmsId) {
             $state.go("theStory", {"cmsId": cmsId});
         }
+
+
+        //加载 滚动条事件
+        $.event.add(window, "scroll", function() {
+            var pTop = $(window).scrollTop();
+            var height = getClientHeight();
+            var theight = getScrollTop();
+            var rheight = getScrollHeight();
+            var pBottom = rheight-theight-height;
+
+            if(pTop > 130){// 固定
+                if($('.magazineTitle').length > 0){
+                    $('.magazineTitle').css({'position':'fixed','top':'0px',left:'0px','zIndex':100});
+                    $('.magazineTitle').addClass('fixTop');
+                    $('.magazineTitle .toTopBtn').show();
+                }
+            }else{// 恢复
+                if($('.magazineTitle').length > 0) {
+                    $('.magazineTitle').css({'position': 'static', 'top': '', 'left': '', 'zIndex': 0});
+                    $('.magazineTitle').removeClass('fixTop');
+                    $('.magazineTitle .toTopBtn').hide();
+                }
+            }
+
+            if(pBottom < 130){
+                if(!$rootScope.isLoadShowing){
+                    if($scope.currentPage < $scope.totalPage){
+
+                        $('body').jqLoading();
+                        $("body").css("overflow", "hidden");
+                        $rootScope.isLoadShowing = true;
+
+                        setTimeout(function(){
+                            $rootScope.isLoadShowing = false;
+                            $('body').jqLoading("destroy");
+                            $("body").css("overflow", "auto");
+                        },1000);
+
+                        //var start = $scope.currentPage * $scope.pageSize;
+                        $scope.currentPage++;
+                        var end = $scope.currentPage * $scope.pageSize;
+                        if(end > currentList.length){
+                            end = currentList.length;
+                        }
+
+                        $scope.magazineListData = currentList.slice(0,end);
+                        $scope.$apply();
+                        //$scope.doCallService();
+                    }
+                }
+            }
+        });
+
+        // 返回顶部
+        $scope.goTop = function(){
+            $('body,html').animate({scrollTop:0},500);
+            return false;
+        }
+
+        $scope.$on('$destroy',function(){
+            $.event.remove(window, "scroll");
+        });
     }])
 
     // 杂志背景故事
@@ -2656,82 +3004,82 @@ console.log($scope.orderList);
     // 门店信息
     .controller('storeListCtrl', ["$scope", "$state", 'storeService', 'popupService',
         function ($scope, $state, storeService, popupService) {
-        $scope.info = {provinceCd: '0', cityCd: '0', areaCd: '0'};//初始化联动下拉
+            $scope.info = {provinceCd: '0', cityCd: '0', areaCd: '0'};//初始化联动下拉
 
-        $scope.storeList = [];
+            $scope.storeList = [];
 
-        $scope.getData = function (){
+            $scope.getData = function (){
 
-            var param = {
-                provinceCode:($scope.info.provinceCd == '0' ? null : $scope.info.provinceCd),
-                cityCode:($scope.info.cityCd == '0' ? null : $scope.info.cityCd),
-                districtCode:($scope.info.areaCd == '0' ? null :$scope.info.areaCd)
+                var param = {
+                    provinceCode:($scope.info.provinceCd == '0' ? null : $scope.info.provinceCd),
+                    cityCode:($scope.info.cityCd == '0' ? null : $scope.info.cityCd),
+                    districtCode:($scope.info.areaCd == '0' ? null :$scope.info.areaCd)
+                };
+
+                new storeService(param).getStoreList()
+                    .then(function (res) {
+                        $scope.storeList = res.data;
+                        console.log("$scope.storeList === "+$scope.storeList);
+                    }, function (error) {
+                        console.log(error);
+                    });
             };
 
-            new storeService(param).getStoreList()
-                .then(function (res) {
-                    $scope.storeList = res.data;
-                    console.log("$scope.storeList === "+$scope.storeList);
-                }, function (error) {
-                    console.log(error);
-                });
-        };
+            $scope.getProvinces = function (){
+                new storeService(null).getOrgAddressList()
+                    .then(function (res) {
+                        if (res.resultCode == '00') {
+                            $scope.provincesList = res.data;
+                        } else {
+                            popupService.showToast(res.resultMessage);
+                        }
 
-        $scope.getProvinces = function (){
-            new storeService(null).getOrgAddressList()
-                .then(function (res) {
-                    if (res.resultCode == '00') {
-                        $scope.provincesList = res.data;
-                    } else {
-                        popupService.showToast(res.resultMessage);
-                    }
-
-                }, function () {
-                    popupService.showToast(commonMessage.networkErrorMsg);
-                });
-        };
-
-
-        // 联动区域变换
-        $scope.changeArea = function (type, code) {
-            var param = {
-                "provinceCode": type == '0' ? code : null,
-                "cityCode": type == '1' ? code : null
+                    }, function () {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
             };
 
-            switch (type) {
-                case '0':
-                    $scope.areasList = [];
-                    $scope.info.cityCd = '0';
-                    $scope.info.areaCd = '0';
-                    break;
-                case '1':
-                    $scope.info.areaCd = '0';
-                    break;
-            }
+
+            // 联动区域变换
+            $scope.changeArea = function (type, code) {
+                var param = {
+                    "provinceCode": type == '0' ? code : null,
+                    "cityCode": type == '1' ? code : null
+                };
+
+                switch (type) {
+                    case '0':
+                        $scope.areasList = [];
+                        $scope.info.cityCd = '0';
+                        $scope.info.areaCd = '0';
+                        break;
+                    case '1':
+                        $scope.info.areaCd = '0';
+                        break;
+                }
+
+                $scope.getData();
+
+                new storeService(param).getOrgAddressList()
+                    .then(function (res) {
+                        if (res.resultCode == "00") {
+                            switch (type) {
+                                case '0':
+                                    $scope.citiesList = res.data;
+                                    break;
+                                case '1':
+                                    $scope.areasList = res.data;
+                                    break;
+                            }
+                        }
+                    }, function (error) {
+                        console.log(error);
+                    });
+            };
 
             $scope.getData();
-
-            new storeService(param).getOrgAddressList()
-                .then(function (res) {
-                    if (res.resultCode == "00") {
-                        switch (type) {
-                            case '0':
-                                $scope.citiesList = res.data;
-                                break;
-                            case '1':
-                                $scope.areasList = res.data;
-                                break;
-                        }
-                    }
-                }, function (error) {
-                    console.log(error);
-                });
-        };
-
-        $scope.getData();
-        $scope.getProvinces();
-    }])
+            $scope.getProvinces();
+        }])
 
     // 联系我们
     .controller('contactUsCtrl', ["$scope", "$state", 'contactUsService','popupService', function ($scope, $state, contactUsService,popupService) {
@@ -2770,104 +3118,104 @@ console.log($scope.orderList);
     // 秒杀测试
     .controller('secKillCtrl', ["$scope","$rootScope", "$state", 'popupService','secKillImageService','$interval', 'secKillService', 'localStorageService',
         function ($scope,$rootScope, $state,popupService,secKillImageService,$interval, secKillService, localStorageService) {
-        $scope.clickIndex = 0;
+            $scope.clickIndex = 0;
 
-        $scope.times = [];
+            $scope.times = [];
 
-        $scope.goodsList = [];
-        //当前时间
-        $scope.nowTime ;
-        $scope.timer;
-        $scope.currentPage = 0;
-        $scope.currentPagePhone = 0;
-        $scope.totalPage = 0;
-        $scope.pageSize = 4;
-
-        $scope.switchTm = function(index, time){
+            $scope.goodsList = [];
+            //当前时间
+            $scope.nowTime ;
+            $scope.timer;
             $scope.currentPage = 0;
             $scope.currentPagePhone = 0;
             $scope.totalPage = 0;
-            $scope.clickIndex = index;
-            $scope.goodsList = [];
-            $interval.cancel($scope.timer);
-            $scope.getAllTimes();
-        };
+            $scope.pageSize = 4;
 
-
-        // 海报区域
-        new secKillImageService({})
-            .then(function (res) {
-                if (res.resultCode == "00") {
-                    if(res.results != null && res.results.length > 0){
-                        $scope.activityPoints = res.results[0];
-                        if($scope.activityPoints.cmList != null){
-                            $scope.playbill = $scope.activityPoints.cmList[0];
-                        }
-                    }
-                } else {
-                    // popupService.showToast(res.resultMessage);
-                }
-            }, function (error) {
-                // popupService.showToast(commonMessage.networkErrorMsg);
-            });
-
-        $scope.getAllTimes = function (){
-
-            var userInfo = localStorageService.get(KEY_USERINFO);
-            var memberId = "";
-            if (userInfo) {
-                memberId = userInfo.memberId;
-            }
-
-            var param = {
-                "memberId": memberId
+            $scope.switchTm = function(index, time){
+                $scope.currentPage = 0;
+                $scope.currentPagePhone = 0;
+                $scope.totalPage = 0;
+                $scope.clickIndex = index;
+                $scope.goodsList = [];
+                $interval.cancel($scope.timer);
+                $scope.getAllTimes();
             };
 
-            new secKillService(param).getTimes().then(
-                function (res) {
-                    if (res.resultCode == "00") {
-                        $scope.times = res.data;
-                        $interval.cancel($scope.timer);
-                        var currentTime = parseInt($scope.times[$scope.clickIndex].currentTime);
-                        var started = $scope.times[$scope.clickIndex].started;
-                        var endTime = parseInt($scope.times[$scope.clickIndex].endTimeSec);
-                        var startTime = parseInt($scope.times[$scope.clickIndex].startTimeSec);
-                        $scope.nowTime = currentTime;
-                        if(started == '0'){
-                            // 结束时间减去nowTime + 1000/s
-                            var diffTime = $scope.diffTime(endTime,currentTime);
-                            console.log(diffTime);
-                            $scope.activityTime = '抢购中 先下单先得哦！距结束:'+diffTime;
-                            // 1s钟加1000
-                            $scope.timer = $interval(function(){
-                                var rediffTime = $scope.reDiffTime(endTime,$scope.nowTime);
-                                $scope.activityTime = '抢购中 先下单先得哦！距结束:'+rediffTime;
-                                console.log(rediffTime);
-                            },1000);
-                        }else{
-                            // 结束时间减去nowTime + 1000/s
-                            var diffTime = $scope.diffTime(startTime,currentTime);
-                            console.log(diffTime);
-                            $scope.activityTime = '即将开始 先下单先得哦！距开始:'+diffTime;
-                            // 1s钟加1000
-                            $scope.timer = $interval(function(){
-                                var rediffTime = $scope.reDiffTime(startTime,$scope.nowTime);
-                                $scope.activityTime = '即将开始 先下单先得哦！距开始:'+rediffTime;
-                                console.log(rediffTime);
-                            },1000);
-                        }
 
-                        if($scope.times && $scope.times.length > 0){
-                            $scope.getGoods($scope.times[$scope.clickIndex]);
-                        } else {
-                            $scope.goodsList = [];
+            // 海报区域
+            new secKillImageService({})
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        if(res.results != null && res.results.length > 0){
+                            $scope.activityPoints = res.results[0];
+                            if($scope.activityPoints.cmList != null){
+                                $scope.playbill = $scope.activityPoints.cmList[0];
+                            }
                         }
+                    } else {
+                        // popupService.showToast(res.resultMessage);
                     }
-                }, function () {
-                    popupService.showToast(commonMessage.networkErrorMsg);
+                }, function (error) {
+                    // popupService.showToast(commonMessage.networkErrorMsg);
+                });
+
+            $scope.getAllTimes = function (){
+
+                var userInfo = localStorageService.get(KEY_USERINFO);
+                var memberId = "";
+                if (userInfo) {
+                    memberId = userInfo.memberId;
                 }
-            );
-        };
+
+                var param = {
+                    "memberId": memberId
+                };
+
+                new secKillService(param).getTimes().then(
+                    function (res) {
+                        if (res.resultCode == "00") {
+                            $scope.times = res.data;
+                            $interval.cancel($scope.timer);
+                            var currentTime = parseInt($scope.times[$scope.clickIndex].currentTime);
+                            var started = $scope.times[$scope.clickIndex].started;
+                            var endTime = parseInt($scope.times[$scope.clickIndex].endTimeSec);
+                            var startTime = parseInt($scope.times[$scope.clickIndex].startTimeSec);
+                            $scope.nowTime = currentTime;
+                            if(started == '0'){
+                                // 结束时间减去nowTime + 1000/s
+                                var diffTime = $scope.diffTime(endTime,currentTime);
+                                console.log(diffTime);
+                                $scope.activityTime = '抢购中 先下单先得哦！距结束:'+diffTime;
+                                // 1s钟加1000
+                                $scope.timer = $interval(function(){
+                                    var rediffTime = $scope.reDiffTime(endTime,$scope.nowTime);
+                                    $scope.activityTime = '抢购中 先下单先得哦！距结束:'+rediffTime;
+                                    console.log(rediffTime);
+                                },1000);
+                            }else{
+                                // 结束时间减去nowTime + 1000/s
+                                var diffTime = $scope.diffTime(startTime,currentTime);
+                                console.log(diffTime);
+                                $scope.activityTime = '即将开始 先下单先得哦！距开始:'+diffTime;
+                                // 1s钟加1000
+                                $scope.timer = $interval(function(){
+                                    var rediffTime = $scope.reDiffTime(startTime,$scope.nowTime);
+                                    $scope.activityTime = '即将开始 先下单先得哦！距开始:'+rediffTime;
+                                    console.log(rediffTime);
+                                },1000);
+                            }
+
+                            if($scope.times && $scope.times.length > 0){
+                                $scope.getGoods($scope.times[$scope.clickIndex]);
+                            } else {
+                                $scope.goodsList = [];
+                            }
+                        }
+                    }, function () {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    }
+                );
+            };
 
             $scope.diffTime = function(endTime,nowTime){
 
@@ -2943,184 +3291,185 @@ console.log($scope.orderList);
 
             $scope.isLoading = false;
             $scope.getGoods = function (time){
-            var userInfo = localStorageService.get(KEY_USERINFO);
-            var memberId = "";
-            if (userInfo) {
-                memberId = userInfo.memberId;
-            }
+                var userInfo = localStorageService.get(KEY_USERINFO);
+                var memberId = "";
+                if (userInfo) {
+                    memberId = userInfo.memberId;
+                }
 
-            var param = {
-                "memberId": memberId,
-                "activityTime": time.startTime,
-                "page":$scope.currentPage,
-                "displayLength":$scope.pageSize
+                var param = {
+                    "memberId": memberId,
+                    "activityTime": time.startTime,
+                    "page":$scope.currentPage,
+                    "displayLength":$scope.pageSize
+                };
+
+                if($scope.isLoading){
+                    return;
+                }
+                $scope.isLoading = true;
+
+                new secKillService(param).getProducts().then(
+                    function (res) {
+                        if (res.resultCode == "00") {
+                            $scope.isLoading = false;
+                            $scope.goodsList = $scope.goodsList.concat(res.data);
+                            $scope.totalPage = res.iTotalRecords;
+                            $scope.currentPage++;
+
+                            angular.forEach($scope.goodsList, function (item) {
+                                item.actInfo.sold = item.actInfo.quantity-item.actInfo.surplus;
+                                if(item.actInfo.sold == 0){
+                                    item.actInfo.ratio = 0;
+                                }else{
+                                    item.actInfo.ratio = ((item.actInfo.quantity-item.actInfo.surplus)/item.actInfo.quantity) + 0.1;
+                                }
+
+                            });
+
+                        }
+                    }, function () {
+                        $scope.isLoading = false;
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    }
+                );
             };
 
-            if($scope.isLoading){
-                return;
-            }
-            $scope.isLoading = true;
+            $scope.getProgressStyle = function (radio) {
+                return {"width":radio * 100 +"%"};
+            };
 
-            new secKillService(param).getProducts().then(
-                function (res) {
-                    if (res.resultCode == "00") {
-                        $scope.isLoading = false;
-                        $scope.goodsList = $scope.goodsList.concat(res.data);
-                        $scope.totalPage = res.iTotalRecords;
-                        $scope.currentPage++;
+            //商品详细画面跳转
+            $scope.goProdocutDetail = function (goodsId) {
+                $scope.getAllTimes();
+                var url = '/#/goodsDetail/' + goodsId;
+                window.open(url);
+                //$state.go("goodsDetail", {"goodsId": goodsId});
+            };
 
-                        angular.forEach($scope.goodsList, function (item) {
-                            item.actInfo.sold = item.actInfo.quantity-item.actInfo.surplus;
-                            if(item.actInfo.sold == 0){
-                                item.actInfo.ratio = 0;
-                            }else{
-                                item.actInfo.ratio = ((item.actInfo.quantity-item.actInfo.surplus)/item.actInfo.quantity) + 0.1;
-                            }
-
-                        });
-
-                    }
-                }, function () {
-                    $scope.isLoading = false;
-                    popupService.showToast(commonMessage.networkErrorMsg);
-                }
-            );
-        };
-
-        $scope.getProgressStyle = function (radio) {
-            return {"width":radio * 100 +"%"};
-        };
-
-        //商品详细画面跳转
-        $scope.goProdocutDetail = function (goodsId) {
             $scope.getAllTimes();
-            var url = '/qyds-web-pc/qyds/#/goodsDetail/' + goodsId;
-            window.open(url);
-            //$state.go("goodsDetail", {"goodsId": goodsId});
-        };
 
-        $scope.getAllTimes();
-
-    }])
+        }])
 
     .controller('popClassifyCtrl', ["$scope", "$state", "$stateParams", "$modalInstance","typePhoneService","brandtypeService", "localStorageService", "popupService",
         function ($scope, $state, $stateParams, $modalInstance,typePhoneService,brandtypeService,localStorageService, popupService) {
 
-        // var data = $scope.param;
-        // var goodsTypeId = data.goodsTypeId;
-        // var actId = data.actId;
-        // var firstGoodsTypeId = data.firstGoodsTypeId;
-        // var currentPage = data.currentPage;
-        // var totalPage = data.totalPage;
-        // var pageSize = data.pageSize;
-        var firstGoodsTypeId = $scope.param.firstGoodsTypeId;
-        // 头部信息取得
-        new typePhoneService({})
-            .then(function (res) {
+            // var data = $scope.param;
+            // var goodsTypeId = data.goodsTypeId;
+            // var actId = data.actId;
+            // var firstGoodsTypeId = data.firstGoodsTypeId;
+            // var currentPage = data.currentPage;
+            // var totalPage = data.totalPage;
+            // var pageSize = data.pageSize;
+            var firstGoodsTypeId = $scope.param.firstGoodsTypeId;
+            // 头部信息取得
+            new typePhoneService({})
+                .then(function (res) {
 
-                if (res.resultCode == "00") {
-                    $scope.levelRootList = res.results;
-                    new brandtypeService({})
-                        .then(function (res) {
-                            if (res.resultCode == "00") {
-                                $scope.levelRootList = $scope.levelRootList.concat(res.results);
-                                $scope.levelSecondList = [];
-                                $scope.levelThirdList = [];
-                                if(firstGoodsTypeId != null && firstGoodsTypeId.length > 0){
-                                    $scope.currentRootCode = firstGoodsTypeId;
-                                    $scope.selectClassify('1',firstGoodsTypeId);
-                                }else{
-                                    $scope.currentRootCode = '';
+                    if (res.resultCode == "00") {
+                        $scope.levelRootList = res.results;
+                        new brandtypeService({})
+                            .then(function (res) {
+                                if (res.resultCode == "00") {
+                                    console.log(res);
+                                    $scope.levelRootList = $scope.levelRootList.concat(res.results);
+                                    $scope.levelSecondList = [];
+                                    $scope.levelThirdList = [];
+                                    if(firstGoodsTypeId != null && firstGoodsTypeId.length > 0){
+                                        $scope.currentRootCode = firstGoodsTypeId;
+                                        $scope.selectClassify('1',firstGoodsTypeId);
+                                    }else{
+                                        $scope.currentRootCode = '';
+                                    }
+                                    $scope.currentSecondCode = '';
+                                    $scope.currentThirdCode = '';
+                                } else {
+                                    popupService.showToast(res.resultMessage);
                                 }
-                                $scope.currentSecondCode = '';
-                                $scope.currentThirdCode = '';
-                            } else {
-                                popupService.showToast(res.resultMessage);
-                            }
-                        }, function () {
-                            popupService.showToast(commonMessage.networkErrorMsg);
-                        });
-                } else {
-                     popupService.showToast(res.resultMessage);
+                            }, function () {
+                                popupService.showToast(commonMessage.networkErrorMsg);
+                            });
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function () {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+
+                });
+
+            // $scope.doCallServicePhone = function () {
+            //     //初始化调用
+            //     $scope.goodsListPhone = [];
+            //     new goodsListService({
+            //         "goodsTypeId": goodsTypeId,
+            //         "actId": actId,
+            //         "firstGoodsTypeId": firstGoodsTypeId,
+            //         "currentPage": currentPage,
+            //         "totalPage": totalPage,
+            //         "pageSize": pageSize
+            //     }).then(function (res) {
+            //         console.log(res);
+            //         if (res.resultCode == "00") {
+            //             if (res.results.length != 0) {
+            //                 $scope.goodsListPhone = $scope.goodsListPhone.concat(res.results);
+            //             } else {
+            //                 $scope.currentPagePhone = $scope.currentPagePhone - 1;
+            //                 //popupService.showToast("没有更多数据");
+            //             }
+            //             $scope.totalPage = res.allCount;
+            //             $scope.$apply();
+            //         } else {
+            //             //popupService.showToast(res.resultMessage);
+            //         }
+            //     }, function (err) {
+            //         //popupService.showToast(commonMessage.networkErrorMsg);
+            //     });
+            // };
+
+            $scope.confirm = function () {
+                //TODO
+                localStorageService.set(KEY_GOODSTYPE, firstGoodsTypeId);
+                $modalInstance.close();
+                // $scope.doCallServicePhone();
+            };
+
+            $scope.selectClassify = function (level, code) {
+
+                if (level == '1') {
+                    $scope.currentRootCode = code;
+                    angular.forEach($scope.levelRootList, function (data) {
+                        if (data.goodsTypeId == code) {
+                            $scope.levelSecondList = data.secondTypeList;
+                            $scope.levelThirdList = [];
+                            $scope.currentSecondCode = '';
+                            $scope.currentThirdCode = '';
+                            firstGoodsTypeId = code;
+                            // $scope.doCallService();
+                        }
+                    });
+                    // TODO
+                } else if (level == '2') {
+                    $scope.currentSecondCode = code;
+                    angular.forEach($scope.levelSecondList, function (data) {
+                        if (data.goodsTypeId == code) {
+                            $scope.levelThirdList = data.secondTypeList;
+                            $scope.currentThirdCode = '';
+                            firstGoodsTypeId = $scope.currentRootCode + "_" + code;
+                            $scope.doCallService();
+                        }
+                    });
+                    // TODO
+                } else if (level == '3') {
+                    $scope.currentThirdCode = code;
+                    // TODO
+                    firstGoodsTypeId = $scope.currentRootCode + "_" + $scope.currentSecondCode + "_" + code;
+                    $scope.doCallService();
+
                 }
-            }, function () {
-                 popupService.showToast(commonMessage.networkErrorMsg);
 
-            });
-
-        // $scope.doCallServicePhone = function () {
-        //     //初始化调用
-        //     $scope.goodsListPhone = [];
-        //     new goodsListService({
-        //         "goodsTypeId": goodsTypeId,
-        //         "actId": actId,
-        //         "firstGoodsTypeId": firstGoodsTypeId,
-        //         "currentPage": currentPage,
-        //         "totalPage": totalPage,
-        //         "pageSize": pageSize
-        //     }).then(function (res) {
-        //         console.log(res);
-        //         if (res.resultCode == "00") {
-        //             if (res.results.length != 0) {
-        //                 $scope.goodsListPhone = $scope.goodsListPhone.concat(res.results);
-        //             } else {
-        //                 $scope.currentPagePhone = $scope.currentPagePhone - 1;
-        //                 //popupService.showToast("没有更多数据");
-        //             }
-        //             $scope.totalPage = res.allCount;
-        //             $scope.$apply();
-        //         } else {
-        //             //popupService.showToast(res.resultMessage);
-        //         }
-        //     }, function (err) {
-        //         //popupService.showToast(commonMessage.networkErrorMsg);
-        //     });
-        // };
-
-        $scope.confirm = function () {
-            //TODO
-            localStorageService.set(KEY_GOODSTYPE, firstGoodsTypeId);
-            $modalInstance.close();
-            // $scope.doCallServicePhone();
-        };
-
-        $scope.selectClassify = function (level, code) {
-
-            if (level == '1') {
-                $scope.currentRootCode = code;
-                angular.forEach($scope.levelRootList, function (data) {
-                    if (data.goodsTypeId == code) {
-                        $scope.levelSecondList = data.secondTypeList;
-                        $scope.levelThirdList = [];
-                        $scope.currentSecondCode = '';
-                        $scope.currentThirdCode = '';
-                        firstGoodsTypeId = code;
-                        // $scope.doCallService();
-                    }
-                });
-                // TODO
-            } else if (level == '2') {
-                $scope.currentSecondCode = code;
-                angular.forEach($scope.levelSecondList, function (data) {
-                    if (data.goodsTypeId == code) {
-                        $scope.levelThirdList = data.secondTypeList;
-                        $scope.currentThirdCode = '';
-                        firstGoodsTypeId = $scope.currentRootCode + "_" + code;
-                        $scope.doCallService();
-                    }
-                });
-                // TODO
-            } else if (level == '3') {
-                $scope.currentThirdCode = code;
-                // TODO
-                firstGoodsTypeId = $scope.currentRootCode + "_" + $scope.currentSecondCode + "_" + code;
-                $scope.doCallService();
-
-            }
-
-            return false;
-        };
-    }])
+                return false;
+            };
+        }])
     // 积分兑换商品画面
     .controller('pointsExchangePageCtrl', ["$scope", "$state", "$stateParams","$rootScope", "$modal","localStorageService","popupService",
         "activityListService","goodsListService","activityPointsService",
@@ -3184,6 +3533,7 @@ console.log($scope.orderList);
                 $scope.goodsListInfo = {"from": "", "to": ""};
                 $scope.sortByTimeValue = 0;
                 $scope.sortByPriceValue = 0;
+                $scope.sortBySalesValue = 0;
 
                 // 清空检索结果
                 $scope.currentPage = 1;
@@ -3208,6 +3558,7 @@ console.log($scope.orderList);
             };
 
             $scope.changeActivity = function(activityId){
+
                 $scope.goodListTitle={selectSize:''};
                 $scope.goodsListInfo = {"from": "", "to": ""};
                 $scope.sortByTimeValue = 0;
@@ -3333,12 +3684,12 @@ console.log($scope.orderList);
                     })
                 },0);
 
-            }
+            };
             //排序 按照价格
             //变量forphone
             $scope.isupSortprice = true;
             $scope.sortByPrice = function(){
-                var $target = $('.goodListTitle .sort.price');
+                var $target = $('.goodListTitle.sort.price');
                 if($target.hasClass('down')){
                     //$target.removeClass('down').addClass('up');
                     $scope.sortByPriceValue = 2;
@@ -3347,6 +3698,7 @@ console.log($scope.orderList);
                     $scope.sortByPriceValue = 1;
                 }
                 $scope.sortByTimeValue = 0;
+                $scope.sortBySalesValue = 0;
                 $scope.totalPage = 0;
                 if($scope.phoneAndPC == 'none'){
                     $scope.currentPage = 1;
@@ -3368,6 +3720,41 @@ console.log($scope.orderList);
                 }
 
             };
+            //排序 按照销量
+            //变量forphone
+            $scope.isupSortsales = true;
+            $scope.sortBySales = function(){
+                var $target = $('.goodListTitle.sort.sales');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortBySalesValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortBySalesValue = 1;
+                }
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+
+                }else{
+                    $scope.currentPagePhone = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    if($scope.isupSortsales){
+                        $scope.sortBySalesValue = 2;
+                    }else{
+                        $scope.sortBySalesValue = 1;
+                    }
+                    $scope.isupSortsales = !$scope.isupSortsales;
+                    $scope.doCallServicePhone();
+                }
+
+            };
             //排序 按照时间
             //变量forphone
             $scope.isupSort = true;
@@ -3381,6 +3768,7 @@ console.log($scope.orderList);
                     $scope.sortByTimeValue = 1;
                 }
                 $scope.sortByPriceValue = 0;
+                $scope.sortBySalesValue = 0;
                 $scope.totalPage = 0;
                 if($scope.phoneAndPC == 'none'){
                     $scope.currentPage = 1;
@@ -3414,6 +3802,7 @@ console.log($scope.orderList);
                     "actId": actId,
                     "memberId":memberId,
                     "sortByPrice":$scope.sortByPriceValue,
+                    "sortBySales":$scope.sortBySalesValue,
                     "sortByTime":$scope.sortByTimeValue,
                     "currentPage": $scope.currentPage,
                     "totalPage": $scope.totalPage,
@@ -3421,6 +3810,7 @@ console.log($scope.orderList);
                 }).then(function (res) {
                     $scope.isLoading = false;
                     if (res.resultCode == "00") {
+                        console.log(res);
                         $scope.goodsList = $scope.goodsList.concat(res.results);
                         $scope.totalPage = res.allCount;
                         //$scope.dochangePage();
@@ -3456,7 +3846,7 @@ console.log($scope.orderList);
 
             //商品详细画面跳转
             $scope.goProdocutDetail = function (goodsId) {
-                var url = '/qyds-web-pc/qyds/#/goodsDetail/' + goodsId;
+                var url = '/#/goodsDetail/' + goodsId;
                 window.open(url);
                 //$state.go("goodsDetail", {"goodsId": goodsId});
             };
@@ -3466,12 +3856,12 @@ console.log($scope.orderList);
                     return;
                 }
                 $scope.isPhoneLoading = true;
-
                 //初始化调用
                 new goodsListService({
                     "actId": actId,
                     "memberId":memberId,
                     "sortByPrice":$scope.sortByPriceValue,
+                    "sortBySales":$scope.sortBySalesValue,
                     "sortByTime":$scope.sortByTimeValue,
                     "currentPage": $scope.currentPagePhone,
                     "totalPage": $scope.totalPage,
@@ -3635,7 +4025,7 @@ console.log($scope.orderList);
 
             //商品详细画面跳转
             $scope.goProdocutDetail = function (goodsId) {
-                var url = '/qyds-web-pc/qyds/#/goodsDetail/' + goodsId;
+                var url = '/#/goodsDetail/' + goodsId;
                 window.open(url);
                 //$state.go("goodsDetail", {"goodsId": goodsId});
             };
@@ -3771,7 +4161,7 @@ console.log($scope.orderList);
                                 console.log(res.data.point);
                             }
                         } else {
-                             popupService.showToast(res.resultMessage);
+                            popupService.showToast(res.resultMessage);
                         }
                     }, function (error) {
                         popupService.showToast(commonMessage.networkErrorMsg);
@@ -3781,9 +4171,609 @@ console.log($scope.orderList);
             $scope.getCurrentPoints();
             $scope.doRefreshCoupon();
         }])
+    // 活动列表
+    .controller('saleListCtrl', ["$scope", "$state", "$stateParams",  "goodsListService", "activityTypeListService","$rootScope", "$modal", "getAlltypesService","brandtypeService","localStorageService","popupService",
+        function ($scope, $state, $stateParams, goodsListService,activityTypeListService, $rootScope, $modal, getAlltypesService,brandtypeService,localStorageService,popupService) {
+            $scope.showForRepeat=[];
+            $scope.showForRepeatStatue=false;
+            $scope.showForAct=false;
+            $scope.fun=function () {
+                $scope.showForAct=!$scope.showForAct;
+            };
+            $scope.func=function (obj) {
+                var index = $scope.showForRepeat.indexOf(obj);
+                if (index>-1){
+                    $scope.showForRepeat.splice(index,1);
+                }else {
+                    $scope.showForRepeat.push(obj);
+                }
+            };
+            $scope.funct=function (obj) {
+                var showForFunct = $scope.showForRepeat;
+                for (var i = 0; i < showForFunct.length; i++) {
+                    if(showForFunct[i]===obj){
+                        return true
+                    }
+                }
+                return false;
+            };
+            //数据集合
+            $scope.goodsListClass = "col-xs-12 col-sm-12";
+            $scope.goodsTypeAllGoodsListData = [];
+            $scope.goodsList = [];
+            $scope.goodsListPhone = [];
+            $scope.levelRootList = [];
+            //$scope.goodsListFromnType = $stateParams.type;
+            // 排序初始化
+            $scope.sortByPriceValue = 0;
+            $scope.sortByTimeValue = 0;
+            //PC 初始化的场合
+            $scope.currentPage = 1;
+            $scope.currentPagePhone = 1;
+            $scope.totalPage = 0;
+            $scope.pageSize = 8;
+            $scope.isPageChange = false;
+            $scope.phoneAndPC = $('#phone').css('display');
+            $scope.isLoading = false;
+            $scope.isPhoneLoading = false;
+            //是否第一次进入到首页
+            //$scope.isFirstInMain = 0;
+
+            var firstGoodsTypeId = "";
+            //var pageType = "";
+            //var classifyId = "";
+            //var classifyName = "";
+            //var goodsTypeId = "";
+            var actId = "";
+            var actIds = "";
+            //var cmsId = "";
+            //$scope.newDataList = "";
+
+
+            $scope.crumbs = {first:'',second:'',third:'',last:''};
+            $scope.crumbs.first = 'SALE';
+
+            //$scope.sort={'price':'down','time':'up'};
+            //会员ID
+            var userInfo = localStorageService.get(KEY_USERINFO);
+            var memberId = "";
+            if (userInfo) {
+                memberId = userInfo.memberId;
+            }
+
+            $.event.add(window, "scroll", function() {
+                var pTop = $(window).scrollTop();
+                var height = getClientHeight();
+                var theight = getScrollTop();
+                var rheight = getScrollHeight();
+                var pBottom = rheight-theight-height;
+
+                if(pTop > 130){// 固定
+                    if($('.goodListTitle').length > 0){
+                        $('.goodListTitle').css({'position':'fixed','top':'0px',left:'0px','zIndex':100});
+                        $('.goodListTitle').addClass('fixTop');
+                    }
+                }else{// 恢复
+                    if($('.goodListTitle').length > 0) {
+                        $('.goodListTitle').css({'position': 'static', 'top': '', 'left': '', 'zIndex': 0});
+                        $('.goodListTitle').removeClass('fixTop');
+                    }
+                }
+
+                if(pBottom < 130){
+                    if(!$rootScope.isLoadShowing){
+                        //finished = false;
+                        if($scope.currentPage <= $scope.totalPage){
+                            console.log($scope.currentPage);
+                            $scope.doCallService();
+                        }
+                    }
+                }
+            });
+
+            $scope.$on('$destroy',function(){
+                $.event.remove(window, "scroll");
+            });
+
+            $scope.gotoGoodsList = function(root){
+                actId = root.activityId;
+                $scope.doCallServicePhone();
+            };
+
+            // 获取该用户下的所有活动
+            new activityTypeListService({"memberId":memberId})
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        $scope.activityTypeList = res.data;
+                        console.log($scope.activityTypeList);
+                        for(var i = 0; i<$scope.activityTypeList.length; i++){
+                            actIds = actIds + $scope.activityTypeList[i].activityId + ",";
+                            if(i == 0){
+                                if($scope.phoneAndPC == 'none'){
+                                    actId = $scope.activityTypeList[i].activityId;
+                                    $scope.doCallService();
+                                }else{
+                                    $scope.doCallServicePhone();
+                                }
+                            }
+                        }
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function () {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+
+
+            // 所有的分类信息取得
+            new getAlltypesService({})
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        $scope.levelRootList = $scope.levelRootList.concat(res.results);
+                        // 所有的品牌系列信息取得
+                        new brandtypeService({})
+                            .then(function (res) {
+                                if (res.resultCode == "00") {
+                                    $scope.levelRootList = $scope.levelRootList.concat(res.results);
+                                } else {
+                                    popupService.showToast(res.resultMessage);
+                                }
+                            }, function () {
+                                popupService.showToast(commonMessage.networkErrorMsg);
+                            });
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function () {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+
+            $scope.getDataByActId = function (activityId,activityName) {
+
+                $scope.goodListTitle={selectSize:''};
+                $scope.goodsListInfo = {"from": "", "to": ""};
+                $scope.newDataList = "";
+                actId = "";
+                firstGoodsTypeId = "";
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.isFirstInMain = 0;
+
+                // 清空检索结果
+                $scope.currentPage = 1;
+                $scope.currentPagePhone = 1;
+                $scope.totalPage = 0;
+                $scope.goodsList = [];
+
+                $scope.crumbs.second = '活动';
+                $scope.crumbs.third = activityName;
+                $scope.crumbs.last = '';
+                actId = activityId;
+                $scope.doCallService();
+            };
+
+            $scope.selectClassify = function (level, code, s_name,t_name,l_name) {
+                firstGoodsTypeId = code;
+                // 清空检索结果
+                $scope.currentPage = 1;
+                $scope.currentPagePhone = 1;
+                $scope.totalPage = 0;
+                $scope.goodsList = [];
+
+                if (level == '2') {
+                    $scope.crumbs.second = s_name;
+                    $scope.crumbs.third = '';
+                    $scope.crumbs.last = '';
+                } else if (level == '3') {
+                    $scope.crumbs.second = s_name;
+                    $scope.crumbs.third = t_name;
+                    $scope.crumbs.last = '';
+                } else if (level == '4'){
+                    $scope.crumbs.second = s_name;
+                    $scope.crumbs.third = t_name;
+                    $scope.crumbs.last = l_name;
+                }
+                $scope.goodListTitle={selectSize:''};
+                $scope.goodsListInfo = {"from": "", "to": ""};
+                //$scope.newDataList = "";
+                actId = "";
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.isFirstInMain = 0;
+                $scope.doCallService();
+            };
+
+            //排序 按照价格
+            //变量forphone
+            $scope.isupSortprice = true;
+            $scope.sortByPrice = function(){
+                var $target = $('.goodListTitle .sort.price');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortByPriceValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortByPriceValue = 1;
+                }
+                $scope.sortByTimeValue = 0;
+                $scope.sortBySalesValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+
+                }else{
+                    $scope.currentPagePhone = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    if($scope.isupSortprice){
+                        $scope.sortByPriceValue = 2;
+                    }else{
+                        $scope.sortByPriceValue = 1;
+                    }
+                    $scope.isupSortprice = !$scope.isupSortprice;
+                    $scope.doCallServicePhone();
+                }
+
+            };
+            //排序 按照销量
+            //变量forphone
+            $scope.isupSortsales = true;
+            $scope.sortBySales = function(){
+                var $target = $('.goodListTitle.sort.sales');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortBySalesValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortBySalesValue = 1;
+                }
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+
+                }else{
+                    $scope.currentPagePhone = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    if($scope.isupSortsales){
+                        $scope.sortBySalesValue = 2;
+                    }else{
+                        $scope.sortBySalesValue = 1;
+                    }
+                    $scope.isupSortsales = !$scope.isupSortsales;
+                    $scope.doCallServicePhone();
+                }
+
+            };
+            //排序 按照时间
+            //变量forphone
+            $scope.isupSort = true;
+            $scope.sortByTime = function(){
+                var $target = $('.goodListTitle .sort.time');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortByTimeValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortByTimeValue = 1;
+                }
+                $scope.sortByPriceValue = 0;
+                $scope.sortBySalesValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+                }else{
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.currentPagePhone = 1;
+                    if($scope.isupSort){
+                        $scope.sortByTimeValue = 2;
+                    }else{
+                        $scope.sortByTimeValue = 1;
+                    }
+                    $scope.isupSort = !$scope.isupSort;
+                    $scope.doCallServicePhone();
+                }
+            };
+
+            $scope.goodListTitle={selectSize:''};
+            $scope.goodsListInfo = {"from": "", "to": ""};
+            $scope.doCallService = function (cb) {
+                if($scope.isLoading){
+                    return;
+                }
+                $scope.isLoading = true;
+                //初始化调用
+                new goodsListService({
+                    //"goodsIds": $scope.newDataList,
+                    "sizeCode":$scope.goodListTitle.selectSize,
+                    "from": $scope.goodsListInfo.from,
+                    "to": $scope.goodsListInfo.to,
+                    "actId": actId,
+                    "actIds":actIds,
+                    //"cmsId":cmsId,
+                    "firstGoodsTypeId": firstGoodsTypeId,
+                    "memberId":memberId,
+                    "sortByPrice":$scope.sortByPriceValue,
+                    "sortByTime":$scope.sortByTimeValue,
+                    "currentPage": $scope.currentPage,
+                    "totalPage": $scope.totalPage,
+                    "pageSize": $scope.pageSize
+                }).then(function (res) {
+                    $scope.isLoading = false;
+                    if (res.resultCode == "00") {
+                        $scope.goodsList = $scope.goodsList.concat(res.results);
+                        $scope.totalPage = res.allCount;
+                        //$scope.dochangePage();
+                        $scope.currentPage++;
+                        angular.element(document).ready(function() {
+                            // 筛选
+                            $('.filterBtn').webuiPopover({
+                                width:450,
+                                height:260,
+                                padding:false,
+                                animation:'pop',
+                                content:function(){
+                                    var html = $('.filterTemplate').html();
+
+                                    return html;
+                                }
+                            });
+                        });
+                        $scope.sizeList = res.sizeList;
+
+                        if(cb) cb(true);
+                        //console.log($('.goodListTitle .sort.price'));
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                        if(cb) cb(true);
+                    }
+                }, function (err) {
+                    $scope.isLoading = true;
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                    if(cb) cb(true);
+                });
+            };
+
+            $scope.doCallServicePhone = function () {
+                if($scope.isPhoneLoading){
+                    return;
+                }
+                $scope.isPhoneLoading = true;
+                //初始化调用
+                new goodsListService({
+                    //"goodsTypeId": goodsTypeId,
+                    //"goodsIds": $scope.newDataList,
+                    "actId": actId,
+                    "actIds":actIds,
+                    "firstGoodsTypeId": firstGoodsTypeId,
+                    "memberId":memberId,
+                    "sortByPrice":$scope.sortByPriceValue,
+                    "sortByTime":$scope.sortByTimeValue,
+                    "currentPage": $scope.currentPagePhone,
+                    "totalPage": $scope.totalPage,
+                    "pageSize": $scope.pageSize
+                }).then(function (res) {
+                    $scope.isPhoneLoading = false;
+                    if (res.resultCode == "00") {
+                        if (res.results.length != 0) {
+                            if($scope.isPageChange){
+                                $scope.goodsListPhone = $scope.goodsListPhone.concat(res.results);
+                            }else{
+                                $scope.goodsListPhone = res.results;
+                            }
+                        } else {
+                            $scope.currentPagePhone = $scope.currentPagePhone - 1;
+                            //popupService.showToast("没有更多数据");
+                        }
+                        $scope.isPageChange = false;
+                        $scope.totalPage = res.allCount;
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (err) {
+                    $scope.isPhoneLoading = true;
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+            };
+
+            var scope = $scope.$new();
+            scope.param = {
+                firstGoodsTypeId: firstGoodsTypeId
+            };
+
+            $scope.popClassify_xs = function () {
+                var classifyModalInstance = $modal.open({
+                    templateUrl: 'html/classifyModal.html',
+                    controller: 'popClassifyCtrl',
+                    scope: scope,
+                    backdrop: true,
+                    resolve: {
+                        //items: function () {
+                        //    return $scope.items;
+                        //}
+                    }
+                });
+                classifyModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+                });
+                classifyModalInstance.result.then(
+                    function (result) {
+                        firstGoodsTypeId = localStorageService.get(KEY_GOODSTYPE);
+                        //$scope.newDataList = "";
+                        $scope.doCallServicePhone();
+                        $scope.goodsListPhone = [];
+                    }, function (reason) {
+                        console.log(reason);//点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                    });
+
+            };
+
+            if($scope.phoneAndPC == 'none'){
+                //$scope.doCallService();
+            }else{
+
+                //从首页直接跳转直接跳转
+                //if(pageType != null && pageType.length > 0 && pageType == '3'){
+                //    //新品 3
+                //    $scope.getNewData();
+                //}else if(pageType != null && pageType.length > 0){
+                //    //其他
+                //    firstGoodsTypeId = classifyId;
+                //}
+                //pageType = '';
+                //classifyId = '';
+
+                //$scope.doCallServicePhone();
+            }
+
+            //加载更多
+            $scope.doGetMore = function () {
+                $scope.isPageChange = true;
+                $scope.currentPagePhone = $scope.currentPagePhone + 1;
+                $scope.doCallServicePhone();
+            };
+
+            //商品详细画面跳转
+            $scope.goProdocutDetail = function (goodsId) {
+                var url = '/#/goodsDetail/' + goodsId;
+                window.open(url);
+                //$state.go("goodsDetail", {"goodsId": goodsId});
+            };
+
+            // 获取所有活动商品
+            $scope.getGoodsList = function () {
+
+                $scope.goodListTitle={selectSize:''};
+                $scope.goodsListInfo = {"from": "", "to": ""};
+                //$scope.newDataList = "";
+                actId = "";
+                firstGoodsTypeId = "";
+                //cmsId = "";
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.isFirstInMain = 0;
+
+                // 清空检索结果
+                $scope.currentPage = 1;
+                $scope.currentPagePhone = 1;
+                $scope.totalPage = 0;
+                $scope.goodsList = [];
+
+                $scope.crumbs.second = '全部';
+                $scope.crumbs.third = '';
+                $scope.crumbs.last = '';
+                $scope.doCallService();
+            };
+            // 返回顶部
+            $scope.goTop = function(){
+                $('body,html').animate({scrollTop:0},500);
+                return false;
+            }
+            $scope.openFilterPanel = function(){
+                if($('.webui-popover').length > 0){
+                    $('.webui-popover').remove();
+                }else{
+                }
+                WebuiPopovers.updateContent($('.filterBtn'),$('.filterTemplate').html());
+                setTimeout(function(){
+
+                    $('.webui-popover-content .filterPanel #priceFrom').val($scope.goodsListInfo.from);
+                    $('.webui-popover-content .filterPanel #priceTo').val($scope.goodsListInfo.to);
+
+                    $('.webui-popover-content .filterPanel .sizeTag').off('click').on('click',function(){
+                        $(this).addClass('active').siblings().removeClass('active');
+                        $scope.goodListTitle.selectSize = $(this).attr('data-code');
+                    });
+
+                    $('.webui-popover-content .filterPanel #priceFrom,.webui-popover-content .filterPanel #priceTo').off('change').on('change',function(){
+                        var val = $(this).val();
+                        if(val != '' && isNaN(val)){
+                            $(this).val('');
+                            return;
+                        }
+
+                        var minV = $('.webui-popover-content .filterPanel #priceFrom').val();
+                        var maxV = $('.webui-popover-content .filterPanel #priceTo').val();
+
+                        if($(this).hasClass('min') && !isNaN(maxV )){
+                            if(parseFloat(minV) > parseFloat(maxV)){
+                                $(this).val('');
+                                return;
+                            }
+                        }
+                        if($(this).hasClass('max') && !isNaN(minV)){
+                            if(parseFloat(minV) > parseFloat(maxV)){
+                                $(this).val('');
+                                return;
+                            }
+                        }
+
+                    });
+                    $('.webui-popover-content .filterPanel #clearBtn').off('click').on('click',function(){
+                        $('.webui-popover-content .filterPanel .sizeTag').removeClass('active');
+                        $('.webui-popover-content .filterPanel #priceFrom').val('');
+                        $('.webui-popover-content .filterPanel #priceTo').val('')
+                        $scope.goodListTitle.selectSize = '';
+                        $scope.goodsListInfo.from = '';
+                        $scope.goodsListInfo.to = '';
+                    });
+                    $('.webui-popover-content .filterPanel #okBtn').off('click').on('click',function(){
+
+                        console.log($('.webui-popover-content .filterPanel #priceFrom').length);
+
+                        $scope.goodsListInfo.from = $('.webui-popover-content .filterPanel #priceFrom').val();
+                        $scope.goodsListInfo.to = $('.webui-popover-content .filterPanel #priceTo').val();
+                        console.log($scope.goodsListInfo.from);
+                        console.log($scope.goodsListInfo.to);
+                        $scope.currentPage = 1;
+                        $scope.currentPagePhone = 1;
+                        $scope.totalPage = 0;
+                        $scope.goodsList = [];
+                        $scope.doCallService();
+                        WebuiPopovers.hideAll();
+                        $scope.goTop();
+                    })
+                },0);
+
+            }
+        }])
     // 商品列表
     .controller('goodsListCtrl', ["$scope", "$state", "$stateParams", "goodsTypeIndexService", "goodsListService", "activityTypeListService","getNewDataService","$rootScope", "$modal", "typeService","brandtypeService","localStorageService","popupService",
         function ($scope, $state, $stateParams, goodsTypeIndexService, goodsListService,activityTypeListService,getNewDataService, $rootScope, $modal, typeService,brandtypeService,localStorageService,popupService) {
+            $scope.showForRepeat=[];
+            $scope.showForRepeatStatue=false;
+            $scope.showForAct=false;
+            $scope.fun=function () {
+                $scope.showForAct=!$scope.showForAct;
+            };
+            $scope.func=function (obj) {
+                var index = $scope.showForRepeat.indexOf(obj);
+                if (index>-1){
+                    $scope.showForRepeat.splice(index,1);
+                }else {
+                    $scope.showForRepeat.push(obj);
+                }
+            };
+            $scope.funct=function (obj) {
+                var showForFunct = $scope.showForRepeat;
+                for (var i = 0; i < showForFunct.length; i++) {
+                    if(showForFunct[i]===obj){
+                        return true
+                    }
+                }
+                return false;
+            };
 
             //数据集合
             $scope.goodsListClass = "col-xs-12 col-sm-12";
@@ -3806,6 +4796,8 @@ console.log($scope.orderList);
             //是否第一次进入到首页
             $scope.isFirstInMain = 0;
 
+            $scope.brandFlg = '';
+
             var firstGoodsTypeId = "";
             var pageType = "";
             var classifyId = "";
@@ -3813,6 +4805,7 @@ console.log($scope.orderList);
             var goodsTypeId = "";
             var actId = "";
             var cmsId = "";
+            var brandFlg = "";
             $scope.newDataList = "";
             if($scope.goodsListFromnType == '41'){
                 $scope.newDataList = $stateParams.firstGoodsTypeId;
@@ -3827,6 +4820,8 @@ console.log($scope.orderList);
                 classifyName = $stateParams.classifyName;
                 goodsTypeId = $stateParams.type;
                 actId = $stateParams.actId;
+                // add by sunt (brandFlg)
+                $scope.brandFlg = $stateParams.brandFlg;
             }
             //全部的参数
             $scope.firstGoodsTypeId = $stateParams.firstGoodsTypeId;
@@ -3887,7 +4882,7 @@ console.log($scope.orderList);
             });
 
             // 活动列表获取(折扣和特价两种活动)
-            new activityTypeListService({"memberId":memberId})
+            new activityTypeListService({"memberId":memberId,"firstGoodsTypeId":firstGoodsTypeId})
                 .then(function (res) {
                     if (res.resultCode == "00") {
                         $scope.activityTypeList = res.data;
@@ -3903,6 +4898,7 @@ console.log($scope.orderList);
             new typeService({"firstGoodsTypeId":firstGoodsTypeId})
                 .then(function (res) {
                     if (res.resultCode == "00") {
+                        console.log(res);
                         $scope.levelRootList = res.results;
                         $scope.crumbs.first = $scope.levelRootList[0].goodsTypeNameCn;
                         //angular.element(document).ready(function() {
@@ -3917,6 +4913,15 @@ console.log($scope.orderList);
                 }, function () {
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
+
+            $scope.mouseoverL = function(goods,imageUrlL){
+                goods.imageUrlJson = imageUrlL.imageUrlJson;
+            };
+
+            $scope.gotoGoodsList = function(root){
+                firstGoodsTypeId = root.goodsTypeId;
+                $scope.doCallServicePhone();
+            };
 
             $scope.titleClick = function(level, code, s_name){
                 firstGoodsTypeId = code;
@@ -3978,6 +4983,7 @@ console.log($scope.orderList);
                     $scope.sortByPriceValue = 1;
                 }
                 $scope.sortByTimeValue = 0;
+                $scope.sortBySalesValue = 0;
                 $scope.totalPage = 0;
                 if($scope.phoneAndPC == 'none'){
                     $scope.currentPage = 1;
@@ -3999,6 +5005,41 @@ console.log($scope.orderList);
                 }
 
             };
+            //排序 按照销量
+            //变量forphone
+            $scope.isupSortsales = true;
+            $scope.sortBySales = function(){
+                var $target = $('.goodListTitle.sort.sales');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortBySalesValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortBySalesValue = 1;
+                }
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+
+                }else{
+                    $scope.currentPagePhone = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    if($scope.isupSortsales){
+                        $scope.sortBySalesValue = 2;
+                    }else{
+                        $scope.sortBySalesValue = 1;
+                    }
+                    $scope.isupSortsales = !$scope.isupSortsales;
+                    $scope.doCallServicePhone();
+                }
+
+            };
             //排序 按照时间
             //变量forphone
             $scope.isupSort = true;
@@ -4012,6 +5053,7 @@ console.log($scope.orderList);
                     $scope.sortByTimeValue = 1;
                 }
                 $scope.sortByPriceValue = 0;
+                $scope.sortBySalesValue = 0;
                 $scope.totalPage = 0;
                 if($scope.phoneAndPC == 'none'){
                     $scope.currentPage = 1;
@@ -4045,7 +5087,6 @@ console.log($scope.orderList);
                 }).then(function (res) {
                     $scope.isLoading = false;
                     if (res.resultCode == "00") {
-                        console.log(res);
                         $scope.goodsTypeNewData = res.newList;
                         $scope.goodsTypeAllGoodsListData = res.goodsList;
                         if ($scope.goodsTypeAllGoodsListData.length > 6) {
@@ -4057,19 +5098,16 @@ console.log($scope.orderList);
 
                         //从首页直接跳转直接跳转
                         if(pageType != null && pageType.length > 0 && pageType == '3'){
-                            // alert("首页");
                             //新品 3
                             $scope.getNewData();
                         }else if(pageType != null && pageType.length > 0 ){
                             // 其他
-                            // alert("其他");
                             $scope.selectClassify('2',classifyId,classifyName,'');
                         }
                         pageType = '';
                         classifyId = '';
                         classifyName = '';
                     } else {
-                        // alert("其他d")
                         // popupService.showToast(res.resultMessage);
                     }
                 }, function (err) {
@@ -4150,6 +5188,7 @@ console.log($scope.orderList);
             $scope.goodListTitle={selectSize:''};
             $scope.goodsListInfo = {"from": "", "to": ""};
             $scope.doCallService = function (cb) {
+                console.log(cb);
                 if($scope.isLoading){
                     return;
                 }
@@ -4165,6 +5204,7 @@ console.log($scope.orderList);
                     "firstGoodsTypeId": firstGoodsTypeId,
                     "memberId":memberId,
                     "sortByPrice":$scope.sortByPriceValue,
+                    "sortBySales":$scope.sortBySalesValue,
                     "sortByTime":$scope.sortByTimeValue,
                     "currentPage": $scope.currentPage,
                     "totalPage": $scope.totalPage,
@@ -4253,6 +5293,7 @@ console.log($scope.orderList);
             };
 
             $scope.popClassify_xs = function () {
+                console.log($scope.levelRootList);
                 var classifyModalInstance = $modal.open({
                     templateUrl: 'html/classifyModal.html',
                     controller: 'popClassifyCtrl',
@@ -4278,9 +5319,11 @@ console.log($scope.orderList);
 
             };
 
+            //分类跳转问题
             if($scope.phoneAndPC == 'none'){
-                if (goodsTypeId == "42"&&firstGoodsTypeId!='b97f11e6-df14-4c75-ab1f-2c037c70f77b_cd73737f-64e0-44ae-9e6a-728120151f67_b8a3e681-6454-4436-aae7-0b414f801316') {
+                if (goodsTypeId == "42"&&classifyName!="123") {
                     $scope.getGoodsTypeIndex();
+                    // $scope.doCallService();
                 }
                 else {
                     $scope.doCallService();
@@ -4298,6 +5341,7 @@ console.log($scope.orderList);
                 pageType = '';
                 classifyId = '';
 
+                $scope.getGoodsTypeIndex();
                 $scope.doCallServicePhone();
             }
 
@@ -4310,7 +5354,7 @@ console.log($scope.orderList);
 
             //商品详细画面跳转
             $scope.goProdocutDetail = function (goodsId) {
-                var url = '/qyds-web-pc/qyds/#/goodsDetail/' + goodsId;
+                var url = '/#/goodsDetail/' + goodsId;
                 window.open(url);
                 //$state.go("goodsDetail", {"goodsId": goodsId});
             };
@@ -4323,6 +5367,7 @@ console.log($scope.orderList);
                 actId = "";
                 cmsId = "";
                 $scope.sortByTimeValue = 0;
+                $scope.sortBySalesValue = 0;
                 $scope.sortByPriceValue = 0;
                 $scope.isFirstInMain = 0;
 
@@ -4414,16 +5459,69 @@ console.log($scope.orderList);
         }])
 
 
-    // 新品列表 start
-    .controller('goodsListDisplayCtrl', ["$scope", "$state", "$stateParams", "goodsListDisplayService", "$rootScope", "$modal", "typeService","brandtypeService","localStorageService","popupService",
-        function ($scope, $state, $stateParams, goodsListDisplayService, $rootScope, $modal, typeService,brandtypeService,localStorageService, popupService) {
+    .controller('goodsListDisplayCtrl', ["$scope", "$state", "$stateParams",  "goodsListService", "goodsListDisplayService", "activityTypeListService","$rootScope", "$modal", "getAlltypesService","brandtypeService","localStorageService","popupService",
+        function ($scope, $state, $stateParams, goodsListService,goodsListDisplayService,activityTypeListService, $rootScope, $modal, getAlltypesService,brandtypeService,localStorageService,popupService) {
+            $scope.showForRepeat=[];
+            $scope.showForRepeatStatue=false;
+            $scope.showForAct=false;
+            $scope.fun=function () {
+                $scope.showForAct=!$scope.showForAct;
+            };
+            $scope.func=function (obj) {
+                var index = $scope.showForRepeat.indexOf(obj);
+                if (index>-1){
+                    $scope.showForRepeat.splice(index,1);
+                }else {
+                    $scope.showForRepeat.push(obj);
+                }
+            };
+            $scope.funct=function (obj) {
+                var showForFunct = $scope.showForRepeat;
+                for (var i = 0; i < showForFunct.length; i++) {
+                    if(showForFunct[i]===obj){
+                        return true
+                    }
+                }
+                return false;
+            };
             //数据集合
+            $scope.goodsListClass = "col-xs-12 col-sm-12";
+            $scope.goodsTypeAllGoodsListData = [];
             $scope.goodsList = [];
             $scope.goodsListPhone = [];
-            var goodsTypeId = $stateParams.type;
+            $scope.levelRootList = [];
+            //$scope.goodsListFromnType = $stateParams.type;
+            // 排序初始化
+            $scope.sortByPriceValue = 0;
+            $scope.sortByTimeValue = 0;
+            //PC 初始化的场合
+            $scope.currentPage = 1;
+            $scope.currentPagePhone = 1;
+            $scope.totalPage = 0;
+            $scope.pageSize = 8;
+            $scope.isPageChange = false;
             $scope.phoneAndPC = $('#phone').css('display');
+            $scope.isLoading = false;
+            $scope.isPhoneLoading = false;
+            var goodsTypeId = $stateParams.type;
+            //是否第一次进入到首页
+            //$scope.isFirstInMain = 0;
+
+            var firstGoodsTypeId = "";
+            //var pageType = "";
+            //var classifyId = "";
+            //var classifyName = "";
+            //var goodsTypeId = "";
+            var actId = "";
+            var actIds = "";
+            //var cmsId = "";
+            //$scope.newDataList = "";
 
 
+            $scope.crumbs = {first:'',second:'',third:'',last:''};
+            $scope.crumbs.first = '推荐';
+            $scope.isTitleDisplay = "0";
+            //$scope.sort={'price':'down','time':'up'};
             //会员ID
             var userInfo = localStorageService.get(KEY_USERINFO);
             var memberId = "";
@@ -4431,7 +5529,361 @@ console.log($scope.orderList);
                 memberId = userInfo.memberId;
             }
 
-            $scope.doCallService = function () {
+            $.event.add(window, "scroll", function() {
+                var pTop = $(window).scrollTop();
+                var height = getClientHeight();
+                var theight = getScrollTop();
+                var rheight = getScrollHeight();
+                var pBottom = rheight-theight-height;
+
+                if(pTop > 130){// 固定
+                    if($('.goodListTitle').length > 0){
+                        $('.goodListTitle').css({'position':'fixed','top':'0px',left:'0px','zIndex':100});
+                        $('.goodListTitle').addClass('fixTop');
+                    }
+                }else{// 恢复
+                    if($('.goodListTitle').length > 0) {
+                        $('.goodListTitle').css({'position': 'static', 'top': '', 'left': '', 'zIndex': 0});
+                        $('.goodListTitle').removeClass('fixTop');
+                    }
+                }
+
+                if(pBottom < 130){
+                    if(!$rootScope.isLoadShowing){
+                        //finished = false;
+                        if($scope.currentPage <= $scope.totalPage){
+                            console.log($scope.currentPage);
+                            $scope.doCallService();
+                        }
+                    }
+                }
+            });
+
+            $scope.$on('$destroy',function(){
+                $.event.remove(window, "scroll");
+            });
+
+            // 所有的分类信息取得
+            new getAlltypesService({})
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        $scope.levelRootList = $scope.levelRootList.concat(res.results);
+                        // 所有的品牌系列信息取得
+                        new brandtypeService({})
+                            .then(function (res) {
+                                if (res.resultCode == "00") {
+                                    $scope.levelRootList = $scope.levelRootList.concat(res.results);
+                                } else {
+                                    popupService.showToast(res.resultMessage);
+                                }
+                            }, function () {
+                                popupService.showToast(commonMessage.networkErrorMsg);
+                            });
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function () {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+
+            $scope.mouseoverL = function(goods,imageUrlL){
+                goods.imageUrlJson = imageUrlL.imageUrlJson;
+            };
+
+            $scope.getDataByActId = function (activityId,activityName) {
+
+                $scope.goodListTitle={selectSize:''};
+                $scope.goodsListInfo = {"from": "", "to": ""};
+                $scope.newDataList = "";
+                actId = "";
+                firstGoodsTypeId = "";
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.isFirstInMain = 0;
+
+                // 清空检索结果
+                $scope.currentPage = 1;
+                $scope.currentPagePhone = 1;
+                $scope.totalPage = 0;
+                $scope.goodsList = [];
+
+                $scope.crumbs.second = '活动';
+                $scope.crumbs.third = activityName;
+                $scope.crumbs.last = '';
+                actId = activityId;
+                $scope.doCallService();
+            };
+
+            $scope.selectClassify = function (level, code, s_name,t_name,l_name) {
+                firstGoodsTypeId = code;
+                // 清空检索结果
+                $scope.currentPage = 1;
+                $scope.currentPagePhone = 1;
+                $scope.totalPage = 0;
+                $scope.goodsList = [];
+
+                if (level == '2') {
+                    $scope.crumbs.second = s_name;
+                    $scope.crumbs.third = '';
+                    $scope.crumbs.last = '';
+                } else if (level == '3') {
+                    $scope.crumbs.second = s_name;
+                    $scope.crumbs.third = t_name;
+                    $scope.crumbs.last = '';
+                } else if (level == '4'){
+                    $scope.crumbs.second = s_name;
+                    $scope.crumbs.third = t_name;
+                    $scope.crumbs.last = l_name;
+                }
+                $scope.goodListTitle={selectSize:''};
+                $scope.goodsListInfo = {"from": "", "to": ""};
+                //$scope.newDataList = "";
+                actId = "";
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.isFirstInMain = 0;
+                $scope.doCallService();
+            };
+
+            //排序 按照价格
+            //变量forphone
+            $scope.isupSortprice = true;
+            $scope.sortByPrice = function(){
+                var $target = $('.goodListTitle .sort.price');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortByPriceValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortByPriceValue = 1;
+                }
+                $scope.sortByTimeValue = 0;
+                $scope.sortBySalesValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+
+                }else{
+                    $scope.currentPagePhone = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    if($scope.isupSortprice){
+                        $scope.sortByPriceValue = 2;
+                    }else{
+                        $scope.sortByPriceValue = 1;
+                    }
+                    $scope.isupSortprice = !$scope.isupSortprice;
+                    $scope.doCallServicePhone();
+                }
+
+            };
+            //排序 按照销量
+            //变量forphone
+            $scope.isupSortsales = true;
+            $scope.sortBySales = function(){
+                var $target = $('.goodListTitle.sort.sales');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortBySalesValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortBySalesValue = 1;
+                }
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+
+                }else{
+                    $scope.currentPagePhone = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    if($scope.isupSortsales){
+                        $scope.sortBySalesValue = 2;
+                    }else{
+                        $scope.sortBySalesValue = 1;
+                    }
+                    $scope.isupSortsales = !$scope.isupSortsales;
+                    $scope.doCallServicePhone();
+                }
+
+            };
+            //排序 按照时间
+            //变量forphone
+            $scope.isupSort = true;
+            $scope.sortByTime = function(){
+                var $target = $('.goodListTitle .sort.time');
+                if($target.hasClass('down')){
+                    //$target.removeClass('down').addClass('up');
+                    $scope.sortByTimeValue = 2;
+                }else{
+                    //$target.removeClass('up').addClass('down');
+                    $scope.sortByTimeValue = 1;
+                }
+                $scope.sortByPriceValue = 0;
+                $scope.sortBySalesValue = 0;
+                $scope.totalPage = 0;
+                if($scope.phoneAndPC == 'none'){
+                    $scope.currentPage = 1;
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.doCallService();
+                }else{
+                    $scope.goodsList = [];
+                    $scope.goodsListPhone = [];
+                    $scope.currentPagePhone = 1;
+                    if($scope.isupSort){
+                        $scope.sortByTimeValue = 2;
+                    }else{
+                        $scope.sortByTimeValue = 1;
+                    }
+                    $scope.isupSort = !$scope.isupSort;
+                    $scope.doCallServicePhone();
+                }
+            };
+
+            $scope.goodListTitle={selectSize:''};
+            $scope.goodsListInfo = {"from": "", "to": ""};
+            $scope.doCallService = function (cb) {
+                if($scope.isLoading){
+                    return;
+                }
+                $scope.isLoading = true;
+                $scope.isTitleDisplay = "1";
+                //初始化调用
+                new goodsListService({
+                    //"goodsIds": $scope.newDataList,
+                    "sizeCode":$scope.goodListTitle.selectSize,
+                    "from": $scope.goodsListInfo.from,
+                    "to": $scope.goodsListInfo.to,
+                    "actId": actId,
+                    "actIds":actIds,
+                    //"cmsId":cmsId,
+                    "firstGoodsTypeId": firstGoodsTypeId,
+                    "memberId":memberId,
+                    "sortByPrice":$scope.sortByPriceValue,
+                    "sortByTime":$scope.sortByTimeValue,
+                    "currentPage": $scope.currentPage,
+                    "totalPage": $scope.totalPage,
+                    "pageSize": $scope.pageSize
+                }).then(function (res) {
+                    $scope.isLoading = false;
+                    if (res.resultCode == "00") {
+                        $scope.goodsList = $scope.goodsList.concat(res.results);
+                        $scope.totalPage = res.allCount;
+                        //$scope.dochangePage();
+                        $scope.currentPage++;
+                        angular.element(document).ready(function() {
+                            // 筛选
+                            $('.filterBtn').webuiPopover({
+                                width:450,
+                                height:260,
+                                padding:false,
+                                animation:'pop',
+                                content:function(){
+                                    var html = $('.filterTemplate').html();
+
+                                    return html;
+                                }
+                            });
+                        });
+                        $scope.sizeList = res.sizeList;
+
+                        if(cb) cb(true);
+                        //console.log($('.goodListTitle .sort.price'));
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                        if(cb) cb(true);
+                    }
+                }, function (err) {
+                    $scope.isLoading = true;
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                    if(cb) cb(true);
+                });
+            };
+
+            $scope.doCallServicePhone = function () {
+                if($scope.isPhoneLoading){
+                    return;
+                }
+                $scope.isPhoneLoading = true;
+                $scope.isTitleDisplay = "1";
+                //初始化调用
+                new goodsListService({
+                    //"goodsTypeId": goodsTypeId,
+                    //"goodsIds": $scope.newDataList,
+                    "actId": actId,
+                    "actIds":actIds,
+                    "firstGoodsTypeId": firstGoodsTypeId,
+                    "memberId":memberId,
+                    "sortByPrice":$scope.sortByPriceValue,
+                    "sortByTime":$scope.sortByTimeValue,
+                    "currentPage": $scope.currentPagePhone,
+                    "totalPage": $scope.totalPage,
+                    "pageSize": $scope.pageSize
+                }).then(function (res) {
+                    $scope.isPhoneLoading = false;
+                    if (res.resultCode == "00") {
+                        if (res.results.length != 0) {
+                            if($scope.isPageChange){
+                                $scope.goodsListPhone = $scope.goodsListPhone.concat(res.results);
+                            }else{
+                                $scope.goodsListPhone = res.results;
+                            }
+                        } else {
+                            $scope.currentPagePhone = $scope.currentPagePhone - 1;
+                            //popupService.showToast("没有更多数据");
+                        }
+                        $scope.isPageChange = false;
+                        $scope.totalPage = res.allCount;
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (err) {
+                    $scope.isPhoneLoading = true;
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+            };
+
+            var scope = $scope.$new();
+            scope.param = {
+                firstGoodsTypeId: firstGoodsTypeId
+            };
+
+            $scope.popClassify_xs = function () {
+                var classifyModalInstance = $modal.open({
+                    templateUrl: 'html/classifyModal.html',
+                    controller: 'popClassifyCtrl',
+                    scope: scope,
+                    backdrop: true,
+                    resolve: {
+                        //items: function () {
+                        //    return $scope.items;
+                        //}
+                    }
+                });
+                classifyModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+                });
+                classifyModalInstance.result.then(
+                    function (result) {
+                        firstGoodsTypeId = localStorageService.get(KEY_GOODSTYPE);
+                        //$scope.newDataList = "";
+                        $scope.doCallServicePhone();
+                        $scope.goodsListPhone = [];
+                    }, function (reason) {
+                        console.log(reason);//点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                    });
+
+            };
+
+            $scope.doCallServiceDefalut = function () {
                 //初始化调用
                 new goodsListDisplayService({
                     "goodsTypeId": goodsTypeId,
@@ -4447,7 +5899,7 @@ console.log($scope.orderList);
                 });
             };
 
-            $scope.doCallServicePhone = function () {
+            $scope.doCallServicePhoneDefalut = function () {
                 //初始化调用
                 new goodsListDisplayService({
                     "goodsTypeId": goodsTypeId,
@@ -4463,20 +5915,187 @@ console.log($scope.orderList);
                 });
             };
 
-            if($scope.phoneAndPC == 'none') {
-                $scope.doCallService();
-            }else {
-                $scope.doCallServicePhone();
+            if($scope.phoneAndPC == 'none'){
+                $scope.doCallServiceDefalut();
+            }else{
+                $scope.doCallServicePhoneDefalut();
             }
+
+            //加载更多
+            $scope.doGetMore = function () {
+                $scope.isPageChange = true;
+                $scope.currentPagePhone = $scope.currentPagePhone + 1;
+                $scope.doCallServicePhone();
+            };
 
             //商品详细画面跳转
             $scope.goProdocutDetail = function (goodsId) {
-                var url = '/qyds-web-pc/qyds/#/goodsDetail/' + goodsId;
+                var url = '/#/goodsDetail/' + goodsId;
                 window.open(url);
                 //$state.go("goodsDetail", {"goodsId": goodsId});
             };
 
+            // 获取所有活动商品
+            $scope.getGoodsList = function () {
+
+                $scope.goodListTitle={selectSize:''};
+                $scope.goodsListInfo = {"from": "", "to": ""};
+                //$scope.newDataList = "";
+                actId = "";
+                firstGoodsTypeId = "";
+                //cmsId = "";
+                $scope.sortByTimeValue = 0;
+                $scope.sortByPriceValue = 0;
+                $scope.isFirstInMain = 0;
+
+                // 清空检索结果
+                $scope.currentPage = 1;
+                $scope.currentPagePhone = 1;
+                $scope.totalPage = 0;
+                $scope.goodsList = [];
+
+                $scope.crumbs.second = '全部';
+                $scope.crumbs.third = '';
+                $scope.crumbs.last = '';
+                $scope.doCallService();
+            };
+            // 返回顶部
+            $scope.goTop = function(){
+                $('body,html').animate({scrollTop:0},500);
+                return false;
+            }
+            $scope.openFilterPanel = function(){
+                if($('.webui-popover').length > 0){
+                    $('.webui-popover').remove();
+                }else{
+                }
+                WebuiPopovers.updateContent($('.filterBtn'),$('.filterTemplate').html());
+                setTimeout(function(){
+
+                    $('.webui-popover-content .filterPanel #priceFrom').val($scope.goodsListInfo.from);
+                    $('.webui-popover-content .filterPanel #priceTo').val($scope.goodsListInfo.to);
+
+                    $('.webui-popover-content .filterPanel .sizeTag').off('click').on('click',function(){
+                        $(this).addClass('active').siblings().removeClass('active');
+                        $scope.goodListTitle.selectSize = $(this).attr('data-code');
+                    });
+
+                    $('.webui-popover-content .filterPanel #priceFrom,.webui-popover-content .filterPanel #priceTo').off('change').on('change',function(){
+                        var val = $(this).val();
+                        if(val != '' && isNaN(val)){
+                            $(this).val('');
+                            return;
+                        }
+
+                        var minV = $('.webui-popover-content .filterPanel #priceFrom').val();
+                        var maxV = $('.webui-popover-content .filterPanel #priceTo').val();
+
+                        if($(this).hasClass('min') && !isNaN(maxV )){
+                            if(parseFloat(minV) > parseFloat(maxV)){
+                                $(this).val('');
+                                return;
+                            }
+                        }
+                        if($(this).hasClass('max') && !isNaN(minV)){
+                            if(parseFloat(minV) > parseFloat(maxV)){
+                                $(this).val('');
+                                return;
+                            }
+                        }
+
+                    });
+                    $('.webui-popover-content .filterPanel #clearBtn').off('click').on('click',function(){
+                        $('.webui-popover-content .filterPanel .sizeTag').removeClass('active');
+                        $('.webui-popover-content .filterPanel #priceFrom').val('');
+                        $('.webui-popover-content .filterPanel #priceTo').val('')
+                        $scope.goodListTitle.selectSize = '';
+                        $scope.goodsListInfo.from = '';
+                        $scope.goodsListInfo.to = '';
+                    });
+                    $('.webui-popover-content .filterPanel #okBtn').off('click').on('click',function(){
+
+                        console.log($('.webui-popover-content .filterPanel #priceFrom').length);
+
+                        $scope.goodsListInfo.from = $('.webui-popover-content .filterPanel #priceFrom').val();
+                        $scope.goodsListInfo.to = $('.webui-popover-content .filterPanel #priceTo').val();
+                        console.log($scope.goodsListInfo.from);
+                        console.log($scope.goodsListInfo.to);
+                        $scope.currentPage = 1;
+                        $scope.currentPagePhone = 1;
+                        $scope.totalPage = 0;
+                        $scope.goodsList = [];
+                        $scope.doCallService();
+                        WebuiPopovers.hideAll();
+                        $scope.goTop();
+                    })
+                },0);
+
+            }
         }])
+
+    //// 新品列表 start
+    //.controller('goodsListDisplayCtrl', ["$scope", "$state", "$stateParams", "goodsListDisplayService", "$rootScope", "$modal", "typeService","brandtypeService","localStorageService","popupService",
+    //    function ($scope, $state, $stateParams, goodsListDisplayService, $rootScope, $modal, typeService,brandtypeService,localStorageService, popupService) {
+    //        //数据集合
+    //        $scope.goodsList = [];
+    //        $scope.goodsListPhone = [];
+    //        var goodsTypeId = $stateParams.type;
+    //        $scope.phoneAndPC = $('#phone').css('display');
+    //
+    //
+    //        //会员ID
+    //        var userInfo = localStorageService.get(KEY_USERINFO);
+    //        var memberId = "";
+    //        if (userInfo) {
+    //            memberId = userInfo.memberId;
+    //        }
+    //
+    //        $scope.doCallService = function () {
+    //            //初始化调用
+    //            new goodsListDisplayService({
+    //                "goodsTypeId": goodsTypeId,
+    //                "memberId":memberId
+    //            }).then(function (res) {
+    //                if (res.resultCode == "00") {
+    //                    $scope.goodsList = res.results;
+    //                } else {
+    //                    popupService.showToast(res.resultMessage);
+    //                }
+    //            }, function (err) {
+    //                popupService.showToast(commonMessage.networkErrorMsg);
+    //            });
+    //        };
+    //
+    //        $scope.doCallServicePhone = function () {
+    //            //初始化调用
+    //            new goodsListDisplayService({
+    //                "goodsTypeId": goodsTypeId,
+    //                "memberId":memberId
+    //            }).then(function (res) {
+    //                if (res.resultCode == "00") {
+    //                    $scope.goodsListPhone = res.results;
+    //                } else {
+    //                    popupService.showToast(res.resultMessage);
+    //                }
+    //            }, function (err) {
+    //                popupService.showToast(commonMessage.networkErrorMsg);
+    //            });
+    //        };
+    //
+    //        if($scope.phoneAndPC == 'none') {
+    //            $scope.doCallService();
+    //        }else {
+    //            $scope.doCallServicePhone();
+    //        }
+    //
+    //        //商品详细画面跳转
+    //        $scope.goProdocutDetail = function (goodsId) {
+    //            var url = '/#/goodsDetail/' + goodsId;
+    //            window.open(url);
+    //            //$state.go("goodsDetail", {"goodsId": goodsId});
+    //        };
+    //
+    //    }])
 
     // 检索商品 
     .controller('searchGoodsCtrl', ["$scope", "$state", "$stateParams", "hotSearchService", "$rootScope", "popupService","localStorageService", function ($scope, $state, $stateParams, hotSearchService, $rootScope,popupService,localStorageService) {
@@ -4539,11 +6158,11 @@ console.log($scope.orderList);
                     $scope.totalPage = res.allCount;
                     $scope.dochangePage();
                 } else {
-                    popupService.showToast(res.resultMessage); 
+                    popupService.showToast(res.resultMessage);
                 }
             }, function (err) {
                 $scope.isLoading = false;
-                popupService.showToast(commonMessage.networkErrorMsg); 
+                popupService.showToast(commonMessage.networkErrorMsg);
             });
         };
         $scope.doCallServicePhone = function () {
@@ -4575,11 +6194,11 @@ console.log($scope.orderList);
                     $scope.totalPage = res.allCount;
                 } else {
                     $scope.hasMore = false;
-                    popupService.showToast(res.resultMessage); 
+                    popupService.showToast(res.resultMessage);
                 }
             }, function (err) {
                 $scope.isPhoneLoading = false;
-                popupService.showToast(commonMessage.networkErrorMsg); 
+                popupService.showToast(commonMessage.networkErrorMsg);
             });
         };
 
@@ -4594,9 +6213,13 @@ console.log($scope.orderList);
             $scope.doCallServicePhone();
         };
 
+        $scope.mouseoverL = function(goods,imageUrlL){
+            goods.imageUrlJson = imageUrlL.imageUrlJson;
+        };
+
         //商品详细画面跳转
         $scope.goProdocutDetail = function (goodsId) {
-            var url = '/qyds-web-pc/qyds/#/goodsDetail/' + goodsId;
+            var url = '/#/goodsDetail/' + goodsId;
             window.open(url);
             //$state.go("goodsDetail", {"goodsId": goodsId});
         };
@@ -4604,47 +6227,47 @@ console.log($scope.orderList);
 
 
     // 商品详细
-    .controller('goodsDetailCtrl', ["$scope", "$state", "$stateParams","$interval", "localStorageService", "productDetailService", "favoriteService",
+    .controller('goodsDetailCtrl', ["$scope", "$state", "$stateParams","$interval", "localStorageService", "productDetailService","matingAndRecommendService", "favoriteService",
         "shoppingBagService", "$rootScope", "$sce",'$modal','popupService','confirmOrderService',
-        function ($scope, $state, $stateParams,$interval, localStorageService, productDetailService, favoriteService,
+        function ($scope, $state, $stateParams,$interval, localStorageService, productDetailService,matingAndRecommendService, favoriteService,
                   shoppingBagService, $rootScope, $sce,$modal,popupService, confirmOrderService) {
-        var goodDetailBx = {};
-        var bxpager = {};
-        var userInfo = localStorageService.get(KEY_USERINFO);
-        var memberId = "";
+            var goodDetailBx = {};
+            var bxpager = {};
+            var userInfo = localStorageService.get(KEY_USERINFO);
+            var memberId = "";
 
-        if (userInfo) {
-            memberId = userInfo.memberId;
-        }
-        var goodsId = "";
-        if ($stateParams.goodsId != null
-            && $stateParams.goodsId.length > 0) {
-            $rootScope.goodsId = $stateParams.goodsId;
-            goodsId = $stateParams.goodsId;
-        } else {
-            goodsId = $rootScope.goodsId;
-        }
+            if (userInfo) {
+                memberId = userInfo.memberId;
+            }
+            var goodsId = "";
+            if ($stateParams.goodsId != null
+                && $stateParams.goodsId.length > 0) {
+                $rootScope.goodsId = $stateParams.goodsId;
+                goodsId = $stateParams.goodsId;
+            } else {
+                goodsId = $rootScope.goodsId;
+            }
             $scope.detailType = "1";
-        $scope.setDetailType = function(type){
-            $scope.detailType = type;
-        }
-        // goodsDetail初始化
-        $scope.initGoodsDetail = function () {
+            $scope.setDetailType = function(type){
+                $scope.detailType = type;
+            }
+            // goodsDetail初始化
+            $scope.initGoodsDetail = function () {
 
-            $('.numSpinner').spinner({min:1,value:1});
+                $('.numSpinner').spinner({min:1,value:1});
 
-            $('.square_check').iCheck({
-                checkboxClass: 'icheckbox_square',
-                radioClass: 'iradio_square',
-                //increaseArea: '15%' // optional
-            });
-        };
-        //当前时间
-        $scope.nowTime ;
-        $scope.timer;
-        //库存部分判断初次进入
-        $scope.storeInit = true;
-        $scope.initGoodsDetail();
+                $('.square_check').iCheck({
+                    checkboxClass: 'icheckbox_square',
+                    radioClass: 'iradio_square',
+                    //increaseArea: '15%' // optional
+                });
+            };
+            //当前时间
+            $scope.nowTime ;
+            $scope.timer;
+            //库存部分判断初次进入
+            $scope.storeInit = true;
+            $scope.initGoodsDetail();
             $scope.getHtml  =function(text){
                 if(text){
                     return text.replace(/\n/g,"<br/>");
@@ -4652,220 +6275,220 @@ console.log($scope.orderList);
             }
             new productDetailService({"goodsId": goodsId, "memberId": memberId}).then(function (vresponse) {
 
-            var res = vresponse.results;
-            if (vresponse.resultCode == "00") {
+                var res = vresponse.results;
+                if (vresponse.resultCode == "00") {
 
-                $scope.productDetailData = res;
+                    $scope.productDetailData = res;
 
-                if(res.activityInfo){
-                    var nowTime = res.nowTime;
-                    var startTime = res.activityInfo.startTime;
-                    var endTime = res.activityInfo.endTime;
+                    if(res.activityInfo){
+                        var nowTime = res.nowTime;
+                        var startTime = res.activityInfo.startTime;
+                        var endTime = res.activityInfo.endTime;
 
-                    $scope.nowTime = nowTime;
-                    // 结束时间减去nowTime + 1000/s
-                    var diffTime = $scope.diffTime(endTime,nowTime);
-                    $scope.activityTime = diffTime;
-                    // 1s钟加1000
-                    $scope.timer = $interval(function(){
-                        var rediffTime = $scope.reDiffTime(endTime,$scope.nowTime);
-                        $scope.activityTime = rediffTime;
-                        console.log(rediffTime);
-                    },1000);
-                    //timer.then(function(){
-                    //    console.log('创建成功')
-                    //}, function(){
-                    //        console.log('创建不成功')
-                    //    });
+                        $scope.nowTime = nowTime;
+                        // 结束时间减去nowTime + 1000/s
+                        var diffTime = $scope.diffTime(endTime,nowTime);
+                        $scope.activityTime = diffTime;
+                        // 1s钟加1000
+                        $scope.timer = $interval(function(){
+                            var rediffTime = $scope.reDiffTime(endTime,$scope.nowTime);
+                            $scope.activityTime = rediffTime;
+                            console.log(rediffTime);
+                        },1000);
+                        //timer.then(function(){
+                        //    console.log('创建成功')
+                        //}, function(){
+                        //        console.log('创建不成功')
+                        //    });
 
-                }
+                    }
 
 
 
-                // 保存我的浏览记录 Start
-                var history = {
-                    goodsTypeId : $scope.productDetailData.goodsTypeId,
-                    goodsId : $scope.productDetailData.goodsId,
-                    goodsTypeName : $scope.productDetailData.goodsTypeNamePath,
-                    goodsName:$scope.productDetailData.goodsName,
-                    goodsImage:res.imageUrlJsonPc[0]
-                };
+                    // 保存我的浏览记录 Start
+                    var history = {
+                        goodsTypeId : $scope.productDetailData.goodsTypeId,
+                        goodsId : $scope.productDetailData.goodsId,
+                        goodsTypeName : $scope.productDetailData.goodsTypeNamePath,
+                        goodsName:$scope.productDetailData.goodsName,
+                        goodsImage:res.imageUrlJsonPc[0]
+                    };
 
-                var goodsHistoryList = localStorageService.get("GOODS_TYPE_HISTORY");
-                if(!goodsHistoryList){
-                    goodsHistoryList = [];
-                    goodsHistoryList.push(history);
-                    localStorageService.set("GOODS_TYPE_HISTORY",goodsHistoryList);
-                }else{
-                    var hasData = false;
-                    angular.forEach(goodsHistoryList,function(goodsType){
-                        if(goodsType.goodsId == history.goodsId){
-                           hasData = true;
-                        }
-                    });
-                    if(!hasData){
+                    var goodsHistoryList = localStorageService.get("GOODS_TYPE_HISTORY");
+                    if(!goodsHistoryList){
+                        goodsHistoryList = [];
                         goodsHistoryList.push(history);
                         localStorageService.set("GOODS_TYPE_HISTORY",goodsHistoryList);
+                    }else{
+                        var hasData = false;
+                        angular.forEach(goodsHistoryList,function(goodsType){
+                            if(goodsType.goodsId == history.goodsId){
+                                hasData = true;
+                            }
+                        });
+                        if(!hasData){
+                            goodsHistoryList.push(history);
+                            localStorageService.set("GOODS_TYPE_HISTORY",goodsHistoryList);
+                        }
                     }
-                }
-                $scope.goodsHistoryList = goodsHistoryList;
-                // 保存我的浏览记录 End
-                $scope.goodsTypeIdPath = $scope.productDetailData.goodsTypeIdPath.split('_')[0];
-                $scope.description = $sce.trustAsHtml($scope.getHtml($scope.productDetailData.description));
-                $scope.sizeDescription = $sce.trustAsHtml($scope.getHtml($scope.productDetailData.sizeDescription));
-                //搭配商品
-                //var mating_list = res.mating_list;
-                ////记录checkbox的选择与否
-                //var checkboxArray = new Array();
-                //var minPriceArray = new Array();
-                //var maxPriceArray = new Array();
+                    $scope.goodsHistoryList = goodsHistoryList;
+                    // 保存我的浏览记录 End
+                    $scope.goodsTypeIdPath = $scope.productDetailData.goodsTypeIdPath.split('_')[0];
+                    $scope.description = $sce.trustAsHtml($scope.getHtml($scope.productDetailData.description));
+                    $scope.sizeDescription = $sce.trustAsHtml($scope.getHtml($scope.productDetailData.sizeDescription));
+                    //搭配商品
+                    //var mating_list = res.mating_list;
+                    ////记录checkbox的选择与否
+                    //var checkboxArray = new Array();
+                    //var minPriceArray = new Array();
+                    //var maxPriceArray = new Array();
 
-                ////主商品的最大最小价钱
-                //$scope.totalPriceMin = res.minPrice;
-                //$scope.totalPriceMax = res.maxPrice;
-                ////主商品算一件(搭配)
-                //$scope.productCount = 1;
-                //$scope.totalPriceDis = res.minAndMaxPrice;
+                    ////主商品的最大最小价钱
+                    //$scope.totalPriceMin = res.minPrice;
+                    //$scope.totalPriceMax = res.maxPrice;
+                    ////主商品算一件(搭配)
+                    //$scope.productCount = 1;
+                    //$scope.totalPriceDis = res.minAndMaxPrice;
 
-                //if(mating_list != null){
-                //    for(var i = 0; i<mating_list.length; i++){
-                //        checkboxArray.push(false);
-                //        minPriceArray.push(mating_list[i].minPrice);
-                //        maxPriceArray.push(mating_list[i].maxPrice);
-                //    }
-                //}
-                //
-                //$scope.checkboxArray = checkboxArray;
-                //$scope.minPriceArray = minPriceArray;
-                //$scope.maxPriceArray = maxPriceArray;
+                    //if(mating_list != null){
+                    //    for(var i = 0; i<mating_list.length; i++){
+                    //        checkboxArray.push(false);
+                    //        minPriceArray.push(mating_list[i].minPrice);
+                    //        maxPriceArray.push(mating_list[i].maxPrice);
+                    //    }
+                    //}
+                    //
+                    //$scope.checkboxArray = checkboxArray;
+                    //$scope.minPriceArray = minPriceArray;
+                    //$scope.maxPriceArray = maxPriceArray;
 
-                //PC端图片部分
-                $scope.imageUrlJsonPc = $scope.productDetailData.imageUrlJsonPc;
-                $scope.collectNo = res.collectNo;
+                    //PC端图片部分
+                    $scope.imageUrlJsonPc = $scope.productDetailData.imageUrlJsonPc;
+                    $scope.collectNo = res.collectNo;
 
-                if (res.type != "30") {
-                    $scope.skuList = res.skulist;
-                    $scope.skuImage = res.imageUrlJsonPc;
-                    $scope.skuPrice = res.minAndMaxPrice;
-                    $scope.newCount = 0;
-                    $scope.activityPrice = res.minAndMaxPriceActivity;
+                    if (res.type != "30") {
+                        $scope.skuList = res.skulist;
+                        $scope.skuImage = res.imageUrlJsonPc;
+                        $scope.skuPrice = res.minAndMaxPrice;
+                        $scope.newCount = 0;
+                        $scope.activityPrice = res.minAndMaxPriceActivity;
 
-                    //$scope.selectedColor = res.colorList[0].key;
-                    //$scope.selectedSize = res.sizeList[0].key;
-                    $scope.introduceHtml = $sce.trustAsHtml(res.introduceHtml);
-                    // 售后服务维护内容
-                    $scope.goodsServeHtml = $sce.trustAsHtml(res.goodsServeHtml);
-                    //$scope.refreshSkuPrice();
+                        //$scope.selectedColor = res.colorList[0].key;
+                        //$scope.selectedSize = res.sizeList[0].key;
+                        $scope.introduceHtml = $sce.trustAsHtml(res.introduceHtml);
+                        // 售后服务维护内容
+                        $scope.goodsServeHtml = $sce.trustAsHtml(res.goodsServeHtml);
+                        //$scope.refreshSkuPrice();
 
 
-                    $scope.getColorClass = function (colorValue) {
-                        if ($scope.selectedColor == colorValue) {
-                            return "selected";
-                        } else {
-                            return "";
-                        }
-                    };
-                    $scope.getSizeClass = function (sizeValue) {
-                        if ($scope.selectedSize == sizeValue) {
-                            return "selected";
-                        } else {
-                            return "";
-                        }
-                    };
+                        $scope.getColorClass = function (colorValue) {
+                            if ($scope.selectedColor == colorValue) {
+                                return "selected";
+                            } else {
+                                return "";
+                            }
+                        };
+                        $scope.getSizeClass = function (sizeValue) {
+                            if ($scope.selectedSize == sizeValue) {
+                                return "selected";
+                            } else {
+                                return "";
+                            }
+                        };
 
-                    $scope.setColor = function (colorValue, colorName) {
-                        $scope.selectedColor = colorValue;
-                        $scope.refreshSkuPrice();
-                    };
+                        $scope.setColor = function (colorValue, colorName) {
+                            $scope.selectedColor = colorValue;
+                            $scope.refreshSkuPrice();
+                        };
 
-                    $scope.setSize = function (sizeValue) {
-                        $scope.selectedSize = sizeValue;
-                        $scope.refreshSkuPrice();
-                    };
+                        $scope.setSize = function (sizeValue) {
+                            $scope.selectedSize = sizeValue;
+                            $scope.refreshSkuPrice();
+                        };
 
-                } else {
-
-                    $scope.skuPrice = res.minAndMaxPrice;
-                    $scope.activityPrice = res.minAndMaxPriceActivity;
-                    $scope.skuImage = res.imageUrlJsonPc;
-                    $scope.introduceHtml = $sce.trustAsHtml(res.introduceHtml);
-                    // 售后服务维护内容
-                    $scope.goodsServeHtml = $sce.trustAsHtml(res.goodsServeHtml);
-
-                    $scope.goodsList = res.goodsList;
-                    //var imgArray = new Array();
-                    var selecedColorArray = new Array();
-                    var selecedSizeArray = new Array();
-                    var skuPriceArray = new Array();
-                    var skuActivityPriceArray = new Array();
-                    var selectSkuIdArray = new Array();
-                    var skuNewCountArray = new Array();
-                    var isExist = false;
-                    for (var i = 0; i < res.goodsList.length; i++) {
-                        //imgArray.push(res.goodsList[i].skulist[0].imgs[0]);
-                        skuPriceArray.push(res.goodsList[i].skulist[0].price);
-                        //skuNewCountArray.push(res.goodsList[i].skulist[0].newCount);
-                        skuNewCountArray.push('0');
-                        if (res.goodsList[i].skulist[0].newCount == null
-                            || res.goodsList[i].skulist[0].newCount == '0') {
-                            isExist = true;
-                        }
-                        skuActivityPriceArray.push(res.goodsList[i].skulist[0].activityPrice);
-                        //selecedColorArray.push(res.goodsList[i].colorList[0].key);
-                        //selecedSizeArray.push(res.goodsList[i].sizeList[0].key);
-                        //selectSkuIdArray.push(res.goodsList[i].skulist[0].skuid);
-                        selecedColorArray.push("");
-                        selecedSizeArray.push("");
-                        selectSkuIdArray.push("");
-                    }
-                    $scope.good = $scope.goodsList[0];
-                    $scope.skuPriceFruit = skuPriceArray[0];
-                    $scope.skuPriceActivityPriceFruit = skuActivityPriceArray[0];
-                    $scope.selectedColor = selecedColorArray;
-                    $scope.selectedSize = selecedSizeArray;
-                    $scope.selectedSkuId = selectSkuIdArray;
-                    $scope.newCount = skuNewCountArray;
-                    //$scope.refreshSkuPriceForSuit(0);
-                    $scope.index = 0;
-                    //判断是否存在库存为空的数据的标记
-                    if (isExist) {
-                        $scope.isHasStore = "0";
                     } else {
-                        $scope.isHasStore = "1";
+
+                        $scope.skuPrice = res.minAndMaxPrice;
+                        $scope.activityPrice = res.minAndMaxPriceActivity;
+                        $scope.skuImage = res.imageUrlJsonPc;
+                        $scope.introduceHtml = $sce.trustAsHtml(res.introduceHtml);
+                        // 售后服务维护内容
+                        $scope.goodsServeHtml = $sce.trustAsHtml(res.goodsServeHtml);
+
+                        $scope.goodsList = res.goodsList;
+                        //var imgArray = new Array();
+                        var selecedColorArray = new Array();
+                        var selecedSizeArray = new Array();
+                        var skuPriceArray = new Array();
+                        var skuActivityPriceArray = new Array();
+                        var selectSkuIdArray = new Array();
+                        var skuNewCountArray = new Array();
+                        var isExist = false;
+                        for (var i = 0; i < res.goodsList.length; i++) {
+                            //imgArray.push(res.goodsList[i].skulist[0].imgs[0]);
+                            skuPriceArray.push(res.goodsList[i].skulist[0].price);
+                            //skuNewCountArray.push(res.goodsList[i].skulist[0].newCount);
+                            skuNewCountArray.push('0');
+                            if (res.goodsList[i].skulist[0].newCount == null
+                                || res.goodsList[i].skulist[0].newCount == '0') {
+                                isExist = true;
+                            }
+                            skuActivityPriceArray.push(res.goodsList[i].skulist[0].activityPrice);
+                            //selecedColorArray.push(res.goodsList[i].colorList[0].key);
+                            //selecedSizeArray.push(res.goodsList[i].sizeList[0].key);
+                            //selectSkuIdArray.push(res.goodsList[i].skulist[0].skuid);
+                            selecedColorArray.push("");
+                            selecedSizeArray.push("");
+                            selectSkuIdArray.push("");
+                        }
+                        $scope.good = $scope.goodsList[0];
+                        $scope.skuPriceFruit = skuPriceArray[0];
+                        $scope.skuPriceActivityPriceFruit = skuActivityPriceArray[0];
+                        $scope.selectedColor = selecedColorArray;
+                        $scope.selectedSize = selecedSizeArray;
+                        $scope.selectedSkuId = selectSkuIdArray;
+                        $scope.newCount = skuNewCountArray;
+                        //$scope.refreshSkuPriceForSuit(0);
+                        $scope.index = 0;
+                        //判断是否存在库存为空的数据的标记
+                        if (isExist) {
+                            $scope.isHasStore = "0";
+                        } else {
+                            $scope.isHasStore = "1";
+                        }
+
+                        $scope.getColorClass = function ( colorValue) {
+
+                            if (colorValue == $scope.selectedColor[$scope.index]) {
+                                return "selected";
+                            } else {
+                                return "";
+                            }
+                        };
+                        $scope.getSizeClass = function ( sizeValue) {
+
+                            if (sizeValue == $scope.selectedSize[$scope.index]) {
+                                return "selected";
+                            } else {
+                                return "";
+                            }
+
+                        };
+
+                        $scope.setColor = function ( colorValue) {
+                            $scope.selectedColor[$scope.index] = colorValue;
+                            $scope.refreshSkuPriceForSuit($scope.index);
+                        };
+
+                        $scope.setSize = function ( sizeValue) {
+
+                            $scope.selectedSize[$scope.index] = sizeValue;
+                            $scope.refreshSkuPriceForSuit($scope.index);
+                        };
+
                     }
 
-                    $scope.getColorClass = function ( colorValue) {
-
-                        if (colorValue == $scope.selectedColor[$scope.index]) {
-                            return "selected";
-                        } else {
-                            return "";
-                        }
-                    };
-                    $scope.getSizeClass = function ( sizeValue) {
-
-                        if (sizeValue == $scope.selectedSize[$scope.index]) {
-                            return "selected";
-                        } else {
-                            return "";
-                        }
-
-                    };
-
-                    $scope.setColor = function ( colorValue) {
-                        $scope.selectedColor[$scope.index] = colorValue;
-                        $scope.refreshSkuPriceForSuit($scope.index);
-                    };
-
-                    $scope.setSize = function ( sizeValue) {
-
-                        $scope.selectedSize[$scope.index] = sizeValue;
-                        $scope.refreshSkuPriceForSuit($scope.index);
-                    };
-
-                }
-
-                //setTimeout(function(){
+                    //setTimeout(function(){
                     angular.element(document).ready(function() {
                         goodDetailBx = $('#goodDetailSlider').bxSlider({
                             pagerCustom: '#bx-pager',
@@ -4894,7 +6517,7 @@ console.log($scope.orderList);
                             initialSlide:0,
                             loop: false,
                             // loopAdditionalSlides:1
-                    });
+                        });
                         var swiper = new Swiper('.swiper-container-phone', {
                             pagination: '.swiper-pagination',
                             slidesPerView: 'auto',
@@ -4959,72 +6582,86 @@ console.log($scope.orderList);
                     });
 
 
-                //},5000);
-            } else {
-                popupService.showToast(vresponse.resultMessage);
-            }
-        }, function (err) {
-            popupService.showToast(commonMessage.networkErrorMsg);
-        });
+                    //},5000);
+                } else {
+                    popupService.showToast(vresponse.resultMessage);
+                }
+            }, function (err) {
+                popupService.showToast(commonMessage.networkErrorMsg);
+            });
+
+
+            new matingAndRecommendService({"goodsId": goodsId, "memberId": memberId}).then(function (vresponse){
+                var res = vresponse.results;
+                if (vresponse.resultCode == "00") {
+                    $scope.matingAndRecommendList = res;
+                } else {
+                    popupService.showToast(vresponse.resultMessage);
+                }
+            },function (err) {
+                popupService.showToast(commonMessage.networkErrorMsg);
+            });
+
             $scope.selectedTab = 1;
 
-        $scope.selectTab = function (index) {
-            $scope.selectedTab = index;
-        };
+            $scope.selectTab = function (index) {
+                $scope.selectedTab = index;
+            };
 
-        $scope.diffTime = function(endTime,nowTime){
+            $scope.diffTime = function(endTime,nowTime){
 
-            var diff=endTime-nowTime;//时间差的毫秒数
+                var diff=endTime-nowTime;//时间差的毫秒数
 
-            //计算出相差天数
-            var days=Math.floor(diff/(24*3600*1000));
+                //计算出相差天数
+                var days=Math.floor(diff/(24*3600*1000));
 
-            //计算出小时数
-            var leave1=diff%(24*3600*1000);    //计算天数后剩余的毫秒数
-            var hours=Math.floor(leave1/(3600*1000));
-            //计算相差分钟数
-            var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
-            var minutes=Math.floor(leave2/(60*1000));
+                //计算出小时数
+                var leave1=diff%(24*3600*1000);    //计算天数后剩余的毫秒数
+                var hours=Math.floor(leave1/(3600*1000));
+                //计算相差分钟数
+                var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+                var minutes=Math.floor(leave2/(60*1000));
 
-            //计算相差秒数
-            var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
-            var seconds=Math.round(leave3/1000);
+                //计算相差秒数
+                var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
+                var seconds=Math.round(leave3/1000);
 
-            var returnStr = seconds + "秒";
-            if(minutes>0) {
-                returnStr = minutes + "分" + returnStr;
-            }
-            if(hours>0) {
-                returnStr = hours + "小时" + returnStr;
-            }
-            if(days>0) {
-                returnStr = days + "天" + returnStr;
-            }
-            return returnStr;
-        };
+                var returnStr = seconds + "秒";
+                if(minutes>0) {
+                    returnStr = minutes + "分" + returnStr;
+                }
+                if(hours>0) {
+                    returnStr = hours + "小时" + returnStr;
+                }
+                if(days>0) {
+                    returnStr = days + "天" + returnStr;
+                }
+                return returnStr;
+            };
 
-        $scope.reDiffTime = function(endTime,nowTime){
-            $scope.nowTime = nowTime + 1000;
-            console.log(nowTime);
-            var rediffTime = $scope.diffTime(endTime , nowTime);
-            return rediffTime;
-        };
-        $scope.$on('$destroy',function(){
-            $interval.cancel($scope.timer);
-        });
+            $scope.reDiffTime = function(endTime,nowTime){
+                $scope.nowTime = nowTime + 1000;
+                console.log(nowTime);
+                var rediffTime = $scope.diffTime(endTime , nowTime);
+                return rediffTime;
+            };
+            $scope.$on('$destroy',function(){
+                $interval.cancel($scope.timer);
+            });
 
-        $scope.confirmPopover = function () {
-            //var isExist = false;
-            //for(var i = 0; i<$scope.checkboxArray.length; i++){
-            //    if($scope.checkboxArray[i] == true){
-            //        isExist = true;
-            //    }
-            //}
-            userInfo = localStorageService.get(KEY_USERINFO);
-            if(!userInfo){
-                $scope.goLogin();
-                return;
-            }
+            $scope.confirmPopover = function () {
+                //var isExist = false;
+                //for(var i = 0; i<$scope.checkboxArray.length; i++){
+                //    if($scope.checkboxArray[i] == true){
+                //        isExist = true;
+                //    }
+                //}
+
+                userInfo = localStorageService.get(KEY_USERINFO);
+                if(!userInfo){
+                    $scope.goLogin();
+                    return;
+                }
 
 
                 // 立即购买.跳转到订单列表
@@ -5041,6 +6678,7 @@ console.log($scope.orderList);
                         //popupService.showToast("库存不足.");
                         return;
                     }
+
                     var goodsInfo = {};
                     goodsInfo.goodsId = $scope.productDetailData.goodsId;
                     goodsInfo.type = $scope.productDetailData.type;
@@ -5094,332 +6732,334 @@ console.log($scope.orderList);
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
 
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
+
                     $state.go("personalCenter.confirmOrder", {suitGoodsInfo:'#'});
                 }
-        };
-
-        $scope.checkOrderConfirmBySingle = function (goodsInfo) {
-            var param = {
-                memberId: userInfo.memberId,
-                goodsId: goodsInfo.goodsId,
-                type: goodsInfo.type,
-                goodsSkuId: goodsInfo.skuId,
-                quantity: goodsInfo.quantity
             };
-            new confirmOrderService(param).checkDataBySingleGoods().then(function (res) {
-                if(res.resultCode == "00"){
 
-                    $rootScope.shoppingBagsOfConfirmOrder = undefined;
-                    $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
-                    $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
-                    resultPath=0;
-                    localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
-                    $state.go("personalCenter.confirmOrder", {singleGoodsInfo:'#'});
+            $scope.checkOrderConfirmBySingle = function (goodsInfo) {
+                var param = {
+                    memberId: userInfo.memberId,
+                    goodsId: goodsInfo.goodsId,
+                    type: goodsInfo.type,
+                    goodsSkuId: goodsInfo.skuId,
+                    quantity: goodsInfo.quantity
+                };
+                new confirmOrderService(param).checkDataBySingleGoods().then(function (res) {
+                    if(res.resultCode == "00"){
 
-                }else{
-                    popupService.showToast(res.resultMessage);
-                }
-            }, function (error) {
-                popupService.showToast(commonMessage.networkErrorMsg);
-            });
-        };
+                        $rootScope.shoppingBagsOfConfirmOrder = undefined;
+                        $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
+                        $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
+                        resultPath=0;
+                        localStorageService.set(KEY_PARAM_COMFIRM_ORDER, goodsInfo);
 
-        $scope.addToShopBag = function () {
-            userInfo = localStorageService.get(KEY_USERINFO);
-            if(!userInfo){
-                $scope.goLogin();
-                return;
-            }
+                        $state.go("personalCenter.confirmOrder", {singleGoodsInfo:'#'});
 
-            // 会员ID	memberId
-            // *             店铺ID	shopId
-            // *             商品类型	type
-            // *             商品代码	goodsId
-            // *             商品名称	goodsName
-            // *             商品SKU	skuList
-            // *             件数	quantity
-            //if(!$scope.goodsCount||$scope.goodsCount==0){
-            //    popupService.showToast("请选择购买件数.");
-            //    return;
-            //}
-            var skuList  =[];
-            if($scope.productDetailData.type!="30") {
-
-                //判断没有选择SKU
-                if($scope.selectedSkuId == null){
-                    popupService.showToast("请选择商品的颜色和尺码.");
-                    return;
-                }
-                skuList.push({skuId: $scope.selectedSkuId});
-                if(parseInt($scope.newCount)<parseInt($scope.selectedCount.value)){
-                    popupService.showToast("库存不足.");
-                    //popupService.showToast("库存不足.");
-                    return;
-                }
-            }else{
-
-                var isSkuAvalible = true;
-                angular.forEach($scope.selectedSkuId,function(sku){
-                    if(sku == null || sku.length == 0){
-                        isSkuAvalible = false;
-                        return false;
-                    }
-                });
-                if(!isSkuAvalible){
-                    popupService.showToast("请选择组成套装所有商品的颜色和尺码.");
-                    //popupService.showToast("库存不足.");
-                    return;
-                }
-
-                var isCountAvalible = true;
-                angular.forEach($scope.newCount,function(count){
-                    if(parseInt(count) < parseInt($scope.selectedCount.value)){
-                        isCountAvalible = false;
-                        return false;
-                    }
-                });
-                if(!isCountAvalible){
-                    popupService.showToast("组成套装商品的库存不足.");
-                    //popupService.showToast("库存不足.");
-                    return;
-                }
-
-
-                angular.forEach($scope.productDetailData.goodsList,function(sku,index){
-                    skuList.push({
-                        "skuId":$scope.selectedSkuId[index]
-                    });
-                });
-            }
-            var param  = {
-                memberId:userInfo.memberId,
-                type:$scope.productDetailData.type,
-                goodsId:$scope.productDetailData.goodsId,
-                goodsName:$scope.productDetailData.goodsName,
-                quantity:$scope.selectedCount.value,
-                skuList:skuList
-            };
-            new shoppingBagService(param).add()
-                .then(function (res) {
-                    if(res.resultCode=="00"){
-                        popupService.showToast("加入成功");
                     }else{
-                        popupService.showToast("加入失败,原因:"+res.resultMessage);
+                        popupService.showToast(res.resultMessage);
                     }
-
                 }, function (error) {
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
-        };
-
-        $scope.setWishlist = function (value) {
-            userInfo = localStorageService.get(KEY_USERINFO);
-            if (!userInfo) {
-                $scope.goLogin();
-                return;
-            }
-
-            $scope.productDetailData.isInWishlist = value;
-
-            if (value == '1') {
-
-                var param = {
-                    memberId: userInfo.memberId,
-                    type: "10",
-                    objectId: $scope.productDetailData.goodsId,
-                    name: $scope.productDetailData.goodsName,
-                    url: ""
-                };
-                new favoriteService(param).addFavorite()
-                    .then(function (res) {
-                        if (res.resultCode == "00") {
-                            $scope.collectNo = res.result.collectNo;
-                            popupService.showToast("加入成功");
-                        } else {
-                            popupService.showToast(res.resultMessage);
-                        }
-                    }, function (error) {
-                        popupService.showToast(commonMessage.networkErrorMsg);
-                    });
-
-            } else {
-                var param = {
-                    memberId: userInfo.memberId,
-                    collectNo: $scope.collectNo
-                };
-                new favoriteService(param).deleteFavorite()
-                    .then(function (res) {
-                        if (res.resultCode == "00") {
-                            popupService.showToast("取消成功");
-                        } else {
-                            popupService.showToast(res.resultMessage);
-                        }
-                    }, function (error) {
-                        popupService.showToast(commonMessage.networkErrorMsg);
-                    });
-            }
-        };
-
-        $scope.refreshSkuPrice = function () {
-            //如果某一个sku不存在在列表项目的时候
-            var isExist = false;
-            $scope.storeInit = false;
-            angular.forEach($scope.skuList, function (sku) {
-                if (sku.nameKeyValues[0].key == $scope.selectedColor && sku.nameKeyValues[1].key == $scope.selectedSize) {
-                    $scope.skuPrice = "¥" + sku.price;
-console.log(sku);
-                    //大于20 显示无货 20-50显示可能购买 50显示有货
-                    $scope.newCountDisplay = 0;
-                    if(parseInt(sku.nameKeyValues[1].bnk_no_limit) >  parseInt(sku.newCount)){
-                        $scope.newCount = 0;
-                    }else if(parseInt(sku.nameKeyValues[1].bnk_no_limit) <  parseInt(sku.newCount)
-                        && parseInt(sku.nameKeyValues[1].bnk_less_limit) >  parseInt(sku.newCount)){
-                        $scope.newCount = sku.newCount;
-                        $scope.newCountDisplay = 1;
-                    }else{
-                        $scope.newCount = sku.newCount;
-                    }
-
-                    $scope.activityPrice = "¥" + sku.activityPrice;
-                    $scope.selectedSkuId = sku.skuid;
-                    $scope.productDetailData.activityName = sku.activityName;
-
-                    if(sku.activityType != null && sku.activityType == "11"){
-                        $('#countdown').show();
-                    }else{
-                        $('#countdown').hide();
-                    }
-
-
-                    // $scope.skuImage = sku.imgs;
-
-                    // angular.element(document).ready(function() {
-                    //     goodDetailBx.reloadSlider();
-                    //     bxpager = new Swiper('.swiper-container', {
-                    //         pagination: '.swiper-pagination',
-                    //         nextButton: '.swiper-button-next',
-                    //         prevButton: '.swiper-button-prev',
-                    //         direction: 'vertical',
-                    //         slidesPerView: 5,
-                    //         centeredSlides: false,
-                    //         paginationClickable: true,
-                    //         spaceBetween: 10,
-                    //         initialSlide:0,
-                    //         loop: false,
-                    //     });
-                    //
-                    // });
-
-                    isExist = true;
-                }
-
-
-                if (sku.nameKeyValues[0].key == $scope.selectedColor) {
-                     $scope.skuImage = sku.imgs;
-                     angular.element(document).ready(function() {
-                         goodDetailBx.reloadSlider();
-                         bxpager = new Swiper('.swiper-container', {
-                             pagination: '.swiper-pagination',
-                             nextButton: '.swiper-button-next',
-                             prevButton: '.swiper-button-prev',
-                             direction: 'vertical',
-                             slidesPerView: 5,
-                             centeredSlides: false,
-                             paginationClickable: true,
-                             spaceBetween: 10,
-                             initialSlide:0,
-                             loop: false,
-                         });
-
-                     });
-                }
-            });
-
-            if (!isExist) {
-                $scope.newCount = null;
-            }
-        };
-
-        $scope.refreshSkuPriceForSuit = function (index) {
-            $scope.storeInit = false;
-            angular.forEach($scope.goodsList[index].skulist, function (sku) {
-                if (sku.nameKeyValues[0].key == $scope.selectedColor[index] && sku.nameKeyValues[1].key == $scope.selectedSize[index]) {
-                    //$scope.skuPriceFruit[index] = sku.price;
-                    //大于20 显示无货 20-50显示可能购买 50显示有货
-                    $scope.newCount[index] = sku.newCount;
-                    //$scope.skuPriceActivityPriceFruit[index] = sku.activityPrice;
-                    $scope.selectedSkuId[index] = sku.skuid;
-                    $scope.skuImage = sku.imgs;
-                    angular.element(document).ready(function() {
-                        goodDetailBx.reloadSlider();
-
-                    });
-                }
-            });
-
-            var isExist = false;
-            jQuery('.storeCount').each(function () {
-                if (jQuery(this).text().indexOf('无货') != -1) {
-                    isExist = true;
-                }
-            });
-            if (isExist) {
-                $scope.isHasStore = "0";
-            } else {
-                $scope.isHasStore = "1";
-            }
-        };
-
-        //商品详细画面跳转
-        $scope.goProdocutDetail = function (goodsId) {
-            $state.go("goodsDetail", {"goodsId": goodsId});
-        };
-
-        //checkbox点击动作
-        $scope.doCheck = function (index) {
-            $scope.checkboxArray[index] = !$scope.checkboxArray[index];
-
-            //在这里要计算搭配了几件商品 搭配之后的价钱 还要是区间价格
-            if($scope.checkboxArray[index] == true){
-                $scope.totalPriceMin = parseInt($scope.totalPriceMin) + parseInt($scope.minPriceArray[index]);
-                $scope.totalPriceMax = parseInt($scope.totalPriceMax) + parseInt($scope.maxPriceArray[index]);
-                $scope.productCount = $scope.productCount + 1;
-            }else{
-                $scope.totalPriceMin = parseInt($scope.totalPriceMin) - parseInt($scope.minPriceArray[index]);
-                $scope.totalPriceMax = parseInt($scope.totalPriceMax) - parseInt($scope.maxPriceArray[index]);
-                $scope.productCount = $scope.productCount - 1;
-            }
-
-            if($scope.totalPriceMin == $scope.totalPriceMax){
-                $scope.totalPriceDis = '¥' + $scope.totalPriceMin;
-            }else{
-                $scope.totalPriceDis = '¥' + $scope.totalPriceMin + '~' + '¥' + $scope.totalPriceMax;
-            }
-
-        };
-
-        //商品预约
-        $scope.orderPopover = function(goodsId){
-            if(!userInfo){
-                $scope.goLogin();
-                return;
-            }
-            var scope = $scope.$new();
-            scope.param = {
-                goodsId: goodsId
             };
 
-            var goodsOrderModalInstance = $modal.open({
-                templateUrl: 'html/goodsOrder.html',
-                controller: 'goodsOrderCtrl',
-                backdrop: true,
-                scope: scope
-            });
+            $scope.addToShopBag = function () {
+                userInfo = localStorageService.get(KEY_USERINFO);
+                if(!userInfo){
+                    $scope.goLogin();
+                    return;
+                }
 
-            goodsOrderModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+                // 会员ID	memberId
+                // *             店铺ID	shopId
+                // *             商品类型	type
+                // *             商品代码	goodsId
+                // *             商品名称	goodsName
+                // *             商品SKU	skuList
+                // *             件数	quantity
+                //if(!$scope.goodsCount||$scope.goodsCount==0){
+                //    popupService.showToast("请选择购买件数.");
+                //    return;
+                //}
+                var skuList  =[];
+                if($scope.productDetailData.type!="30") {
 
-            });
-        }
+                    //判断没有选择SKU
+                    if($scope.selectedSkuId == null){
+                        popupService.showToast("请选择商品的颜色和尺码.");
+                        return;
+                    }
+                    skuList.push({skuId: $scope.selectedSkuId});
+                    if(parseInt($scope.newCount)<parseInt($scope.selectedCount.value)){
+                        popupService.showToast("库存不足.");
+                        //popupService.showToast("库存不足.");
+                        return;
+                    }
+                }else{
+
+                    var isSkuAvalible = true;
+                    angular.forEach($scope.selectedSkuId,function(sku){
+                        if(sku == null || sku.length == 0){
+                            isSkuAvalible = false;
+                            return false;
+                        }
+                    });
+                    if(!isSkuAvalible){
+                        popupService.showToast("请选择组成套装所有商品的颜色和尺码.");
+                        //popupService.showToast("库存不足.");
+                        return;
+                    }
+
+                    var isCountAvalible = true;
+                    angular.forEach($scope.newCount,function(count){
+                        if(parseInt(count) < parseInt($scope.selectedCount.value)){
+                            isCountAvalible = false;
+                            return false;
+                        }
+                    });
+                    if(!isCountAvalible){
+                        popupService.showToast("组成套装商品的库存不足.");
+                        //popupService.showToast("库存不足.");
+                        return;
+                    }
+
+
+                    angular.forEach($scope.productDetailData.goodsList,function(sku,index){
+                        skuList.push({
+                            "skuId":$scope.selectedSkuId[index]
+                        });
+                    });
+                }
+                var param  = {
+                    memberId:userInfo.memberId,
+                    type:$scope.productDetailData.type,
+                    goodsId:$scope.productDetailData.goodsId,
+                    goodsName:$scope.productDetailData.goodsName,
+                    quantity:$scope.selectedCount.value,
+                    skuList:skuList
+                };
+                new shoppingBagService(param).add()
+                    .then(function (res) {
+                        if(res.resultCode=="00"){
+                            popupService.showToast("加入成功");
+                        }else{
+                            popupService.showToast("加入失败,原因:"+res.resultMessage);
+                        }
+
+                    }, function (error) {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+                    });
+            };
+
+            $scope.setWishlist = function (value) {
+                userInfo = localStorageService.get(KEY_USERINFO);
+                if (!userInfo) {
+                    $scope.goLogin();
+                    return;
+                }
+
+                $scope.productDetailData.isInWishlist = value;
+
+                if (value == '1') {
+
+                    var param = {
+                        memberId: userInfo.memberId,
+                        type: "10",
+                        objectId: $scope.productDetailData.goodsId,
+                        name: $scope.productDetailData.goodsName,
+                        url: ""
+                    };
+                    new favoriteService(param).addFavorite()
+                        .then(function (res) {
+                            if (res.resultCode == "00") {
+                                $scope.collectNo = res.result.collectNo;
+                                popupService.showToast("加入成功");
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        });
+
+                } else {
+                    var param = {
+                        memberId: userInfo.memberId,
+                        collectNo: $scope.collectNo
+                    };
+                    new favoriteService(param).deleteFavorite()
+                        .then(function (res) {
+                            if (res.resultCode == "00") {
+                                popupService.showToast("取消成功");
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        });
+                }
+            };
+
+            $scope.refreshSkuPrice = function () {
+                //如果某一个sku不存在在列表项目的时候
+                var isExist = false;
+                $scope.storeInit = false;
+                angular.forEach($scope.skuList, function (sku) {
+                    if (sku.nameKeyValues[0].key == $scope.selectedColor && sku.nameKeyValues[1].key == $scope.selectedSize) {
+                        $scope.skuPrice = "¥" + sku.price;
+                        console.log(sku);
+                        //大于20 显示无货 20-50显示可能购买 50显示有货
+                        $scope.newCountDisplay = 0;
+                        if(parseInt(sku.nameKeyValues[1].bnk_no_limit) >  parseInt(sku.newCount)){
+                            $scope.newCount = 0;
+                        }else if(parseInt(sku.nameKeyValues[1].bnk_no_limit) <  parseInt(sku.newCount)
+                            && parseInt(sku.nameKeyValues[1].bnk_less_limit) >  parseInt(sku.newCount)){
+                            $scope.newCount = sku.newCount;
+                            $scope.newCountDisplay = 1;
+                        }else{
+                            $scope.newCount = sku.newCount;
+                        }
+
+                        $scope.activityPrice = "¥" + sku.activityPrice;
+                        $scope.selectedSkuId = sku.skuid;
+                        $scope.productDetailData.activityName = sku.activityName;
+
+                        if(sku.activityType != null && sku.activityType == "11"){
+                            $('#countdown').show();
+                        }else{
+                            $('#countdown').hide();
+                        }
+
+
+                        // $scope.skuImage = sku.imgs;
+
+                        // angular.element(document).ready(function() {
+                        //     goodDetailBx.reloadSlider();
+                        //     bxpager = new Swiper('.swiper-container', {
+                        //         pagination: '.swiper-pagination',
+                        //         nextButton: '.swiper-button-next',
+                        //         prevButton: '.swiper-button-prev',
+                        //         direction: 'vertical',
+                        //         slidesPerView: 5,
+                        //         centeredSlides: false,
+                        //         paginationClickable: true,
+                        //         spaceBetween: 10,
+                        //         initialSlide:0,
+                        //         loop: false,
+                        //     });
+                        //
+                        // });
+
+                        isExist = true;
+                    }
+
+
+                    if (sku.nameKeyValues[0].key == $scope.selectedColor) {
+                        $scope.skuImage = sku.imgs;
+                        angular.element(document).ready(function() {
+                            goodDetailBx.reloadSlider();
+                            bxpager = new Swiper('.swiper-container', {
+                                pagination: '.swiper-pagination',
+                                nextButton: '.swiper-button-next',
+                                prevButton: '.swiper-button-prev',
+                                direction: 'vertical',
+                                slidesPerView: 5,
+                                centeredSlides: false,
+                                paginationClickable: true,
+                                spaceBetween: 10,
+                                initialSlide:0,
+                                loop: false,
+                            });
+
+                        });
+                    }
+                });
+
+                if (!isExist) {
+                    $scope.newCount = null;
+                }
+            };
+
+            $scope.refreshSkuPriceForSuit = function (index) {
+                $scope.storeInit = false;
+                angular.forEach($scope.goodsList[index].skulist, function (sku) {
+                    if (sku.nameKeyValues[0].key == $scope.selectedColor[index] && sku.nameKeyValues[1].key == $scope.selectedSize[index]) {
+                        //$scope.skuPriceFruit[index] = sku.price;
+                        //大于20 显示无货 20-50显示可能购买 50显示有货
+                        $scope.newCount[index] = sku.newCount;
+                        //$scope.skuPriceActivityPriceFruit[index] = sku.activityPrice;
+                        $scope.selectedSkuId[index] = sku.skuid;
+                        $scope.skuImage = sku.imgs;
+                        angular.element(document).ready(function() {
+                            goodDetailBx.reloadSlider();
+
+                        });
+                    }
+                });
+
+                var isExist = false;
+                jQuery('.storeCount').each(function () {
+                    if (jQuery(this).text().indexOf('无货') != -1) {
+                        isExist = true;
+                    }
+                });
+                if (isExist) {
+                    $scope.isHasStore = "0";
+                } else {
+                    $scope.isHasStore = "1";
+                }
+            };
+
+            //商品详细画面跳转
+            $scope.goProdocutDetail = function (goodsId) {
+                $state.go("goodsDetail", {"goodsId": goodsId});
+            };
+
+            //checkbox点击动作
+            $scope.doCheck = function (index) {
+                $scope.checkboxArray[index] = !$scope.checkboxArray[index];
+
+                //在这里要计算搭配了几件商品 搭配之后的价钱 还要是区间价格
+                if($scope.checkboxArray[index] == true){
+                    $scope.totalPriceMin = parseInt($scope.totalPriceMin) + parseInt($scope.minPriceArray[index]);
+                    $scope.totalPriceMax = parseInt($scope.totalPriceMax) + parseInt($scope.maxPriceArray[index]);
+                    $scope.productCount = $scope.productCount + 1;
+                }else{
+                    $scope.totalPriceMin = parseInt($scope.totalPriceMin) - parseInt($scope.minPriceArray[index]);
+                    $scope.totalPriceMax = parseInt($scope.totalPriceMax) - parseInt($scope.maxPriceArray[index]);
+                    $scope.productCount = $scope.productCount - 1;
+                }
+
+                if($scope.totalPriceMin == $scope.totalPriceMax){
+                    $scope.totalPriceDis = '¥' + $scope.totalPriceMin;
+                }else{
+                    $scope.totalPriceDis = '¥' + $scope.totalPriceMin + '~' + '¥' + $scope.totalPriceMax;
+                }
+
+            };
+
+            //商品预约
+            $scope.orderPopover = function(goodsId){
+                if(!userInfo){
+                    $scope.goLogin();
+                    return;
+                }
+                var scope = $scope.$new();
+                scope.param = {
+                    goodsId: goodsId
+                };
+
+                var goodsOrderModalInstance = $modal.open({
+                    templateUrl: 'html/goodsOrder.html',
+                    controller: 'goodsOrderCtrl',
+                    backdrop: true,
+                    scope: scope
+                });
+
+                goodsOrderModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+
+                });
+            }
 
             $scope.openSizeGuide = function () {
                 var scope = $scope.$new();
@@ -5449,49 +7089,49 @@ console.log(sku);
                 $scope.isShowAllRecommand = false;
             }
 
-    }])
+        }])
 
     // 预约编辑
     .controller('goodsOrderCtrl', ["$scope", "$state", "$stateParams", '$modalInstance', 'commonService', 'goodsOrderService', 'localStorageService', 'popupService',
         function ($scope, $state, $stateParams, $modalInstance, commonService, goodsOrderService, localStorageService, popupService) {
 
-        var userInfo = localStorageService.get(KEY_USERINFO);
+            var userInfo = localStorageService.get(KEY_USERINFO);
 
-        if(!userInfo){
-            $scope.goLogin();
-            return;
-        }
-
-        var memberId = "";
-        if (userInfo) {
-            memberId = userInfo.memberId;
-        }
-
-        var data = $scope.param;
-
-        //商品预约关闭
-        $scope.closeModify = function () {
-            $modalInstance.close();
-        }
-
-        //商品预约
-        $scope.confirmOrder = function (isValid) {
-            $scope.submitted = true;
-
-            if(!isValid){
+            if(!userInfo){
+                $scope.goLogin();
                 return;
             }
 
-            var param = {
-                goodsId : data.goodsId,
-                userName : $scope.goodsOrder.userName,
-                telephone : $scope.goodsOrder.telephone,
-                comment : $scope.goodsOrder.comment,
-                insertUserId : memberId,
-                updateUserId : memberId
+            var memberId = "";
+            if (userInfo) {
+                memberId = userInfo.memberId;
             }
 
-            new goodsOrderService(param).then(function (res) {
+            var data = $scope.param;
+
+            //商品预约关闭
+            $scope.closeModify = function () {
+                $modalInstance.close();
+            }
+
+            //商品预约
+            $scope.confirmOrder = function (isValid) {
+                $scope.submitted = true;
+
+                if(!isValid){
+                    return;
+                }
+
+                var param = {
+                    goodsId : data.goodsId,
+                    userName : $scope.goodsOrder.userName,
+                    telephone : $scope.goodsOrder.telephone,
+                    comment : $scope.goodsOrder.comment,
+                    insertUserId : memberId,
+                    updateUserId : memberId
+                }
+
+                new goodsOrderService(param).then(function (res) {
                     if (res.resultCode == "00") {
                         popupService.showToast('预约成功');
                         $modalInstance.close();
@@ -5501,8 +7141,8 @@ console.log(sku);
                 }, function (error) {
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
-        }
-    }])
+            }
+        }])
     // 尺码大小指南
     .controller('sizeGuideCtrl', ["$scope","$modalInstance",
         function ($scope,$modalInstance) {
@@ -5515,7 +7155,7 @@ console.log(sku);
 
     // 登录注册 start
     .controller('loginCtrl', function ($scope, $state,
-                                       localStorageService, $rootScope,
+                                       localStorageService, $rootScope, personalService,
                                        $modalInstance, authService, commonService, popupService) {
 
 
@@ -5531,11 +7171,11 @@ console.log(sku);
         $scope.showPassword = false;
 
         $scope.changeShowPassword = function(){
-          $scope.showPassword = !$scope.showPassword;
+            $scope.showPassword = !$scope.showPassword;
         };
 
         $scope.registerAgree = function(){
-          $scope.registerInfo.agree = !$scope.registerInfo.agree;
+            $scope.registerInfo.agree = !$scope.registerInfo.agree;
         };
 
         $scope.login = function (isValid) {
@@ -5560,6 +7200,7 @@ console.log(sku);
                         localStorageService.set(KEY_USERINFO, res.data);
 
                         $modalInstance.close();
+                        window.location.reload();
 
                     } else {
                         popupService.showToast(res.resultMessage);
@@ -5611,7 +7252,7 @@ console.log(sku);
                     popupService.showToast(commonMessage.networkErrorMsg);
                 });
         };
-        // 注册
+        // 注册(12.26)
         $scope.register = function (isValid) {
 
             $scope.submitted_register = true;
@@ -5627,7 +7268,14 @@ console.log(sku);
                 captcha: $scope.registerInfo.captcha,
                 memberName: $scope.registerInfo.name,
                 sex: $scope.registerInfo.sex,
-                birthdate: $('#inputBirthDate').val()
+                birthdate: $('#inputBirthDate').val(),
+                provinceCode:$('#selectProvince  option:selected').val(),
+                provinceName:$('#selectProvince  option:selected').text(),
+                cityCode:$('#selectCity  option:selected').val(),
+                cityName:$('#selectCity  option:selected').text(),
+                districtCode:$('#area_selected  option:selected').val(),
+                districtName:$('#area_selected  option:selected').text(),
+                address:$scope.registerInfo.adress
             };
 
             new authService(param).register()
@@ -5685,7 +7333,25 @@ console.log(sku);
                 '女': "2"
             };
 
-            $scope.registerInfo = {tel: '', captcha: '', password: '', rePassword: '', name: '', agree: false, sex:'0', birthdate:''};
+            $scope.info = {provinceCd: '0', cityCd: '0', areaCd: '0'};//初始化联动下拉
+
+            new personalService({}).getERPAddressInfo()
+                .then(function (res) {
+                    if (res.resultCode == '00') {
+                        $scope.provincesList = res.data;
+
+                        if ($scope.personalInfo.provinceCode) {
+                            $scope.info.provinceCd = $scope.personalInfo.provinceCode;
+                        }
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+
+                }, function () {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+
+            $scope.registerInfo = {tel: '', captcha: '', password: '', rePassword: '', name: '', agree: false, sex:'0', birthdate:'', adress:''};
 
             $scope.type = 'register';
 
@@ -5714,6 +7380,83 @@ console.log(sku);
         $scope.showPrivacy = function(){
             $scope.type='privacy';
         }
+
+        // 联动区域变换
+        $scope.changeArea = function (type, code) {
+            var param = {
+                "provinceCode": type == '0' ? code : null,
+                "cityCode": type == '1' ? code : null
+            };
+            new personalService(param).getERPAddressInfo()
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        switch (type) {
+                            case '0':
+                                $scope.citiesList = res.data;
+                                $scope.areasList = [];
+                                $scope.info.cityCd = '0';
+                                $scope.info.areaCd = '0';
+                                break;
+                            case '1':
+                                $scope.areasList = res.data;
+                                $scope.info.areaCd = '0';
+                                break;
+                        }
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (error) {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+        };
+
+        $scope.getDefaultCityList = function (pcode, ccode, dcode) {
+            var param = {
+                "provinceCode": pcode
+            };
+            new personalService(param).getERPAddressInfo()
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        $scope.citiesList = res.data;
+                        $scope.areasList = [];
+                        $scope.info.areaCd = '0';
+                        if (ccode && ccode > 0) {
+                            $scope.info.cityCd = ccode;
+
+                            $scope.getDefaultAreaList(ccode, dcode);
+
+                        } else {
+                            $scope.info.cityCd = '0';
+                        }
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (error) {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+        };
+
+        $scope.getDefaultAreaList = function (ccode, dcode) {
+            var param = {
+                "cityCode": ccode
+            };
+            new personalService(param).getERPAddressInfo()
+                .then(function (res) {
+                    if (res.resultCode == "00") {
+                        $scope.areasList = res.data;
+
+                        if (dcode && dcode > 0) {
+                            $scope.info.areaCd = dcode;
+                        } else {
+                            $scope.info.areaCd = '0';
+                        }
+                    } else {
+                        popupService.showToast(res.resultMessage);
+                    }
+                }, function (error) {
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
+        };
     })
     // 登录注册 end
     // 购物袋 start
@@ -5868,7 +7611,7 @@ console.log(sku);
         $scope.goShopping = function (){
             $state.go("homepage");
         };
-        // 结算
+
         $scope.setTotalPrice = function () {
             var totalPrice = 0;
             var totalCount = 0;
@@ -5882,23 +7625,11 @@ console.log(sku);
                         var singlePrice = 0;
                         angular.forEach(goods.skuList, function (sku, index2) {
                             singlePrice += sku.price;
-                            /*// todo没有活动的商品高级会员打88折
-                            if(userInfo.memberLevelId == '30'){
-                                singlePrice+=sku.price*0.88
-                            }else{
-                                singlePrice += sku.price;
-                            }*/
                         });
                         totalPrice += singlePrice * parseInt(goods.quantity);
                     } else {
                         //有活动按照活动价
                         totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
-                        // todo有活动的如果不是5折活动高级会员都打88折
-                       /* if(goods.activity.tempId != '4cecaf45-b443-474f-a90c-6eebdd670e87'){
-                            totalPrice += goods.activity.newPrice*0.88 * parseInt(goods.quantity);
-                        }else{
-                            totalPrice += goods.activity.newPrice * parseInt(goods.quantity);
-                        }*/
                     }
                 }
             });
@@ -5916,7 +7647,7 @@ console.log(sku);
             if(price - parseInt(price) == 0){
                 return price.toFixed(2);
             } else {
-              return price;
+                return price;
             }
         };
 
@@ -5971,7 +7702,6 @@ console.log(sku);
             })
         };
 
-        // 点击结算
         $scope.confirmOrder = function () {
             var submitGoodsList = [];
             angular.forEach($scope.goodsList, function (goods, index) {
@@ -5983,6 +7713,7 @@ console.log(sku);
                 popupService.showToast("请选择要结算的商品.");
                 return;
             }
+
             $scope.checkOrderConfirm(submitGoodsList);
 
         };
@@ -6001,7 +7732,6 @@ console.log(sku);
                     $rootScope.shoppingBagsOfConfirmOrder = undefined;
                     $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
-                    //console.log(submitGoodsList);
                     resultPath=1;
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, submitGoodsList);
 
@@ -6016,285 +7746,323 @@ console.log(sku);
 
         $scope.init();
     })
-
-
-
-
-
     // 购物袋 end
-        // 订单详情画面 start
-        .controller('orderDetailCtrl', function ($scope,$rootScope, $state,$stateParams, localStorageService,$filter,
-                                                 orderService, popupService,$modal,WeiXinService) {
-            var userInfo = localStorageService.get(KEY_USERINFO);
+    // 订单详情画面 start
+    .controller('orderDetailCtrl', function ($scope,$rootScope, $state,$stateParams, localStorageService,$filter,
+                                             orderService, popupService,$modal,WeiXinService) {
+        var userInfo = localStorageService.get(KEY_USERINFO);
 
-            if($stateParams.orderId != null
-                && $stateParams.orderId.length > 0){
-                $rootScope.orderId = $stateParams.orderId;
-            }
+        if($stateParams.orderId != null
+            && $stateParams.orderId.length > 0){
+            $rootScope.orderId = $stateParams.orderId;
+        }
 
-            // 初始化订单详情画面
-            $scope.initData = function () {
-                var param = new Object();
-                param.orderId = $rootScope.orderId;
-                new orderService().showOrderDetail(param)
-                    .then(function (res) {
+        // 初始化订单详情画面
+        $scope.initData = function () {
+            var param = new Object();
+            param.orderId = $rootScope.orderId;
+            new orderService().showOrderDetail(param)
+                .then(function (res) {
                         console.log(res);
-                            if (res.resultCode == "00") {
-                                $scope.orderDetail = res.aaData;
-                                console.log($scope.orderDetail);
-                                $scope.initStep();
+                        if (res.resultCode == "00") {
+                            $scope.orderDetail = res.aaData;
+                            console.log($scope.orderDetail);
+                            $scope.initStep();
 
+                        } else {
+                            popupService.showToast(res.resultMessage);
+                        }
+                    }, function (error) {
+                        popupService.showToast(commonMessage.networkErrorMsg);
+
+                    }
+                );
+        };
+
+        $scope.initStep = function(){
+            $(".orderStep").empty().loadStep({
+                //ystep的外观大小
+                //可选值：small,large
+                size: "large",
+                //ystep配色方案
+                //可选值：green,blue
+                color: "blue",
+                //ystep中包含的步骤
+                steps: [{
+                    //步骤名称
+                    stepTag:'1',
+                    title: "提交订单",
+                    time: $scope.showTime($scope.orderDetail.orderTime)
+                }, {
+                    stepTag:'2',
+                    title: "付款成功",
+                    time: $scope.showTime($scope.orderDetail.payTime)
+                }, {
+                    stepTag:'3',
+                    title: "商品出库",
+                    time: $scope.showTime($scope.orderDetail.deliverTime)
+                }, {
+                    stepTag:'4',
+                    title: "确认收货",
+                    time: $scope.showTime($scope.orderDetail.receiptTime)
+                }, {
+                    stepTag:'5',
+                    title: "完成",
+                    time: ''
+                }]
+            });
+
+
+            if ($scope.orderDetail.orderStatus == 11) {
+                <!-- 11.订单取消-->
+                $(".orderStep").setStep(0);
+            } else if ($scope.orderDetail.orderStatus == 10 && ($scope.orderDetail.payStatus == 10 || $scope.orderDetail.payStatus == 21)) {
+                <!-- 10.订单未完成 and (10.未付款 or 21.付款失败) -->
+                $(".orderStep").setStep(1);
+            } else if (($scope.orderDetail.orderStatus == 10 || $scope.orderDetail.orderStatus == 23) && $scope.orderDetail.payStatus == 20 && $scope.orderDetail.deliverStatus == 10) {
+                <!-- 10.订单未完成 and 20.付款成功 and 20.全部发货 -->
+                $(".orderStep").setStep(2);
+            } else if (($scope.orderDetail.orderStatus == 10 || $scope.orderDetail.orderStatus == 23) && $scope.orderDetail.payStatus == 20 && $scope.orderDetail.deliverStatus == 20) {
+                $(".orderStep").setStep(3);
+            } else if (($scope.orderDetail.orderStatus == 10 || $scope.orderDetail.orderStatus == 23) && $scope.orderDetail.deliverStatus == 21 && $scope.orderDetail.payStatus == 20) {
+                $(".orderStep").setStep(5);
+            } else if ($scope.orderDetail.orderStatus == 90) {
+                $(".orderStep").setStep(5);
+            } else if ($scope.orderDetail.orderStatus == 30) {
+                <!-- 退货申请中 -->
+                $(".orderStep").setStep(5);
+            } else if ($scope.orderDetail.orderStatus == 31) {
+                <!-- 退货中 -->
+                $(".orderStep").setStep(5);
+            } else if ($scope.orderDetail.orderStatus == 32) {
+                <!-- 退货 -->
+                $(".orderStep").setStep(5);
+            }
+        };
+
+        $scope.initData();
+
+        $scope.showTime = function (time){
+            if(time && time > 0){
+                return $filter('date')(time, 'MM-dd hh:mm');
+            }
+            return '';
+        };
+        // 支付
+        $scope.doPay = function (orderId,orderCode) {
+            var scope = $scope.$new();
+            var selectPayModalInstance = $modal.open({
+                templateUrl: 'html/selectPay.html',
+                controller: 'selectPayCtrl',
+                backdrop: "static",
+                keyboard: false,
+                scope: scope
+            });
+            selectPayModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+
+            });
+            selectPayModalInstance.result.then(
+                function (result) {
+                    if (result) {
+                        if("10" == result.type){
+                            //支付测试
+                            $('#orderId').val($rootScope.orderId);
+                            $('#ordMaster')[0].action = '/qyds-web-pc/alipay/orderAliPay.json';
+                            $('#ordMaster')[0].submit();
+                        }else if("20" == result.type){
+                            $scope.getWXPayInfo();
+                        }else if("30" == result.type){
+                            $('#orderId').val($rootScope.orderId);
+                            $('#ordMaster')[0].action = '/qyds-web-pc/unionpay/orderUnionPay.json';
+                            $('#ordMaster')[0].submit();
+                        }else if("40" == result.type || "50" == result.type){
+                            var scanModalInstance = $modal.open({
+                                templateUrl: 'html/scanPage.html',
+                                controller: 'scanPageCtrl',
+                                backdrop: "static",
+                                keyboard: false,
+                                scope: scope
+                            });
+
+                            scanModalInstance.result.then(
+                                function (result) {
+                                    if (result) {
+                                        //调用付款接口
+                                        $('#orderId').val($rootScope.orderId);
+                                        $('#signcode').val(result.signcode);
+                                        $('#operate').val(userInfo.operate);
+                                        $('#storeid').val(userInfo.storeid);
+                                        $('#storesubid').val(userInfo.storesubid);
+
+                                        var options  = {
+                                            url:'../qyds-web-pc/scanpay/scanpay.json',
+                                            type:'post',
+                                            dataType : 'json',
+                                            complete:function(xhr){//请求完成
+                                                if(xhr.responseText == '0'){
+
+                                                    popupService.showConfirm('付款成功', function(){
+                                                        window.location.href="../#/homepage";
+                                                    });
+
+                                                }else{
+                                                    popupService.showToast('付款失败!');
+                                                }
+
+                                            }
+                                        };
+                                        $('#ordMaster').ajaxSubmit(options);
+                                        return false; // 阻止表单自动提交事件
+
+                                    }
+                                }, function (reason) {
+                                    //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                                });
+                        }
+                    }
+                }, function (reason) {
+                    //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                });
+        };
+
+        $scope.getWXPayInfo = function () {
+            var params = {
+                "openid": "",
+                "product_id":$scope.orderDetail.orderCode,
+                "body": "商品订单"+$scope.orderDetail.orderCode,
+                "out_trade_no": $scope.orderDetail.orderCode,
+                "total_fee": (parseFloat($scope.orderDetail.payInfact)*100).toFixed(0),
+                "trade_type": "NATIVE"
+            };
+
+            new WeiXinService(params).getWxPayInfo().then(function (response) {
+                if (response.resultCode == '00') {
+                    var codeUrl  = response.results.code_url;
+                    var scope = $scope.$new();
+                    scope.codeUrl = codeUrl;
+                    var wxPayModalInstance = $modal.open({
+                        templateUrl: 'html/wxPay.html',
+                        controller: 'wxPayCtrl',
+                        backdrop: "static",
+                        keyboard: false,
+                        scope: scope
+                    });
+                    wxPayModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
+
+                    });
+                    wxPayModalInstance.result.then(
+                        function (result) {
+                            $scope.initData();
+                        }, function (reason) {
+                            $scope.initData();
+                        });
+                } else {
+                    popupService.showToast("支付失败,原因:" + response.resultMessage);
+                }
+            }, function (error) {
+                popupService.showToast("支付失败,请稍后重试");
+            });
+        };
+
+        // 跳转到商品详细
+        $scope.goGoodsDetail = function (gdsId) {
+            $state.go("goodsDetail", {"type" : gdsId});
+        };
+
+        // 删除订单
+        $scope.deleteOrder = function (orderId) {
+            popupService.showConfirm('确定要删除此订单吗?', function(){
+                var param = {
+                    "memberId": userInfo.memberId,
+                    "orderId": orderId
+                };
+
+                new orderService(param).deleteOrder()
+                    .then(function (res) {
+                            if (res.resultCode == "00") {
+                                popupService.showToast("订单已删除。");
+                                $state.go("personalCenter.orderList");
                             } else {
                                 popupService.showToast(res.resultMessage);
                             }
                         }, function (error) {
                             popupService.showToast(commonMessage.networkErrorMsg);
-
                         }
                     );
-            };
+            });
+        };
 
-            $scope.initStep = function(){
-                $(".orderStep").empty().loadStep({
-                    //ystep的外观大小
-                    //可选值：small,large
-                    size: "large",
-                    //ystep配色方案
-                    //可选值：green,blue
-                    color: "blue",
-                    //ystep中包含的步骤
-                    steps: [{
-                        //步骤名称
-                        stepTag:'1',
-                        title: "提交订单",
-                        time: $scope.showTime($scope.orderDetail.orderTime)
-                    }, {
-                        stepTag:'2',
-                        title: "付款成功",
-                        time: $scope.showTime($scope.orderDetail.payTime)
-                    }, {
-                        stepTag:'3',
-                        title: "商品出库",
-                        time: $scope.showTime($scope.orderDetail.deliverTime)
-                    }, {
-                        stepTag:'4',
-                        title: "确认收货",
-                        time: $scope.showTime($scope.orderDetail.receiptTime)
-                    }, {
-                        stepTag:'5',
-                        title: "完成",
-                        time: ''
-                    }]
-                });
-
-
-                if ($scope.orderDetail.orderStatus == 11) {
-                    <!-- 11.订单取消-->
-                    $(".orderStep").setStep(0);
-                } else if ($scope.orderDetail.orderStatus == 10 && ($scope.orderDetail.payStatus == 10 || $scope.orderDetail.payStatus == 21)) {
-                    <!-- 10.订单未完成 and (10.未付款 or 21.付款失败) -->
-                    $(".orderStep").setStep(1);
-                } else if (($scope.orderDetail.orderStatus == 10 || $scope.orderDetail.orderStatus == 23) && $scope.orderDetail.payStatus == 20 && $scope.orderDetail.deliverStatus == 10) {
-                    <!-- 10.订单未完成 and 20.付款成功 and 20.全部发货 -->
-                    $(".orderStep").setStep(2);
-                } else if (($scope.orderDetail.orderStatus == 10 || $scope.orderDetail.orderStatus == 23) && $scope.orderDetail.payStatus == 20 && $scope.orderDetail.deliverStatus == 20) {
-                    $(".orderStep").setStep(3);
-                } else if (($scope.orderDetail.orderStatus == 10 || $scope.orderDetail.orderStatus == 23) && $scope.orderDetail.deliverStatus == 21 && $scope.orderDetail.payStatus == 20) {
-                    $(".orderStep").setStep(5);
-                } else if ($scope.orderDetail.orderStatus == 90) {
-                    $(".orderStep").setStep(5);
-                } else if ($scope.orderDetail.orderStatus == 30) {
-                    <!-- 退货申请中 -->
-                    $(".orderStep").setStep(5);
-                } else if ($scope.orderDetail.orderStatus == 31) {
-                    <!-- 退货中 -->
-                    $(".orderStep").setStep(5);
-                } else if ($scope.orderDetail.orderStatus == 32) {
-                    <!-- 退货 -->
-                    $(".orderStep").setStep(5);
-                }
-            };
-
-            $scope.initData();
-
-            $scope.showTime = function (time){
-                if(time && time > 0){
-                    return $filter('date')(time, 'MM-dd hh:mm');
-                }
-                return '';
-            };
-            // 支付
-            $scope.doPay = function (orderId,orderCode) {
-                var scope = $scope.$new();
-                var selectPayModalInstance = $modal.open({
-                    templateUrl: 'html/selectPay.html',
-                    controller: 'selectPayCtrl',
-                    backdrop: "static",
-                    keyboard: false,
-                    scope: scope
-                });
-                selectPayModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
-
-                });
-                selectPayModalInstance.result.then(
-                    function (result) {
-                        if (result) {
-                            if("10" == result.type){
-                                //支付测试
-                                $('#orderId').val($rootScope.orderId);
-                                $('#ordMaster')[0].action = '/qyds-web-pc/alipay/orderAliPay.json';
-                                $('#ordMaster')[0].submit();
-                            }else if("20" == result.type){
-                                $scope.getWXPayInfo();
-                            }else if("30" == result.type){
-                                $('#orderId').val($rootScope.orderId);
-                                $('#ordMaster')[0].action = '/qyds-web-pc/unionpay/orderUnionPay.json';
-                                $('#ordMaster')[0].submit();
-                            }
-                        }
-                    }, function (reason) {
-                        //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
-                    });
-            };
-
-            $scope.getWXPayInfo = function () {
-                var params = {
-                    "openid": "",
-                    "product_id":$scope.orderDetail.orderCode,
-                    "body": "商品订单"+$scope.orderDetail.orderCode,
-                    "out_trade_no": $scope.orderDetail.orderCode,
-                    "total_fee": (parseFloat($scope.orderDetail.payInfact)*100).toFixed(0),
-                    "trade_type": "NATIVE"
+        // 取消订单
+        $scope.cancelOrder = function (orderId) {
+            popupService.showConfirm('确定要取消此订单吗?', function() {
+                var param = {
+                    "memberId": userInfo.memberId,
+                    "orderId": orderId
                 };
 
-                new WeiXinService(params).getWxPayInfo().then(function (response) {
-                    if (response.resultCode == '00') {
-                        var codeUrl  = response.results.code_url;
-                        var scope = $scope.$new();
-                        scope.codeUrl = codeUrl;
-                        var wxPayModalInstance = $modal.open({
-                            templateUrl: 'html/wxPay.html',
-                            controller: 'wxPayCtrl',
-                            backdrop: "static",
-                            keyboard: false,
-                            scope: scope
-                        });
-                        wxPayModalInstance.opened.then(function () {//模态窗口打开之后执行的函数
-
-                        });
-                        wxPayModalInstance.result.then(
-                            function (result) {
+                new orderService(param).cancelOrder()
+                    .then(function (res) {
+                            if (res.resultCode == "00") {
+                                popupService.showToast("订单已取消。");
                                 $scope.initData();
-                            }, function (reason) {
+                            } else {
+                                popupService.showToast(res.resultMessage);
+                            }
+                        }, function (error) {
+                            popupService.showToast(commonMessage.networkErrorMsg);
+                        }
+                    );
+            });
+        };
+
+        // 确认收货
+        $scope.confirmReceiptInMaster = function (orderId) {
+            popupService.showConfirm('确定已收到此订单中所有的商品了吗?', function() {
+                var param = {
+                    "memberId": userInfo.memberId,
+                    "orderId": orderId
+                };
+
+                new orderService(param).confirmReceiptInMaster()
+                    .then(function (res) {
+                            if (res.resultCode == "00") {
+                                popupService.showToast("订单已确认收货。");
                                 $scope.initData();
-                            });
-                    } else {
-                        popupService.showToast("支付失败,原因:" + response.resultMessage);
-                    }
-                }, function (error) {
-                    popupService.showToast("支付失败,请稍后重试");
-                });
-            };
-
-            // 跳转到商品详细
-            $scope.goGoodsDetail = function (gdsId) {
-                $state.go("goodsDetail", {"type" : gdsId});
-            };
-
-            // 删除订单
-            $scope.deleteOrder = function (orderId) {
-                popupService.showConfirm('确定要删除此订单吗?', function(){
-                    var param = {
-                        "memberId": userInfo.memberId,
-                        "orderId": orderId
-                    };
-
-                    new orderService(param).deleteOrder()
-                        .then(function (res) {
-                                if (res.resultCode == "00") {
-                                    popupService.showToast("订单已删除。");
-                                    $state.go("personalCenter.orderList");
-                                } else {
-                                    popupService.showToast(res.resultMessage);
-                                }
-                            }, function (error) {
-                            popupService.showToast(commonMessage.networkErrorMsg);
+                            } else {
+                                popupService.showToast(res.resultMessage);
                             }
-                        );
-                });
-            };
-
-            // 取消订单
-            $scope.cancelOrder = function (orderId) {
-                popupService.showConfirm('确定要取消此订单吗?', function() {
-                    var param = {
-                        "memberId": userInfo.memberId,
-                        "orderId": orderId
-                    };
-
-                    new orderService(param).cancelOrder()
-                        .then(function (res) {
-                                if (res.resultCode == "00") {
-                                    popupService.showToast("订单已取消。");
-                                    $scope.initData();
-                                } else {
-                                    popupService.showToast(res.resultMessage);
-                                }
-                            }, function (error) {
+                        }, function (error) {
                             popupService.showToast(commonMessage.networkErrorMsg);
-                            }
-                        );
-                });
-            };
+                        }
+                    );
+            });
+        };
 
-            // 确认收货
-            $scope.confirmReceiptInMaster = function (orderId) {
-                popupService.showConfirm('确定已收到此订单中所有的商品了吗?', function() {
-                    var param = {
-                        "memberId": userInfo.memberId,
-                        "orderId": orderId
-                    };
+        // 退货（全单）
+        $scope.refunds = function (orderItem) {
+            localStorageService.set(KEY_PARAM_REFUND_ORDER,orderItem);
+            $state.go("personalCenter.applyReturnGoods");
+        };
 
-                    new orderService(param).confirmReceiptInMaster()
-                        .then(function (res) {
-                                if (res.resultCode == "00") {
-                                    popupService.showToast("订单已确认收货。");
-                                    $scope.initData();
-                                } else {
-                                    popupService.showToast(res.resultMessage);
-                                }
-                            }, function (error) {
-                            popupService.showToast(commonMessage.networkErrorMsg);
-                            }
-                        );
-                });
-            };
+        // 申请退款
+        $scope.applyRefund = function (orderId) {
+            $state.go("personalCenter.applyRefund", {orderId:orderId});
+        };
 
-            // 退货（全单）
-            $scope.refunds = function (orderItem) {
-                localStorageService.set(KEY_PARAM_REFUND_ORDER,orderItem);
-                $state.go("personalCenter.applyReturnGoods");
-            };
+        // 物流详情
+        $scope.logisticsDetail = function () {
+            $state.go("personalCenter.logisticsList", {"orderId": $state.params.orderId});
+        };
 
-            // 申请退款
-            $scope.applyRefund = function (orderId) {
-                $state.go("personalCenter.applyRefund", {orderId:orderId});
-            };
-
-            // 物流详情
-            $scope.logisticsDetail = function () {
-                $state.go("personalCenter.logisticsList", {"orderId": $state.params.orderId});
-            };
-
-            // 跳转物流信息
-            $scope.goLogisticsList = function (gdsId) {
-                $state.go("personalCenter.logisticsList", {"orderId": gdsId});
-            };
-        })
-        // 订单详情画面 end
-        // 物流详情画面 start
+        // 跳转物流信息
+        $scope.goLogisticsList = function (gdsId) {
+            $state.go("personalCenter.logisticsList", {"orderId": gdsId});
+        };
+    })
+    // 订单详情画面 end
+    // 物流详情画面 start
     .controller('logisticsListCtrl', function ($scope,$rootScope, $stateParams, $state,
-                                                  orderService, localStorageService, logisticsService, popupService) {
+                                               orderService, localStorageService, logisticsService, popupService) {
         var orderId = "";
         if($stateParams.orderId != null
             && $stateParams.orderId.length > 0){
@@ -6486,7 +8254,7 @@ console.log(sku);
     //        }
     //    })
     //    // 退货画面 end
-    //
+
     // 确认订单 start
     .controller('confirmOrderCtrl', function ($scope, $state, $stateParams, $rootScope, $modal,
                                               localStorageService,
@@ -6547,12 +8315,12 @@ console.log(sku);
         }
 
         var userInfo = localStorageService.get(KEY_USERINFO);
-        //TODO 这块之后要改成==30
-
         $scope.info = {provinceCd: '0', cityCd: '0', areaCd: '0'};//初始化联动下拉
         $scope.selectedOrderActivity = {
             id:-1
         };
+        $scope.selectedCoupons = [];
+
         $scope.selectedCoupon = {};
         // 商品总价
         $scope.goodsTotalPrice = 0.00;
@@ -6719,7 +8487,6 @@ console.log(sku);
         };
 
         $scope.processConfirmData = function (result) {
-            console.log(result);
             $scope.confirmData = result;
             var selectAddressInfo = $rootScope.selectedAddressInfo;
             if(selectAddressInfo && selectAddressInfo.addressId){
@@ -6731,6 +8498,14 @@ console.log(sku);
             if("1" == userInfo.isSaller){
                 $scope.confirmData.actMasterList = [];
             }
+            if("1" == userInfo.isSaller){
+                $('#mdzt10').hide();
+                $('#mdzt20').hide();
+            }else{
+                $('#mdzt10').show();
+                $('#mdzt20').show();
+            }
+
             if($scope.confirmData.actMasterList!=null&&$scope.confirmData.actMasterList.length>0){
                 $scope.selectedOrderActivity.id = $scope.confirmData.actMasterList[0].activityId;
             }
@@ -6752,10 +8527,10 @@ console.log(sku);
             };
             new confirmOrderService(param).getDataByBag().then(function (res) {
                 if(res.resultCode == "00"){
-                   /* var submitGoodsList1 = [];
-                    angular.forEach(res.results.goodsInfo, function (goods, index) {
-                        submitGoodsList1.push(goods);
-                    });*/
+                    /* var submitGoodsList1 = [];
+                     angular.forEach(res.results.goodsInfo, function (goods, index) {
+                         submitGoodsList1.push(goods);
+                     });*/
                     $rootScope.shoppingBagsOfConfirmOrder = undefined;
                     $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
@@ -6769,7 +8544,7 @@ console.log(sku);
                     $scope.setOrderFinalPrice();
                     // 修改本地的数据值(这个可以不要)
                     localStorageService.set(KEY_PARAM_COMFIRM_ORDER, $scope.confirmData.goodsInfo);
-                   // $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
+                    // $state.go("personalCenter.confirmOrder", {shoppingBags: '#'});
                 }else{
                     popupService.showToast(res.resultMessage);
                 }
@@ -6790,7 +8565,6 @@ console.log(sku);
             };
             new confirmOrderService(param).getDataBySingleGoods().then(function (res) {
                 if(res.resultCode == "00"){
-                    console.log(res.results);
                     $rootScope.shoppingBagsOfConfirmOrder = undefined;
                     $rootScope.singleGoodsInfoOfConfirmOrder = undefined;
                     $rootScope.suitGoodsInfoOfConfirmOrder = undefined;
@@ -6834,13 +8608,14 @@ console.log(sku);
                 // 如果是店员，必须有客户的电话号码
                 if(!$scope.conInfo.tel||$scope.conInfo.tel.length==0){
                     if(isNeedPhone=='1'){
-                       popupService.showToast("请输入会员手机号");
+                        popupService.showToast("请输入会员手机号");
                     }
                     $scope.setOrderFinalPrice();
                     return;
                 }
             }
             $scope.selectedCoupon.id = -1;
+            // $scope.setSelectedCoupon($scope.selectedCoupon.id);
             var hasOrderActivity = "1";
             if(!$scope.selectedOrderActivity.id||$scope.selectedOrderActivity.id==-1){
                 hasOrderActivity = "0";
@@ -6858,12 +8633,13 @@ console.log(sku);
             new confirmOrderService(param).getOrderCoupons().then(function (res) {
                 if(res.resultCode == "00"){
                     $scope.couponList = res.results;
+                    $scope.setSelectedCoupon(-1);
                     if("1" == userInfo.isSaller){
                         $scope.couponList = [];
                     }
-                    if($scope.couponList&&$scope.couponList.length>0){
-                        $scope.selectedCoupon.id = $scope.couponList[0].couponMemberId;
-                    }
+                    // if($scope.couponList&&$scope.couponList.length>0){
+                    //     $scope.selectedCoupon.id = $scope.couponList[0].couponMemberId;
+                    // }
                     $scope.setOrderFinalPrice();
                 }else{
                     popupService.showToast(res.resultMessage);
@@ -6872,7 +8648,7 @@ console.log(sku);
                 popupService.showToast(commonMessage.networkErrorMsg);
             });
         };
-        //计算总金额
+
         $scope.setGoodsTotalPrice = function(){
             var goodsTotal = 0;
             var exchangePointCount = 0;
@@ -6882,28 +8658,12 @@ console.log(sku);
                     var goodsPrice =  goods.ordConfirmOrderUnitExtList[0].price;
                     var goodsPoint = 0;
                     if(goods.activity){
-                        // 是后台传来的活动优惠后价格
                         goodsPrice = goods.activity.newPrice;
                         goodsPoint = goods.activity.point==null?0:goods.activity.point;
                     }
-                    /*// 判断会员等级(如果是高级会员，则根据折扣后金额判断是否打88折)
-                    if(userInfo.memberLevelId =='30'){
-                        // 如果有活动，判断是否是折扣活动，如果是折扣活动，则判断活动折扣除以0.88是否大于5.7，如果大于，则打88折
-                        if(goods.activity.activityType != null && goods.activity.activityType =="20"){
-                            // 折扣除以0.88是否大于5.7
-                            if(goods.activity.paramValue !=null ){
-                                if(goods.activity.paramValue/0.88 > 5.7){
-                                    goodsPrice = goodsPrice*0.88;
-                                }
-                            }
-                        }else{
-                            goodsPrice = goodsPrice*0.88;
-                        }
-                    }*/
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
-                    console.log(parseFloat(goodsPrice)*goods.quantity);
                 }else{
                     // 套装
                     var goodsPrice =  0;
@@ -6915,13 +8675,6 @@ console.log(sku);
                         goodsPrice = goods.activity.newPrice;
                         goodsPoint = goods.activity.point==null?0:goods.activity.point;
                     }
-                   /* // todo判断该活动不是五折活动
-                    if(goods.activity == null || (goods.activity != null && goods.activity.tempId != '4cecaf45-b443-474f-a90c-6eebdd670e87')){
-                        // 高级会员除了5折活动都打88折
-                        if(userInfo.memberLevelId =='30'){
-                            goodsPrice = goodsPrice*0.88;
-                        }
-                    }*/
                     goodsTotal += parseFloat(goodsPrice)*goods.quantity;
                     exchangePointCount += goodsPoint*goods.quantity;
                     goodsCount +=parseInt(goods.quantity);
@@ -6929,36 +8682,32 @@ console.log(sku);
             });
             $scope.goodsCount = goodsCount;
             $scope.goodsTotalPrice = goodsTotal.toFixed(2);
-            console.log("goodsTotalPrice");
-            console.log($scope.goodsTotalPrice);
             $scope.goodsExchangePointCount = exchangePointCount;
         };
 
         $scope.setOrderFinalPrice = function(){
-            // 在商品总价的基础上减去订单优惠和优惠券抵值（先算优惠券，再算整单活动）
+
+            // 在商品总价的基础上减去订单优惠和优惠券抵值
             var orderDiscount = parseFloat($scope.goodsTotalPrice);
             $scope.discountPrice = 0;
             $scope.activityPointCount = 0;
             // todo
             // 先算优惠券
             if($scope.couponList!=null&&$scope.couponList.length>0){
+                angular.forEach($scope.selectedCoupons, function (coupon) {
+                    coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
+                        // 选中的优惠券
+                        if(coupon.couponStyle =="0") {
+                            // 抵值
+                            orderDiscount = orderDiscount - coupon.worth;
+                        }else if(coupon.couponStyle =="1"){
+                            // 打折
+                            orderDiscount = orderDiscount - parseFloat(coupon.discountPrice);
+                        }
+                });
                 angular.forEach($scope.couponList, function (coupon) {
                     coupon.discountPrice = parseFloat(orderDiscount - orderDiscount * coupon.discount / 10).toFixed(2);
                     if($scope.selectedCoupon.id == coupon.couponMemberId){
-                        // 判断选中优惠券类型，如果是生日券，则高级会员不打88
-                        // coupon.couponType=="20" 是生日券
-                        /*if(coupon.couponType=="20"){
-                            // b==false:是指打了88折了
-                            if(b==false){
-                                // 还原88折前金额
-                                orderDiscount = orderDiscount/0.88;
-                                // 还原商品合计价格
-                                $scope.goodsTotalPrice = orderDiscount.toFixed(2);
-                                console.log("goodsTotalPrice");
-                                console.log($scope.goodsTotalPrice);
-                                b=true;
-                            }
-                        }*/
                         // 选中的优惠券
                         if(coupon.couponStyle =="0") {
                             // 抵值
@@ -6974,7 +8723,7 @@ console.log(sku);
             $scope.orderDiscountPrice = orderDiscount.toFixed(2);
             var orderFinal = orderDiscount;
             // todo
-            // 再算订单整单活动
+            // 订单活动
             if($scope.confirmData.actMasterList!=null&&$scope.confirmData.actMasterList.length>0){
                 angular.forEach($scope.confirmData.actMasterList, function (activity) {
                     if($scope.selectedOrderActivity.id == activity.activityId){
@@ -7003,9 +8752,48 @@ console.log(sku);
             $scope.getCouponList();
         };
         $scope.setSelectedCoupon = function(id){
-            $scope.selectedCoupon.id = id;
+            //点击的单选按钮，如果不是“使用红包”单选按钮的时候，将红包数组置空，并全部取消选中
+            console.log(id);
+            if (id!=-2){
+                angular.forEach($scope.couponList, function (coupon, index) {
+                    coupon.isChecked=false;
+                });
+                $scope.selectedCoupons=[];
+                $scope.selectedCoupon.id = id;
+            }else {
+                angular.forEach($scope.couponList, function (coupon, index) {
+                    if (coupon.couponType=='40'){
+                        coupon.isChecked=true;
+                        $scope.setSelectedCoupons();
+                    }
+                });
+            }
             $scope.setOrderFinalPrice();
         };
+
+        $scope.setSelectedCoupons = function(){
+            //每次点击多选按钮进入方法，所以要初始化这个数组
+            $scope.selectedCoupons=[];
+            //点击多选按钮的时候默认选中“使用红包”的单选按钮
+            $scope.selectedCoupon.id=-1;
+            angular.forEach($scope.couponList, function (coupon, index) {
+                if(coupon.isChecked){
+                    $scope.selectedCoupons.push(coupon);
+                    $scope.selectedCoupon.id=-2;
+                }
+            });
+            var temID="";
+            for (var i = 0; i < $scope.selectedCoupons.length;i++) {
+                if (temID =="") {
+                    temID = $scope.selectedCoupons[i].couponMemberId;
+                } else {
+                    temID = $scope.selectedCoupons[i].couponMemberId + "," + temID;
+                }
+            }
+            $scope.couponMemberIds = temID;
+            $scope.setOrderFinalPrice();
+        };
+
 
         $scope.selectTab = function (index) {
             $scope.selectedDeliveryTab = index;
@@ -7078,7 +8866,7 @@ console.log(sku);
             //优惠券
             var couponMemberId = null;
             var amountCoupon = null;
-            if($scope.selectedCoupon.id != -1) {
+            if($scope.selectedCoupon.id != -1&&$scope.selectedCoupon.id != -2) {
                 angular.forEach($scope.couponList, function (coupon) {
                     if (coupon.couponMemberId == $scope.selectedCoupon.id) {
                         couponMemberId = coupon.couponMemberId;
@@ -7090,6 +8878,17 @@ console.log(sku);
                             amountCoupon = coupon.discountPrice;
                         }
                     }
+                });
+            }else if($scope.selectedCoupon.id == -2){
+                angular.forEach($scope.selectedCoupons, function (coupon) {
+                        couponMemberId = coupon.couponMemberId;
+                        if(coupon.couponStyle =="0") {
+                            // 抵值
+                            amountCoupon = coupon.worth;
+                        }else if(coupon.couponStyle =="1"){
+                            // 打折
+                            amountCoupon = coupon.discountPrice;
+                        }
                 });
             }
             var orderListJsonStr = JSON.stringify(orderListJson);
@@ -7168,6 +8967,7 @@ console.log(sku);
                 actionName:actionName,
                 amountDiscount:$scope.discountPrice,
                 couponMemberId:couponMemberId,
+                selectedCoupons:$scope.couponMemberIds,
                 amountCoupon:amountCoupon,
                 exchangePointCount:$scope.exchangePointCount,
                 pointCount:0,
@@ -7219,6 +9019,47 @@ console.log(sku);
                                     $('#orderId').val(res.resultsOrderId);
                                     $('#ordMaster1')[0].action = '/qyds-web-pc/unionpay/orderUnionPay.json';
                                     $('#ordMaster1')[0].submit();
+                                }else if("40" == result.type || "50" == result.type){
+                                    var scanModalInstance = $modal.open({
+                                        templateUrl: 'html/scanPage.html',
+                                        controller: 'scanPageCtrl',
+                                        backdrop: "static",
+                                        keyboard: false,
+                                        scope: scope
+                                    });
+
+                                    scanModalInstance.result.then(
+                                        function (result) {
+                                            if (result) {
+                                                //调用付款接口
+                                                $('#orderId').val(res.resultsOrderId);
+                                                $('#signcode').val(result.signcode);
+                                                $('#operate').val(userInfo.operate);
+                                                $('#storeid').val(userInfo.storeid);
+                                                $('#storesubid').val(userInfo.storesubid);
+
+                                                var options  = {
+                                                    url:'../qyds-web-pc/scanpay/scanpay.json',
+                                                    type:'post',
+                                                    dataType : 'json',
+                                                    complete:function(xhr){//请求完成
+                                                        if(xhr.responseText == '0'){
+                                                            popupService.showConfirm('付款成功', function(){
+                                                                window.location.href="../#/homepage";
+                                                            });
+                                                        }else{
+                                                            popupService.showToast('付款失败!');
+                                                        }
+
+                                                    }
+                                                };
+                                                $('#ordMaster1').ajaxSubmit(options);
+                                                return false; // 阻止表单自动提交事件
+
+                                            }
+                                        }, function (reason) {
+                                            //点击空白区域，总会输出backdrop click，点击取消，则会暑促cancel
+                                        });
                                 }
                             }
                         }, function (reason) {
@@ -7250,7 +9091,7 @@ console.log(sku);
                 "trade_type": "NATIVE"
             };
 
-           new WeiXinService(params).getWxPayInfo().then(function (response) {
+            new WeiXinService(params).getWxPayInfo().then(function (response) {
                 console.log(response);
                 if (response.resultCode == '00') {
                     var codeUrl  = response.results.code_url;
@@ -7425,25 +9266,25 @@ console.log(sku);
             new storeService(param).getStoreList()
                 .then(function (res) {
                     $scope.isLoadingStore = false;
-                if($scope.showAllStoreFlag == '1'){
-                    var tempArray = [];
-                    angular.forEach(res.data, function (store) {
-                        if(tempArray.length < 3){
-                            tempArray.push(store);
+                    if($scope.showAllStoreFlag == '1'){
+                        var tempArray = [];
+                        angular.forEach(res.data, function (store) {
+                            if(tempArray.length < 3){
+                                tempArray.push(store);
+                            }
+                        });
+                        $scope.storeList = tempArray;
+                    } else {
+                        $scope.storeList = res.data;
+                        if($scope.storeList&& $scope.storeList.length>0){
+                            $scope.shopInfo = $scope.storeList[0];
                         }
-                    });
-                    $scope.storeList = tempArray;
-                } else {
-                    $scope.storeList = res.data;
-                    if($scope.storeList&& $scope.storeList.length>0){
-                        $scope.shopInfo = $scope.storeList[0];
                     }
-                }
 
-            }, function (error) {
+                }, function (error) {
                     $scope.isLoadingStore = false;
-                popupService.showToast(commonMessage.networkErrorMsg);
-            });
+                    popupService.showToast(commonMessage.networkErrorMsg);
+                });
         };
 
         $scope.totalPriceOfGoods = function (goodsItem){
@@ -7702,10 +9543,10 @@ console.log(sku);
                                 $scope.personalInfo.memberPic = res.url;
 
                             } else {
-                                 popupService.showToast(res.resultMessage);
+                                popupService.showToast(res.resultMessage);
                             }
                         }, function () {
-                             popupService.showToast(commonMessage.networkErrorMsg);
+                            popupService.showToast(commonMessage.networkErrorMsg);
                         });
 
                 });
@@ -7899,11 +9740,11 @@ console.log(sku);
                         // $scope.footerData = res.results;
                         // $ionicSlideBoxDelegate.update();
                     } else {
-                         popupService.showToast(res.resultMessage);
+                        popupService.showToast(res.resultMessage);
                     }
                 }, function () {
-                     $scope.isLoading = false;
-                     popupService.showToast(commonMessage.networkErrorMsg);
+                    $scope.isLoading = false;
+                    popupService.showToast(commonMessage.networkErrorMsg);
                 });
         };
 
@@ -7952,8 +9793,6 @@ console.log(sku);
                 popupService.showToast(commonMessage.networkErrorMsg);
             });
         };
-
-
 
         $scope.dochangePage = function () {
             //分页样式初始化
@@ -8105,9 +9944,12 @@ console.log(sku);
         };
     }])
     // 选择支付方式
-    .controller('selectPayCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',
-        function ($scope, $state, $stateParams, $modalInstance) {
+    .controller('selectPayCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',"localStorageService",
+        function ($scope, $state, $stateParams, $modalInstance,localStorageService) {
             $scope.type = '10';
+            var userInfo = localStorageService.get(KEY_USERINFO);
+            $scope.userType = userInfo.type;
+            console.log($scope.userType);
             $scope.getSelectedStyle = function(type){
                 if($scope.type == type){
                     return {"border":"2px #ff6600 solid"};
@@ -8125,7 +9967,7 @@ console.log(sku);
                 $modalInstance.close(selectedPay);
             };
         }])
-        .controller('wxPayCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',
+    .controller('wxPayCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',
         function ($scope, $state, $stateParams, $modalInstance) {
             angular.element(document).ready(function() {
                 var qrcode = new QRCode(document.getElementById("qrcode_wx_pay"), {
@@ -8138,10 +9980,13 @@ console.log(sku);
                 $modalInstance.close();
             };
         }])
-        // 选择支付方式
-    .controller('selectPayCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',
-        function ($scope, $state, $stateParams, $modalInstance) {
+    // 选择支付方式
+    .controller('selectPayCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',"localStorageService",
+        function ($scope, $state, $stateParams, $modalInstance,localStorageService) {
             $scope.type = '10';
+            var userInfo = localStorageService.get(KEY_USERINFO);
+            $scope.userType = userInfo.type;
+            console.log($scope.userType);
             $scope.getSelectedStyle = function(type){
                 if($scope.type == type){
                     return {"border":"2px #ff6600 solid"};
@@ -8159,6 +10004,17 @@ console.log(sku);
                 $modalInstance.close(selectedPay);
             };
         }])
+    //扫码画面
+    .controller('scanPageCtrl', ["$scope", "$state", "$stateParams", '$modalInstance',
+        function ($scope, $state, $stateParams, $modalInstance) {
+            $scope.confirm = function(){
+                var signcode = {
+                    signcode: $scope.signcode
+                };
+                $modalInstance.close(signcode);
+            };
+        }])
+
     .controller('prizeDrawCtrl', ["$rootScope","$scope", "$state", "$stateParams","popupService",'prizeDrawService','localStorageService',
         function ($rootScope,$scope, $state, $stateParams,popupService,prizeDrawService,localStorageService) {
 

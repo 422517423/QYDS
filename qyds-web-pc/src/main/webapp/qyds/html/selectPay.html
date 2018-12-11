@@ -5,7 +5,8 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="clearfix" style="width: 340px;margin: 0px auto">
+
+                <div ng-if="userType != '30'" class="clearfix" style="width: 340px;margin: 0px auto">
                     <div style="width: 100px;height: 48px;float: left;text-align: center;padding: 10px"
                          ng-style="getSelectedStyle('10')"
                          data-ng-click="setSelectedType('10')">
@@ -20,6 +21,35 @@
                          ng-style="getSelectedStyle('30')"
                          data-ng-click="setSelectedType('30')">
                         <img src="images/YlLogo.png" style="width: 70px;height:35px;">
+                    </div>
+                </div>
+
+                <div ng-if="userType == '30'" class="clearfix" style="width: 280px;margin: 0px auto">
+                    <!--<div style="width: 100px;height: 48px;float: left;text-align: center;padding: 10px"-->
+                         <!--ng-style="getSelectedStyle('10')"-->
+                         <!--data-ng-click="setSelectedType('10')">-->
+                        <!--<img src="images/zfb.png" style="width: 80px;">-->
+                    <!--</div>-->
+                    <!--<div style="width: 100px;height: 48px;float: left;margin-left: 20px;text-align: center;padding: 10px"-->
+                         <!--ng-style="getSelectedStyle('20')"-->
+                         <!--data-ng-click="setSelectedType('20')">-->
+                        <!--<img src="images/WePayLogo.png" style="width: 80px">-->
+                    <!--</div>-->
+                    <!--<div style="width: 100px;height: 48px;float: left;margin-left: 20px;text-align: center;padding: 5px"-->
+                         <!--ng-style="getSelectedStyle('30')"-->
+                         <!--data-ng-click="setSelectedType('30')">-->
+                        <!--<img src="images/YlLogo.png" style="width: 70px;height:35px;">-->
+                    <!--</div>-->
+                    <div style="width: 120px;height: 48px;float: left;margin-left: 20px;text-align: center;padding: 5px"
+                         ng-style="getSelectedStyle('40')"
+                         data-ng-click="setSelectedType('40')">
+                        <img src="images/zfb.png" style="width: 100px;height:35px;">
+                    </div>
+
+                    <div style="width: 120px;height: 48px;float: left;margin-left: 20px;text-align: center;padding: 5px"
+                         ng-style="getSelectedStyle('50')"
+                         data-ng-click="setSelectedType('50')">
+                        <img src="images/WePayLogo.png" style="width: 100px;height:35px;">
                     </div>
                 </div>
                 <!--<button class="btn btn-default"-->

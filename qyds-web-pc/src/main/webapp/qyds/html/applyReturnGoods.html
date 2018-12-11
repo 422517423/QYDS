@@ -35,7 +35,7 @@
                         {{sku.quantity}}
                     </td>
                     <td>
-                        ¥{{sku.price}}
+                        ¥{{sku.price}} <span ng-if="sku.priceDiscount != ''">折扣价:¥{{sku.priceDiscount}}</span>
                     </td>
                 </tr>
                 </tbody>
@@ -56,7 +56,7 @@
                                    class="numSpinner{{$index}}"/>
                         </div>
                     </div>
-                    <div>¥{{sku.price}}</div>
+                    <div>¥{{sku.price}} <span ng-if="sku.priceDiscount != ''">折扣价:¥{{sku.priceDiscount}}</span></div>
                 </div>
             </div>
         </div>

@@ -455,6 +455,7 @@ function refreshActivityGoodsList() {
     switch ($("#activity_goods_type").val()) {
         case "10":// 全部商品
             $("#btn_select_goods").hide();
+            $("#btn_select_goods_delete").hide();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_goods").hide();
@@ -474,6 +475,7 @@ function refreshActivityGoodsList() {
             break;
         case "20":// 按分类
             $("#btn_select_goods").show();
+            $("#btn_select_goods_delete").show();
             $("#div_selected_goods_type").show();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_goods").hide();
@@ -493,6 +495,7 @@ function refreshActivityGoodsList() {
             break;
         case "30":// 按品牌
             $("#btn_select_goods").show();
+            $("#btn_select_goods_delete").show();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").show();
             $("#div_selected_goods").hide();
@@ -512,6 +515,7 @@ function refreshActivityGoodsList() {
             break;
         case "40":// 按商品
             $("#btn_select_goods").show();
+            $("#btn_select_goods_delete").show();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_skus").hide();
@@ -532,6 +536,7 @@ function refreshActivityGoodsList() {
         case "50":// 按SKU
         {
             $("#btn_select_goods").show();
+            $("#btn_select_goods_delete").show();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_goods").hide();
@@ -561,6 +566,7 @@ function refreshActivityGoodsList() {
         case "60"://年份季节
         {
             $("#btn_select_goods").hide();
+            $("#btn_select_goods_delete").hide();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_goods").hide();
@@ -583,6 +589,7 @@ function refreshActivityGoodsList() {
         case "70"://品牌
         {
             $("#btn_select_goods").hide();
+            $("#btn_select_goods_delete").hide();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_goods").hide();
@@ -606,6 +613,7 @@ function refreshActivityGoodsList() {
         {
 
             $("#btn_select_goods").hide();
+            $("#btn_select_goods_delete").hide();
             $("#div_selected_goods_type").hide();
             $("#div_selected_goods_brand").hide();
             $("#div_selected_goods").hide();

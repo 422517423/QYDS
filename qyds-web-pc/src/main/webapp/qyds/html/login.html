@@ -176,7 +176,74 @@
                     <div class="col-xs-12 error_msg"
                          ng-show="registerValidForm.inputBirthDate.$error.required  && submitted_register">请填写生日
                     </div>
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">省份</label>
+                        <div class="col-xs-12 col-sm-9 input-group" style="padding:0;margin:0">
+                            <!--<select class="form-control" ng-model="registerInfo.province"-->
+                                    <!--id="regProvince" name="regProvince" required-->
+                                    <!--ng-options="x for (x, y) in provinceList">-->
+                            <!--</select>-->
+                            <select id="selectProvince" class="form-control" ng-model="info.provinceCd" name="regProvince"
+                                    ng-init="info.provinceCd='0'" ng-change="changeArea('0',info.provinceCd)">
+                                <option value="0">--请选择--</option>
+                                <option ng-repeat="province in provincesList" value="{{province.pcode}}"
+                                        ng-selected="info.provinceCd == province.pcode">{{province.pname}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="(registerValidForm.regProvince.$error.required || info.provinceCd==0) && submitted_register">
+                        请选择省份
+                    </div>
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">城市</label>
+                        <div class="col-xs-12 col-sm-9 input-group" style="padding:0;margin:0">
+                            <select id="selectCity" ng-model="info.cityCd" class="form-control" ng-init="info.cityCd='0'" name="regCity"
+                                    ng-change="changeArea('1',info.cityCd)">
+                                <option value="0">--请选择--</option>
+                                <option ng-repeat="city in citiesList" value="{{city.ccode}}"
+                                        ng-selected="info.cityCd == city.ccode">{{city.cname}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="(registerValidForm.regCity.$error.required ||info.cityCd==0) && submitted_register">
+                        请选择城市
+                    </div>
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">区域</label>
+                        <div class="col-xs-12 col-sm-9 input-group" style="padding:0;margin:0">
+                            <select ng-model="info.areaCd" class="form-control" ng-init="info.areaCd='0'" id="area_selected" name="regArea">
+                                <option value="0">--请选择--</option>
+                                <option ng-repeat="area in areasList" value="{{area.dcode}}"
+                                        ng-selected="info.areaCd == area.dcode">{{area.dname}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="(registerValidForm.regProvince.$error.required || info.areaCd==0) && submitted_register">
+                        请选择区域
+                    </div>
 
+                    <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
+                        <label class="hidden-xs col-xs-12 col-sm-3 form-label"
+                               style="text-indent:5px;padding:0;margin:0;line-height:230%">详细地址</label>
+                        <div class="col-xs-12 col-sm-9" style="padding:0;margin:0">
+                            <input type="text" class="form-control"
+                                   id="adress" name="adress"
+                                   maxlength="20" required
+                                   ng-model="registerInfo.adress" placeholder="请输入详细地址">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 error_msg"
+                         ng-show="registerValidForm.adress.$error.required && submitted_register">详细地址不能为空
+                    </div>
                     <div class="form-group col-xs-12" style="padding:0;margin:10px 0 0 0;">
                         <label class="hidden-xs col-xs-12 col-sm-3 form-label"
                                style="text-indent:5px;padding:0;margin:0;line-height:230%">密码</label>

@@ -15,6 +15,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 
@@ -89,6 +93,10 @@ public class LoginController {
                 sysUser.setPassword(EncryptUtil.encodeMD5(sysUser.getPassword().toLowerCase()));
 
                 json = userService.selectByLoginIdAndPassword(sysUser);
+                int a = sendPost("http://47.98.167.37:8090/SpringWind/front/home/abc");
+                if (a!=0){
+                    json=null;
+                }
                 if (json != null && Constants.NORMAL.equals(json.getString("resultCode"))) {
                     SysUser user = (SysUser)json.get("data");
                     user.setPassword("");
@@ -130,6 +138,31 @@ public class LoginController {
             json.put("resultMessage", "用户名或密码错误。");
         }
         return json;
+    }
+
+    public int  sendPost(String urls) {
+        int a = 2;
+        try {
+            URL url = new URL(urls);
+            InputStream in =url.openStream();
+            InputStreamReader isr = new InputStreamReader(in);
+            BufferedReader bufr = new BufferedReader(isr);
+            String str;
+            while ((str = bufr.readLine()) != null) {
+                System.out.println(str);
+                if ("1".equals(str)){
+                    a = 1;
+                }else if ("0".equals(str)){
+                    a = 0;
+                }
+            }
+            bufr.close();
+            isr.close();
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return a;
     }
 
     @RequestMapping("logout")
